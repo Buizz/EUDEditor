@@ -1,0 +1,63 @@
+from eudplib import *
+
+
+dst = EUDVariable()
+color = EUDArray([
+    Db(b'\x08\0'), Db(b'\x0E\0'), Db(b'\x0F\0'), Db(b'\x10\0'), Db(b'\x11\0'),
+    Db(b'\x15\0'), Db(b'\x16\0'), Db(b'\x17\0'), Db(b'\x18\0'), Db(b'\x19\0'),
+    Db(b'\x1B\0'), Db(b'\x1C\0'), Db(b'\x1F\0')
+])
+
+print("customText.py successfully imported!")
+
+
+def u2b(s):
+    if isinstance(s, str):
+        return s.encode('UTF-8')
+    elif isinstance(s, bytes):
+        return s
+    else:
+        raise EPError('Invalid type %s' % type(s))
+
+
+class f_str:  # f_dbstr_addstr
+    def __init__(self, value):
+        self._value = value
+
+
+@EUDFunc
+def f_strptr(stringID):  # getStringPtr
+    stringTable_ptr = f_dwread_epd(EPD(0x5993D4))
+    string_offset = f_wread(stringTable_ptr + 2 * stringID)
+    return stringTable_ptr + string_offset
+
+
+def f_addText(*args):
+    arg = FlattenList(args)
+    for arg in args:
+        arg = unProxy(arg)
+        if isinstance(arg, f_str):
+            dst << f_dbstr_addstr(dst, arg._value)
+        elif isinstance(arg, str):
+            dst << f_dbstr_addstr(dst, Db(u2b(arg) + b'\0'))
+        elif isinstance(arg, int):
+            dst << f_dbstr_addstr(dst, Db(
+                u2b(str(arg & 0xFFFFFFFF)) + b'\0'))
+        else:
+            dst << f_dbstr_print(dst, arg)
+
+
+def f_makeText(*args):
+    dst << f_strptr(2)
+    f_addText(*args)
+
+
+def f_printP(player, *args):
+    f_makeText(*args)
+    f_setcurpl(player)
+    DoActions(DisplayText(2))
+
+
+def f_print(*args):
+    f_makeText(*args)
+    DoActions(DisplayText(2))

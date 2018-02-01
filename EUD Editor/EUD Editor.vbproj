@@ -1,0 +1,774 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FEBE3915-B7BF-4F1A-B744-5F47941B1F09}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>EUD_Editor.My.MyApplication</StartupObject>
+    <RootNamespace>EUD_Editor</RootNamespace>
+    <AssemblyName>EUD Editor</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>게시\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>2.0.1.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>EUD Editor.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>EUD Editor.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DocumentationFile>EUD Editor.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DocumentationFile>EUD Editor.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>EUD Editor.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="SergeUtils">
+      <HintPath>C:\Users\skslj\Desktop\EasyCompletionComboBox-1.1.5\TestCombo\bin\SergeUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Form\BGMPlayerdialog.Designer.vb">
+      <DependentUpon>BGMPlayerdialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\BGMPlayerdialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\binEditorForm.Designer.vb">
+      <DependentUpon>binEditorForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\binEditorForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\BtnCreateHelperForm.Designer.vb">
+      <DependentUpon>BtnCreateHelperForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\BtnCreateHelperForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\CodeViewer.Designer.vb">
+      <DependentUpon>CodeViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\CodeViewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\dataDumperAddForm.Designer.vb">
+      <DependentUpon>dataDumperAddForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\dataDumperAddForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DatEditForm.Designer.vb">
+      <DependentUpon>DatEditForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DatEditForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DebugCheatForm.Designer.vb">
+      <DependentUpon>DebugCheatForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DebugCheatForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DebugForm.Designer.vb">
+      <DependentUpon>DebugForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DebugForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FileManagerForm.Designer.vb">
+      <DependentUpon>FileManagerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FileManagerForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FileSettingForm.Designer.vb">
+      <DependentUpon>FileSettingForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FileSettingForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FireGraftForm.Designer.vb">
+      <DependentUpon>FireGraftForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FireGraftForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FiregraftRepAddForm.Designer.vb">
+      <DependentUpon>FiregraftRepAddForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FiregraftRepAddForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\GRPFormUseGRP.Designer.vb">
+      <DependentUpon>GRPFormUseGRP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\GRPFormUseGRP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\GRPFormUseIndex.Designer.vb">
+      <DependentUpon>GRPFormUseIndex.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\GRPFormUseIndex.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\GRPForm_ListForm.Designer.vb">
+      <DependentUpon>GRPForm_ListForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\GRPForm_ListForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\HelpForm.Designer.vb">
+      <DependentUpon>HelpForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\HelpForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\LoadTileSetSingleForm.Designer.vb">
+      <DependentUpon>LoadTileSetSingleForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\LoadTileSetSingleForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\LocationSetForm.Designer.vb">
+      <DependentUpon>LocationSetForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\LocationSetForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\NQCForm.Designer.vb">
+      <DependentUpon>NQCForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\NQCForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\PluginForm.Designer.vb">
+      <DependentUpon>PluginForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\PluginForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\PluginTriggerAddForm.Designer.vb">
+      <DependentUpon>PluginTriggerAddForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\PluginTriggerAddForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Previewer.Designer.vb">
+      <DependentUpon>Previewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Previewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\ProjectLoadingForm.Designer.vb">
+      <DependentUpon>ProjectLoadingForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\ProjectLoadingForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SelectChangeForm.Designer.vb">
+      <DependentUpon>SelectChangeForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\SelectChangeForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SetMPQForm.Designer.vb">
+      <DependentUpon>SetMPQForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\SetMPQForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\GRPForm.Designer.vb">
+      <DependentUpon>GRPForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\GRPForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\MPQForm.Designer.vb">
+      <DependentUpon>MPQForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\MPQForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\MPQForm_ListForm.Designer.vb">
+      <DependentUpon>MPQForm_ListForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\MPQForm_ListForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SettingForm.Designer.vb">
+      <DependentUpon>SettingForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\SettingForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SoundLenForm.Designer.vb">
+      <DependentUpon>SoundLenForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\SoundLenForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SoundPlayerForm.Designer.vb">
+      <DependentUpon>SoundPlayerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\SoundPlayerForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\StatTextForm.Designer.vb">
+      <DependentUpon>StatTextForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\StatTextForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\ThemeSetForm.Designer.vb">
+      <DependentUpon>ThemeSetForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\ThemeSetForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TileSetForm.Designer.vb">
+      <DependentUpon>TileSetForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TileSetForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TrigEditorForm.Designer.vb">
+      <DependentUpon>TrigEditorForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TrigEditorForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\ActionForm.Designer.vb">
+      <DependentUpon>ActionForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\ActionForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\AddTectDialog.Designer.vb">
+      <DependentUpon>AddTectDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\AddTectDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\BtnSettingForm.Designer.vb">
+      <DependentUpon>BtnSettingForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\BtnSettingForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\CondictionForm.Designer.vb">
+      <DependentUpon>CondictionForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\CondictionForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\CreateValForm.Designer.vb">
+      <DependentUpon>CreateValForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\CreateValForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\CTextEditor.Designer.vb">
+      <DependentUpon>CTextEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\CTextEditor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\ForEditing.Designer.vb">
+      <DependentUpon>ForEditing.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\ForEditing.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\FuctionNameForm.Designer.vb">
+      <DependentUpon>FuctionNameForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\FuctionNameForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\FunctionForm.Designer.vb">
+      <DependentUpon>FunctionForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\FunctionForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\TextEditor.Designer.vb">
+      <DependentUpon>TextEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\TextEditor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\WaitDailog.Designer.vb">
+      <DependentUpon>WaitDailog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\WaitDailog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerViewerForm.Designer.vb">
+      <DependentUpon>TriggerViewerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerViewerForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DebugViewUnitForm.Designer.vb">
+      <DependentUpon>DebugViewUnitForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DebugViewUnitForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\디버그기능\DethesViewerForm.Designer.vb">
+      <DependentUpon>DethesViewerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\디버그기능\DethesViewerForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\디버그기능\GamedataForm.Designer.vb">
+      <DependentUpon>GamedataForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\디버그기능\GamedataForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\디버그기능\PlayerdataForm.Designer.vb">
+      <DependentUpon>PlayerdataForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\디버그기능\PlayerdataForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\디버그기능\SwitchViewerForm.Designer.vb">
+      <DependentUpon>SwitchViewerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\디버그기능\SwitchViewerForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.vb">
+      <DependentUpon>Main.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Module\BGMPlayerModule.vb" />
+    <Compile Include="Module\BinEditModule.vb" />
+    <Compile Include="Module\CreateDebugpyModule.vb" />
+    <Compile Include="Module\CTextEncoder.vb" />
+    <Compile Include="Module\DataSheetModule.vb" />
+    <Compile Include="Module\DebugClass.vb" />
+    <Compile Include="Module\eudplibModule.vb" />
+    <Compile Include="Module\GetMRUModule.vb" />
+    <Compile Include="Module\GRPModule.vb" />
+    <Compile Include="Module\ImageToGRPModule.vb" />
+    <Compile Include="Module\initModule.vb" />
+    <Compile Include="Module\IscriptModule.vb" />
+    <Compile Include="Module\LangageModule.vb" />
+    <Compile Include="Module\MapModule..vb" />
+    <Compile Include="Module\MPQModule.vb" />
+    <Compile Include="Module\NPAModule.vb" />
+    <Compile Include="Module\parsingModule.vb" />
+    <Compile Include="Module\ProgramData.vb" />
+    <Compile Include="Module\RegModule.vb" />
+    <Compile Include="Module\RemasterModule.vb" />
+    <Compile Include="Module\ReqModule.vb" />
+    <Compile Include="Module\RWMem.vb" />
+    <Compile Include="Module\SettingModule.vb" />
+    <Compile Include="Module\SFmpq.vb" />
+    <Compile Include="Module\SMKModule.vb" />
+    <Compile Include="Module\SoundPlayerModule.vb" />
+    <Compile Include="Module\StormLib.vb" />
+    <Compile Include="Module\Trigger.vb" />
+    <Compile Include="Module\TriggerEditorDataMoudle.vb" />
+    <Compile Include="Module\UnitModule.vb" />
+    <Compile Include="Module\ValueDefsModule.vb" />
+    <Compile Include="Module\ZipFileModule.vb" />
+    <Compile Include="Module\임시모듈.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form\BGMPlayerdialog.resx">
+      <DependentUpon>BGMPlayerdialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\binEditorForm.resx">
+      <DependentUpon>binEditorForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\BtnCreateHelperForm.resx">
+      <DependentUpon>BtnCreateHelperForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\CodeViewer.resx">
+      <DependentUpon>CodeViewer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\dataDumperAddForm.resx">
+      <DependentUpon>dataDumperAddForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\DatEditForm.resx">
+      <DependentUpon>DatEditForm.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\DebugCheatForm.resx">
+      <DependentUpon>DebugCheatForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\DebugForm.resx">
+      <DependentUpon>DebugForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\DebugViewUnitForm.resx">
+      <DependentUpon>DebugViewUnitForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FileManagerForm.resx">
+      <DependentUpon>FileManagerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FileSettingForm.resx">
+      <DependentUpon>FileSettingForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FireGraftForm.resx">
+      <DependentUpon>FireGraftForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FiregraftRepAddForm.resx">
+      <DependentUpon>FiregraftRepAddForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\GRPFormUseGRP.resx">
+      <DependentUpon>GRPFormUseGRP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\GRPFormUseIndex.resx">
+      <DependentUpon>GRPFormUseIndex.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\GRPForm_ListForm.resx">
+      <DependentUpon>GRPForm_ListForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\HelpForm.resx">
+      <DependentUpon>HelpForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\LoadTileSetSingleForm.resx">
+      <DependentUpon>LoadTileSetSingleForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\LocationSetForm.resx">
+      <DependentUpon>LocationSetForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\NQCForm.resx">
+      <DependentUpon>NQCForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\PluginForm.resx">
+      <DependentUpon>PluginForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\PluginTriggerAddForm.resx">
+      <DependentUpon>PluginTriggerAddForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Previewer.resx">
+      <DependentUpon>Previewer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\ProjectLoadingForm.resx">
+      <DependentUpon>ProjectLoadingForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SelectChangeForm.resx">
+      <DependentUpon>SelectChangeForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SetMPQForm.resx">
+      <DependentUpon>SetMPQForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\GRPForm.resx">
+      <DependentUpon>GRPForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\MPQForm.resx">
+      <DependentUpon>MPQForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\MPQForm_ListForm.resx">
+      <DependentUpon>MPQForm_ListForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SettingForm.resx">
+      <DependentUpon>SettingForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SoundLenForm.resx">
+      <DependentUpon>SoundLenForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SoundPlayerForm.resx">
+      <DependentUpon>SoundPlayerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\StatTextForm.resx">
+      <DependentUpon>StatTextForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\ThemeSetForm.resx">
+      <DependentUpon>ThemeSetForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TileSetForm.resx">
+      <DependentUpon>TileSetForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TrigEditorForm.resx">
+      <DependentUpon>TrigEditorForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\ActionForm.resx">
+      <DependentUpon>ActionForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\AddTectDialog.resx">
+      <DependentUpon>AddTectDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\BtnSettingForm.resx">
+      <DependentUpon>BtnSettingForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\CondictionForm.resx">
+      <DependentUpon>CondictionForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\CreateValForm.resx">
+      <DependentUpon>CreateValForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\CTextEditor.resx">
+      <DependentUpon>CTextEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\ForEditing.resx">
+      <DependentUpon>ForEditing.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\FuctionNameForm.resx">
+      <DependentUpon>FuctionNameForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\FunctionForm.resx">
+      <DependentUpon>FunctionForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\TextEditor.resx">
+      <DependentUpon>TextEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\WaitDailog.resx">
+      <DependentUpon>WaitDailog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerViewerForm.resx">
+      <DependentUpon>TriggerViewerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\디버그기능\DethesViewerForm.resx">
+      <DependentUpon>DethesViewerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\디버그기능\GamedataForm.resx">
+      <DependentUpon>GamedataForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\디버그기능\PlayerdataForm.resx">
+      <DependentUpon>PlayerdataForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\디버그기능\SwitchViewerForm.resx">
+      <DependentUpon>SwitchViewerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EUD Editor.ico" />
+    <None Include="Resources\customText.txt" />
+    <None Include="Resources\punitloop.txt" />
+    <None Include="Resources\FileSetting.png" />
+    <None Include="Resources\ICON_SoundPlayer.png" />
+    <None Include="Resources\MurakamiShiinaQC.png" />
+    <None Include="Resources\Copy.png" />
+    <None Include="Resources\Paste.png" />
+    <None Include="Resources\Cut.png" />
+    <None Include="Resources\ConsoleWide.png" />
+    <None Include="Resources\Console.png" />
+    <None Include="Resources\Colortable.png" />
+    <None Include="Resources\MapEditor.png" />
+    <None Include="Resources\punitloop.py" />
+    <None Include="Resources\Savefile.png" />
+    <None Include="Resources\ICON_TriggerEditor.png" />
+    <None Include="Resources\Insert.png" />
+    <None Include="Resources\UseEDD.png" />
+    <None Include="Resources\Debug.png" />
+    <None Include="Resources\EUDEditorDEBUG.txt" />
+    <None Include="Resources\UnitCreate.png" />
+    <None Include="Resources\UnitOrder.png" />
+    <None Include="Resources\camera-icon.png" />
+    <None Include="Resources\Down.png" />
+    <None Include="Resources\Up.png" />
+    <None Include="Resources\MostRecentlyUsed.png" />
+    <None Include="Resources\제목 없음-2.ico" />
+    <None Include="Resources\제목 없음-1.ico" />
+    <None Include="Resources\ICON_plugin.png" />
+    <None Include="Resources\ICON_FileManager.png" />
+    <None Include="Resources\ICON_BtnSet.png" />
+    <None Include="Resources\modifi.png" />
+    <None Include="Resources\Tech.png" />
+    <None Include="Resources\SKill.png" />
+    <None Include="Resources\NUpgrade.png" />
+    <None Include="Resources\Create.png" />
+    <None Include="Resources\ColorDialogram.png" />
+    <None Include="packages.config" />
+    <None Include="Resources\FromInternel.png" />
+    <None Include="Resources\Okay.png" />
+    <None Include="Resources\Cancle.png" />
+    <None Include="Resources\Delete.png" />
+    <None Include="Resources\Clear.png" />
+    <None Include="Resources\Hpbar.png" />
+    <None Include="Resources\ICON_TileSet.png" />
+    <None Include="Resources\ICON_BinEditor.png" />
+    <None Include="Resources\EUDEditorLight.png" />
+    <None Include="Resources\Setting.png" />
+    <None Include="Resources\Close.png" />
+    <None Include="Resources\Save.png" />
+    <None Include="Resources\Open.png" />
+    <None Include="Resources\New.png" />
+    <None Include="Resources\DatEditLoading.png" />
+    <None Include="Resources\ICON_GRP.png" />
+    <None Include="Resources\ICON_FireGraft.png" />
+    <None Include="Resources\ICON_MPQEditor.png" />
+    <None Include="Resources\ICON_DatEdit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Add\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

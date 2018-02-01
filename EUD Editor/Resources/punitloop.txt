@@ -1,0 +1,16 @@
+from eudplib import *
+
+
+def EUDLoopPUnit(player_number):
+    header_offset = 0x6283F8 + 4 * player_number
+    EUDCreateBlock('punitloop', header_offset)
+    ptr, epd = f_dwepdread_epd(EPD(header_offset))
+
+    EUDWhileNot()(ptr == 0)
+
+    yield ptr, epd
+    EUDSetContinuePoint()
+    SetVariables([ptr, epd], f_dwepdread_epd(epd + 27))
+    EUDEndWhile()
+
+    EUDPopBlock('punitloop')
