@@ -604,7 +604,7 @@ Namespace ProjectSet
             DatEditForm.TAB_INDEX = 0
 
             Soundlist.Clear()
-            Soundinterval = "4.2"
+            Soundinterval = 3
 
             GRPEditorDATA.Clear()
             For i = 0 To 998

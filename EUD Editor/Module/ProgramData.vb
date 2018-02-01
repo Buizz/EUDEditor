@@ -47,7 +47,7 @@ Module ProgramData
 
 
     Public Soundlist As New List(Of String)
-    Public Soundinterval As String
+    Public Soundinterval As Integer
     Public iscript As New CIscript
     Public DatEditDATA As New List(Of CDatEdit)
     Public GRPEditorDATA As New List(Of GRPDATA)

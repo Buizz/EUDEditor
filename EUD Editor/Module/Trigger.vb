@@ -498,7 +498,7 @@ Public Class Element
 
 
                         If isTocode = True Then
-                            returnstring = """" & returnstring & """"
+                            returnstring = _value '"""" & returnstring & """"
                         End If
 
                         Return returnstring

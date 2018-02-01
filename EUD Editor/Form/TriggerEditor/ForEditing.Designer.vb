@@ -23,6 +23,7 @@ Partial Class ForEditing
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -37,7 +38,6 @@ Partial Class ForEditing
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Panel1.SuspendLayout()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -63,6 +63,17 @@ Partial Class ForEditing
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(324, 244)
         Me.Panel1.TabIndex = 0
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"All Players", "Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6", "Player 7", "Player 8", "Player 9", "Player 10", "Player 11", "Player 12"})
+        Me.ComboBox1.Location = New System.Drawing.Point(123, 90)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(121, 23)
+        Me.ComboBox1.TabIndex = 2
         '
         'CheckedListBox1
         '
@@ -220,17 +231,6 @@ Partial Class ForEditing
         Me.Button6.TabIndex = 14
         Me.Button6.Text = "취소"
         Me.Button6.UseVisualStyleBackColor = True
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"All Players", "Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6", "Player 7", "Player 8"})
-        Me.ComboBox1.Location = New System.Drawing.Point(123, 90)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 23)
-        Me.ComboBox1.TabIndex = 2
         '
         'ForEditing
         '

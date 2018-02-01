@@ -11,6 +11,9 @@ Module BGMPlayerModule
         Dim intervaldeath As Double = 24
         '100/4.2
 
+        str.AppendLine("import customText as ct;")
+        str.AppendLine()
+
         str.AppendLine("const musicFrame = [0, 0, 0, 0, 0, 0, 0, 0];")
         str.AppendLine("const musicnum = [0, 0, 0, 0, 0, 0, 0, 0];")
         str.AppendLine("const musicflag = [0, 0, 0, 0, 0, 0, 0, 0];")
@@ -29,7 +32,7 @@ Module BGMPlayerModule
         str.AppendLine("        if (intervaldeath == 0) {")
         str.AppendLine("            intervaldeath = 25;")
         str.AppendLine("        }")
-        str.AppendLine("        intervaldeath = intervaldeath - intervaldeath / 20;")
+        'str.AppendLine("        intervaldeath = intervaldeath - intervaldeath / 20;")
         str.AppendLine("    }")
 
         str.AppendLine("    var currentid = getcurpl();")
@@ -52,9 +55,13 @@ Module BGMPlayerModule
                 If CheckFileExist(_temp) Then
                     Exit While
                 End If
+
+
                 str.AppendLine("                if (musicFrame[i] == intervaldeath * " & Math.Floor(Soundinterval * index) & ") {")
                 str.AppendLine("                    //웨이브 재생")
-                str.AppendLine("                    PlayWAV('Music" & musiccount & "_" & index & ".ogg');")
+                str.AppendLine("                    ct.makeText('Music" & musiccount & "_" & index & ".ogg');")
+                str.AppendLine("                    PlayWAV(2);")
+                'str.AppendLine("                    PlayWAV('Music" & musiccount & "_" & index & ".ogg');")
                 str.AppendLine("                }")
 
                 index += 1

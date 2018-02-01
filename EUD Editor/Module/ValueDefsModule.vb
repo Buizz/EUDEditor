@@ -61,7 +61,9 @@ Module ValueDefsModule
                 For k = 0 To Name.Count - 1
                     Select Case Name(k)
                         Case "BGM"
-                            _values.AddRange(Soundlist)
+                            For Each str As String In Soundlist
+                                _values.Add(str.Split("\").Last)
+                            Next
                         Case "DestLocation", "StartLocation", "Location", "Where"
                             _values.Add("None")
                             For i = 0 To 254
