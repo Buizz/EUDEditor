@@ -1136,6 +1136,8 @@ Public Class ActionForm
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         If isloading = False Then
+            TextBox1.Text = TextBox1.Text.Replace(vbCrLf, "\n")
+
             SetValue("""" & TextBox1.Text & """")
             MakeLable(False)
         End If

@@ -10,7 +10,7 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "v 0.14.3"
+        Public Version As String = "v 0.14.6"
         Public DatEditVersion As String = "v0.3"
 
 
@@ -1650,6 +1650,8 @@ Namespace ProjectSet
 
 
         Sub DeleteFilesFromFolder(Folder As String)
+
+            mciSendString("close all", Nothing, 0, 0)
             If Directory.Exists(Folder) Then
                 For Each _file As String In Directory.GetFiles(Folder)
                     File.Delete(_file)

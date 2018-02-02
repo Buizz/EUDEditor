@@ -13,7 +13,7 @@ Module SoundPlayerModule
     Dim returnstring As StringBuilder
 
 
-    Private Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringA" (ByVal lpstrCommand As String, ByVal lpstrReturnString As StringBuilder, ByVal uReturnLength As Integer, ByVal hwndCallback As IntPtr) As Integer
+    Public Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringA" (ByVal lpstrCommand As String, ByVal lpstrReturnString As StringBuilder, ByVal uReturnLength As Integer, ByVal hwndCallback As IntPtr) As Integer
 
     Public Sub SoundPlayer(Filebuffer() As Byte)
         'returnstring = New StringBuilder(128)

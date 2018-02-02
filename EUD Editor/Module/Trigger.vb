@@ -407,8 +407,50 @@ Public Class Element
                 Else
                     Try
                         Dim _tempvalue() As String = _value.Split(":")
+
+                        Dim i As Integer = _tempvalue(0)
+                        '_tempvalue(1)는 위치관련이 아니라 인덱스야.
+
+                        Dim sort As New List(Of UInteger)
+                        Dim data As New List(Of UInteger)
+                        If ProjectBtnData(i).Count <> 0 Then
+
+
+                            For j = 0 To ProjectBtnData(i).Count - 1
+                                sort.Add(j)
+                                data.Add(ProjectBtnData(i)(j).pos)
+                            Next
+                            With ProjectBtnData(i)
+                                For j = 0 To .Count - 1 'pos를 기준으로 정렬.
+                                    'j번째 데이터를 선택.
+                                    '
+
+                                    For p = j + 1 To .Count - 1  'pos를 기준으로 정렬.
+                                        If data(j) > data(p) Then
+                                            Dim temp As UInteger = sort(p)
+                                            sort(p) = sort(j)
+                                            sort(j) = temp
+
+                                            temp = data(p)
+                                            data(p) = data(j)
+                                            data(j) = temp
+                                        End If
+                                    Next
+                                Next
+                            End With
+                        End If
+
+                        Dim realpos As Integer
+                        For i = 0 To sort.Count - 1
+                            If sort(i) = _tempvalue(1) Then
+                                realpos = i
+                                Exit For
+                            End If
+                        Next
+
+
                         '오프셋 구하기.
-                        returnstring = "epdread_epd(EPD(0x5187EC) + " & 3 * _tempvalue(0) & ") + 5 * " & _tempvalue(1)
+                        returnstring = "epdread_epd(EPD(0x5187EC) + " & 3 * _tempvalue(0) & ") + 5 * " & realpos '_tempvalue(1)
                         Return returnstring
                     Catch ex As Exception
                         Return returnstring
@@ -1128,7 +1170,7 @@ Public Class Element
                     End Try
 
                 End If
-                If act.Name = "SetCUnitData" Or act.Name = "SetVariableCUnitData" Or act.Name = "AddCUnitData" Then
+                If act.Name = "SetCUnitData" Or act.Name = "SetVariableCUnitData" Or act.Name = "AddCUnitData" Or act.Name = "SetCUnitDataEPD" Or act.Name = "SetVariableCUnitDataEPD" Or act.Name = "AddCUnitDataEPD" Then
                     Try
                         '스트럭쳐 포인터...
                         Dim num As Integer = CInt(GetValue("StructOffset"))
@@ -1223,7 +1265,7 @@ Public Class Element
                         _rtext = _rtext.Replace("&SIZE&", 4)
                     End Try
                 End If
-                If con.Name = "CUnitData" Then
+                If con.Name = "CUnitData" Or con.Name = "CUnitDataEPD" Then
                     Try
                         '스트럭쳐 포인터...
                         Dim num As Integer = CInt(GetValue("StructOffset"))

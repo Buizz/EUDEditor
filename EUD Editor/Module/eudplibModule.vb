@@ -701,14 +701,6 @@ Namespace eudplib
 
                     If passflag = False Then
                         If ProjectBtnUSE(i) = True Then
-                            'tempbtn.pos = extratext(2, pos, cliptext)
-                            'tempbtn.icon = extratext(2, pos, cliptext)
-                            'tempbtn.con = extratext(4, pos, cliptext)
-                            'tempbtn.act = extratext(4, pos, cliptext)
-                            'tempbtn.conval = extratext(2, pos, cliptext)
-                            'tempbtn.actval = extratext(2, pos, cliptext)
-                            'tempbtn.enaStr = extratext(2, pos, cliptext)
-                            'tempbtn.disStr = extratext(2, pos, cliptext)
 
                             returntext.AppendLine("    bytebuffer = bytearray([" & GetTextValue(i) & "])")
                             returntext.AppendLine("    btnptr = Db(bytebuffer)")

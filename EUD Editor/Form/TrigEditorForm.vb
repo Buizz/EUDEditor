@@ -895,60 +895,77 @@ Public Class TrigEditorForm
 
 
     Private Sub btn_Save_Click(sender As Object, e As EventArgs) Handles btn_Save.Click
-        Dim ise2s As Boolean = False
-        Try
-            If Mid(ProjectSet.filename, ProjectSet.filename.Length - 3) <> ".e2s" Then
-                ise2s = True
-            End If
-        Catch ex As Exception
+        Dim filename As String = ProjectSet.filename.Split("\").Last
 
-        End Try
+        SaveFileDialog1.FileName = filename.Remove(InStr(filename, ".") - 1)
+        Dim dialog As DialogResult = SaveFileDialog1.ShowDialog
 
-
-        If ProjectSet.filename = "" Or ise2s Then
-            Dim Dialog As DialogResult
+        If dialog = DialogResult.OK Then
+            Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
+            Dim _streamWriter As New StreamWriter(_filesteram)
 
 
-            If ProjectSet.filename = "" Then
-                SaveFileDialog1.FileName = "제목 없음"
-            Else
-                SaveFileDialog1.FileName = Mid(ProjectSet.filename, 1, ProjectSet.filename.Length - 4)
-            End If
-
-
-            Dialog = SaveFileDialog1.ShowDialog()
-            If Dialog = DialogResult.OK Then
-                Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
-                Dim _streamWriter As New StreamWriter(_filesteram)
-
-
-                _streamWriter.Write(SaveTrigger)
+            _streamWriter.Write(SaveTrigger)
 
 
 
-                _streamWriter.Close()
-                _filesteram.Close()
-            End If
+            _streamWriter.Close()
+            _filesteram.Close()
         End If
+        'Dim ise2s As Boolean = False
+        'Try
+        '    If Mid(ProjectSet.filename, ProjectSet.filename.Length - 3) <> ".e2s" Then
+        '        ise2s = True
+        '    End If
+        'Catch ex As Exception
+
+        'End Try
 
 
-        'Dim filename As String = ProjectSet.filename.Split("\").Last
-
-        'SaveFileDialog1.FileName = filename.Remove(InStr(filename, ".") - 1)
-        'Dim dialog As DialogResult = SaveFileDialog1.ShowDialog
-
-        'If dialog = DialogResult.OK Then
-        '    Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
-        '    Dim _streamWriter As New StreamWriter(_filesteram)
+        'If ProjectSet.filename = "" Or ise2s Then
+        '    Dim Dialog As DialogResult
 
 
-        '    _streamWriter.Write(SaveTrigger)
+        '    If ProjectSet.filename = "" Then
+        '        SaveFileDialog1.FileName = "제목 없음"
+        '    Else
+        '        SaveFileDialog1.FileName = Mid(ProjectSet.filename, 1, ProjectSet.filename.Length - 4)
+        '    End If
+
+
+        '    Dialog = SaveFileDialog1.ShowDialog()
+        '    If Dialog = DialogResult.OK Then
+        '        Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
+        '        Dim _streamWriter As New StreamWriter(_filesteram)
+
+
+        '        _streamWriter.Write(SaveTrigger)
 
 
 
-        '    _streamWriter.Close()
-        '    _filesteram.Close()
+        '        _streamWriter.Close()
+        '        _filesteram.Close()
+        '    End If
         'End If
+
+
+        ''Dim filename As String = ProjectSet.filename.Split("\").Last
+
+        ''SaveFileDialog1.FileName = filename.Remove(InStr(filename, ".") - 1)
+        ''Dim dialog As DialogResult = SaveFileDialog1.ShowDialog
+
+        ''If dialog = DialogResult.OK Then
+        ''    Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
+        ''    Dim _streamWriter As New StreamWriter(_filesteram)
+
+
+        ''    _streamWriter.Write(SaveTrigger)
+
+
+
+        ''    _streamWriter.Close()
+        ''    _filesteram.Close()
+        ''End If
     End Sub
 
     Private Sub btn_OpenFile_Click(sender As Object, e As EventArgs) Handles btn_OpenFile.Click
