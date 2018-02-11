@@ -223,8 +223,8 @@ Module ValueDefsModule
                                            "Player 7", "Player 8", "Player 9", "Player 10", "Player 11", "Player 12", "Unknown",
                                            "CurrentPlayer", "Foes", "Allies", "NeutralPlayers", "AllPlayers", "Force1", "Force2",
                                            "Force3", "Force4", "Unknown", "Unknown", "Unknown", "Unknown", "NonAlliedVictoryPlayers"}))
-        ValueDefiniction.Add(New ValueDefs("VariableModifier", ValueDefs.OutPutType.List, {"대입", "덧셈", "뺄셈", "곱셈", "나눗셈"}))
-        ValueDefiniction.Add(New ValueDefs("VariableComparison", ValueDefs.OutPutType.List, {"일치", "불일치", "이상", "이하", "초과", "미만"}))
+        ValueDefiniction.Add(New ValueDefs("VariableModifier", ValueDefs.OutPutType.ListNum, {"대입", "덧셈", "뺄셈", "곱셈", "나눗셈"}))
+        ValueDefiniction.Add(New ValueDefs("VariableComparison", ValueDefs.OutPutType.ListNum, {"일치", "불일치", "이상", "이하", "초과", "미만"}))
 
 
         ValueDefiniction.Add(New ValueDefs("DisplayOption", ValueDefs.OutPutType.ListNum, {"일반", "대화보존"}))
@@ -257,7 +257,7 @@ Module ValueDefsModule
 
 
 
-        ValueDefiniction.Add(New ValueDefs("Status", ValueDefs.OutPutType.ListNum, {"동맹", "적", "동맹승리"}))
+        ValueDefiniction.Add(New ValueDefs("Status", ValueDefs.OutPutType.ListNum, {"적", "동맹", "동맹승리"}))
         ValueDefiniction.Add(New ValueDefs("UnitDirection", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("Boolean", ValueDefs.OutPutType.ListNum, {"NotUse", "Use"}))
         ValueDefiniction.Add(New ValueDefs("ElevationLevels", ValueDefs.OutPutType.ListNum))

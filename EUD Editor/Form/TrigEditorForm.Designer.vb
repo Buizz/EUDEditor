@@ -66,7 +66,6 @@ Partial Class TrigEditorForm
         Me.함수저장ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.함수불러오기ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.수정ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.잘라내기XToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.복사VToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -410,9 +409,9 @@ Partial Class TrigEditorForm
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.새로만들기NToolStripMenuItem1, Me.함수FToolStripMenuItem, Me.ToolStripSeparator4, Me.ToolStripSeparator5, Me.수정ToolStripMenuItem, Me.잘라내기XToolStripMenuItem, Me.복사VToolStripMenuItem, Me.붙혀넣기CToolStripMenuItem, Me.삭제DToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.새로만들기NToolStripMenuItem1, Me.함수FToolStripMenuItem, Me.ToolStripSeparator4, Me.수정ToolStripMenuItem, Me.잘라내기XToolStripMenuItem, Me.복사VToolStripMenuItem, Me.붙혀넣기CToolStripMenuItem, Me.삭제DToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(156, 170)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(156, 186)
         '
         '새로만들기NToolStripMenuItem1
         '
@@ -515,11 +514,6 @@ Partial Class TrigEditorForm
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
         Me.ToolStripSeparator4.Size = New System.Drawing.Size(152, 6)
-        '
-        'ToolStripSeparator5
-        '
-        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(152, 6)
         '
         '수정ToolStripMenuItem
         '
@@ -826,6 +820,7 @@ Partial Class TrigEditorForm
         'OpenFileDialog2
         '
         Me.OpenFileDialog2.Filter = "Funciton파일|*.tfn"
+        Me.OpenFileDialog2.Multiselect = True
         Me.OpenFileDialog2.Tag = ""
         '
         'SaveFileDialog2
@@ -922,7 +917,6 @@ Partial Class TrigEditorForm
     Friend WithEvents 함수ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 함수불러오기ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 함수저장ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents FlowNew As FlowLayoutPanel

@@ -10,7 +10,7 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "v 0.14.6"
+        Public Version As String = "v 0.14.8"
         Public DatEditVersion As String = "v0.3"
 
 

@@ -11,7 +11,7 @@ Module BGMPlayerModule
         Dim intervaldeath As Double = 24
         '100/4.2
 
-        str.AppendLine("import customText as ct;")
+        str.AppendLine("import tempcustomText as tct;")
         str.AppendLine()
 
         str.AppendLine("const musicFrame = [0, 0, 0, 0, 0, 0, 0, 0];")
@@ -59,7 +59,7 @@ Module BGMPlayerModule
 
                 str.AppendLine("                if (musicFrame[i] == intervaldeath * " & Math.Floor(Soundinterval * index) & ") {")
                 str.AppendLine("                    //웨이브 재생")
-                str.AppendLine("                    ct.makeText('Music" & musiccount & "_" & index & ".ogg');")
+                str.AppendLine("                    tct.makeText('Music" & musiccount & "_" & index & ".ogg');")
                 str.AppendLine("                    PlayWAV(2);")
                 'str.AppendLine("                    PlayWAV('Music" & musiccount & "_" & index & ".ogg');")
                 str.AppendLine("                }")

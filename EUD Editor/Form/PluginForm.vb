@@ -739,7 +739,7 @@ Public Class PluginForm
                 Next
 
 
-                Dim tstring() As String = NQCForm.returnstring.Split(",")
+                Dim tstring() As String = NQCForm.returnstring.Split("#")
 
 
 

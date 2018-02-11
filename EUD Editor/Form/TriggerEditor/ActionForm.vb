@@ -638,7 +638,7 @@ Public Class ActionForm
                         Dim _defstring As String = GetDefValueDefs("1.OffsetName").GetValues(False, num)(num2)
                         _defstring = DatEditDATA(num).typeName & "_" & _defstring
 
-
+                        MsgBox("시발")
                         _valuedef = GetDefValueDefs(ReadValDef(_defstring))
 
                     Catch ex As Exception

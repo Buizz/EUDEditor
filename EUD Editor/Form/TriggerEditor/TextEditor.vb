@@ -22,6 +22,8 @@ Public Class TextEditor
     End Sub
 
     Private Sub TextEditor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        lasttext.Text = RawText
+
         RawText = RawText.Replace("\n", vbCrLf)
         RawText = RawText.Replace("\""", """")
 

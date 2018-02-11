@@ -177,37 +177,39 @@ Public Class Element
 
 
 
+        '{"대입", "덧셈", "뺄셈", "곱셈", "나눗셈"}))
+        '{"일치", "불일치", "이상", "이하", "초과", "미만"}))
         Select Case valdef
             Case "VariableModifier"
                 If isTocode Then
                     Select Case _value
-                        Case "대입"
+                        Case 0
                             returnstring = "="
-                        Case "덧셈"
+                        Case 1
                             returnstring = "+="
-                        Case "뺼셈"
+                        Case 2
                             returnstring = "-="
-                        Case "곱셈"
+                        Case 3
                             returnstring = "*="
-                        Case "나눗셈"
+                        Case 4
                             returnstring = "/="
                     End Select
                 End If
             Case "VariableComparison"
                 If isTocode Then
                     Select Case _value
-                        Case "일치"
+                        Case 0
                             returnstring = "=="
-                        Case "초과"
-                            returnstring = ">"
-                        Case "미만"
-                            returnstring = "<"
-                        Case "이상"
-                            returnstring = ">="
-                        Case "이하"
-                            returnstring = "<="
-                        Case "불일치"
+                        Case 1
                             returnstring = "!="
+                        Case 2
+                            returnstring = ">="
+                        Case 3
+                            returnstring = "<="
+                        Case 4
+                            returnstring = ">"
+                        Case 5
+                            returnstring = "<"
                     End Select
                 End If
             Case "AlwaysDisplay"
@@ -1220,8 +1222,13 @@ Public Class Element
 
                     End Try
                 End If
-                If act.Name = "DisplayCText" Or act.Name = "DisplaySavedCText" Then
+                If act.Name = "DisplayCText" Then
                     If Values(1) = "1" Then
+                        _rtext = "txtPtr = dwread_epd_safe(EPD(0x640B58));" & vbCrLf & _rtext & ";" & vbCrLf & "SetMemory(0x640B58, SetTo, txtPtr);"
+                    End If
+                End If
+                If act.Name = "DisplaySavedCText" Then
+                    If Values(0) = "1" Then
                         _rtext = "txtPtr = dwread_epd_safe(EPD(0x640B58));" & vbCrLf & _rtext & ";" & vbCrLf & "SetMemory(0x640B58, SetTo, txtPtr);"
                     End If
                 End If

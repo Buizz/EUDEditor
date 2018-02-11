@@ -140,7 +140,7 @@ Module TriggerEditorDataMoudle
             str = "import BGMPlayer as BGM;" & vbCrLf
         End If
         str = str & "import punitloop as lp;" & vbCrLf
-        str = str & "import customText as ct;" & vbCrLf
+        str = str & "import tempcustomText as tct;" & vbCrLf
 
         str = str & vbCrLf & "var txtPtr;" & vbCrLf
 

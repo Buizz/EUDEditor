@@ -22,7 +22,7 @@ Module CTextEncoder
         End While
 
         For i = 0 To 7
-            str = str.Replace("{P" & i + 1 & "_N}", """, ct.str(0x57EEEB + 36 * " & i & "), """)
+            str = str.Replace("{P" & i + 1 & "_N}", """, tct.str(0x57EEEB + 36 * " & i & "), """)
         Next
         For i = 0 To 7
             str = str.Replace("{P" & i + 1 & "_O}", """, dwread_epd(EPD(0x57F0F0) + " & i & "), """)
@@ -67,13 +67,13 @@ Module CTextEncoder
         Next
 
 
-        codes = GetChar(str, "{C:\w+}")
+        codes = GetChar(str, "{C:[^}]+}")
         While (codes <> "0")
-            Dim ValueName As String = GetGroup(str, "{C:(\w+)}")(1)
+            Dim ValueName As String = GetGroup(str, "{C:([^}]+)}")(1)
 
 
             str = Replace(str, codes, """, " & ValueName & ", """,, 1)
-            codes = GetChar(str, "{C:\w+}")
+            codes = GetChar(str, "{C:[^}]+}")
         End While
 
 

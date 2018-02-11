@@ -44,6 +44,8 @@ Public Class CTextEditor
     End Function
 
     Private Sub TextEditor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        lasttext.Text = RawText
+
         RawText = RawText.Replace("\n", vbCrLf)
         RawText = RawText.Replace("\""", """")
 
@@ -117,7 +119,6 @@ Public Class CTextEditor
 
             PreViewer.Lines = lines
         Catch ex As Exception
-
         End Try
 
 

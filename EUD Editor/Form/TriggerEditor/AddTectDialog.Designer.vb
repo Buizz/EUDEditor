@@ -30,8 +30,8 @@ Partial Class AddTectDialog
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.ListBox3 = New System.Windows.Forms.ListBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.UnitSelecter = New SergeUtils.EasyCompletionComboBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.UnitSelecter = New SergeUtils.EasyCompletionComboBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
@@ -153,6 +153,13 @@ Partial Class AddTectDialog
         Me.Panel1.Size = New System.Drawing.Size(164, 21)
         Me.Panel1.TabIndex = 19
         '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(62, 0)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(20, 23)
+        Me.TextBox1.TabIndex = 22
+        '
         'UnitSelecter
         '
         Me.UnitSelecter.FormattingEnabled = True
@@ -164,13 +171,6 @@ Partial Class AddTectDialog
         Me.UnitSelecter.Name = "UnitSelecter"
         Me.UnitSelecter.Size = New System.Drawing.Size(57, 23)
         Me.UnitSelecter.TabIndex = 21
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(62, 0)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(20, 23)
-        Me.TextBox1.TabIndex = 22
         '
         'AddTectDialog
         '
