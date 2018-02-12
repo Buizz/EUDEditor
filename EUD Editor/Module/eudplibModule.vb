@@ -442,7 +442,7 @@ Namespace eudplib
                 Dim tempfoluder As String = My.Application.Info.DirectoryPath & "\Data\temp\"
 
                 For i = 0 To Soundlist.Count - 1
-                    Dim output As String = tempfoluder & "Music" & i & "_"
+                    Dim output As String = tempfoluder & "M" & i & "_"
 
                     Dim index As Integer = 0
 
@@ -452,7 +452,7 @@ Namespace eudplib
                             Exit While
                         End If
 
-                        returntext.AppendLine("    MPQAddFile(""Music" & i & "_" & index & ".ogg"" ,open(""" & _temp.Replace("\", "\\") & """, ""rb"").read() ,False);")
+                        returntext.AppendLine("    MPQAddFile(""M" & i & "_" & index & ".ogg"" ,open(""" & _temp.Replace("\", "\\") & """, ""rb"").read() ,False);")
                         index += 1
                     End While
                 Next

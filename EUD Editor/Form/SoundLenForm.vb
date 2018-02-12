@@ -28,7 +28,7 @@
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Dim purefilename As String = openfile.Split("\").Last
 
-        Dim output As String = tempfoluder & "Music" & workstatus & "_"
+        Dim output As String = tempfoluder & "M" & workstatus & "_"
 
 
         openfile = Chr(34) & openfile & Chr(34)

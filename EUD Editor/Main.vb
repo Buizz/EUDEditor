@@ -321,7 +321,7 @@ Public Class Main
         SettingForm.ShowDialog()
 
 
-
+        ProjectSet.LoadCHKdata()
         DatEditForm.ReloadCHK()
         refreshSet()
         'My.Forms.SettingForm.Location = Me.Location + Button1.Location + New Point(0, 105)
@@ -504,6 +504,7 @@ Public Class Main
         My.Forms.Main.Visible = True
         nameResetting()
         LoadFileimportable()
+        ProjectSet.LoadCHKdata()
     End Sub
 
     Private Sub FileManager_Click(sender As Object, e As EventArgs) Handles Button15.Click
