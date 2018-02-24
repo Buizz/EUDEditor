@@ -104,6 +104,19 @@ Module TriggerEditorDataMoudle
         'AfterElement.AddElements(New Element(Nothing, ElementType.액션, 0, {"나는야", "퉁퉁이"}))
     End Sub
 
+    Public Sub LoadTriggerFileKeepFile(datas As String)
+        If datas = "" Then
+            Exit Sub
+        End If
+
+        functions.LoadFile(datas, findSection(datas, "&functions&"))
+        GlobalVar.LoadFile(datas, findSection(datas, "&GlobalVar&"))
+        StartElement.LoadFile(datas, findSection(datas, "&onPluginStart&"))
+        BeforeElement.LoadFile(datas, findSection(datas, "&beforeTriggerExec&"))
+        AfterElement.LoadFile(datas, findSection(datas, "&afterTriggerExec&"))
+
+    End Sub
+
     Public Function GetWaitAbleTrigger() As String
         Dim strb As New System.Text.StringBuilder
 
@@ -143,6 +156,7 @@ Module TriggerEditorDataMoudle
         str = str & "import tempcustomText as tct;" & vbCrLf
 
         str = str & vbCrLf & "var txtPtr;" & vbCrLf
+        str = str & "const trgk = $T('Artanis & safhfh');" & vbCrLf
 
 
 
@@ -171,7 +185,9 @@ Module TriggerEditorDataMoudle
 
 
 
-        str = str & "function onPluginStart() {" & vbCrLf & GetIntend(1) & "randomize();" & vbCrLf & StartElement.ToCode(0) & "}" & vbCrLf
+        str = str & "function onPluginStart() {" & vbCrLf & GetIntend(1) & "randomize();" & vbCrLf &
+               GetIntend(1) & "tct.init();" & vbCrLf &
+        StartElement.ToCode(0) & "}" & vbCrLf
 
 
 

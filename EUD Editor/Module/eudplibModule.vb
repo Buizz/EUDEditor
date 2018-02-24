@@ -1338,6 +1338,60 @@ Namespace eudplib
                     Exit Sub
                 End Try
 
+
+                'process.StandardInput.Write(vbCrLf)
+
+
+                'Dim console As String = process.StandardOutput.ReadToEnd()
+                'My.Computer.Clipboard.SetText(console)
+                ''Threading.Thread.Sleep(1000)
+                'process.WaitForExit() ' 프로세스가 종료될때까지 기다립니다.
+
+
+                'Try
+                '    Dim lasttext As String = console.Split(vbCrLf)(console.Split(vbCrLf).Length - 2).Trim
+                '    If InStr(lasttext, "[Error]") <> 0 Then
+                '        Dim rgx As Regex = New Regex("v([0-9.]+)", RegexOptions.IgnoreCase)
+
+                '        Dim ttemp As String = Mid(console, InStr(console, "version"))
+                '        Dim version As String = rgx.Match(console).Value
+
+                '        MsgBox("euddraft적용에 실패했습니다. 자세한 건 다음을 참고하세요." & vbCrLf & "(다음 내용이 자동으로 클립보드에 복사됩니다.)" & vbCrLf & console, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+
+                '        My.Computer.Clipboard.SetText(console)
+                '        'MsgBox(lasttext)
+
+
+                '    Else
+                '        Dim rgx As Regex = New Regex("v([0-9.]+)", RegexOptions.IgnoreCase)
+
+                '        Dim ttemp As String = Mid(console, InStr(console, "version"))
+                '        Dim version As String = rgx.Match(console).Value
+
+                '        'euddraft v([0-9.]+) : Simple eudplib plugin system
+                '        My.Computer.Audio.PlaySystemSound(Media.SystemSounds.Beep)
+                '        MsgBox("적용에 성공했습니다." & vbCrLf & lasttext, MsgBoxStyle.OkOnly, "euddraft " & version) 'Mid(ttemp, 1, InStr(ttemp, vbCrLf)))
+
+
+                '    End If
+                'Catch ex As Exception
+                '    Dim rgx As Regex = New Regex("v([0-9.]+)", RegexOptions.IgnoreCase)
+
+                '    'Dim ttemp As String = Mid(console, InStr(console, "version"))
+                '    Dim version As String = 0 'rgx.Match(console).Value
+
+                '    MsgBox("euddraft적용에 실패했습니다. 자세한 건 다음을 참고하세요." & vbCrLf & "(다음 내용이 자동으로 클립보드에 복사됩니다.)" & vbCrLf & console, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+
+                '    My.Computer.Clipboard.SetText(console)
+                '    'MsgBox(lasttext)
+
+
+
+                'End Try
+                'process.Close()
+
+
+
                 If isotherWindows = False Then
                     My.Forms.Main.Visible = False
                 End If

@@ -1459,6 +1459,44 @@ Public Class TrigEditorForm
         End If
     End Sub
 
+    Private Sub Btn_OpenCont_Click(sender As Object, e As EventArgs) Handles Btn_OpenCont.Click
+        Dim dialog As DialogResult = OpenFileDialog1.ShowDialog
+
+        If dialog = DialogResult.OK Then
+            Dim _filesteram As New FileStream(OpenFileDialog1.FileName, FileMode.Open)
+            Dim _streamReader As New StreamReader(_filesteram)
+
+
+            LoadTriggerFileKeepFile(_streamReader.ReadToEnd())
+
+
+
+            _streamReader.Close()
+            _filesteram.Close()
+
+            ReDrawList()
+        End If
+    End Sub
+
+    Private Sub OpenCont_Click(sender As Object, e As EventArgs) Handles OpenCont.Click
+        Dim dialog As DialogResult = OpenFileDialog1.ShowDialog
+
+        If dialog = DialogResult.OK Then
+            Dim _filesteram As New FileStream(OpenFileDialog1.FileName, FileMode.Open)
+            Dim _streamReader As New StreamReader(_filesteram)
+
+
+            LoadTriggerFileKeepFile(_streamReader.ReadToEnd())
+
+
+
+            _streamReader.Close()
+            _filesteram.Close()
+
+            ReDrawList()
+        End If
+    End Sub
+
     'Private Sub TreeView1_MouseDown(sender As Object, e As MouseEventArgs) Handles TreeView1.MouseDown
     '    If e.Button = MouseButtons.Right Then
 

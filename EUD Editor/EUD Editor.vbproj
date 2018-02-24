@@ -683,6 +683,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EUD Editor.ico" />
+    <None Include="Resources\LoadFile.png" />
     <None Include="Resources\customText.txt" />
     <None Include="Resources\punitloop.txt" />
     <None Include="Resources\FileSetting.png" />

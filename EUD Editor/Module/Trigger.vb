@@ -391,6 +391,77 @@ Public Class Element
                 If isTocode = True Then
                     Return returnstring
                 End If
+            Case "BtnEnableTxt"
+                If isTocode = False Then
+                    Try
+                        Dim _tempvalue() As String = GetValue("BtnEnableTxt").Split(":")
+
+                        If ProjectBtnUSE(_tempvalue(0)) = True Then
+                            returnstring = ProjectBtnData(_tempvalue(0))(_tempvalue(1)).enaStr - 1
+                        Else
+                            returnstring = BtnData(_tempvalue(0))(_tempvalue(1)).enaStr - 1
+                        End If
+
+                        If stattextdic.ContainsKey(returnstring) Then
+                            returnstring = stattextdic(returnstring)
+                        Else
+                            returnstring = stat_txt(returnstring)
+                        End If
+                        Return returnstring
+                    Catch ex As Exception
+                        Return returnstring
+                    End Try
+                Else
+                    Try
+                        Dim _tempvalue() As String = GetValue("BtnEnableTxt").Split(":")
+
+                        If ProjectBtnUSE(_tempvalue(0)) = True Then
+                            returnstring = ProjectBtnData(_tempvalue(0))(_tempvalue(1)).enaStr
+                        Else
+                            returnstring = BtnData(_tempvalue(0))(_tempvalue(1)).enaStr
+                        End If
+                        Return returnstring
+                    Catch ex As Exception
+                        Return returnstring
+                    End Try
+                End If
+            Case "BtnUnEnableTxt"
+                If isTocode = False Then
+                    Try
+                        Dim _tempvalue() As String = GetValue("BtnUnEnableTxt").Split(":")
+
+                        If ProjectBtnUSE(_tempvalue(0)) = True Then
+                            returnstring = ProjectBtnData(_tempvalue(0))(_tempvalue(1)).disStr - 1
+                        Else
+                            returnstring = BtnData(_tempvalue(0))(_tempvalue(1)).disStr - 1
+                        End If
+
+                        If stattextdic.ContainsKey(returnstring) Then
+                            returnstring = stattextdic(returnstring)
+                        Else
+                            returnstring = stat_txt(returnstring)
+                        End If
+                        Return returnstring
+                    Catch ex As Exception
+                        Return returnstring
+                    End Try
+                Else
+                    Try
+                        Dim _tempvalue() As String = GetValue("BtnUnEnableTxt").Split(":")
+
+                        If ProjectBtnUSE(_tempvalue(0)) = True Then
+                            returnstring = ProjectBtnData(_tempvalue(0))(_tempvalue(1)).disStr
+                        Else
+                            returnstring = BtnData(_tempvalue(0))(_tempvalue(1)).disStr
+                        End If
+                        Return returnstring
+                    Catch ex As Exception
+                        Return returnstring
+                    End Try
+                End If
+
+
+
             Case "UnitBtn"
                 If isTocode = False Then
                     Try
@@ -1171,8 +1242,7 @@ Public Class Element
                         _rtext = _rtext.Replace("$writedef$", "dw")
                     End Try
 
-                End If
-                If act.Name = "SetCUnitData" Or act.Name = "SetVariableCUnitData" Or act.Name = "AddCUnitData" Or act.Name = "SetCUnitDataEPD" Or act.Name = "SetVariableCUnitDataEPD" Or act.Name = "AddCUnitDataEPD" Then
+                ElseIf act.Name = "SetCUnitData" Or act.Name = "SetVariableCUnitData" Or act.Name = "AddCUnitData" Or act.Name = "SetCUnitDataEPD" Or act.Name = "SetVariableCUnitDataEPD" Or act.Name = "AddCUnitDataEPD" Then
                     Try
                         '스트럭쳐 포인터...
                         Dim num As Integer = CInt(GetValue("StructOffset"))
@@ -1201,8 +1271,7 @@ Public Class Element
                     Catch ex As Exception
                         _rtext = _rtext.Replace("$writedef$", "dw")
                     End Try
-                End If
-                If act.Name = "SetButton" Then
+                ElseIf act.Name = "SetButton" Then
                     Try
                         Dim valuestream As String = GetValue("BtnData")
                         Dim index As Integer = 1
@@ -1221,14 +1290,84 @@ Public Class Element
                     Catch ex As Exception
 
                     End Try
-                End If
-                If act.Name = "DisplayCText" Then
+                ElseIf act.Name = "ChangeStarText" Then
+                    Try
+                        Dim statindex As Integer = Values(0) - 1
+                        Dim index As Integer = Values(1)
+                        Dim stattext As String
+                        If stattextdic.ContainsKey(statindex) Then
+                            stattext = stattextdic(statindex)
+                        Else
+                            stattext = stat_txt(statindex)
+                        End If
+                        Dim len As Byte = GettblLen(stattext, index)
+                        Dim start As Byte = GettblStart(stattext, index)
+
+                        Dim dummystr As String = ""
+                        For i = 0 To len - 1
+                            dummystr = dummystr & "\x0D"
+                        Next
+
+                        _rtext = _rtext.Replace("Dummy", """" & dummystr & """")
+                        _rtext = _rtext.Replace("Offset", start)
+                        _rtext = _rtext.Replace("len", len)
+                    Catch ex As Exception
+
+                    End Try
+                ElseIf act.Name = "ChangeButtonEnableMsg" Then
+                    Try
+                        Dim statindex As Integer = CInt(ValueParser(Values(0), "BtnEnableTxt", True)) - 1
+                        Dim index As Integer = Values(1)
+                        Dim stattext As String
+                        If stattextdic.ContainsKey(statindex) Then
+                            stattext = stattextdic(statindex)
+                        Else
+                            stattext = stat_txt(statindex)
+                        End If
+                        Dim len As Byte = GettblLen(stattext, index)
+                        Dim start As Byte = GettblStart(stattext, index)
+
+                        Dim dummystr As String = ""
+                        For i = 0 To len - 1
+                            dummystr = dummystr & "\x0D"
+                        Next
+
+                        _rtext = _rtext.Replace("Dummy", """" & dummystr & """")
+                        _rtext = _rtext.Replace("Offset", start)
+                        _rtext = _rtext.Replace("len", len)
+                    Catch ex As Exception
+
+                    End Try
+                ElseIf act.Name = "ChangeButtonUnEnableMsg" Then
+                    Try
+                        Dim statindex As Integer = CInt(ValueParser(Values(0), "BtnUnEnableTxt", True)) - 1
+                        Dim index As Integer = Values(1)
+                        Dim stattext As String
+                        If stattextdic.ContainsKey(statindex) Then
+                            stattext = stattextdic(statindex)
+                        Else
+                            stattext = stat_txt(statindex)
+                        End If
+                        Dim len As Byte = GettblLen(stattext, index)
+                        Dim start As Byte = GettblStart(stattext, index)
+
+                        Dim dummystr As String = ""
+                        For i = 0 To len - 1
+                            dummystr = dummystr & "\x0D"
+                        Next
+
+                        _rtext = _rtext.Replace("Dummy", """" & dummystr & """")
+                        _rtext = _rtext.Replace("Offset", start)
+                        _rtext = _rtext.Replace("len", len)
+                    Catch ex As Exception
+
+                    End Try
+                ElseIf act.Name = "DisplayCText" Then
                     If Values(1) = "1" Then
                         _rtext = "txtPtr = dwread_epd_safe(EPD(0x640B58));" & vbCrLf & _rtext & ";" & vbCrLf & "SetMemory(0x640B58, SetTo, txtPtr);"
                     End If
-                End If
-                If act.Name = "DisplaySavedCText" Then
-                    If Values(0) = "1" Then
+                ElseIf act.Name = "DisplaySavedCText" Then
+                If Values(0) = "1" Then
                         _rtext = "txtPtr = dwread_epd_safe(EPD(0x640B58));" & vbCrLf & _rtext & ";" & vbCrLf & "SetMemory(0x640B58, SetTo, txtPtr);"
                     End If
                 End If

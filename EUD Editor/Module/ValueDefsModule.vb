@@ -117,7 +117,14 @@ Module ValueDefsModule
                             _values.AddRange(DatEditDATA(index).keyDic.Keys.ToArray)
                         Case "stat_txt"
                             _values.Add("None")
-                            _values.AddRange(stat_txt)
+                            For i = 0 To stat_txt.Count - 1
+                                If stattextdic.ContainsKey(i) Then
+                                    _values.Add(stattextdic(i))
+                                Else
+                                    _values.Add(stat_txt(i))
+                                End If
+                            Next
+
                         Case "Rank/Sublabelstat_txt"
                             _values.AddRange(stat_txt)
                             For i = 0 To 1300
@@ -192,7 +199,7 @@ Module ValueDefsModule
 
 
         ' "Time", "Count", "Percent", "NewValue", "Add", "Goal", "Amount", "Number",
-        ValueDefiniction.Add(New ValueDefs({"Number", "Count", "Percent", "NewValue", "Add", "Goal", "Amount", "Time"}, ValueDefs.OutPutType.Number))
+        ValueDefiniction.Add(New ValueDefs({"Number", "Count", "Percent", "NewValue", "Add", "Goal", "Amount", "Time", "Line"}, ValueDefs.OutPutType.Number))
 
         ' "Script", "Unit", "UnitType", "OnUnit", "WAVName", "Switch", "StartLocation", "DestLocation", "Location", "Where",
         ValueDefiniction.Add(New ValueDefs("Script", ValueDefs.OutPutType.ComboboxString))
@@ -305,6 +312,8 @@ Module ValueDefsModule
         ValueDefiniction.Add(New ValueDefs("BGMFlag", ValueDefs.OutPutType.ListNum, {"단일 재생", "반복 재생", "재생 종료"}))
 
 
+        ValueDefiniction.Add(New ValueDefs("BtnEnableTxt", ValueDefs.OutPutType.UnitBtn))
+        ValueDefiniction.Add(New ValueDefs("BtnUnEnableTxt", ValueDefs.OutPutType.UnitBtn))
         LoadCUnitData()
     End Sub
 

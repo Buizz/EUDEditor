@@ -709,9 +709,11 @@ Public Class FunctionForm
                 TableLayoutPanel7.Visible = False
                 TableLayoutPanel8.Visible = False
 
-                If value.Last = """" And value.First = """" Then
-                    TextBox1.Text = Mid(value, 2, value.Length - 2)
-                    isDataCollect = True
+                If value <> "" Then
+                    If value.Last = """" And value.First = """" Then
+                        TextBox1.Text = Mid(value, 2, value.Length - 2)
+                        isDataCollect = True
+                    End If
                 End If
             Case ValueDefs.OutPutType.CText
                 TableLayoutPanel6.Visible = True
@@ -724,9 +726,11 @@ Public Class FunctionForm
                 TableLayoutPanel7.Visible = False
                 TableLayoutPanel8.Visible = False
 
-                If value.Last = """" And value.First = """" Then
-                    TextBox1.Text = Mid(value, 2, value.Length - 2)
-                    isDataCollect = True
+                If value <> "" Then
+                    If value.Last = """" And value.First = """" Then
+                        TextBox1.Text = Mid(value, 2, value.Length - 2)
+                        isDataCollect = True
+                    End If
                 End If
             Case ValueDefs.OutPutType.UnitProperty
                 TableLayoutPanel4.Visible = True

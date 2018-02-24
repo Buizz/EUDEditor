@@ -69,7 +69,7 @@ Module BGMPlayerModule
         'str.AppendLine("                    DisplayText(2);")
 
 
-        str.AppendLine("                    PlayWAV(2);")
+        str.AppendLine("                    PlayWAV(tct.strBuffer);")
         str.AppendLine("                    musicFrame[i] = musicFrame[i] + 1;")
         str.AppendLine("                    musicLastTime[i] = dwread_epd(EPD(0x51CE8C));")
         str.AppendLine("                }")

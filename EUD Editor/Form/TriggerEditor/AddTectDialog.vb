@@ -30,11 +30,11 @@
                 returnstring = returnstring & "{GT}"
             Case 6
                 returnstring = returnstring & "{C:" & UnitSelecter.Text & "}"
-                'Case 7
-                '    returnstring = returnstring & "{C:tct.str(tct.strptr(" & UnitSelecter.SelectedIndex & "))}"
-                'Case 8
-                '    returnstring = returnstring & "{C:tct.str(tct.strptr(wread(0x660260 + 2 * " & UnitSelecter.SelectedIndex + 1 & ")))}"
             Case 7
+                returnstring = returnstring & "{C:tct.s2u(tct.strptr(" & UnitSelecter.SelectedIndex + 1 & "))}"
+            Case 8
+                returnstring = returnstring & "{C:tct.s2u(tct.strptr(wread(0x660260 + 2 * " & UnitSelecter.SelectedIndex & ")))}"
+            Case 9
                 returnstring = "{C:" & TextBox1.Text & "}"
         End Select
     End Sub
@@ -82,7 +82,7 @@
                 TextBox1.Visible = False
                 UnitSelecter.Dock = DockStyle.Fill
                 UnitSelecter.Visible = True
-            Case 5, 6 ', 7, 8
+            Case 5, 6, 7, 8
                 ListBox3.Enabled = False
                 TableLayoutPanel4.ColumnStyles(0).Width = 100
                 TableLayoutPanel4.ColumnStyles(1).Width = 0
@@ -90,7 +90,7 @@
                 TextBox1.Visible = False
                 UnitSelecter.Dock = DockStyle.Fill
                 UnitSelecter.Visible = True
-            Case 7
+            Case 9
                 ListBox3.Enabled = False
                 TableLayoutPanel4.ColumnStyles(0).Width = 100
                 TableLayoutPanel4.ColumnStyles(1).Width = 0
@@ -137,29 +137,29 @@
                 UnitSelecter.Items.Add("Protoss Psi Used")
                 UnitSelecter.Items.Add("Protoss Psi Max")
                 UnitSelecter.SelectedIndex = 0
-            'Case 7
-            '    UnitSelecter.Enabled = True
-            '    For i = 0 To ProjectSet.CHKSTRING.Count - 1
-            '        UnitSelecter.Items.Add(ProjectSet.CHKSTRING(i))
-            '    Next
+            Case 7
+                UnitSelecter.Enabled = True
+                For i = 0 To ProjectSet.CHKSTRING.Count - 1
+                    UnitSelecter.Items.Add(ProjectSet.CHKSTRING(i))
+                Next
 
-            '    UnitSelecter.SelectedIndex = 0
-            'Case 8
-            '    UnitSelecter.Enabled = True
-            '    For i = 0 To CODE(0).Count - 1
-            '        If DatEditDATA(DTYPE.units).ReadValue("Unit Map String", i) = 0 Then
-            '            UnitSelecter.Items.Add(CODE(0)(i))
-            '        Else
-            '            Try
-            '                UnitSelecter.Items.Add(ProjectSet.CHKSTRING(-1 + ProjectSet.CHKUNITNAME(i)) & "(" & CODE(0)(i) & ")")
-            '            Catch ex As Exception
-            '                UnitSelecter.Items.Add(CODE(0)(i))
-            '            End Try
-            '        End If
-            '    Next
+                UnitSelecter.SelectedIndex = 0
+            Case 8
+                UnitSelecter.Enabled = True
+                For i = 0 To CODE(0).Count - 1
+                    If DatEditDATA(DTYPE.units).ReadValue("Unit Map String", i) = 0 Then
+                        UnitSelecter.Items.Add(CODE(0)(i))
+                    Else
+                        Try
+                            UnitSelecter.Items.Add(ProjectSet.CHKSTRING(-1 + ProjectSet.CHKUNITNAME(i)) & "(" & CODE(0)(i) & ")")
+                        Catch ex As Exception
+                            UnitSelecter.Items.Add(CODE(0)(i))
+                        End Try
+                    End If
+                Next
 
-            '    UnitSelecter.SelectedIndex = 0
-            Case 6
+                UnitSelecter.SelectedIndex = 0
+            Case 9
                 UnitSelecter.Enabled = True
                 UnitSelecter.Items.Clear()
                 UnitSelecter.Items.AddRange(GetVariablesWithoutoverlap.ToArray)
