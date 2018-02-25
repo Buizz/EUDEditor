@@ -419,28 +419,28 @@
     <Compile Include="Form\DebugViewUnitForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\디버그기능\DethesViewerForm.Designer.vb">
+    <Compile Include="Form\DebugFunc\DethesViewerForm.Designer.vb">
       <DependentUpon>DethesViewerForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\디버그기능\DethesViewerForm.vb">
+    <Compile Include="Form\DebugFunc\DethesViewerForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\디버그기능\GamedataForm.Designer.vb">
+    <Compile Include="Form\DebugFunc\GamedataForm.Designer.vb">
       <DependentUpon>GamedataForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\디버그기능\GamedataForm.vb">
+    <Compile Include="Form\DebugFunc\GamedataForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\디버그기능\PlayerdataForm.Designer.vb">
+    <Compile Include="Form\DebugFunc\PlayerdataForm.Designer.vb">
       <DependentUpon>PlayerdataForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\디버그기능\PlayerdataForm.vb">
+    <Compile Include="Form\DebugFunc\PlayerdataForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\디버그기능\SwitchViewerForm.Designer.vb">
+    <Compile Include="Form\DebugFunc\SwitchViewerForm.Designer.vb">
       <DependentUpon>SwitchViewerForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\디버그기능\SwitchViewerForm.vb">
+    <Compile Include="Form\DebugFunc\SwitchViewerForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.vb">
@@ -482,7 +482,7 @@
     <Compile Include="Module\UnitModule.vb" />
     <Compile Include="Module\ValueDefsModule.vb" />
     <Compile Include="Module\ZipFileModule.vb" />
-    <Compile Include="Module\임시모듈.vb" />
+    <Compile Include="Module\tempmoudle.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -645,16 +645,16 @@
     <EmbeddedResource Include="Form\TriggerViewerForm.resx">
       <DependentUpon>TriggerViewerForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\디버그기능\DethesViewerForm.resx">
+    <EmbeddedResource Include="Form\DebugFunc\DethesViewerForm.resx">
       <DependentUpon>DethesViewerForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\디버그기능\GamedataForm.resx">
+    <EmbeddedResource Include="Form\DebugFunc\GamedataForm.resx">
       <DependentUpon>GamedataForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\디버그기능\PlayerdataForm.resx">
+    <EmbeddedResource Include="Form\DebugFunc\PlayerdataForm.resx">
       <DependentUpon>PlayerdataForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\디버그기능\SwitchViewerForm.resx">
+    <EmbeddedResource Include="Form\DebugFunc\SwitchViewerForm.resx">
       <DependentUpon>SwitchViewerForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">

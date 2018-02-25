@@ -220,7 +220,7 @@ Module ValueDefsModule
         ValueDefiniction.Add(New ValueDefs("Order", ValueDefs.OutPutType.Combobox, CODE(7).ToArray))
         ValueDefiniction.Add(New ValueDefs("Sfxdata", ValueDefs.OutPutType.Combobox, CODE(8).ToArray))
         ValueDefiniction.Add(New ValueDefs("Portdata", ValueDefs.OutPutType.Combobox, CODE(9).ToArray))
-        ValueDefiniction.Add(New ValueDefs("stat_txt", ValueDefs.OutPutType.ComboboxNum))
+        ValueDefiniction.Add(New ValueDefs("stat_txt", ValueDefs.OutPutType.Combobox))
 
 
 
