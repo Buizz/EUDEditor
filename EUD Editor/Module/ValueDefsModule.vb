@@ -142,6 +142,7 @@ Module ValueDefsModule
                             For i = 0 To CUnitData.Count - 1
                                 _values.Add(CUnitData(i)(2))
                             Next
+
                     End Select
 
                     Dim filename As String = My.Application.Info.DirectoryPath & "\Data\Langage\" & My.Settings.Langage & "\" & Name(k) & ".txt"
@@ -219,7 +220,7 @@ Module ValueDefsModule
         ValueDefiniction.Add(New ValueDefs("Order", ValueDefs.OutPutType.Combobox, CODE(7).ToArray))
         ValueDefiniction.Add(New ValueDefs("Sfxdata", ValueDefs.OutPutType.Combobox, CODE(8).ToArray))
         ValueDefiniction.Add(New ValueDefs("Portdata", ValueDefs.OutPutType.Combobox, CODE(9).ToArray))
-        ValueDefiniction.Add(New ValueDefs("stat_txt", ValueDefs.OutPutType.Combobox))
+        ValueDefiniction.Add(New ValueDefs("stat_txt", ValueDefs.OutPutType.ComboboxNum))
 
 
 
