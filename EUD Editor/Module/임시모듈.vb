@@ -20,7 +20,7 @@ Module 임시모듈
         'For i = 0 To 10
         '    strwriter.WriteLine(DatEditDATA(0).keyDic.Keys(i).ToString())
         '    strwriter.WriteLine(DatEditDATA(0).)
-        'Next
+        'Nex
 
         strwriter.WriteLine("[")
         For k = 0 To 0 'DatEditDATA.Count - 1

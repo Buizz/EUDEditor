@@ -22,8 +22,9 @@
         End If
     End Sub
 
-
+    Dim tload As Boolean = False
     Private Sub NQCForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        tload = True
         EasyCompletionComboBox2.Items.Clear()
 
         For i = 0 To CODE(0).Count - 1
@@ -38,7 +39,6 @@
             End If
         Next
 
-
         If returnstring = "" Then
             RadioButton2.Checked = True
             EasyCompletionComboBox1.SelectedIndex = -1
@@ -48,9 +48,9 @@
             EasyCompletionComboBox2.ResetText()
             Button5.Enabled = False
         Else
-            Dim condstr As String = returnstring.Split(",")(0).Trim
-            Dim deathunit As String = returnstring.Split(",")(1).Trim
-            Dim deathval As String = returnstring.Split(",")(2).Trim
+            Dim condstr As String = returnstring.Split("#")(0).Trim
+            Dim deathunit As String = returnstring.Split("#")(1).Trim
+            Dim deathval As String = returnstring.Split("#")(2).Trim
 
 
             Try
@@ -83,6 +83,7 @@
                 NumericUpDown1.Value = 0
             End Try
         End If
+        tload = False
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
@@ -102,10 +103,14 @@
     End Sub
 
     Private Sub EasyCompletionComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EasyCompletionComboBox1.SelectedIndexChanged
-        CheckValidity()
+        If tload = False Then
+            CheckValidity()
+        End If
     End Sub
 
     Private Sub EasyCompletionComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EasyCompletionComboBox2.SelectedIndexChanged
-        CheckValidity()
+        If tload = False Then
+            CheckValidity()
+        End If
     End Sub
 End Class

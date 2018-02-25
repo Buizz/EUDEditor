@@ -61,7 +61,9 @@ Module ValueDefsModule
                 For k = 0 To Name.Count - 1
                     Select Case Name(k)
                         Case "BGM"
-                            _values.AddRange(Soundlist)
+                            For Each str As String In Soundlist
+                                _values.Add(str.Split("\").Last)
+                            Next
                         Case "DestLocation", "StartLocation", "Location", "Where"
                             _values.Add("None")
                             For i = 0 To 254
@@ -115,7 +117,14 @@ Module ValueDefsModule
                             _values.AddRange(DatEditDATA(index).keyDic.Keys.ToArray)
                         Case "stat_txt"
                             _values.Add("None")
-                            _values.AddRange(stat_txt)
+                            For i = 0 To stat_txt.Count - 1
+                                If stattextdic.ContainsKey(i) Then
+                                    _values.Add(stattextdic(i))
+                                Else
+                                    _values.Add(stat_txt(i))
+                                End If
+                            Next
+
                         Case "Rank/Sublabelstat_txt"
                             _values.AddRange(stat_txt)
                             For i = 0 To 1300
@@ -133,7 +142,6 @@ Module ValueDefsModule
                             For i = 0 To CUnitData.Count - 1
                                 _values.Add(CUnitData(i)(2))
                             Next
-
                     End Select
 
                     Dim filename As String = My.Application.Info.DirectoryPath & "\Data\Langage\" & My.Settings.Langage & "\" & Name(k) & ".txt"
@@ -191,7 +199,7 @@ Module ValueDefsModule
 
 
         ' "Time", "Count", "Percent", "NewValue", "Add", "Goal", "Amount", "Number",
-        ValueDefiniction.Add(New ValueDefs({"Number", "Count", "Percent", "NewValue", "Add", "Goal", "Amount", "Time"}, ValueDefs.OutPutType.Number))
+        ValueDefiniction.Add(New ValueDefs({"Number", "Count", "Percent", "NewValue", "Add", "Goal", "Amount", "Time", "Line"}, ValueDefs.OutPutType.Number))
 
         ' "Script", "Unit", "UnitType", "OnUnit", "WAVName", "Switch", "StartLocation", "DestLocation", "Location", "Where",
         ValueDefiniction.Add(New ValueDefs("Script", ValueDefs.OutPutType.ComboboxString))
@@ -211,7 +219,7 @@ Module ValueDefsModule
         ValueDefiniction.Add(New ValueDefs("Order", ValueDefs.OutPutType.Combobox, CODE(7).ToArray))
         ValueDefiniction.Add(New ValueDefs("Sfxdata", ValueDefs.OutPutType.Combobox, CODE(8).ToArray))
         ValueDefiniction.Add(New ValueDefs("Portdata", ValueDefs.OutPutType.Combobox, CODE(9).ToArray))
-        ValueDefiniction.Add(New ValueDefs("stat_txt", ValueDefs.OutPutType.ComboboxNum))
+        ValueDefiniction.Add(New ValueDefs("stat_txt", ValueDefs.OutPutType.Combobox))
 
 
 
@@ -222,8 +230,8 @@ Module ValueDefsModule
                                            "Player 7", "Player 8", "Player 9", "Player 10", "Player 11", "Player 12", "Unknown",
                                            "CurrentPlayer", "Foes", "Allies", "NeutralPlayers", "AllPlayers", "Force1", "Force2",
                                            "Force3", "Force4", "Unknown", "Unknown", "Unknown", "Unknown", "NonAlliedVictoryPlayers"}))
-        ValueDefiniction.Add(New ValueDefs("VariableModifier", ValueDefs.OutPutType.List, {"대입", "덧셈", "뺄셈", "곱셈", "나눗셈"}))
-        ValueDefiniction.Add(New ValueDefs("VariableComparison", ValueDefs.OutPutType.List, {"일치", "불일치", "이상", "이하", "초과", "미만"}))
+        ValueDefiniction.Add(New ValueDefs("VariableModifier", ValueDefs.OutPutType.ListNum, {"대입", "덧셈", "뺄셈", "곱셈", "나눗셈"}))
+        ValueDefiniction.Add(New ValueDefs("VariableComparison", ValueDefs.OutPutType.ListNum, {"일치", "불일치", "이상", "이하", "초과", "미만"}))
 
 
         ValueDefiniction.Add(New ValueDefs("DisplayOption", ValueDefs.OutPutType.ListNum, {"일반", "대화보존"}))
@@ -256,7 +264,7 @@ Module ValueDefsModule
 
 
 
-        ValueDefiniction.Add(New ValueDefs("Status", ValueDefs.OutPutType.ListNum, {"동맹", "적", "동맹승리"}))
+        ValueDefiniction.Add(New ValueDefs("Status", ValueDefs.OutPutType.ListNum, {"적", "동맹", "동맹승리"}))
         ValueDefiniction.Add(New ValueDefs("UnitDirection", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("Boolean", ValueDefs.OutPutType.ListNum, {"NotUse", "Use"}))
         ValueDefiniction.Add(New ValueDefs("ElevationLevels", ValueDefs.OutPutType.ListNum))
@@ -303,6 +311,9 @@ Module ValueDefsModule
         ValueDefiniction.Add(New ValueDefs("BGM", ValueDefs.OutPutType.Combobox))
         ValueDefiniction.Add(New ValueDefs("BGMFlag", ValueDefs.OutPutType.ListNum, {"단일 재생", "반복 재생", "재생 종료"}))
 
+
+        ValueDefiniction.Add(New ValueDefs("BtnEnableTxt", ValueDefs.OutPutType.UnitBtn))
+        ValueDefiniction.Add(New ValueDefs("BtnUnEnableTxt", ValueDefs.OutPutType.UnitBtn))
         LoadCUnitData()
     End Sub
 

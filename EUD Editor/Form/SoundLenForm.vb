@@ -7,8 +7,10 @@
     Private workstatus As Integer
 
 
-    Private Sub SeperateSound(wavFile As String, interval As Double)
+    Private Sub SeperateSound(wavFile As String)
         openfile = wavFile
+
+        interval = Soundinterval * 1.05
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
@@ -26,7 +28,7 @@
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Dim purefilename As String = openfile.Split("\").Last
 
-        Dim output As String = tempfoluder & "Music" & workstatus & "_"
+        Dim output As String = tempfoluder & "M" & workstatus & "_"
 
 
         openfile = Chr(34) & openfile & Chr(34)
@@ -68,7 +70,7 @@
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         If workstatus < Soundlist.Count Then
             If BackgroundWorker1.IsBusy = False Then
-                SeperateSound(Soundlist(workstatus), Soundinterval)
+                SeperateSound(Soundlist(workstatus))
             End If
         Else
             Me.Close()

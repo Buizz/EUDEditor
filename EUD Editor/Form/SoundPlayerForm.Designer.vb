@@ -129,6 +129,7 @@ Partial Class SoundPlayerForm
         Me.Button3.TabIndex = 6
         Me.Button3.Text = "배속  감지"
         Me.Button3.UseVisualStyleBackColor = True
+        Me.Button3.Visible = False
         '
         'TableLayoutPanel2
         '

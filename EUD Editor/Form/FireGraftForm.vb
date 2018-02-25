@@ -761,25 +761,25 @@ Public Class FireGraftForm
 
                 Select Case ProjectRequireDataUSE(TAB_INDEX - 2)(_OBJECTNUM)
                     Case 0
-                        GroupBox10.Enabled = False
+                        GroupBox8.Enabled = False
                         RadioButton1.Checked = True
                         ReadReqData(RequireData(TAB_INDEX - 2)(_OBJECTNUM))
                         ComboBox11.Visible = False
                         ComboBox12.Visible = False
                     Case 1
                         ReqList.Items.Clear()
-                        GroupBox10.Enabled = False
+                        GroupBox8.Enabled = False
                         RadioButton2.Checked = True
                         ComboBox11.Visible = False
                         ComboBox12.Visible = False
                     Case 2
                         ReqList.Items.Clear()
-                        GroupBox10.Enabled = False
+                        GroupBox8.Enabled = False
                         RadioButton3.Checked = True
                         ComboBox11.Visible = False
                         ComboBox12.Visible = False
                     Case 3
-                        GroupBox10.Enabled = True
+                        GroupBox8.Enabled = True
                         RadioButton4.Checked = True
                         ReadReqData(ProjectRequireData(TAB_INDEX - 2)(_OBJECTNUM))
                         '+ Environment.NewLine +

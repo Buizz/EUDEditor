@@ -177,37 +177,39 @@ Public Class Element
 
 
 
+        '{"대입", "덧셈", "뺄셈", "곱셈", "나눗셈"}))
+        '{"일치", "불일치", "이상", "이하", "초과", "미만"}))
         Select Case valdef
             Case "VariableModifier"
                 If isTocode Then
                     Select Case _value
-                        Case "대입"
+                        Case 0
                             returnstring = "="
-                        Case "덧셈"
+                        Case 1
                             returnstring = "+="
-                        Case "뺼셈"
+                        Case 2
                             returnstring = "-="
-                        Case "곱셈"
+                        Case 3
                             returnstring = "*="
-                        Case "나눗셈"
+                        Case 4
                             returnstring = "/="
                     End Select
                 End If
             Case "VariableComparison"
                 If isTocode Then
                     Select Case _value
-                        Case "일치"
+                        Case 0
                             returnstring = "=="
-                        Case "초과"
-                            returnstring = ">"
-                        Case "미만"
-                            returnstring = "<"
-                        Case "이상"
-                            returnstring = ">="
-                        Case "이하"
-                            returnstring = "<="
-                        Case "불일치"
+                        Case 1
                             returnstring = "!="
+                        Case 2
+                            returnstring = ">="
+                        Case 3
+                            returnstring = "<="
+                        Case 4
+                            returnstring = ">"
+                        Case 5
+                            returnstring = "<"
                     End Select
                 End If
             Case "AlwaysDisplay"
@@ -389,6 +391,77 @@ Public Class Element
                 If isTocode = True Then
                     Return returnstring
                 End If
+            Case "BtnEnableTxt"
+                If isTocode = False Then
+                    Try
+                        Dim _tempvalue() As String = GetValue("BtnEnableTxt").Split(":")
+
+                        If ProjectBtnUSE(_tempvalue(0)) = True Then
+                            returnstring = ProjectBtnData(_tempvalue(0))(_tempvalue(1)).enaStr - 1
+                        Else
+                            returnstring = BtnData(_tempvalue(0))(_tempvalue(1)).enaStr - 1
+                        End If
+
+                        If stattextdic.ContainsKey(returnstring) Then
+                            returnstring = stattextdic(returnstring)
+                        Else
+                            returnstring = stat_txt(returnstring)
+                        End If
+                        Return returnstring
+                    Catch ex As Exception
+                        Return returnstring
+                    End Try
+                Else
+                    Try
+                        Dim _tempvalue() As String = GetValue("BtnEnableTxt").Split(":")
+
+                        If ProjectBtnUSE(_tempvalue(0)) = True Then
+                            returnstring = ProjectBtnData(_tempvalue(0))(_tempvalue(1)).enaStr
+                        Else
+                            returnstring = BtnData(_tempvalue(0))(_tempvalue(1)).enaStr
+                        End If
+                        Return returnstring
+                    Catch ex As Exception
+                        Return returnstring
+                    End Try
+                End If
+            Case "BtnUnEnableTxt"
+                If isTocode = False Then
+                    Try
+                        Dim _tempvalue() As String = GetValue("BtnUnEnableTxt").Split(":")
+
+                        If ProjectBtnUSE(_tempvalue(0)) = True Then
+                            returnstring = ProjectBtnData(_tempvalue(0))(_tempvalue(1)).disStr - 1
+                        Else
+                            returnstring = BtnData(_tempvalue(0))(_tempvalue(1)).disStr - 1
+                        End If
+
+                        If stattextdic.ContainsKey(returnstring) Then
+                            returnstring = stattextdic(returnstring)
+                        Else
+                            returnstring = stat_txt(returnstring)
+                        End If
+                        Return returnstring
+                    Catch ex As Exception
+                        Return returnstring
+                    End Try
+                Else
+                    Try
+                        Dim _tempvalue() As String = GetValue("BtnUnEnableTxt").Split(":")
+
+                        If ProjectBtnUSE(_tempvalue(0)) = True Then
+                            returnstring = ProjectBtnData(_tempvalue(0))(_tempvalue(1)).disStr
+                        Else
+                            returnstring = BtnData(_tempvalue(0))(_tempvalue(1)).disStr
+                        End If
+                        Return returnstring
+                    Catch ex As Exception
+                        Return returnstring
+                    End Try
+                End If
+
+
+
             Case "UnitBtn"
                 If isTocode = False Then
                     Try
@@ -407,8 +480,50 @@ Public Class Element
                 Else
                     Try
                         Dim _tempvalue() As String = _value.Split(":")
+
+                        Dim i As Integer = _tempvalue(0)
+                        '_tempvalue(1)는 위치관련이 아니라 인덱스야.
+
+                        Dim sort As New List(Of UInteger)
+                        Dim data As New List(Of UInteger)
+                        If ProjectBtnData(i).Count <> 0 Then
+
+
+                            For j = 0 To ProjectBtnData(i).Count - 1
+                                sort.Add(j)
+                                data.Add(ProjectBtnData(i)(j).pos)
+                            Next
+                            With ProjectBtnData(i)
+                                For j = 0 To .Count - 1 'pos를 기준으로 정렬.
+                                    'j번째 데이터를 선택.
+                                    '
+
+                                    For p = j + 1 To .Count - 1  'pos를 기준으로 정렬.
+                                        If data(j) > data(p) Then
+                                            Dim temp As UInteger = sort(p)
+                                            sort(p) = sort(j)
+                                            sort(j) = temp
+
+                                            temp = data(p)
+                                            data(p) = data(j)
+                                            data(j) = temp
+                                        End If
+                                    Next
+                                Next
+                            End With
+                        End If
+
+                        Dim realpos As Integer
+                        For i = 0 To sort.Count - 1
+                            If sort(i) = _tempvalue(1) Then
+                                realpos = i
+                                Exit For
+                            End If
+                        Next
+
+
                         '오프셋 구하기.
-                        returnstring = "epdread_epd(EPD(0x5187EC) + " & 3 * _tempvalue(0) & ") + 5 * " & _tempvalue(1)
+                        returnstring = "epdread_epd(EPD(0x5187EC) + " & 3 * _tempvalue(0) & ") + 5 * " & realpos '_tempvalue(1)
                         Return returnstring
                     Catch ex As Exception
                         Return returnstring
@@ -498,7 +613,7 @@ Public Class Element
 
 
                         If isTocode = True Then
-                            returnstring = """" & returnstring & """"
+                            returnstring = _value '"""" & returnstring & """"
                         End If
 
                         Return returnstring
@@ -1127,8 +1242,7 @@ Public Class Element
                         _rtext = _rtext.Replace("$writedef$", "dw")
                     End Try
 
-                End If
-                If act.Name = "SetCUnitData" Or act.Name = "SetVariableCUnitData" Or act.Name = "AddCUnitData" Then
+                ElseIf act.Name = "SetCUnitData" Or act.Name = "SetVariableCUnitData" Or act.Name = "AddCUnitData" Or act.Name = "SetCUnitDataEPD" Or act.Name = "SetVariableCUnitDataEPD" Or act.Name = "AddCUnitDataEPD" Then
                     Try
                         '스트럭쳐 포인터...
                         Dim num As Integer = CInt(GetValue("StructOffset"))
@@ -1157,8 +1271,7 @@ Public Class Element
                     Catch ex As Exception
                         _rtext = _rtext.Replace("$writedef$", "dw")
                     End Try
-                End If
-                If act.Name = "SetButton" Then
+                ElseIf act.Name = "SetButton" Then
                     Try
                         Dim valuestream As String = GetValue("BtnData")
                         Dim index As Integer = 1
@@ -1177,9 +1290,84 @@ Public Class Element
                     Catch ex As Exception
 
                     End Try
-                End If
-                If act.Name = "DisplayCText" Or act.Name = "DisplaySavedCText" Then
+                ElseIf act.Name = "ChangeStarText" Then
+                    Try
+                        Dim statindex As Integer = Values(0) - 1
+                        Dim index As Integer = Values(1)
+                        Dim stattext As String
+                        If stattextdic.ContainsKey(statindex) Then
+                            stattext = stattextdic(statindex)
+                        Else
+                            stattext = stat_txt(statindex)
+                        End If
+                        Dim len As Byte = GettblLen(stattext, index)
+                        Dim start As Byte = GettblStart(stattext, index)
+
+                        Dim dummystr As String = ""
+                        For i = 0 To len - 1
+                            dummystr = dummystr & "\x0D"
+                        Next
+
+                        _rtext = _rtext.Replace("Dummy", """" & dummystr & """")
+                        _rtext = _rtext.Replace("Offset", start)
+                        _rtext = _rtext.Replace("len", len)
+                    Catch ex As Exception
+
+                    End Try
+                ElseIf act.Name = "ChangeButtonEnableMsg" Then
+                    Try
+                        Dim statindex As Integer = CInt(ValueParser(Values(0), "BtnEnableTxt", True)) - 1
+                        Dim index As Integer = Values(1)
+                        Dim stattext As String
+                        If stattextdic.ContainsKey(statindex) Then
+                            stattext = stattextdic(statindex)
+                        Else
+                            stattext = stat_txt(statindex)
+                        End If
+                        Dim len As Byte = GettblLen(stattext, index)
+                        Dim start As Byte = GettblStart(stattext, index)
+
+                        Dim dummystr As String = ""
+                        For i = 0 To len - 1
+                            dummystr = dummystr & "\x0D"
+                        Next
+
+                        _rtext = _rtext.Replace("Dummy", """" & dummystr & """")
+                        _rtext = _rtext.Replace("Offset", start)
+                        _rtext = _rtext.Replace("len", len)
+                    Catch ex As Exception
+
+                    End Try
+                ElseIf act.Name = "ChangeButtonUnEnableMsg" Then
+                    Try
+                        Dim statindex As Integer = CInt(ValueParser(Values(0), "BtnUnEnableTxt", True)) - 1
+                        Dim index As Integer = Values(1)
+                        Dim stattext As String
+                        If stattextdic.ContainsKey(statindex) Then
+                            stattext = stattextdic(statindex)
+                        Else
+                            stattext = stat_txt(statindex)
+                        End If
+                        Dim len As Byte = GettblLen(stattext, index)
+                        Dim start As Byte = GettblStart(stattext, index)
+
+                        Dim dummystr As String = ""
+                        For i = 0 To len - 1
+                            dummystr = dummystr & "\x0D"
+                        Next
+
+                        _rtext = _rtext.Replace("Dummy", """" & dummystr & """")
+                        _rtext = _rtext.Replace("Offset", start)
+                        _rtext = _rtext.Replace("len", len)
+                    Catch ex As Exception
+
+                    End Try
+                ElseIf act.Name = "DisplayCText" Then
                     If Values(1) = "1" Then
+                        _rtext = "txtPtr = dwread_epd_safe(EPD(0x640B58));" & vbCrLf & _rtext & ";" & vbCrLf & "SetMemory(0x640B58, SetTo, txtPtr);"
+                    End If
+                ElseIf act.Name = "DisplaySavedCText" Then
+                If Values(0) = "1" Then
                         _rtext = "txtPtr = dwread_epd_safe(EPD(0x640B58));" & vbCrLf & _rtext & ";" & vbCrLf & "SetMemory(0x640B58, SetTo, txtPtr);"
                     End If
                 End If
@@ -1223,7 +1411,7 @@ Public Class Element
                         _rtext = _rtext.Replace("&SIZE&", 4)
                     End Try
                 End If
-                If con.Name = "CUnitData" Then
+                If con.Name = "CUnitData" Or con.Name = "CUnitDataEPD" Then
                     Try
                         '스트럭쳐 포인터...
                         Dim num As Integer = CInt(GetValue("StructOffset"))

@@ -2,82 +2,95 @@
 
 Module BGMPlayerModule
     Public Function GetBGMPlyereps() As String
+        Dim interval As Double = 1050
+        Dim dealy As Double = 70
+
         Dim str As New StringBuilder
 
         '폼을 열어서 사운드 길이 구하는 거야.
         SoundLenForm.ShowDialog()
 
-        '1050ms당 데스값
-        Dim intervaldeath As Double = 24
-        '100/4.2
 
+        str.AppendLine("import tempcustomText as tct;")
+        str.AppendLine()
+
+        str.AppendLine("const musicLastTime = [0, 0, 0, 0, 0, 0, 0, 0];")
         str.AppendLine("const musicFrame = [0, 0, 0, 0, 0, 0, 0, 0];")
         str.AppendLine("const musicnum = [0, 0, 0, 0, 0, 0, 0, 0];")
         str.AppendLine("const musicflag = [0, 0, 0, 0, 0, 0, 0, 0];")
         str.AppendLine("const musicisplay = [0, 0, 0, 0, 0, 0, 0, 0];")
 
-        str.AppendLine("var intervaldeath = 0;")
         'str.AppendLine()
         'str.AppendLine("Const intervalDeath = " & Soundinterval & ";")
         str.AppendLine()
-
         str.AppendLine("function Player() {")
-        str.AppendLine("    if(")
-        str.AppendLine("        ElapsedTime(AtMost, 10)")
-        str.AppendLine("    ){")
-        str.AppendLine("        intervaldeath = dwread_epd(EPD(0x58CE20));")
-        str.AppendLine("        if (intervaldeath == 0) {")
-        str.AppendLine("            intervaldeath = 25;")
-        str.AppendLine("        }")
-        str.AppendLine("        intervaldeath = intervaldeath - intervaldeath / 20;")
-        str.AppendLine("    }")
-
         str.AppendLine("    var currentid = getcurpl();")
         str.AppendLine("    for (var i = 0 ; i < 8 ; i++) {")
         str.AppendLine("        if (musicisplay[i] == 1 && musicflag[i] != 2) {")
-        str.AppendLine("            SetCurrentPlayer(i);")
+        str.AppendLine("            var playtime = musicLastTime[i] - dwread_epd(EPD(0x51CE8C));")
+        str.AppendLine("            var LastFrame;")
         For musiccount = 0 To Soundlist.Count - 1
-
-
-            str.AppendLine("            if (musicnum[i] == " & musiccount & ") {")
-
+            str.AppendLine("        if (musicnum[i] == " & musiccount & ") {")
             '최대치 구하기.
             Dim index As Integer = 0
-
             While True
                 Dim tempfoluder As String = My.Application.Info.DirectoryPath & "\Data\temp\"
-                Dim output As String = tempfoluder & "Music" & musiccount & "_"
+                Dim output As String = tempfoluder & "M" & musiccount & "_"
 
                 Dim _temp As String = output & index & ".ogg"
                 If CheckFileExist(_temp) Then
                     Exit While
                 End If
-                str.AppendLine("                if (musicFrame[i] == intervaldeath * " & Math.Floor(Soundinterval * index) & ") {")
-                str.AppendLine("                    //웨이브 재생")
-                str.AppendLine("                    PlayWAV('Music" & musiccount & "_" & index & ".ogg');")
-                str.AppendLine("                }")
 
                 index += 1
             End While
-
-
-            str.AppendLine("                if(musicFrame[i] > intervaldeath * " & Math.Floor(Soundinterval * index) & ") {")
-            str.AppendLine("                    //사운드 재생이 끝났을 경우.")
-            str.AppendLine("                    if (musicflag[i] == 1) {")
-            str.AppendLine("                        //반복 재생일 경우")
-            str.AppendLine("                        musicFrame[i] = 0;")
-            str.AppendLine("                    }else if (musicflag[i] == 0) {")
-            str.AppendLine("                        musicflag[i] = 2;")
-            str.AppendLine("                    }")
-            str.AppendLine("                }")
-            str.AppendLine("            }")
-
+            str.AppendLine("            LastFrame = " & index & ";")
+            str.AppendLine("        }")
         Next
-        str.AppendLine("            musicFrame[i] = musicFrame[i] + 1;")
+
+
+        str.AppendLine("            if (musicFrame[i] < LastFrame) {")
+        str.AppendLine("                if (playtime > " & Soundinterval * interval - dealy & ") {")
+        str.AppendLine("                    tct.makeText('M');")
+        str.AppendLine("")
+        str.AppendLine("                    //뮤직 이름")
+        str.AppendLine("                    tct.addText(musicnum[i]);")
+        str.AppendLine("")
+        str.AppendLine("                    tct.addText('_');")
+        str.AppendLine("")
+        str.AppendLine("                    //세퍼레이트 이름")
+        str.AppendLine("                    tct.addText(musicFrame[i]);")
+        str.AppendLine("")
+        str.AppendLine("                    //마지막으로 재생된 playtime")
+        str.AppendLine("")
+        str.AppendLine("                    tct.addText('.ogg');")
+        str.AppendLine("                    SetCurrentPlayer(i);")
+
+        'str.AppendLine("                    DisplayText(2);")
+
+
+        str.AppendLine("                    PlayWAV(tct.strBuffer);")
+        str.AppendLine("                    musicFrame[i] = musicFrame[i] + 1;")
+        str.AppendLine("                    musicLastTime[i] = dwread_epd(EPD(0x51CE8C));")
+        str.AppendLine("                }")
+        str.AppendLine("")
+        str.AppendLine("            } else {")
+        str.AppendLine("                //사운드 재생이 끝났을 경우")
+        str.AppendLine("                if (musicflag[i] == 1) {")
+        str.AppendLine("                    //반복 재생일 경우")
+        str.AppendLine("                    musicFrame[i] = 0;")
+        str.AppendLine("                    musicLastTime[i] = dwread_epd(EPD(0x51CE8C));")
+        str.AppendLine("                }else if (musicflag[i] == 0) {")
+        str.AppendLine("                    musicflag[i] = 2;")
+        str.AppendLine("                }")
+        str.AppendLine("            } ")
         str.AppendLine("        }")
         str.AppendLine("    }")
         str.AppendLine("    SetCurrentPlayer(currentid);")
         str.AppendLine("}")
+
+
+
         str.AppendLine()
         str.AppendLine("function parsePlayer(tplayer) {")
         str.AppendLine("    if (tplayer < 8) {")
@@ -91,12 +104,14 @@ Module BGMPlayerModule
         str.AppendLine("    var p = parsePlayer(tplayer);")
         str.AppendLine("    if (flag == 0 && musicflag[p] == 0) {")
         str.AppendLine("        if (BGMNum != musicnum[p]) {")
+        str.AppendLine("            musicLastTime[p] = dwread_epd(EPD(0x51CE8C)) + " & Soundinterval * interval & " ;")
         str.AppendLine("            musicFrame[p] = 0;")
         str.AppendLine("        }")
         str.AppendLine("        musicnum[p] = BGMNum;")
         str.AppendLine("        musicflag[p] = flag;")
         str.AppendLine("        musicisplay[p] = 1;")
         str.AppendLine("    }else {")
+        str.AppendLine("        musicLastTime[p] = dwread_epd(EPD(0x51CE8C)) + " & Soundinterval * interval & ";")
         str.AppendLine("        musicFrame[p] = 0;")
         str.AppendLine("        musicnum[p] = BGMNum;")
         str.AppendLine("        musicflag[p] = flag;")

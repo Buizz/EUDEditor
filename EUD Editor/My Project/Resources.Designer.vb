@@ -162,25 +162,24 @@ Namespace My.Resources
         
         '''<summary>
         '''  from eudplib import *
+        '''from eudplib.eudlib.stringf.rwcommon import br1, bw1
+        '''import eudplib.eudlib.stringf.cputf8 as cputf
+        '''import math
         '''
         '''
-        '''dst = EUDVariable()
-        '''color = EUDArray([
-        '''    Db(b&apos;\x08\0&apos;), Db(b&apos;\x0E\0&apos;), Db(b&apos;\x0F\0&apos;), Db(b&apos;\x10\0&apos;), Db(b&apos;\x11\0&apos;),
-        '''    Db(b&apos;\x15\0&apos;), Db(b&apos;\x16\0&apos;), Db(b&apos;\x17\0&apos;), Db(b&apos;\x18\0&apos;), Db(b&apos;\x19\0&apos;),
-        '''    Db(b&apos;\x1B\0&apos;), Db(b&apos;\x1C\0&apos;), Db(b&apos;\x1F\0&apos;)
-        '''])
+        '''# 내부적으로 쓰는 함수들입니다. 어려울 수 있으니 무시해요 ///////////////////////
+        '''def f_cp949_to_utf8_copy(dst, src, flag=&apos;ptr&apos;):
+        '''    br1.seekoffset(src)
+        '''    if flag == &apos;ptr&apos;:
+        '''        bw1.seekoffset(dst)
         '''
-        '''print(&quot;customText.py successfully imported!&quot;)
-        '''
-        '''
-        '''def u2b(s):
-        '''    if isinstance(s, str):
-        '''        return s.encode(&apos;UTF-8&apos;)
-        '''    elif isinstance(s, bytes):
-        '''        return s
-        '''    else:
-        '''        raise EPError(&apos;Invalid type %s&apos; % [나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        '''    if EUDInfLoop()():
+        '''        b1 = br1.readbyte()
+        '''        EUDBreakIf(b1 == 0)
+        '''        if EUDIf()(b1 &lt; 128):
+        '''            if flag == &apos;ptr&apos;:
+        '''                bw1.writebyte(b1)
+        '''     [나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         '''</summary>
         Friend ReadOnly Property customText() As String
             Get
@@ -421,6 +420,16 @@ Namespace My.Resources
         Friend ReadOnly Property Insert() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Insert", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
+        Friend ReadOnly Property LoadFile() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("LoadFile", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

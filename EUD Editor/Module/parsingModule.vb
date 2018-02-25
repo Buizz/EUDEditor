@@ -1,6 +1,79 @@
 ﻿Imports System.IO
 
 Module parsingModule
+    Public Function GettblLen(str As String, index As Byte) As Byte
+        Dim rawstr As String = replacetext(str)
+        Dim i As Byte = 0
+        Dim codeindex As Integer = 0
+        Dim shopindex As Byte = 0
+        Dim returnvar As Byte
+        Dim shoplen As Byte = 0
+        While (i < rawstr.Count)
+            shoplen = 0
+            If rawstr(i) = "#" Then
+                returnvar = codeindex
+                i += 1
+                shoplen += 1
+                codeindex += 1
+                While (rawstr(i) = "#")
+                    shoplen += 1
+                    i += 1
+                    codeindex += 1
+                End While
+                shopindex += 1
+            End If
+
+            If shopindex = index Then
+                Exit While
+            End If
+
+            If AscW(rawstr(i)) <= &HFF Then
+                codeindex += 1
+            Else
+                codeindex += 2
+            End If
+            i += 1
+        End While
+        Return shoplen
+    End Function
+    Public Function GettblStart(str As String, index As Byte) As Byte
+        Dim rawstr As String = replacetext(str)
+        Dim i As Byte = 0
+        Dim codeindex As Integer = 0
+        Dim shopindex As Byte = 0
+        Dim returnvar As Byte
+        Dim shoplen As Byte = 0
+        While (i < rawstr.Count)
+            If rawstr(i) = "#" Then
+                returnvar = codeindex
+                i += 1
+                codeindex += 1
+                While (rawstr(i) = "#")
+                    shoplen += 1
+                    i += 1
+                    codeindex += 1
+                End While
+                shopindex += 1
+            End If
+
+            If shopindex = index Then
+                Exit While
+            End If
+
+            If AscW(rawstr(i)) <= &HFF Then
+                codeindex += 1
+            Else
+                codeindex += 2
+            End If
+            i += 1
+        End While
+        Return returnvar
+    End Function
+
+
+
+
+
     Public Function GetSafeName(str As String) As String
         Return str.Split("\").Last
     End Function

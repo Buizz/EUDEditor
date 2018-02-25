@@ -120,6 +120,70 @@ Namespace eudplib
                 returntext.AppendLine()
             End If
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.Plugin) = True Then
+                If nqcuse = True Then
+                    returntext.AppendLine("[MurakamiShiinaQC]")
+                    Try
+                        Dim num As Integer = nqcunit
+                        If num <> 58 Then
+                            returntext.AppendLine("QCUnitID : " & nqcunit)
+
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    Dim temp1string() As String = nqccommands.Split({"\"}, StringSplitOptions.RemoveEmptyEntries)
+
+                    Dim _values As New List(Of String)
+                    For i = 0 To CODE(0).Count - 1
+                        If DatEditDATA(DTYPE.units).ReadValue("Unit Map String", i) = 0 Then
+                            _values.Add(CODE(0)(i))
+                        Else
+                            Try
+                                _values.Add(ProjectSet.CHKSTRING(-1 + ProjectSet.CHKUNITNAME(i)))
+                            Catch ex As Exception
+                                _values.Add(CODE(0)(i))
+                            End Try
+
+                        End If
+                    Next
+
+
+                    For i = 0 To temp1string.Count - 1
+                        Dim temp2string() As String = temp1string(i).Split("#")
+                        returntext.AppendLine(temp2string(0).Trim & " : " & _values(temp2string(1).Trim) & ", " & temp2string(2).Trim)
+                    Next
+
+
+
+                    If nqclocs.Split(",").Count = 8 Then
+                        Dim locs() As String = nqclocs.Split(",")
+                        Dim _flag As Boolean = True
+                        For i = 0 To 7
+                            If Val(locs(i)) = 0 Then
+                                _flag = False
+                            End If
+                        Next
+                        If _flag = True Then
+                            _values.Clear()
+                            _values.Add("None")
+                            For i = 0 To 254
+                                If ProjectSet.CHKLOCATIONNAME(i) <> 0 Then
+                                    _values.Add(ProjectSet.CHKSTRING(ProjectSet.CHKLOCATIONNAME(i) - 1))
+                                Else
+                                    _values.Add("Location " & i)
+                                End If
+                            Next
+
+                            returntext.Append("마우스 : " & _values(Val(locs(0))))
+                            For i = 1 To 7
+                                returntext.Append(", " & _values(Val(locs(i))))
+                            Next
+                            returntext.AppendLine()
+                        End If
+                    End If
+                End If
+
+
                 'Public dataDumper_grpwire As String
                 'Public dataDumper_tranwire As String
                 'Public dataDumper_wirefram As String
@@ -291,69 +355,6 @@ Namespace eudplib
                 returntext.AppendLine(textraedssetting)
             End If
 
-            If nqcuse = True Then
-                returntext.AppendLine("[MurakamiShiinaQC]")
-                Try
-                    Dim num As Integer = nqcunit
-                    If num <> 58 Then
-                        returntext.AppendLine("QCUnitID : " & nqcunit)
-
-                    End If
-                Catch ex As Exception
-                End Try
-
-                Dim temp1string() As String = nqccommands.Split({"\"}, StringSplitOptions.RemoveEmptyEntries)
-
-                Dim _values As New List(Of String)
-                For i = 0 To CODE(0).Count - 1
-                    If DatEditDATA(DTYPE.units).ReadValue("Unit Map String", i) = 0 Then
-                        _values.Add(CODE(0)(i))
-                    Else
-                        Try
-                            _values.Add(ProjectSet.CHKSTRING(-1 + ProjectSet.CHKUNITNAME(i)))
-                        Catch ex As Exception
-                            _values.Add(CODE(0)(i))
-                        End Try
-
-                    End If
-                Next
-
-
-                For i = 0 To temp1string.Count - 1
-                    Dim temp2string() As String = temp1string(i).Split("#")
-                    returntext.AppendLine(temp2string(0).Trim & " : " & _values(temp2string(1).Trim) & ", " & temp2string(2).Trim)
-                Next
-
-
-
-                If nqclocs.Split(",").Count = 8 Then
-                    Dim locs() As String = nqclocs.Split(",")
-                    Dim _flag As Boolean = True
-                    For i = 0 To 7
-                        If Val(locs(i)) = 0 Then
-                            _flag = False
-                        End If
-                    Next
-                    If _flag = True Then
-                        _values.Clear()
-                        _values.Add("None")
-                        For i = 0 To 254
-                            If ProjectSet.CHKLOCATIONNAME(i) <> 0 Then
-                                _values.Add(ProjectSet.CHKSTRING(ProjectSet.CHKLOCATIONNAME(i) - 1))
-                            Else
-                                _values.Add("Location " & i)
-                            End If
-                        Next
-
-                        returntext.Append("마우스 : " & _values(Val(locs(0))))
-                        For i = 1 To 7
-                            returntext.Append(", " & _values(Val(locs(i))))
-                        Next
-                        returntext.AppendLine()
-                    End If
-                End If
-            End If
-
 
             If ProjectSet.EUDEditorDebug = True Then
                 returntext.AppendLine("[EUDEditorDebug.py]" & vbCrLf)
@@ -441,7 +442,7 @@ Namespace eudplib
                 Dim tempfoluder As String = My.Application.Info.DirectoryPath & "\Data\temp\"
 
                 For i = 0 To Soundlist.Count - 1
-                    Dim output As String = tempfoluder & "Music" & i & "_"
+                    Dim output As String = tempfoluder & "M" & i & "_"
 
                     Dim index As Integer = 0
 
@@ -451,7 +452,7 @@ Namespace eudplib
                             Exit While
                         End If
 
-                        returntext.AppendLine("    MPQAddFile(""Music" & i & "_" & index & ".ogg"" ,open(""" & _temp.Replace("\", "\\") & """, ""rb"").read() ,False);")
+                        returntext.AppendLine("    MPQAddFile(""M" & i & "_" & index & ".ogg"" ,open(""" & _temp.Replace("\", "\\") & """, ""rb"").read() ,False);")
                         index += 1
                     End While
                 Next
@@ -678,7 +679,7 @@ Namespace eudplib
             End If
             'GRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRPGRP
 
-
+            'MsgBox("파이어그래프트 빌드시작")
             '==================================BtnSet===============================
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.FireGraft) = True Then
                 For i = 0 To ProjectBtnUSE.Count - 1
@@ -701,14 +702,6 @@ Namespace eudplib
 
                     If passflag = False Then
                         If ProjectBtnUSE(i) = True Then
-                            'tempbtn.pos = extratext(2, pos, cliptext)
-                            'tempbtn.icon = extratext(2, pos, cliptext)
-                            'tempbtn.con = extratext(4, pos, cliptext)
-                            'tempbtn.act = extratext(4, pos, cliptext)
-                            'tempbtn.conval = extratext(2, pos, cliptext)
-                            'tempbtn.actval = extratext(2, pos, cliptext)
-                            'tempbtn.enaStr = extratext(2, pos, cliptext)
-                            'tempbtn.disStr = extratext(2, pos, cliptext)
 
                             returntext.AppendLine("    bytebuffer = bytearray([" & GetTextValue(i) & "])")
                             returntext.AppendLine("    btnptr = Db(bytebuffer)")
@@ -719,7 +712,7 @@ Namespace eudplib
                                     'MsgBox(i & " 후방검사 : " & k)
                                     If GetTextValue(i) = GetTextValue(k) Then
                                         'MsgBox("같음") '같이적기
-                                        returntext.AppendLine("       SetMemory(0x" & Hex(Val("&H" & ReadOffset("FG_BtnAddress")) + 12 * k) & ", SetTo, btnptr),")
+                                        returntext.AppendLine("        SetMemory(0x" & Hex(Val("&H" & ReadOffset("FG_BtnAddress")) + 12 * k) & ", SetTo, btnptr),")
 
                                     End If
                                 End If
@@ -733,13 +726,13 @@ Namespace eudplib
                 returntext.AppendLine("    DoActions([")
                 For i = 0 To ProjectBtnUSE.Count - 1
                     If ProjectBtnUSE(i) = True Then
-                        returntext.AppendLine("       SetMemory(0x" & Hex(Val("&H" & ReadOffset("FG_BtnNum")) + 12 * i) & ", SetTo, " & ProjectBtnData(i).Count & "),")
+                        returntext.AppendLine("        SetMemory(0x" & Hex(Val("&H" & ReadOffset("FG_BtnNum")) + 12 * i) & ", SetTo, " & ProjectBtnData(i).Count & "),")
                     End If
                 Next
                 returntext.AppendLine("    ])")
             End If
             '==================================BtnSet===============================
-
+            'MsgBox("파이어그래프트 빌드끝")
 
 
 
@@ -956,10 +949,12 @@ Namespace eudplib
 
 
 
-
+            If ProjectSet.UsedSetting(ProjectSet.Settingtype.DatEdit) = True Or ProjectSet.UsedSetting(ProjectSet.Settingtype.FireGraft) = True Then
+                returntext.AppendLine("    DoActions([")
+            End If
 
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.DatEdit) = True Then
-                returntext.AppendLine("    DoActions([")
+
                 For k = 0 To DatEditDATA.Count - 1
                     For i = 0 To DatEditDATA(k).projectdata.Count - 1
                         For j = 0 To DatEditDATA(k).projectdata(i).Count - 1
@@ -1062,13 +1057,10 @@ Namespace eudplib
             End If
             'returntext.AppendLine("       SetMemory(0x6647C0, Add, 255),")
 
-
-
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.DatEdit) = True Or ProjectSet.UsedSetting(ProjectSet.Settingtype.FireGraft) = True Then
 
                 returntext.AppendLine("    ])")
             End If
-
 
             returntext.AppendLine()
 
@@ -1081,6 +1073,7 @@ Namespace eudplib
                 '호환성버그고치기
                 returntext.AppendLine("def beforeTriggerExec():")
                 returntext.AppendLine(RepDataToTrigger())
+                returntext.AppendLine()
             End If
 
 
@@ -1248,7 +1241,7 @@ Namespace eudplib
 
 
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.Struct) = True Then
-                filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\customText.py"
+                filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\tempcustomText.py"
                 filestream = New FileStream(filename, FileMode.Create)
                 streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
 
@@ -1344,6 +1337,60 @@ Namespace eudplib
                     SettingForm.ShowDialog()
                     Exit Sub
                 End Try
+
+
+                'process.StandardInput.Write(vbCrLf)
+
+
+                'Dim console As String = process.StandardOutput.ReadToEnd()
+                'My.Computer.Clipboard.SetText(console)
+                ''Threading.Thread.Sleep(1000)
+                'process.WaitForExit() ' 프로세스가 종료될때까지 기다립니다.
+
+
+                'Try
+                '    Dim lasttext As String = console.Split(vbCrLf)(console.Split(vbCrLf).Length - 2).Trim
+                '    If InStr(lasttext, "[Error]") <> 0 Then
+                '        Dim rgx As Regex = New Regex("v([0-9.]+)", RegexOptions.IgnoreCase)
+
+                '        Dim ttemp As String = Mid(console, InStr(console, "version"))
+                '        Dim version As String = rgx.Match(console).Value
+
+                '        MsgBox("euddraft적용에 실패했습니다. 자세한 건 다음을 참고하세요." & vbCrLf & "(다음 내용이 자동으로 클립보드에 복사됩니다.)" & vbCrLf & console, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+
+                '        My.Computer.Clipboard.SetText(console)
+                '        'MsgBox(lasttext)
+
+
+                '    Else
+                '        Dim rgx As Regex = New Regex("v([0-9.]+)", RegexOptions.IgnoreCase)
+
+                '        Dim ttemp As String = Mid(console, InStr(console, "version"))
+                '        Dim version As String = rgx.Match(console).Value
+
+                '        'euddraft v([0-9.]+) : Simple eudplib plugin system
+                '        My.Computer.Audio.PlaySystemSound(Media.SystemSounds.Beep)
+                '        MsgBox("적용에 성공했습니다." & vbCrLf & lasttext, MsgBoxStyle.OkOnly, "euddraft " & version) 'Mid(ttemp, 1, InStr(ttemp, vbCrLf)))
+
+
+                '    End If
+                'Catch ex As Exception
+                '    Dim rgx As Regex = New Regex("v([0-9.]+)", RegexOptions.IgnoreCase)
+
+                '    'Dim ttemp As String = Mid(console, InStr(console, "version"))
+                '    Dim version As String = 0 'rgx.Match(console).Value
+
+                '    MsgBox("euddraft적용에 실패했습니다. 자세한 건 다음을 참고하세요." & vbCrLf & "(다음 내용이 자동으로 클립보드에 복사됩니다.)" & vbCrLf & console, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+
+                '    My.Computer.Clipboard.SetText(console)
+                '    'MsgBox(lasttext)
+
+
+
+                'End Try
+                'process.Close()
+
+
 
                 If isotherWindows = False Then
                     My.Forms.Main.Visible = False

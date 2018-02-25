@@ -373,6 +373,7 @@ Partial Class BtnSettingForm
         '
         Me.TextBox3.Location = New System.Drawing.Point(55, 16)
         Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.ReadOnly = True
         Me.TextBox3.Size = New System.Drawing.Size(40, 23)
         Me.TextBox3.TabIndex = 0
         '

@@ -895,60 +895,77 @@ Public Class TrigEditorForm
 
 
     Private Sub btn_Save_Click(sender As Object, e As EventArgs) Handles btn_Save.Click
-        Dim ise2s As Boolean = False
-        Try
-            If Mid(ProjectSet.filename, ProjectSet.filename.Length - 3) <> ".e2s" Then
-                ise2s = True
-            End If
-        Catch ex As Exception
+        Dim filename As String = ProjectSet.filename.Split("\").Last
 
-        End Try
+        SaveFileDialog1.FileName = filename.Remove(InStr(filename, ".") - 1)
+        Dim dialog As DialogResult = SaveFileDialog1.ShowDialog
 
-
-        If ProjectSet.filename = "" Or ise2s Then
-            Dim Dialog As DialogResult
+        If dialog = DialogResult.OK Then
+            Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
+            Dim _streamWriter As New StreamWriter(_filesteram)
 
 
-            If ProjectSet.filename = "" Then
-                SaveFileDialog1.FileName = "제목 없음"
-            Else
-                SaveFileDialog1.FileName = Mid(ProjectSet.filename, 1, ProjectSet.filename.Length - 4)
-            End If
-
-
-            Dialog = SaveFileDialog1.ShowDialog()
-            If Dialog = DialogResult.OK Then
-                Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
-                Dim _streamWriter As New StreamWriter(_filesteram)
-
-
-                _streamWriter.Write(SaveTrigger)
+            _streamWriter.Write(SaveTrigger)
 
 
 
-                _streamWriter.Close()
-                _filesteram.Close()
-            End If
+            _streamWriter.Close()
+            _filesteram.Close()
         End If
+        'Dim ise2s As Boolean = False
+        'Try
+        '    If Mid(ProjectSet.filename, ProjectSet.filename.Length - 3) <> ".e2s" Then
+        '        ise2s = True
+        '    End If
+        'Catch ex As Exception
+
+        'End Try
 
 
-        'Dim filename As String = ProjectSet.filename.Split("\").Last
-
-        'SaveFileDialog1.FileName = filename.Remove(InStr(filename, ".") - 1)
-        'Dim dialog As DialogResult = SaveFileDialog1.ShowDialog
-
-        'If dialog = DialogResult.OK Then
-        '    Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
-        '    Dim _streamWriter As New StreamWriter(_filesteram)
+        'If ProjectSet.filename = "" Or ise2s Then
+        '    Dim Dialog As DialogResult
 
 
-        '    _streamWriter.Write(SaveTrigger)
+        '    If ProjectSet.filename = "" Then
+        '        SaveFileDialog1.FileName = "제목 없음"
+        '    Else
+        '        SaveFileDialog1.FileName = Mid(ProjectSet.filename, 1, ProjectSet.filename.Length - 4)
+        '    End If
+
+
+        '    Dialog = SaveFileDialog1.ShowDialog()
+        '    If Dialog = DialogResult.OK Then
+        '        Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
+        '        Dim _streamWriter As New StreamWriter(_filesteram)
+
+
+        '        _streamWriter.Write(SaveTrigger)
 
 
 
-        '    _streamWriter.Close()
-        '    _filesteram.Close()
+        '        _streamWriter.Close()
+        '        _filesteram.Close()
+        '    End If
         'End If
+
+
+        ''Dim filename As String = ProjectSet.filename.Split("\").Last
+
+        ''SaveFileDialog1.FileName = filename.Remove(InStr(filename, ".") - 1)
+        ''Dim dialog As DialogResult = SaveFileDialog1.ShowDialog
+
+        ''If dialog = DialogResult.OK Then
+        ''    Dim _filesteram As New FileStream(SaveFileDialog1.FileName, FileMode.Create)
+        ''    Dim _streamWriter As New StreamWriter(_filesteram)
+
+
+        ''    _streamWriter.Write(SaveTrigger)
+
+
+
+        ''    _streamWriter.Close()
+        ''    _filesteram.Close()
+        ''End If
     End Sub
 
     Private Sub btn_OpenFile_Click(sender As Object, e As EventArgs) Handles btn_OpenFile.Click
@@ -1239,35 +1256,38 @@ Public Class TrigEditorForm
         Dim dialog As DialogResult = OpenFileDialog2.ShowDialog()
 
         If dialog = DialogResult.OK Then
-            Dim _filestream As New FileStream(OpenFileDialog2.FileName, FileMode.Open)
-            Dim _streamreader As New StreamReader(_filestream)
+            For Each filename As String In OpenFileDialog2.FileNames
+                Dim _filestream As New FileStream(filename, FileMode.Open)
+                Dim _streamreader As New StreamReader(_filestream)
 
 
-            Dim _tempele As Element = CType(TreeView1.SelectedNode.Tag, Element)
-            Dim newElement As New Element(Nothing, ElementType.main)
+                Dim _tempele As Element = CType(TreeView1.SelectedNode.Tag, Element)
+                Dim newElement As New Element(Nothing, ElementType.main)
 
 
-            newElement.LoadFile(_streamreader.ReadToEnd(), 0)
+                newElement.LoadFile(_streamreader.ReadToEnd(), 0)
 
-            Select Case _tempele.GetTypeV
-                Case ElementType.Functions
-                    _tempele.AddElements(0, newElement)
-                    TreeView1.SelectedNode.Nodes.Insert(0, _tempele.GetElementList.First.ToTreeNode)
-
-
-                    TreeView1.SelectedNode.FirstNode.Expand()
-                Case ElementType.함수정의
-                    Dim _index As Integer = _tempele.Parrent.GetElementList().IndexOf(_tempele) + 1
-
-                    _tempele.Parrent.AddElements(_index, newElement)
-                    TreeView1.SelectedNode.Parent.Nodes.Insert(_index, _tempele.Parrent.GetElementList(_index).ToTreeNode)
+                Select Case _tempele.GetTypeV
+                    Case ElementType.Functions
+                        _tempele.AddElements(0, newElement)
+                        TreeView1.SelectedNode.Nodes.Insert(0, _tempele.GetElementList.First.ToTreeNode)
 
 
-                    TreeView1.SelectedNode.Parent.Expand()
-                    TreeView1.SelectedNode.Parent.Nodes(_index).Expand()
-            End Select
-            _streamreader.Close()
-            _filestream.Close()
+                        TreeView1.SelectedNode.FirstNode.Expand()
+                    Case ElementType.함수정의
+                        Dim _index As Integer = _tempele.Parrent.GetElementList().IndexOf(_tempele) + 1
+
+                        _tempele.Parrent.AddElements(_index, newElement)
+                        TreeView1.SelectedNode.Parent.Nodes.Insert(_index, _tempele.Parrent.GetElementList(_index).ToTreeNode)
+
+
+                        TreeView1.SelectedNode.Parent.Expand()
+                        TreeView1.SelectedNode.Parent.Nodes(_index).Expand()
+                End Select
+                _streamreader.Close()
+                _filestream.Close()
+            Next
+
         End If
     End Sub
 
@@ -1436,6 +1456,44 @@ Public Class TrigEditorForm
 
                 TreeView1.SelectedNode.Text = _selectElement.GetText
             End If
+        End If
+    End Sub
+
+    Private Sub Btn_OpenCont_Click(sender As Object, e As EventArgs) Handles Btn_OpenCont.Click
+        Dim dialog As DialogResult = OpenFileDialog1.ShowDialog
+
+        If dialog = DialogResult.OK Then
+            Dim _filesteram As New FileStream(OpenFileDialog1.FileName, FileMode.Open)
+            Dim _streamReader As New StreamReader(_filesteram)
+
+
+            LoadTriggerFileKeepFile(_streamReader.ReadToEnd())
+
+
+
+            _streamReader.Close()
+            _filesteram.Close()
+
+            ReDrawList()
+        End If
+    End Sub
+
+    Private Sub OpenCont_Click(sender As Object, e As EventArgs) Handles OpenCont.Click
+        Dim dialog As DialogResult = OpenFileDialog1.ShowDialog
+
+        If dialog = DialogResult.OK Then
+            Dim _filesteram As New FileStream(OpenFileDialog1.FileName, FileMode.Open)
+            Dim _streamReader As New StreamReader(_filesteram)
+
+
+            LoadTriggerFileKeepFile(_streamReader.ReadToEnd())
+
+
+
+            _streamReader.Close()
+            _filesteram.Close()
+
+            ReDrawList()
         End If
     End Sub
 

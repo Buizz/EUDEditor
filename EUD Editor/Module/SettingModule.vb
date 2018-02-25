@@ -10,7 +10,7 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "v 0.14.3"
+        Public Version As String = "v 0.14.9"
         Public DatEditVersion As String = "v0.3"
 
 
@@ -604,7 +604,7 @@ Namespace ProjectSet
             DatEditForm.TAB_INDEX = 0
 
             Soundlist.Clear()
-            Soundinterval = "4.2"
+            Soundinterval = 3
 
             GRPEditorDATA.Clear()
             For i = 0 To 998
@@ -1650,6 +1650,8 @@ Namespace ProjectSet
 
 
         Sub DeleteFilesFromFolder(Folder As String)
+
+            mciSendString("close all", Nothing, 0, 0)
             If Directory.Exists(Folder) Then
                 For Each _file As String In Directory.GetFiles(Folder)
                     File.Delete(_file)
