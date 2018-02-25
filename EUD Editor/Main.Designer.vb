@@ -73,6 +73,7 @@ Partial Class Main
         Me.btn_close = New System.Windows.Forms.Button()
         Me.Button17 = New System.Windows.Forms.Button()
         Me.Button18 = New System.Windows.Forms.Button()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel4 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -104,7 +105,7 @@ Partial Class Main
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(135, 0)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(337, 106)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(803, 106)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'Button2
@@ -199,7 +200,7 @@ Partial Class Main
         Me.Button15.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button15.Image = Global.EUD_Editor.My.Resources.Resources.ICON_FileManager
         Me.Button15.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button15.Location = New System.Drawing.Point(1, 53)
+        Me.Button15.Location = New System.Drawing.Point(336, 1)
         Me.Button15.Margin = New System.Windows.Forms.Padding(1)
         Me.Button15.Name = "Button15"
         Me.Button15.Size = New System.Drawing.Size(65, 50)
@@ -216,7 +217,7 @@ Partial Class Main
         Me.Button8.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button8.Image = Global.EUD_Editor.My.Resources.Resources.ICON_GRP
         Me.Button8.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button8.Location = New System.Drawing.Point(68, 53)
+        Me.Button8.Location = New System.Drawing.Point(403, 1)
         Me.Button8.Margin = New System.Windows.Forms.Padding(1)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(65, 50)
@@ -233,7 +234,7 @@ Partial Class Main
         Me.Button9.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button9.Image = Global.EUD_Editor.My.Resources.Resources.ICON_TriggerEditor
         Me.Button9.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button9.Location = New System.Drawing.Point(135, 53)
+        Me.Button9.Location = New System.Drawing.Point(470, 1)
         Me.Button9.Margin = New System.Windows.Forms.Padding(1)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(65, 50)
@@ -249,7 +250,7 @@ Partial Class Main
         Me.Button10.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button10.Image = Global.EUD_Editor.My.Resources.Resources.ICON_plugin
         Me.Button10.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button10.Location = New System.Drawing.Point(202, 53)
+        Me.Button10.Location = New System.Drawing.Point(537, 1)
         Me.Button10.Margin = New System.Windows.Forms.Padding(1)
         Me.Button10.Name = "Button10"
         Me.Button10.Size = New System.Drawing.Size(65, 50)
@@ -265,7 +266,7 @@ Partial Class Main
         Me.Button13.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button13.Image = Global.EUD_Editor.My.Resources.Resources.ICON_MPQEditor
         Me.Button13.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button13.Location = New System.Drawing.Point(269, 53)
+        Me.Button13.Location = New System.Drawing.Point(604, 1)
         Me.Button13.Margin = New System.Windows.Forms.Padding(1)
         Me.Button13.Name = "Button13"
         Me.Button13.Size = New System.Drawing.Size(65, 50)
@@ -562,6 +563,7 @@ Partial Class Main
         Me.FlowLayoutPanel3.Controls.Add(Me.Button14)
         Me.FlowLayoutPanel3.Controls.Add(Me.Button17)
         Me.FlowLayoutPanel3.Controls.Add(Me.Button18)
+        Me.FlowLayoutPanel3.Controls.Add(Me.CheckBox1)
         Me.FlowLayoutPanel3.Controls.Add(Me.FlowLayoutPanel2)
         Me.FlowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel3.Location = New System.Drawing.Point(0, 0)
@@ -654,11 +656,21 @@ Partial Class Main
         Me.Button18.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.Button18.UseVisualStyleBackColor = True
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(365, 3)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(86, 19)
+        Me.CheckBox1.TabIndex = 18
+        Me.CheckBox1.Text = "자동컴파일"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 337.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 803.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel1, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel4, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
@@ -728,6 +740,7 @@ Partial Class Main
         Me.MenuStrip1.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.FlowLayoutPanel3.ResumeLayout(False)
+        Me.FlowLayoutPanel3.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.FlowLayoutPanel4.ResumeLayout(False)
@@ -789,4 +802,5 @@ Partial Class Main
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents CheckMapWrite As Timer
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

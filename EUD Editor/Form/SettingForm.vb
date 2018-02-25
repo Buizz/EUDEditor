@@ -109,7 +109,7 @@
         Else
             RadioButton2.Checked = True
         End If
-
+        CheckBox4.Checked = ProgramSet.isAutoCompile
         CheckBox1.Checked = ProjectSet.LoadFromCHK
         For i = 5 To 8
             CheckedListBox1.SetItemChecked(i - 5, ProjectSet.UsedSetting(i))
@@ -384,6 +384,10 @@ retry:
     Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
         My.Settings.Langage = ComboBox3.SelectedItem
         Lan.SetLangage(Me)
+    End Sub
+
+    Private Sub CheckBox4_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox4.CheckedChanged
+        ProgramSet.isAutoCompile = CheckBox4.Checked
     End Sub
 
 

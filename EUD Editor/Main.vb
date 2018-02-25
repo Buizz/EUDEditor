@@ -36,6 +36,8 @@ Public Class Main
             FlowLayoutPanel2.Enabled = True
             Button2.Enabled = ProjectSet.UsedSetting(0)
             Button3.Enabled = ProjectSet.UsedSetting(1)
+            CheckBox1.Enabled = True
+            CheckBox1.Checked = ProgramSet.isAutoCompile
 
 
             If ProgramSet.StarVersion = "1.16.1" Then
@@ -115,6 +117,7 @@ Public Class Main
         Else '로드 안되어 있을 경우
             Button2.Enabled = False
             Button3.Enabled = False
+            CheckBox1.Enabled = False
 
 
             If ProgramSet.StarVersion = "1.16.1" Then
@@ -300,6 +303,7 @@ Public Class Main
                 My.Settings.StarDirec = ProgramSet.StarDirec
                 My.Settings.euddraftDirec = ProgramSet.euddraftDirec
                 My.Settings.StarVersion = ProgramSet.StarVersion
+                My.Settings.AutoCompile = ProgramSet.isAutoCompile
 
                 My.Settings.DatEditColor1 = ProgramSet.FORECOLOR
                 My.Settings.DatEditColor2 = ProgramSet.BACKCOLOR
@@ -324,6 +328,7 @@ Public Class Main
         ProjectSet.LoadCHKdata()
         DatEditForm.ReloadCHK()
         refreshSet()
+        CheckBox1.Checked = ProgramSet.isAutoCompile
         'My.Forms.SettingForm.Location = Me.Location + Button1.Location + New Point(0, 105)
     End Sub
 
@@ -404,7 +409,8 @@ Public Class Main
                 CheckMapFile()
             End If
         End If
-
+        Dim fileinfo As New FileInfo(ProjectSet.InputMap)
+        LastData = fileinfo.LastWriteTime
 
 
         refreshSet()
@@ -444,7 +450,10 @@ Public Class Main
         Else
             ProjectSet.Save(ProjectSet.filename)
         End If
-
+        If ProgramSet.isAutoCompile = True Then
+            LoadTILEDATA(False, True)
+            eudplib.Toflie()
+        End If
         refreshSet()
     End Sub
     Private Sub 끝내기ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -679,6 +688,10 @@ Public Class Main
                     LastData = fileinfo.LastWriteTime
 
                     ProjectSet.LoadCHKdata()
+                    If ProgramSet.isAutoCompile = True Then
+                        LoadTILEDATA(False, True)
+                        eudplib.Toflie()
+                    End If
                 End If
             End If
         End If
@@ -702,5 +715,9 @@ Public Class Main
         FileSettingForm.ShowDialog()
         My.Forms.Main.Visible = True
         nameResetting()
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        ProgramSet.isAutoCompile = CheckBox1.Checked
     End Sub
 End Class

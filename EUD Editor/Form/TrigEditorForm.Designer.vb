@@ -433,7 +433,7 @@ Partial Class TrigEditorForm
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.새로만들기NToolStripMenuItem1, Me.함수FToolStripMenuItem, Me.ToolStripSeparator4, Me.수정ToolStripMenuItem, Me.잘라내기XToolStripMenuItem, Me.복사VToolStripMenuItem, Me.붙혀넣기CToolStripMenuItem, Me.삭제DToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(156, 164)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(156, 186)
         '
         '새로만들기NToolStripMenuItem1
         '
@@ -556,14 +556,14 @@ Partial Class TrigEditorForm
         Me.복사VToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Copy
         Me.복사VToolStripMenuItem.Name = "복사VToolStripMenuItem"
         Me.복사VToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.복사VToolStripMenuItem.Text = "복사(&V)"
+        Me.복사VToolStripMenuItem.Text = "복사(&C)"
         '
         '붙혀넣기CToolStripMenuItem
         '
         Me.붙혀넣기CToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Paste
         Me.붙혀넣기CToolStripMenuItem.Name = "붙혀넣기CToolStripMenuItem"
         Me.붙혀넣기CToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.붙혀넣기CToolStripMenuItem.Text = "붙여넣기(&C)"
+        Me.붙혀넣기CToolStripMenuItem.Text = "붙여넣기(&V)"
         '
         '삭제DToolStripMenuItem
         '
@@ -584,7 +584,6 @@ Partial Class TrigEditorForm
         Me.FastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.FastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.FastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FastColoredTextBox1.Font = New System.Drawing.Font("Courier New", 9.75!)
         Me.FastColoredTextBox1.IsReplaceMode = False
         Me.FastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS
         Me.FastColoredTextBox1.LeftBracket = Global.Microsoft.VisualBasic.ChrW(40)

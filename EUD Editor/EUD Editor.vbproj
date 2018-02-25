@@ -149,6 +149,12 @@
     <Compile Include="Form\BtnCreateHelperForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\BulidForm.Designer.vb">
+      <DependentUpon>BulidForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\BulidForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\CodeViewer.Designer.vb">
       <DependentUpon>CodeViewer.vb</DependentUpon>
     </Compile>
@@ -508,6 +514,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\BtnCreateHelperForm.resx">
       <DependentUpon>BtnCreateHelperForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\BulidForm.resx">
+      <DependentUpon>BulidForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\CodeViewer.resx">
       <DependentUpon>CodeViewer.vb</DependentUpon>

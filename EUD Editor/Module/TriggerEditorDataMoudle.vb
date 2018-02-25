@@ -65,43 +65,22 @@ Module TriggerEditorDataMoudle
             Exit Sub
         End If
 
+        Try
+            functions = New Element(functions, ElementType.Functions)
+            GlobalVar = New Element(GlobalVar, ElementType.main)
+            StartElement = New Element(StartElement, ElementType.main)
+            BeforeElement = New Element(BeforeElement, ElementType.main)
+            AfterElement = New Element(AfterElement, ElementType.main)
 
-        functions = New Element(functions, ElementType.Functions)
-        GlobalVar = New Element(GlobalVar, ElementType.main)
-        StartElement = New Element(StartElement, ElementType.main)
-        BeforeElement = New Element(BeforeElement, ElementType.main)
-        AfterElement = New Element(AfterElement, ElementType.main)
+            functions.LoadFile(datas, findSection(datas, "&functions&"))
+            GlobalVar.LoadFile(datas, findSection(datas, "&GlobalVar&"))
+            StartElement.LoadFile(datas, findSection(datas, "&onPluginStart&"))
+            BeforeElement.LoadFile(datas, findSection(datas, "&beforeTriggerExec&"))
+            AfterElement.LoadFile(datas, findSection(datas, "&afterTriggerExec&"))
+        Catch ex As Exception
+            MsgBox(Lan.GetText("Msgbox", "tfError"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+        End Try
 
-        functions.LoadFile(datas, findSection(datas, "&functions&"))
-        GlobalVar.LoadFile(datas, findSection(datas, "&GlobalVar&"))
-        StartElement.LoadFile(datas, findSection(datas, "&onPluginStart&"))
-        BeforeElement.LoadFile(datas, findSection(datas, "&beforeTriggerExec&"))
-        AfterElement.LoadFile(datas, findSection(datas, "&afterTriggerExec&"))
-
-
-
-
-        '테스트 트리거.
-        'StartElement.AddElements(ElementType.조건문if)
-        'StartElement.GetElements(0).GetElements(0).AddElements(New Element(Nothing, ElementType.조건, 0, {"AtLeast", "10"}))
-
-
-
-        'StartElement.GetElements(0).GetElements(1).AddElements(ElementType.액션, 0)
-
-
-
-
-
-        'StartElement.AddElements(ElementType.액션, 0)
-        'StartElement.AddElements(ElementType.액션, 0)
-
-
-
-
-
-        'AfterElement.AddElements(ElementType.액션, 0)
-        'AfterElement.AddElements(New Element(Nothing, ElementType.액션, 0, {"나는야", "퉁퉁이"}))
     End Sub
 
     Public Sub LoadTriggerFileKeepFile(datas As String)
@@ -109,11 +88,16 @@ Module TriggerEditorDataMoudle
             Exit Sub
         End If
 
-        functions.LoadFile(datas, findSection(datas, "&functions&"))
-        GlobalVar.LoadFile(datas, findSection(datas, "&GlobalVar&"))
-        StartElement.LoadFile(datas, findSection(datas, "&onPluginStart&"))
-        BeforeElement.LoadFile(datas, findSection(datas, "&beforeTriggerExec&"))
-        AfterElement.LoadFile(datas, findSection(datas, "&afterTriggerExec&"))
+        Try
+            functions.LoadFile(datas, findSection(datas, "&functions&"))
+            GlobalVar.LoadFile(datas, findSection(datas, "&GlobalVar&"))
+            StartElement.LoadFile(datas, findSection(datas, "&onPluginStart&"))
+            BeforeElement.LoadFile(datas, findSection(datas, "&beforeTriggerExec&"))
+            AfterElement.LoadFile(datas, findSection(datas, "&afterTriggerExec&"))
+        Catch ex As Exception
+            MsgBox(Lan.GetText("Msgbox", "tfError"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+        End Try
+
 
     End Sub
 

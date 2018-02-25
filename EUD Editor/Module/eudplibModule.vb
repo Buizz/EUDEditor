@@ -1312,33 +1312,38 @@ Namespace eudplib
                 My.Forms.Main.Visible = True
 
             Else
-                filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\EUDEditor.eds"
+                BulidForm.isotherWindows = isotherWindows
+                BulidForm.Show()
 
-                startInfo.FileName = ProgramSet.euddraftDirec
-                startInfo.Arguments = """" & filename & """"
+                BulidForm.CompileStart()
+                'filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\EUDEditor.eds"
 
+                'startInfo.FileName = ProgramSet.euddraftDirec
+                'startInfo.Arguments = """" & filename & """"
+
+                '==================================================
                 'startInfo.RedirectStandardOutput = True
                 'startInfo.RedirectStandardInput = True
                 'startInfo.WindowStyle = ProcessWindowStyle.Hidden
                 'startInfo.CreateNoWindow = True
 
                 'startInfo.UseShellExecute = False
+                '==================================================
 
 
-
-                process.StartInfo = startInfo
+                'process.StartInfo = startInfo
 
 
                 ''process.
-                Try
-                    process.Start() ' 여기서 프로그램이 실행됩니다.
-                Catch ex As System.ComponentModel.Win32Exception
-                    MsgBox("euddraft실행 파일이 누락되었습니다.! 다시 설정해 주세요.", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
-                    SettingForm.ShowDialog()
-                    Exit Sub
-                End Try
+                'Try
+                '    process.Start() ' 여기서 프로그램이 실행됩니다.
+                'Catch ex As System.ComponentModel.Win32Exception
+                '    MsgBox("euddraft실행 파일이 누락되었습니다.! 다시 설정해 주세요.", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                '    SettingForm.ShowDialog()
+                '    Exit Sub
+                'End Try
 
-
+                '==================================================
                 'process.StandardInput.Write(vbCrLf)
 
 
@@ -1389,18 +1394,18 @@ Namespace eudplib
 
                 'End Try
                 'process.Close()
+                '==================================================
 
 
+                'If isotherWindows = False Then
+                '    My.Forms.Main.Visible = False
+                'End If
 
-                If isotherWindows = False Then
-                    My.Forms.Main.Visible = False
-                End If
+                'process.WaitForExit()
 
-                process.WaitForExit()
-
-                If isotherWindows = False Then
-                    My.Forms.Main.Visible = True
-                End If
+                'If isotherWindows = False Then
+                '    My.Forms.Main.Visible = True
+                'End If
 
 
 

@@ -50,6 +50,7 @@ Partial Class SettingForm
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.ComboBox3 = New System.Windows.Forms.ComboBox()
         Me.Button5 = New System.Windows.Forms.Button()
@@ -71,7 +72,7 @@ Partial Class SettingForm
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(10, 50)
+        Me.Label1.Location = New System.Drawing.Point(10, 72)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(103, 15)
         Me.Label1.TabIndex = 1
@@ -83,7 +84,7 @@ Partial Class SettingForm
         Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"1.16.1", "Remastered"})
-        Me.ComboBox1.Location = New System.Drawing.Point(117, 47)
+        Me.ComboBox1.Location = New System.Drawing.Point(117, 69)
         Me.ComboBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(180, 23)
@@ -92,7 +93,7 @@ Partial Class SettingForm
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 79)
+        Me.Label2.Location = New System.Drawing.Point(10, 101)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(79, 15)
         Me.Label2.TabIndex = 3
@@ -100,7 +101,7 @@ Partial Class SettingForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(247, 74)
+        Me.Button1.Location = New System.Drawing.Point(247, 96)
         Me.Button1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(50, 25)
@@ -110,7 +111,7 @@ Partial Class SettingForm
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(89, 75)
+        Me.TextBox1.Location = New System.Drawing.Point(89, 97)
         Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
@@ -119,7 +120,7 @@ Partial Class SettingForm
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(89, 103)
+        Me.TextBox2.Location = New System.Drawing.Point(89, 125)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ReadOnly = True
@@ -128,7 +129,7 @@ Partial Class SettingForm
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(247, 102)
+        Me.Button2.Location = New System.Drawing.Point(247, 124)
         Me.Button2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(50, 25)
@@ -139,7 +140,7 @@ Partial Class SettingForm
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 107)
+        Me.Label3.Location = New System.Drawing.Point(10, 129)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(73, 15)
         Me.Label3.TabIndex = 6
@@ -162,7 +163,7 @@ Partial Class SettingForm
         Me.GroupBox1.Controls.Add(Me.RadioButton1)
         Me.GroupBox1.Controls.Add(Me.CheckedListBox1)
         Me.GroupBox1.Enabled = False
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 136)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 156)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(0)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -370,6 +371,7 @@ Partial Class SettingForm
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.CheckBox4)
         Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.ComboBox3)
         Me.GroupBox2.Controls.Add(Me.Label1)
@@ -383,15 +385,25 @@ Partial Class SettingForm
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(308, 136)
+        Me.GroupBox2.Size = New System.Drawing.Size(308, 156)
         Me.GroupBox2.TabIndex = 10
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "프로그램 세팅"
         '
+        'CheckBox4
+        '
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.Location = New System.Drawing.Point(6, 18)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(86, 19)
+        Me.CheckBox4.TabIndex = 14
+        Me.CheckBox4.Text = "자동컴파일"
+        Me.CheckBox4.UseVisualStyleBackColor = True
+        '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(10, 19)
+        Me.Label8.Location = New System.Drawing.Point(10, 41)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(84, 15)
         Me.Label8.TabIndex = 9
@@ -402,7 +414,7 @@ Partial Class SettingForm
         Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Location = New System.Drawing.Point(117, 16)
+        Me.ComboBox3.Location = New System.Drawing.Point(117, 38)
         Me.ComboBox3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(180, 23)
@@ -478,7 +490,7 @@ Partial Class SettingForm
         '
         Me.FlowLayoutPanel2.Controls.Add(Me.Button5)
         Me.FlowLayoutPanel2.Controls.Add(Me.Button6)
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(0, 426)
+        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(0, 446)
         Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Size = New System.Drawing.Size(314, 32)
@@ -557,4 +569,5 @@ Partial Class SettingForm
     Friend WithEvents CheckBox3 As CheckBox
     Friend WithEvents Label8 As Label
     Friend WithEvents ComboBox3 As ComboBox
+    Friend WithEvents CheckBox4 As CheckBox
 End Class

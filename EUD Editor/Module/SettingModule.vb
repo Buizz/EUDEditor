@@ -22,6 +22,7 @@ Namespace ProgramSet
         Public StarDirec As String = ""
         Public euddraftDirec As String = ""
 
+        Public isAutoCompile As Boolean
 
 
         Public DatMPQDirec(3) As String
@@ -621,6 +622,7 @@ Namespace ProjectSet
             unlimiter = False
             keepSTR = False
             eudTurbo = False
+            LoadFromCHK = True
 
             iscriptPatcher = ""
             iscriptPatcheruse = False
@@ -1583,7 +1585,6 @@ Namespace ProjectSet
 
                     euddraftuse = True
                     LoadFromCHK = False
-
                     For i = 0 To UsedSetting.Count - 1
                         UsedSetting(i) = False
                     Next

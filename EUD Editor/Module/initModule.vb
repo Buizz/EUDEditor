@@ -90,6 +90,7 @@
         ProgramSet.StarDirec = My.Settings.StarDirec
         ProgramSet.euddraftDirec = My.Settings.euddraftDirec
         ProgramSet.StarVersion = My.Settings.StarVersion
+        ProgramSet.isAutoCompile = My.Settings.AutoCompile
 
         If My.Settings.mpqDirec.Split(",").Count = 4 Then
             ProgramSet.DatMPQDirec = My.Settings.mpqDirec.Split(",")
