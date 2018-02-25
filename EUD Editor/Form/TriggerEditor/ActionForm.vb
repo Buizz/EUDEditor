@@ -22,7 +22,7 @@ Public Class ActionForm
 
     Public Const MOD_CTRL As Integer = &H2
     Public Const MOD_Shift As Integer = &H4
-    Public Const WM_HOTKEY As Integer = &H312       '
+    Public Const WM_HOTKEY As Integer = &H312
 
     <DllImport("User32.dll")>
     Public Shared Function RegisterHotKey(ByVal hwnd As IntPtr, ByVal id As Integer, ByVal fsModifiers As Integer, ByVal vk As Integer) As Integer
@@ -779,6 +779,26 @@ Public Class ActionForm
                     isDataCollect = True
                 End If
             Case ValueDefs.OutPutType.Combobox
+                EasyCompletionComboBox1.Visible = True
+                EasyCompletionComboBox1.Dock = DockStyle.Fill
+                TableLayoutPanel4.Visible = False
+                NumericUpDown1.Visible = False
+                ListBox1.Visible = False
+                TableLayoutPanel6.Visible = False
+                CheckedListBox1.Visible = False
+                TableLayoutPanel7.Visible = False
+                TableLayoutPanel8.Visible = False
+
+                EasyCompletionComboBox1.Items.Clear()
+                EasyCompletionComboBox1.Items.AddRange(_valuedef.GetValues(False, defvlaue2))
+
+                Try
+                    Dim temp As Long = CLng(value)
+                    EasyCompletionComboBox1.SelectedIndex = value
+                    isDataCollect = True
+                Catch ex As Exception
+                End Try
+            Case ValueDefs.OutPutType.ComboboxNum
                 EasyCompletionComboBox1.Visible = True
                 EasyCompletionComboBox1.Dock = DockStyle.Fill
                 TableLayoutPanel4.Visible = False

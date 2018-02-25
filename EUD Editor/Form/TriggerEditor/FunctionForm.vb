@@ -641,6 +641,26 @@ Public Class FunctionForm
                     isDataCollect = True
                 Catch ex As Exception
                 End Try
+            Case ValueDefs.OutPutType.ComboboxNum
+                EasyCompletionComboBox1.Visible = True
+                EasyCompletionComboBox1.Dock = DockStyle.Fill
+                TableLayoutPanel4.Visible = False
+                NumericUpDown1.Visible = False
+                ListBox1.Visible = False
+                TableLayoutPanel6.Visible = False
+                CheckedListBox1.Visible = False
+                TableLayoutPanel7.Visible = False
+                TableLayoutPanel8.Visible = False
+
+                EasyCompletionComboBox1.Items.Clear()
+                EasyCompletionComboBox1.Items.AddRange(_valuedef.GetValues(False, defvlaue2))
+
+                Try
+                    Dim temp As Long = CLng(value)
+                    EasyCompletionComboBox1.SelectedIndex = value
+                    isDataCollect = True
+                Catch ex As Exception
+                End Try
             Case ValueDefs.OutPutType.ListNum
                 ListBox1.Visible = True
                 ListBox1.Dock = DockStyle.Fill

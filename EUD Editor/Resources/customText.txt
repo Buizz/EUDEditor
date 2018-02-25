@@ -1,6 +1,7 @@
 from eudplib import *
 
 
+tbl_ptr, tbl_epd = EUDCreateVariables(2)
 dst = EUDVariable()
 color = EUDArray([
     Db(b'\x08\0'), Db(b'\x0E\0'), Db(b'\x0F\0'), Db(b'\x10\0'), Db(b'\x11\0'),
@@ -61,3 +62,19 @@ def f_printP(player, *args):
 def f_print(*args):
     f_makeText(*args)
     DoActions(DisplayText(2))
+
+
+
+def f_init():
+    SetVariables([tbl_ptr, tbl_epd], f_dwepdread_epd(EPD(0x6D5A30)))
+
+
+@EUDFunc
+def f_getTblPtr(tblID):
+    tbl_offset = f_wread(tbl_ptr + 2 * tblID)
+    return tbl_ptr + tbl_offset
+
+
+def f_setTbl(tblID, Offset, *args):
+    dst = f_getTblPtr(tblID) + Offset
+    dst = f_dbstr_print(dst, *args)
