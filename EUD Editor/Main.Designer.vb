@@ -78,6 +78,7 @@ Partial Class Main
         Me.FlowLayoutPanel4 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.CheckMapWrite = New System.Windows.Forms.Timer(Me.components)
+        Me.UpdateViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -89,7 +90,6 @@ Partial Class Main
         '
         'FlowLayoutPanel1
         '
-        Me.FlowLayoutPanel1.AutoSize = True
         Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlLight
         Me.FlowLayoutPanel1.Controls.Add(Me.Button2)
         Me.FlowLayoutPanel1.Controls.Add(Me.Button3)
@@ -105,7 +105,7 @@ Partial Class Main
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(135, 0)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(803, 106)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(335, 106)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'Button2
@@ -200,7 +200,7 @@ Partial Class Main
         Me.Button15.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button15.Image = Global.EUD_Editor.My.Resources.Resources.ICON_FileManager
         Me.Button15.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button15.Location = New System.Drawing.Point(336, 1)
+        Me.Button15.Location = New System.Drawing.Point(1, 53)
         Me.Button15.Margin = New System.Windows.Forms.Padding(1)
         Me.Button15.Name = "Button15"
         Me.Button15.Size = New System.Drawing.Size(65, 50)
@@ -217,7 +217,7 @@ Partial Class Main
         Me.Button8.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button8.Image = Global.EUD_Editor.My.Resources.Resources.ICON_GRP
         Me.Button8.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button8.Location = New System.Drawing.Point(403, 1)
+        Me.Button8.Location = New System.Drawing.Point(68, 53)
         Me.Button8.Margin = New System.Windows.Forms.Padding(1)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(65, 50)
@@ -234,7 +234,7 @@ Partial Class Main
         Me.Button9.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button9.Image = Global.EUD_Editor.My.Resources.Resources.ICON_TriggerEditor
         Me.Button9.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button9.Location = New System.Drawing.Point(470, 1)
+        Me.Button9.Location = New System.Drawing.Point(135, 53)
         Me.Button9.Margin = New System.Windows.Forms.Padding(1)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(65, 50)
@@ -250,7 +250,7 @@ Partial Class Main
         Me.Button10.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button10.Image = Global.EUD_Editor.My.Resources.Resources.ICON_plugin
         Me.Button10.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button10.Location = New System.Drawing.Point(537, 1)
+        Me.Button10.Location = New System.Drawing.Point(202, 53)
         Me.Button10.Margin = New System.Windows.Forms.Padding(1)
         Me.Button10.Name = "Button10"
         Me.Button10.Size = New System.Drawing.Size(65, 50)
@@ -266,7 +266,7 @@ Partial Class Main
         Me.Button13.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button13.Image = Global.EUD_Editor.My.Resources.Resources.ICON_MPQEditor
         Me.Button13.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button13.Location = New System.Drawing.Point(604, 1)
+        Me.Button13.Location = New System.Drawing.Point(269, 53)
         Me.Button13.Margin = New System.Windows.Forms.Padding(1)
         Me.Button13.Name = "Button13"
         Me.Button13.Size = New System.Drawing.Size(65, 50)
@@ -314,7 +314,7 @@ Partial Class Main
         '
         Me.FlowLayoutPanel2.Controls.Add(Me.Button4)
         Me.FlowLayoutPanel2.Controls.Add(Me.Button16)
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(5, 43)
+        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(117, 43)
         Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(5, 1, 1, 1)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Size = New System.Drawing.Size(121, 40)
@@ -370,10 +370,11 @@ Partial Class Main
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileFToolStripMenuItem, Me.ViewVToolStripMenuItem, Me.ToolTToolStripMenuItem, Me.HelpHToolStripMenuItem})
+        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileFToolStripMenuItem, Me.ViewVToolStripMenuItem, Me.ToolTToolStripMenuItem, Me.HelpHToolStripMenuItem, Me.UpdateViewToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(472, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(470, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -381,21 +382,21 @@ Partial Class Main
         '
         Me.FileFToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewNToolStripMenuItem, Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.SaveasToolStripMenuItem, Me.ProCloseToolStripMenuItem, Me.ToolStripSeparator1, Me.ExitToolStripMenuItem})
         Me.FileFToolStripMenuItem.Name = "FileFToolStripMenuItem"
-        Me.FileFToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
+        Me.FileFToolStripMenuItem.Size = New System.Drawing.Size(68, 24)
         Me.FileFToolStripMenuItem.Text = "파일(&F)"
         '
         'NewNToolStripMenuItem
         '
         Me.NewNToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.NewFile
         Me.NewNToolStripMenuItem.Name = "NewNToolStripMenuItem"
-        Me.NewNToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.NewNToolStripMenuItem.Size = New System.Drawing.Size(209, 26)
         Me.NewNToolStripMenuItem.Text = "새로 만들기(&N)"
         '
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Open
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(209, 26)
         Me.OpenToolStripMenuItem.Text = "열기(&O)"
         '
         'SaveToolStripMenuItem
@@ -404,14 +405,14 @@ Partial Class Main
         Me.SaveToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Save
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
         Me.SaveToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(209, 26)
         Me.SaveToolStripMenuItem.Text = "저장(&S)"
         '
         'SaveasToolStripMenuItem
         '
         Me.SaveasToolStripMenuItem.Enabled = False
         Me.SaveasToolStripMenuItem.Name = "SaveasToolStripMenuItem"
-        Me.SaveasToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.SaveasToolStripMenuItem.Size = New System.Drawing.Size(209, 26)
         Me.SaveasToolStripMenuItem.Text = "다른이름으로 저장"
         '
         'ProCloseToolStripMenuItem
@@ -419,46 +420,46 @@ Partial Class Main
         Me.ProCloseToolStripMenuItem.Enabled = False
         Me.ProCloseToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Cancle
         Me.ProCloseToolStripMenuItem.Name = "ProCloseToolStripMenuItem"
-        Me.ProCloseToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.ProCloseToolStripMenuItem.Size = New System.Drawing.Size(209, 26)
         Me.ProCloseToolStripMenuItem.Text = "프로젝트닫기(&C)"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(171, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(206, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Close
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.F4), System.Windows.Forms.Keys)
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(209, 26)
         Me.ExitToolStripMenuItem.Text = "끝내기(&X)"
         '
         'ViewVToolStripMenuItem
         '
         Me.ViewVToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PyViewVToolStripMenuItem, Me.EdsViewEToolStripMenuItem})
         Me.ViewVToolStripMenuItem.Name = "ViewVToolStripMenuItem"
-        Me.ViewVToolStripMenuItem.Size = New System.Drawing.Size(59, 20)
+        Me.ViewVToolStripMenuItem.Size = New System.Drawing.Size(71, 24)
         Me.ViewVToolStripMenuItem.Text = "보기(&V)"
         '
         'PyViewVToolStripMenuItem
         '
         Me.PyViewVToolStripMenuItem.Name = "PyViewVToolStripMenuItem"
-        Me.PyViewVToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.PyViewVToolStripMenuItem.Size = New System.Drawing.Size(193, 26)
         Me.PyViewVToolStripMenuItem.Text = "py파일 보기(&P)"
         '
         'EdsViewEToolStripMenuItem
         '
         Me.EdsViewEToolStripMenuItem.Name = "EdsViewEToolStripMenuItem"
-        Me.EdsViewEToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.EdsViewEToolStripMenuItem.Size = New System.Drawing.Size(193, 26)
         Me.EdsViewEToolStripMenuItem.Text = "eds파일 보기(&D)"
         '
         'ToolTToolStripMenuItem
         '
         Me.ToolTToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MpainjectWToolStripMenuItem, Me.EDDOpenDToolStripMenuItem, Me.ToolStripSeparator3, Me.ToolStripMenuItem1, Me.ToolStripSeparator2, Me.TriggerviewTToolStripMenuItem, Me.ToclipEToolStripMenuItem})
         Me.ToolTToolStripMenuItem.Name = "ToolTToolStripMenuItem"
-        Me.ToolTToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
+        Me.ToolTToolStripMenuItem.Size = New System.Drawing.Size(69, 24)
         Me.ToolTToolStripMenuItem.Text = "도구(&T)"
         '
         'MpainjectWToolStripMenuItem
@@ -467,7 +468,7 @@ Partial Class Main
         Me.MpainjectWToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Insert
         Me.MpainjectWToolStripMenuItem.Name = "MpainjectWToolStripMenuItem"
         Me.MpainjectWToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.MpainjectWToolStripMenuItem.Size = New System.Drawing.Size(198, 22)
+        Me.MpainjectWToolStripMenuItem.Size = New System.Drawing.Size(240, 26)
         Me.MpainjectWToolStripMenuItem.Text = "맵에 삽입(&W)"
         '
         'EDDOpenDToolStripMenuItem
@@ -476,33 +477,33 @@ Partial Class Main
         Me.EDDOpenDToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.UseEDD
         Me.EDDOpenDToolStripMenuItem.Name = "EDDOpenDToolStripMenuItem"
         Me.EDDOpenDToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.D), System.Windows.Forms.Keys)
-        Me.EDDOpenDToolStripMenuItem.Size = New System.Drawing.Size(198, 22)
+        Me.EDDOpenDToolStripMenuItem.Size = New System.Drawing.Size(240, 26)
         Me.EDDOpenDToolStripMenuItem.Text = "EDD로 삽입(&D)"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(237, 6)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Enabled = False
         Me.ToolStripMenuItem1.Image = Global.EUD_Editor.My.Resources.Resources.MapEditor
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(198, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(240, 26)
         Me.ToolStripMenuItem1.Text = "맵 열기(&M)"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(237, 6)
         '
         'TriggerviewTToolStripMenuItem
         '
         Me.TriggerviewTToolStripMenuItem.Enabled = False
         Me.TriggerviewTToolStripMenuItem.Name = "TriggerviewTToolStripMenuItem"
         Me.TriggerviewTToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T), System.Windows.Forms.Keys)
-        Me.TriggerviewTToolStripMenuItem.Size = New System.Drawing.Size(198, 22)
+        Me.TriggerviewTToolStripMenuItem.Size = New System.Drawing.Size(240, 26)
         Me.TriggerviewTToolStripMenuItem.Text = "트리거보기(&T)"
         '
         'ToclipEToolStripMenuItem
@@ -510,20 +511,20 @@ Partial Class Main
         Me.ToclipEToolStripMenuItem.Enabled = False
         Me.ToclipEToolStripMenuItem.Name = "ToclipEToolStripMenuItem"
         Me.ToclipEToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-        Me.ToclipEToolStripMenuItem.Size = New System.Drawing.Size(198, 22)
+        Me.ToclipEToolStripMenuItem.Size = New System.Drawing.Size(240, 26)
         Me.ToclipEToolStripMenuItem.Text = "클립보드로(&E)"
         '
         'HelpHToolStripMenuItem
         '
         Me.HelpHToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BlogHelpToolStripMenuItem})
         Me.HelpHToolStripMenuItem.Name = "HelpHToolStripMenuItem"
-        Me.HelpHToolStripMenuItem.Size = New System.Drawing.Size(72, 20)
+        Me.HelpHToolStripMenuItem.Size = New System.Drawing.Size(87, 24)
         Me.HelpHToolStripMenuItem.Text = "도움말(&H)"
         '
         'BlogHelpToolStripMenuItem
         '
         Me.BlogHelpToolStripMenuItem.Name = "BlogHelpToolStripMenuItem"
-        Me.BlogHelpToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.BlogHelpToolStripMenuItem.Size = New System.Drawing.Size(174, 26)
         Me.BlogHelpToolStripMenuItem.Text = "블로그설명서"
         '
         'SaveFileDialog1
@@ -544,13 +545,13 @@ Partial Class Main
         Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel3, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 0, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 24)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 28)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(472, 149)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(470, 149)
         Me.TableLayoutPanel1.TabIndex = 2
         '
         'FlowLayoutPanel3
@@ -569,7 +570,7 @@ Partial Class Main
         Me.FlowLayoutPanel3.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
-        Me.FlowLayoutPanel3.Size = New System.Drawing.Size(472, 43)
+        Me.FlowLayoutPanel3.Size = New System.Drawing.Size(470, 43)
         Me.FlowLayoutPanel3.TabIndex = 1
         '
         'btn_NewFile
@@ -659,9 +660,9 @@ Partial Class Main
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(365, 3)
+        Me.CheckBox1.Location = New System.Drawing.Point(3, 45)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(86, 19)
+        Me.CheckBox1.Size = New System.Drawing.Size(106, 24)
         Me.CheckBox1.TabIndex = 18
         Me.CheckBox1.Text = "자동컴파일"
         Me.CheckBox1.UseVisualStyleBackColor = True
@@ -670,16 +671,16 @@ Partial Class Main
         '
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 803.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel1, 1, 0)
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel4, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel1, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 43)
         Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(472, 106)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(470, 106)
         Me.TableLayoutPanel2.TabIndex = 2
         '
         'FlowLayoutPanel4
@@ -718,11 +719,17 @@ Partial Class Main
         Me.CheckMapWrite.Enabled = True
         Me.CheckMapWrite.Interval = 1000
         '
+        'UpdateViewToolStripMenuItem
+        '
+        Me.UpdateViewToolStripMenuItem.Name = "UpdateViewToolStripMenuItem"
+        Me.UpdateViewToolStripMenuItem.Size = New System.Drawing.Size(116, 24)
+        Me.UpdateViewToolStripMenuItem.Text = "업데이트 보기"
+        '
         'Main
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(472, 173)
+        Me.ClientSize = New System.Drawing.Size(470, 177)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -742,7 +749,6 @@ Partial Class Main
         Me.FlowLayoutPanel3.ResumeLayout(False)
         Me.FlowLayoutPanel3.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
         Me.FlowLayoutPanel4.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -803,4 +809,5 @@ Partial Class Main
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents CheckMapWrite As Timer
     Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents UpdateViewToolStripMenuItem As ToolStripMenuItem
 End Class

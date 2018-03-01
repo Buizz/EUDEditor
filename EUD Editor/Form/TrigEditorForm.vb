@@ -67,7 +67,8 @@ Public Class TrigEditorForm
                 _ele.GetTypeV <> ElementType.포만족 And
                 _ele.GetTypeV <> ElementType.인수 And
                 _ele.GetTypeV <> ElementType.코드 And
-                _ele.GetTypeV <> ElementType.Functions Then
+                _ele.GetTypeV <> ElementType.Functions And
+                _ele.GetTypeV <> ElementType.FoluderAction Then
                 Return True
             End If
         End If
@@ -93,7 +94,9 @@ Public Class TrigEditorForm
                 _ele.GetTypeV = ElementType.인수 Or
                 _ele.GetTypeV = ElementType.코드 Or
                 _ele.GetTypeV = ElementType.함수 Or
-                _ele.GetTypeV = ElementType.Wait Then
+                _ele.GetTypeV = ElementType.Wait Or
+                _ele.GetTypeV = ElementType.Foluder Or
+                _ele.GetTypeV = ElementType.FoluderAction Then
                 Return True
             End If
         End If
@@ -194,7 +197,8 @@ Public Class TrigEditorForm
         If _selectElement.GetTypeV = ElementType.조건 Or
             _selectElement.GetTypeV = ElementType.액션 Or
             _selectElement.GetTypeV = ElementType.포 Or
-            _selectElement.GetTypeV = ElementType.Wait Then
+            _selectElement.GetTypeV = ElementType.Wait Or
+            _selectElement.GetTypeV = ElementType.Foluder Then
             수정ToolStripMenuItem.Enabled = True
         ElseIf _selectElement.GetTypeV = ElementType.함수 And functions.GetElementsCount <> 0 Then
             수정ToolStripMenuItem.Enabled = True
@@ -232,6 +236,7 @@ Public Class TrigEditorForm
             새로만들기NToolStripMenuItem1.Enabled = True
             함수FToolStripMenuItem.Enabled = True
             액션ToolStripMenuItem.Enabled = False
+            ToolStripMenuItem1.Enabled = False
             함수ToolStripMenuItem.Enabled = False
             함수불러오기ToolStripMenuItem.Enabled = False
             If문ToolStripMenuItem.Enabled = False
@@ -244,8 +249,9 @@ Public Class TrigEditorForm
 
 
             Select Case _selectElement.GetTypeV
-                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.액션, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.와일만족, ElementType.포, ElementType.코드, ElementType.함수, ElementType.Wait
+                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.액션, ElementType.Foluder, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.와일만족, ElementType.포, ElementType.코드, ElementType.함수, ElementType.Wait, ElementType.FoluderAction
                     액션ToolStripMenuItem.Enabled = True
+                    ToolStripMenuItem1.Enabled = True
                     If문ToolStripMenuItem.Enabled = True
                     IfElse문ToolStripMenuItem.Enabled = True
                     For문ToolStripMenuItem.Enabled = True
@@ -285,6 +291,7 @@ Public Class TrigEditorForm
             '복사VToolStripMenuItem.Enabled = False
             '잘라내기XToolStripMenuItem.Enabled = False
             액션ToolStripMenuItem.Enabled = False
+            ToolStripMenuItem1.Enabled = False
             함수ToolStripMenuItem.Enabled = False
             함수불러오기ToolStripMenuItem.Enabled = False
             If문ToolStripMenuItem.Enabled = False
@@ -300,6 +307,7 @@ Public Class TrigEditorForm
                 '복사VToolStripMenuItem.Enabled = False
                 '잘라내기XToolStripMenuItem.Enabled = False
                 액션ToolStripMenuItem.Enabled = False
+                ToolStripMenuItem1.Enabled = False
                 함수ToolStripMenuItem.Enabled = False
                 함수불러오기ToolStripMenuItem.Enabled = False
                 If문ToolStripMenuItem.Enabled = False
@@ -351,6 +359,7 @@ Public Class TrigEditorForm
 
         If CheckNewFile(_selectElement) = True Then
             액션Btn.Visible = False
+            Button5.Visible = False
             함수Btn.Visible = False
             함수불러오기Btn.Visible = False
             IfBtn.Visible = False
@@ -367,8 +376,9 @@ Public Class TrigEditorForm
 
 
             Select Case _selectElement.GetTypeV
-                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.액션, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.와일만족, ElementType.포, ElementType.코드, ElementType.함수, ElementType.Wait
+                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.액션, ElementType.Foluder, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.와일만족, ElementType.포, ElementType.코드, ElementType.함수, ElementType.Wait, ElementType.FoluderAction
                     액션Btn.Visible = True
+                    Button5.Visible = True
                     IfBtn.Visible = True
                     IfElseBtn.Visible = True
                     ForBtn.Visible = True
@@ -392,6 +402,7 @@ Public Class TrigEditorForm
         If _selectElement.GetTypeV = ElementType.인수 Then
             액션Btn.Visible = False
             함수Btn.Visible = False
+            Button5.Visible = False
             함수불러오기Btn.Visible = False
             IfBtn.Visible = False
             IfElseBtn.Visible = False
@@ -404,6 +415,7 @@ Public Class TrigEditorForm
         If _selectElement.Parrent IsNot Nothing Then
             If _selectElement.Parrent.GetTypeV = ElementType.인수 Then
                 액션Btn.Visible = False
+                Button5.Visible = False
                 함수Btn.Visible = False
                 함수불러오기Btn.Visible = False
                 IfBtn.Visible = False
@@ -440,7 +452,8 @@ Public Class TrigEditorForm
             If _selectElement.GetTypeV = ElementType.조건 Or
             _selectElement.GetTypeV = ElementType.액션 Or
             _selectElement.GetTypeV = ElementType.포 Or
-            _selectElement.GetTypeV = ElementType.Wait Then
+            _selectElement.GetTypeV = ElementType.Wait Or
+            _selectElement.GetTypeV = ElementType.Foluder Then
                 Edit()
             ElseIf _selectElement.GetTypeV = ElementType.함수 And functions.GetElementsCount <> 0 Then
                 Edit()
@@ -494,7 +507,7 @@ Public Class TrigEditorForm
         Dim _tempele As Element = CType(selectnode.Tag, Element)
         If CheckNewFile(_tempele) = True Then
             Select Case _tempele.GetTypeV
-                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.와일만족, ElementType.코드
+                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.와일만족, ElementType.코드, ElementType.FoluderAction
                     If _type = ElementType.액션 Or _type = ElementType.조건 Then
 
                     Else
@@ -508,7 +521,7 @@ Public Class TrigEditorForm
                     _tempele.AddElements(_type, 0)
                     selectnode.Nodes.Insert(0, _tempele.GetElementList.First.ToTreeNode)
                     selectnode.FirstNode.Expand()
-                Case ElementType.액션, ElementType.조건문if, ElementType.조건문ifelse, ElementType.포, ElementType.와일, ElementType.함수, ElementType.Wait
+                Case ElementType.액션, ElementType.조건문if, ElementType.조건문ifelse, ElementType.포, ElementType.와일, ElementType.함수, ElementType.Wait, ElementType.Foluder
                     Dim _index As Integer = _tempele.Parrent.GetElementList().IndexOf(_tempele) + 1
 
                     _tempele.Parrent.AddElements(_index, _type)
@@ -542,7 +555,7 @@ Public Class TrigEditorForm
         Dim _tempele As Element = CType(selectnode.Tag, Element)
         If CheckNewFile(_tempele) = True Then
             Select Case _tempele.GetTypeV
-                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.와일만족, ElementType.코드
+                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.와일만족, ElementType.코드, ElementType.FoluderAction
                     If _element.GetTypeV = ElementType.액션 Or _element.GetTypeV = ElementType.조건 Then
 
                     Else
@@ -556,7 +569,7 @@ Public Class TrigEditorForm
                     _tempele.AddElements(_element)
                     selectnode.Nodes.Insert(0, _tempele.GetElementList.First.ToTreeNode)
                     selectnode.FirstNode.Expand()
-                Case ElementType.액션, ElementType.조건문if, ElementType.조건문ifelse, ElementType.포, ElementType.와일, ElementType.함수, ElementType.Wait
+                Case ElementType.액션, ElementType.조건문if, ElementType.조건문ifelse, ElementType.포, ElementType.와일, ElementType.함수, ElementType.Wait, ElementType.Foluder
                     Dim _index As Integer = _tempele.Parrent.GetElementList().IndexOf(_tempele) + 1
 
                     _tempele.Parrent.AddElements(_index, _element)
@@ -661,7 +674,7 @@ Public Class TrigEditorForm
         Dim _tempele As Element = CType(selectnode.Tag, Element)
         If CheckNewFile(_tempele) = True Then
             Select Case _tempele.GetTypeV
-                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.조건절, ElementType.와일조건, ElementType.와일만족, ElementType.Functions, ElementType.코드, ElementType.인수
+                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.조건절, ElementType.와일조건, ElementType.와일만족, ElementType.FoluderAction, ElementType.Functions, ElementType.코드, ElementType.인수
 
 
                     CopyData.Parrent = _tempele
@@ -669,7 +682,7 @@ Public Class TrigEditorForm
                     selectnode.Nodes.Insert(0, _tempele.GetElementList.First.ToTreeNode)
                     selectnode.FirstNode.Expand()
 
-                Case ElementType.액션, ElementType.조건, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.함수정의, ElementType.함수, ElementType.Wait
+                Case ElementType.액션, ElementType.조건, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.함수정의, ElementType.함수, ElementType.Wait, ElementType.Foluder
                     Dim _index As Integer = selectnode.Index + 1
                     CopyData.Parrent = _tempele.Parrent
                     _tempele.Parrent.AddElements(_index, CopyData)
@@ -686,13 +699,13 @@ Public Class TrigEditorForm
 
         If _isNewAct = True Then
             Select Case _selectElement.GetTypeV
-                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.조건절, ElementType.와일조건, ElementType.와일만족, ElementType.코드
+                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.조건절, ElementType.와일조건, ElementType.와일만족, ElementType.FoluderAction, ElementType.코드
                     If _selectElement.GetElementsCount <> 0 Then
                         ActionForm._varele = _selectElement.GetElementList(_selectElement.GetElementsCount - 1)
                     End If
 
                     ActionForm._ele = New Element(_selectElement, ElementType.액션, 0)
-                Case ElementType.액션, ElementType.조건, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.함수, ElementType.Wait
+                Case ElementType.액션, ElementType.조건, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.함수, ElementType.Wait, ElementType.Foluder
                     ActionForm._ele = New Element(_selectElement.Parrent, ElementType.액션, 0)
             End Select
         Else
@@ -710,11 +723,11 @@ Public Class TrigEditorForm
                 '벨류 넣는거 까먹지말아라
             Else
                 Select Case _selectElement.GetTypeV
-                    Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.와일만족, ElementType.코드, ElementType.코드
+                    Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.와일만족, ElementType.FoluderAction, ElementType.코드, ElementType.코드
                         _selectElement.AddElements(0, ActionForm._ele)
 
                         TreeView1.SelectedNode.Nodes.Insert(0, _selectElement.GetElementList.First.ToTreeNode)
-                    Case ElementType.액션, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.함수, ElementType.Wait
+                    Case ElementType.액션, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.함수, ElementType.Wait, ElementType.Foluder
                         Dim _index As Integer = TreeView1.SelectedNode.Index + 1
 
                         _selectElement.Parrent.AddElements(_index, ActionForm._ele)
@@ -737,7 +750,7 @@ Public Class TrigEditorForm
 
         If _isNewAct = True Then
             Select Case _selectElement.GetTypeV
-                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.조건절, ElementType.와일조건, ElementType.와일만족
+                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.조건절, ElementType.와일조건, ElementType.와일만족, ElementType.FoluderAction
                     'CondictionForm._varele = _selectElement.GetElementList(_selectElement.GetElementsCount)
                     CondictionForm._ele = New Element(_selectElement, ElementType.조건, 0)
                 Case ElementType.액션, ElementType.조건, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.함수
@@ -860,6 +873,8 @@ Public Class TrigEditorForm
                     TreeView1.SelectedNode.Text = _selectElement.GetText
                 Case ElementType.Wait
                     AddWait(False)
+                Case ElementType.Foluder
+                    AddFolduer(False)
             End Select
         End If
     End Sub
@@ -1500,6 +1515,48 @@ Public Class TrigEditorForm
 
             ReDrawList()
         End If
+    End Sub
+    Private Sub AddFolduer(isnew As Boolean)
+        If isnew Then
+            My.Forms.FoudlerNamedialog.TextBox1.Text = ""
+            If FoudlerNamedialog.ShowDialog = DialogResult.OK Then
+                NewEle(TreeView1.SelectedNode, New Element(Nothing, ElementType.Foluder, {FoudlerNamedialog.TextBox1.Text}))
+            End If
+        Else
+            Dim _selectElement As Element = CType(TreeView1.SelectedNode.Tag, Element)
+            My.Forms.FoudlerNamedialog.TextBox1.Text = _selectElement.Values(0)
+            If FoudlerNamedialog.ShowDialog = DialogResult.OK Then
+                _selectElement.SetValue({FoudlerNamedialog.TextBox1.Text})
+
+
+                TreeView1.SelectedNode.Text = _selectElement.GetText
+            End If
+        End If
+    End Sub
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        AddFolduer(True)
+        TreeView1.Focus()
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+        AddFolduer(True)
+        TreeView1.Focus()
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        TreeView1.CollapseAll()
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        TreeView1.ExpandAll()
+    End Sub
+
+    Private Sub FoldMenuItem_Click(sender As Object, e As EventArgs) Handles FoldMenuItem.Click
+        TreeView1.SelectedNode.Collapse()
+    End Sub
+
+    Private Sub UnFoldMenuItem_Click(sender As Object, e As EventArgs) Handles UnFoldMenuItem.Click
+        TreeView1.SelectedNode.ExpandAll()
     End Sub
 
     'Private Sub TreeView1_MouseDown(sender As Object, e As MouseEventArgs) Handles TreeView1.MouseDown

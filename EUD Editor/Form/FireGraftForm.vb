@@ -3024,11 +3024,11 @@ Handles ListBox1.DrawItem
 
     Private Sub Button45_Click(sender As Object, e As EventArgs) Handles Button45.Click
         Dim btnnum As Integer = ListBox2.SelectedIndex
-
         If ProjectBtnData(_OBJECTNUM)(btnnum).enaStr <> 0 Then
+
             Dim value As UInteger = ProjectBtnData(_OBJECTNUM)(btnnum).enaStr - 1
 
-            If value <> 0 Then
+            If value >= 0 Then
                 Dim dialog As DialogResult
                 StatTextForm.stringNum = value
                 dialog = StatTextForm.ShowDialog()
@@ -3050,7 +3050,7 @@ Handles ListBox1.DrawItem
         If ProjectBtnData(_OBJECTNUM)(btnnum).disStr <> 0 Then
             Dim value As UInteger = ProjectBtnData(_OBJECTNUM)(btnnum).disStr - 1
 
-            If value <> 0 Then
+            If value >= 0 Then
                 Dim dialog As DialogResult
                 StatTextForm.stringNum = value
                 dialog = StatTextForm.ShowDialog()

@@ -94,6 +94,13 @@ Partial Class TrigEditorForm
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog2 = New System.Windows.Forms.SaveFileDialog()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
+        Me.UnFoldMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FoldMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.FlowLayoutPanel3.SuspendLayout()
@@ -193,6 +200,8 @@ Partial Class TrigEditorForm
         Me.FlowLayoutPanel3.Controls.Add(Me.btn_Save)
         Me.FlowLayoutPanel3.Controls.Add(Me.Button4)
         Me.FlowLayoutPanel3.Controls.Add(Me.Button14)
+        Me.FlowLayoutPanel3.Controls.Add(Me.Button6)
+        Me.FlowLayoutPanel3.Controls.Add(Me.Button7)
         Me.FlowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel3.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
@@ -431,13 +440,13 @@ Partial Class TrigEditorForm
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.새로만들기NToolStripMenuItem1, Me.함수FToolStripMenuItem, Me.ToolStripSeparator4, Me.수정ToolStripMenuItem, Me.잘라내기XToolStripMenuItem, Me.복사VToolStripMenuItem, Me.붙혀넣기CToolStripMenuItem, Me.삭제DToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.새로만들기NToolStripMenuItem1, Me.함수FToolStripMenuItem, Me.ToolStripSeparator5, Me.FoldMenuItem, Me.UnFoldMenuItem, Me.ToolStripSeparator4, Me.수정ToolStripMenuItem, Me.잘라내기XToolStripMenuItem, Me.복사VToolStripMenuItem, Me.붙혀넣기CToolStripMenuItem, Me.삭제DToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(156, 186)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(156, 236)
         '
         '새로만들기NToolStripMenuItem1
         '
-        Me.새로만들기NToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.조건ToolStripMenuItem, Me.ToolStripSeparator3, Me.액션ToolStripMenuItem, Me.대기하기ToolStripMenuItem, Me.If문ToolStripMenuItem, Me.IfElse문ToolStripMenuItem, Me.For문ToolStripMenuItem, Me.While문ToolStripMenuItem})
+        Me.새로만들기NToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.조건ToolStripMenuItem, Me.ToolStripSeparator3, Me.액션ToolStripMenuItem, Me.대기하기ToolStripMenuItem, Me.If문ToolStripMenuItem, Me.IfElse문ToolStripMenuItem, Me.For문ToolStripMenuItem, Me.While문ToolStripMenuItem})
         Me.새로만들기NToolStripMenuItem1.Image = Global.EUD_Editor.My.Resources.Resources.NewFile
         Me.새로만들기NToolStripMenuItem1.Name = "새로만들기NToolStripMenuItem1"
         Me.새로만들기NToolStripMenuItem1.Size = New System.Drawing.Size(155, 22)
@@ -446,48 +455,48 @@ Partial Class TrigEditorForm
         '조건ToolStripMenuItem
         '
         Me.조건ToolStripMenuItem.Name = "조건ToolStripMenuItem"
-        Me.조건ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.조건ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.조건ToolStripMenuItem.Text = "조건"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(139, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(149, 6)
         '
         '액션ToolStripMenuItem
         '
         Me.액션ToolStripMenuItem.Name = "액션ToolStripMenuItem"
-        Me.액션ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.액션ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.액션ToolStripMenuItem.Text = "액션"
         '
         '대기하기ToolStripMenuItem
         '
         Me.대기하기ToolStripMenuItem.Name = "대기하기ToolStripMenuItem"
-        Me.대기하기ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.대기하기ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.대기하기ToolStripMenuItem.Text = "대기하기"
         '
         'If문ToolStripMenuItem
         '
         Me.If문ToolStripMenuItem.Name = "If문ToolStripMenuItem"
-        Me.If문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.If문ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.If문ToolStripMenuItem.Text = "If문"
         '
         'IfElse문ToolStripMenuItem
         '
         Me.IfElse문ToolStripMenuItem.Name = "IfElse문ToolStripMenuItem"
-        Me.IfElse문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.IfElse문ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.IfElse문ToolStripMenuItem.Text = "IfElse문"
         '
         'For문ToolStripMenuItem
         '
         Me.For문ToolStripMenuItem.Name = "For문ToolStripMenuItem"
-        Me.For문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.For문ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.For문ToolStripMenuItem.Text = "반복문(횟수)"
         '
         'While문ToolStripMenuItem
         '
         Me.While문ToolStripMenuItem.Name = "While문ToolStripMenuItem"
-        Me.While문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.While문ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.While문ToolStripMenuItem.Text = "반복문(조건)"
         '
         '함수FToolStripMenuItem
@@ -500,36 +509,36 @@ Partial Class TrigEditorForm
         '함수ToolStripMenuItem
         '
         Me.함수ToolStripMenuItem.Name = "함수ToolStripMenuItem"
-        Me.함수ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.함수ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.함수ToolStripMenuItem.Text = "함수"
         '
         '함수정의ToolStripMenuItem
         '
         Me.함수정의ToolStripMenuItem.Name = "함수정의ToolStripMenuItem"
-        Me.함수정의ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.함수정의ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.함수정의ToolStripMenuItem.Text = "함수 정의"
         '
         '인수ToolStripMenuItem
         '
         Me.인수ToolStripMenuItem.Name = "인수ToolStripMenuItem"
-        Me.인수ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.인수ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.인수ToolStripMenuItem.Text = "인수 정의"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(147, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
         '
         '함수저장ToolStripMenuItem
         '
         Me.함수저장ToolStripMenuItem.Name = "함수저장ToolStripMenuItem"
-        Me.함수저장ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.함수저장ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.함수저장ToolStripMenuItem.Text = "함수 저장"
         '
         '함수불러오기ToolStripMenuItem
         '
         Me.함수불러오기ToolStripMenuItem.Name = "함수불러오기ToolStripMenuItem"
-        Me.함수불러오기ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.함수불러오기ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.함수불러오기ToolStripMenuItem.Text = "함수 불러오기"
         '
         'ToolStripSeparator4
@@ -584,6 +593,7 @@ Partial Class TrigEditorForm
         Me.FastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.FastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.FastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FastColoredTextBox1.Font = New System.Drawing.Font("Courier New", 9.75!)
         Me.FastColoredTextBox1.IsReplaceMode = False
         Me.FastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS
         Me.FastColoredTextBox1.LeftBracket = Global.Microsoft.VisualBasic.ChrW(40)
@@ -616,6 +626,7 @@ Partial Class TrigEditorForm
         '
         Me.FlowNew.AutoSize = True
         Me.FlowNew.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.FlowNew.Controls.Add(Me.Button5)
         Me.FlowNew.Controls.Add(Me.조건Btn)
         Me.FlowNew.Controls.Add(Me.액션Btn)
         Me.FlowNew.Controls.Add(Me.대기하기Btn)
@@ -627,7 +638,7 @@ Partial Class TrigEditorForm
         Me.FlowNew.Location = New System.Drawing.Point(0, 0)
         Me.FlowNew.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowNew.Name = "FlowNew"
-        Me.FlowNew.Size = New System.Drawing.Size(65, 304)
+        Me.FlowNew.Size = New System.Drawing.Size(65, 342)
         Me.FlowNew.TabIndex = 21
         '
         '조건Btn
@@ -637,7 +648,7 @@ Partial Class TrigEditorForm
         Me.조건Btn.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.조건Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.조건Btn.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.조건Btn.Location = New System.Drawing.Point(1, 1)
+        Me.조건Btn.Location = New System.Drawing.Point(1, 39)
         Me.조건Btn.Margin = New System.Windows.Forms.Padding(1)
         Me.조건Btn.Name = "조건Btn"
         Me.조건Btn.Size = New System.Drawing.Size(63, 36)
@@ -652,7 +663,7 @@ Partial Class TrigEditorForm
         Me.액션Btn.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.액션Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.액션Btn.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.액션Btn.Location = New System.Drawing.Point(1, 39)
+        Me.액션Btn.Location = New System.Drawing.Point(1, 77)
         Me.액션Btn.Margin = New System.Windows.Forms.Padding(1)
         Me.액션Btn.Name = "액션Btn"
         Me.액션Btn.Size = New System.Drawing.Size(63, 36)
@@ -667,7 +678,7 @@ Partial Class TrigEditorForm
         Me.대기하기Btn.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.대기하기Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.대기하기Btn.Font = New System.Drawing.Font("맑은 고딕", 8.0!)
-        Me.대기하기Btn.Location = New System.Drawing.Point(1, 77)
+        Me.대기하기Btn.Location = New System.Drawing.Point(1, 115)
         Me.대기하기Btn.Margin = New System.Windows.Forms.Padding(1)
         Me.대기하기Btn.Name = "대기하기Btn"
         Me.대기하기Btn.Size = New System.Drawing.Size(63, 36)
@@ -682,7 +693,7 @@ Partial Class TrigEditorForm
         Me.함수Btn.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.함수Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.함수Btn.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.함수Btn.Location = New System.Drawing.Point(1, 115)
+        Me.함수Btn.Location = New System.Drawing.Point(1, 153)
         Me.함수Btn.Margin = New System.Windows.Forms.Padding(1)
         Me.함수Btn.Name = "함수Btn"
         Me.함수Btn.Size = New System.Drawing.Size(63, 36)
@@ -697,7 +708,7 @@ Partial Class TrigEditorForm
         Me.IfBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.IfBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.IfBtn.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.IfBtn.Location = New System.Drawing.Point(1, 153)
+        Me.IfBtn.Location = New System.Drawing.Point(1, 191)
         Me.IfBtn.Margin = New System.Windows.Forms.Padding(1)
         Me.IfBtn.Name = "IfBtn"
         Me.IfBtn.Size = New System.Drawing.Size(63, 36)
@@ -712,7 +723,7 @@ Partial Class TrigEditorForm
         Me.IfElseBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.IfElseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.IfElseBtn.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.IfElseBtn.Location = New System.Drawing.Point(1, 191)
+        Me.IfElseBtn.Location = New System.Drawing.Point(1, 229)
         Me.IfElseBtn.Margin = New System.Windows.Forms.Padding(1)
         Me.IfElseBtn.Name = "IfElseBtn"
         Me.IfElseBtn.Size = New System.Drawing.Size(63, 36)
@@ -727,7 +738,7 @@ Partial Class TrigEditorForm
         Me.ForBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.ForBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ForBtn.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.ForBtn.Location = New System.Drawing.Point(1, 229)
+        Me.ForBtn.Location = New System.Drawing.Point(1, 267)
         Me.ForBtn.Margin = New System.Windows.Forms.Padding(1)
         Me.ForBtn.Name = "ForBtn"
         Me.ForBtn.Size = New System.Drawing.Size(63, 36)
@@ -742,7 +753,7 @@ Partial Class TrigEditorForm
         Me.WhileBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.WhileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.WhileBtn.Font = New System.Drawing.Font("맑은 고딕", 8.0!)
-        Me.WhileBtn.Location = New System.Drawing.Point(1, 267)
+        Me.WhileBtn.Location = New System.Drawing.Point(1, 305)
         Me.WhileBtn.Margin = New System.Windows.Forms.Padding(1)
         Me.WhileBtn.Name = "WhileBtn"
         Me.WhileBtn.Size = New System.Drawing.Size(63, 36)
@@ -758,7 +769,7 @@ Partial Class TrigEditorForm
         Me.FlowLayoutPanel2.Controls.Add(Me.인수Btn)
         Me.FlowLayoutPanel2.Controls.Add(Me.함수저장Btn)
         Me.FlowLayoutPanel2.Controls.Add(Me.함수불러오기Btn)
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(0, 304)
+        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(0, 342)
         Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Size = New System.Drawing.Size(65, 152)
@@ -848,6 +859,70 @@ Partial Class TrigEditorForm
         '
         Me.SaveFileDialog2.Filter = "Funciton파일|*.tfn"
         Me.SaveFileDialog2.Tag = ""
+        '
+        'Button5
+        '
+        Me.Button5.BackColor = System.Drawing.SystemColors.Control
+        Me.Button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.Button5.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button5.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.Button5.Location = New System.Drawing.Point(1, 1)
+        Me.Button5.Margin = New System.Windows.Forms.Padding(1)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(63, 36)
+        Me.Button5.TabIndex = 27
+        Me.Button5.Text = "폴더"
+        Me.Button5.UseVisualStyleBackColor = False
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem1.Text = "폴더"
+        '
+        'Button6
+        '
+        Me.Button6.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Button6.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.Button6.Font = New System.Drawing.Font("맑은 고딕", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Button6.Location = New System.Drawing.Point(328, 1)
+        Me.Button6.Margin = New System.Windows.Forms.Padding(10, 1, 1, 1)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(48, 40)
+        Me.Button6.TabIndex = 19
+        Me.Button6.Text = "접기"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'Button7
+        '
+        Me.Button7.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Button7.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.Button7.Font = New System.Drawing.Font("맑은 고딕", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Button7.Location = New System.Drawing.Point(378, 1)
+        Me.Button7.Margin = New System.Windows.Forms.Padding(1)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(48, 40)
+        Me.Button7.TabIndex = 20
+        Me.Button7.Text = "펼치기"
+        Me.Button7.UseVisualStyleBackColor = True
+        '
+        'UnFoldMenuItem
+        '
+        Me.UnFoldMenuItem.Name = "UnFoldMenuItem"
+        Me.UnFoldMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.UnFoldMenuItem.Text = "펼치기"
+        '
+        'FoldMenuItem
+        '
+        Me.FoldMenuItem.Name = "FoldMenuItem"
+        Me.FoldMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.FoldMenuItem.Text = "접기"
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(152, 6)
         '
         'TrigEditorForm
         '
@@ -957,4 +1032,11 @@ Partial Class TrigEditorForm
     Friend WithEvents 대기하기ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Btn_OpenCont As Button
     Friend WithEvents OpenCont As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Button7 As Button
+    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
+    Friend WithEvents FoldMenuItem As ToolStripMenuItem
+    Friend WithEvents UnFoldMenuItem As ToolStripMenuItem
 End Class

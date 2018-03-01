@@ -101,8 +101,9 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="SergeUtils">
-      <HintPath>C:\Users\skslj\Desktop\EasyCompletionComboBox-1.1.5\TestCombo\bin\SergeUtils.dll</HintPath>
+    <Reference Include="SergeUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\SergeUtils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -153,6 +154,12 @@
       <DependentUpon>BulidForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\BulidForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\CheckUpdateForm.Designer.vb">
+      <DependentUpon>CheckUpdateForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\CheckUpdateForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\CodeViewer.Designer.vb">
@@ -389,6 +396,12 @@
     <Compile Include="Form\TriggerEditor\ForEditing.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\TriggerEditor\FoudlerNamedialog.Designer.vb">
+      <DependentUpon>FoudlerNamedialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\FoudlerNamedialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\TriggerEditor\FuctionNameForm.Designer.vb">
       <DependentUpon>FuctionNameForm.vb</DependentUpon>
     </Compile>
@@ -486,6 +499,7 @@
     <Compile Include="Module\Trigger.vb" />
     <Compile Include="Module\TriggerEditorDataMoudle.vb" />
     <Compile Include="Module\UnitModule.vb" />
+    <Compile Include="Module\UpdateModule.vb" />
     <Compile Include="Module\ValueDefsModule.vb" />
     <Compile Include="Module\ZipFileModule.vb" />
     <Compile Include="Module\tempmoudle.vb" />
@@ -517,6 +531,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\BulidForm.resx">
       <DependentUpon>BulidForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\CheckUpdateForm.resx">
+      <DependentUpon>CheckUpdateForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\CodeViewer.resx">
       <DependentUpon>CodeViewer.vb</DependentUpon>
@@ -638,6 +655,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\ForEditing.resx">
       <DependentUpon>ForEditing.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\FoudlerNamedialog.resx">
+      <DependentUpon>FoudlerNamedialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\FuctionNameForm.resx">
       <DependentUpon>FuctionNameForm.vb</DependentUpon>

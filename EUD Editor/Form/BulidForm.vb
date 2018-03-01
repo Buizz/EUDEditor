@@ -20,6 +20,7 @@
         startInfo.Arguments = """" & filename & """"
 
         startInfo.RedirectStandardOutput = True
+        startInfo.RedirectStandardError = True
         startInfo.RedirectStandardInput = True
         startInfo.WindowStyle = ProcessWindowStyle.Hidden
         startInfo.CreateNoWindow = True
@@ -48,28 +49,24 @@
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         RichTextBox1.Text = RichTextBox1.Text & process.StandardOutput.ReadToEnd()
+        Dim Errormsg As String = process.StandardError.ReadToEnd()
+
         If process.HasExited Then
             Timer1.Enabled = False
-            If InStr(RichTextBox1.Text, "Output scenario.chk") <> 0 Then
-                '컴파일 성공
-                'CompileStart()
-                Me.Hide()
-            ElseIf InStr(RichTextBox1.Text, "[Error]") <> 0 Then
+            If InStr(Errormsg, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
+                CompileStart()
+            ElseIf Errormsg <> "" Then
                 '에러
                 'CompileStart()
                 '에러문구 출력
 
-                Dim Errormsg As String = Mid(RichTextBox1.Text, InStr(RichTextBox1.Text, "[Error]"))
-                Errormsg = Mid(Errormsg, 1, InStr(Errormsg, vbLf))
-
                 RichTextBox2.Text = "빌드에 실패했습니다. 자세한 상황은 좌측 상단의 로그를 참고하세요." & vbCrLf & Errormsg
                 Me.Activate()
                 MsgBox(RichTextBox2.Text, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
-            Else
-                '컴파일 재시도
-                CompileStart()
-            End If
 
+            Else
+                Me.Hide()
+            End If
         End If
     End Sub
 End Class

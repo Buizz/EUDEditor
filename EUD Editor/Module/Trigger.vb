@@ -23,6 +23,8 @@ Public Enum ElementType
     코드 = 18
     함수 = 19
     Wait = 20
+    Foluder = 21
+    FoluderAction = 22
 End Enum
 
 
@@ -50,7 +52,9 @@ Public Class Element
                "Argument : ",'17
                "Code : ",'18
                "Fuction : ",'19
-               "Wait : "'20
+               "Wait : ",'20
+               "Folder : ",'21
+               "actions : "'22
                }
 
         Return temp(Et)
@@ -691,7 +695,7 @@ Public Class Element
 
             _stringb.AppendLine(temp.ToString)
         End If
-        If Type = ElementType.조건절 Or Type = ElementType.와일조건 Or Type = ElementType.Wait Then
+        If Type = ElementType.조건절 Or Type = ElementType.와일조건 Or Type = ElementType.Wait Or Type = ElementType.Foluder Then
             Dim temp As New StringBuilder
             temp.Append(Values(0))
 
@@ -729,7 +733,7 @@ Public Class Element
         End If
         If Type = ElementType.포 Or Type = ElementType.함수정의 Or
                 Type = ElementType.함수 Or Type = ElementType.조건절 Or
-                Type = ElementType.와일조건 Or Type = ElementType.Wait Then
+                Type = ElementType.와일조건 Or Type = ElementType.Wait Or Type = ElementType.Foluder Then
             isreadvalue = True
         End If
 
@@ -872,6 +876,8 @@ Public Class Element
         ElseIf Type = ElementType.함수정의 Then
             Elements.Add(New Element(Me, ElementType.인수))
             Elements.Add(New Element(Me, ElementType.코드))
+        ElseIf Type = ElementType.Foluder Then
+            Elements.Add(New Element(Me, ElementType.FoluderAction))
         End If
     End Sub
     Public Sub New(tparrent As Element, stype As ElementType, actcon As Integer, Optional _value() As String = Nothing)
@@ -932,7 +938,9 @@ Public Class Element
         If _value IsNot Nothing Then
             Values.AddRange(_value)
         End If
-
+        If Type = ElementType.Foluder Then
+            Elements.Add(New Element(Me, ElementType.FoluderAction))
+        End If
     End Sub
 
     Public Function GetTypeName() As String
@@ -1042,6 +1050,8 @@ Public Class Element
                     RTreeNode.ForeColor = Color.White
                 Case ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.함수정의
                     RTreeNode.ForeColor = Color.LightPink
+                Case ElementType.Foluder, ElementType.FoluderAction
+                    RTreeNode.ForeColor = Color.LightGreen
                 Case Else
                     RTreeNode.ForeColor = Color.LightBlue
             End Select
@@ -1064,6 +1074,8 @@ Public Class Element
 
 
         Select Case Type
+            Case ElementType.Foluder
+                _rtext = Values(0) & " : "
             Case ElementType.액션
                 _rtext = act.Text
 
@@ -1445,6 +1457,8 @@ Public Class Element
         Else
             _rtext = ElementNames(Type)
             Select Case Type
+                Case ElementType.Foluder
+                    _rtext = "//=========" & Values(0) & "========="
                 Case ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일
                     _rtext = ""
                 Case ElementType.조건절
@@ -1577,7 +1591,7 @@ Public Class Element
         End If
 
 
-        If Type <> ElementType.main And Type <> ElementType.조건문if And Type <> ElementType.조건문ifelse And Type <> ElementType.와일 And Type <> ElementType.포만족 And Type <> ElementType.Functions And Type <> ElementType.코드 And Type <> ElementType.인수 Then
+        If Type <> ElementType.main And Type <> ElementType.조건문if And Type <> ElementType.조건문ifelse And Type <> ElementType.와일 And Type <> ElementType.포만족 And Type <> ElementType.Functions And Type <> ElementType.코드 And Type <> ElementType.인수 And Type <> ElementType.FoluderAction Then
             If abledflag = True Then
                 If Type = ElementType.Wait Then 'Wait는 부모의 보모의 2벨류를 판단.
                     If Parrent.Parrent.Values(1) = False Then
@@ -1748,6 +1762,8 @@ Public Class Element
         Select Case Type
             Case ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.코드
                 intend -= 1
+            Case ElementType.Foluder
+                intend -= 2
         End Select
 
         If Type <> ElementType.인수 Then
@@ -1802,6 +1818,8 @@ Public Class Element
                 Else
                     _stringb.Append(GetIntend(intend - 1) & "}" & vbCrLf)
                 End If
+            Case ElementType.Foluder
+                _stringb.AppendLine(GetIntend(intend + 1) & "//---------" & Values(0) & "---------")
         End Select
 
 

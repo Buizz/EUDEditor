@@ -169,6 +169,18 @@ Namespace My
                 Me("AutoCompile") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IgnoreUpdate() As Boolean
+            Get
+                Return CType(Me("IgnoreUpdate"),Boolean)
+            End Get
+            Set
+                Me("IgnoreUpdate") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

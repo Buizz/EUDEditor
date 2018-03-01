@@ -203,7 +203,7 @@
         My.Computer.Registry.ClassesRoot.CreateSubKey("ees\shell\open\command").SetValue("",
         Application.ExecutablePath & " ""%l"" ", Microsoft.Win32.RegistryValueKind.String)
         My.Computer.Registry.ClassesRoot.CreateSubKey("ees\DefaultIcon").SetValue("",
-    My.Application.Info.DirectoryPath & "\Data\icons\ees.ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
+        My.Application.Info.DirectoryPath & "\Data\icons\ees.ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
 
 
         My.Computer.Registry.ClassesRoot.CreateSubKey(".mem").SetValue("",
@@ -223,6 +223,11 @@
 
         'TextEditor.ShowDialog()
         'Main.Close()
+
+        If My.Settings.IgnoreUpdate = False And CheckUpdateAble() = True Then
+            CheckUpdateForm.ShowDialog()
+        End If
+
         Return True
     End Function
 End Module

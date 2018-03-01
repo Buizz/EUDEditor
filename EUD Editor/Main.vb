@@ -407,14 +407,13 @@ Public Class Main
             If ProjectSet.Close() = True Then
                 ProjectSet.Load(OpenFileDialog1.FileName)
                 CheckMapFile()
+                Dim fileinfo As New FileInfo(ProjectSet.InputMap)
+                LastData = fileinfo.LastWriteTime
             End If
         End If
-        Dim fileinfo As New FileInfo(ProjectSet.InputMap)
-        LastData = fileinfo.LastWriteTime
 
 
         refreshSet()
-
     End Sub
 
     Private Sub 저장ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
@@ -719,5 +718,10 @@ Public Class Main
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
         ProgramSet.isAutoCompile = CheckBox1.Checked
+    End Sub
+
+    Private Sub UpdateViewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateViewToolStripMenuItem.Click
+        CheckUpdateForm.ShowDialog()
+
     End Sub
 End Class

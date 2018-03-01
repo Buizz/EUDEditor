@@ -42,12 +42,12 @@ Partial Class AddTectDialog
         '
         Me.ListBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 15
+        Me.ListBox1.ItemHeight = 20
         Me.ListBox1.Items.AddRange(New Object() {"플레이어 데스 값", "플레이어 킬 값", "플레이어 이름", "플레이어 자원량", "플레이어 인구수", "게임 시간", "변수", "스트링", "유닛이름", "코드"})
         Me.ListBox1.Location = New System.Drawing.Point(0, 0)
         Me.ListBox1.Margin = New System.Windows.Forms.Padding(0)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(109, 155)
+        Me.ListBox1.Size = New System.Drawing.Size(140, 205)
         Me.ListBox1.TabIndex = 0
         '
         'TableLayoutPanel1
@@ -65,7 +65,7 @@ Partial Class AddTectDialog
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(164, 216)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(210, 266)
         Me.TableLayoutPanel1.TabIndex = 2
         '
         'TableLayoutPanel3
@@ -76,12 +76,12 @@ Partial Class AddTectDialog
         Me.TableLayoutPanel3.Controls.Add(Me.Button5, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.Button6, 1, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 176)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 226)
         Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(164, 40)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(210, 40)
         Me.TableLayoutPanel3.TabIndex = 18
         '
         'Button5
@@ -93,7 +93,7 @@ Partial Class AddTectDialog
         Me.Button5.Location = New System.Drawing.Point(0, 0)
         Me.Button5.Margin = New System.Windows.Forms.Padding(0)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(82, 40)
+        Me.Button5.Size = New System.Drawing.Size(105, 40)
         Me.Button5.TabIndex = 13
         Me.Button5.Text = "확인"
         Me.Button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -105,10 +105,10 @@ Partial Class AddTectDialog
         Me.Button6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Button6.Image = Global.EUD_Editor.My.Resources.Resources.Cancle
         Me.Button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button6.Location = New System.Drawing.Point(82, 0)
+        Me.Button6.Location = New System.Drawing.Point(105, 0)
         Me.Button6.Margin = New System.Windows.Forms.Padding(0)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(82, 40)
+        Me.Button6.Size = New System.Drawing.Size(105, 40)
         Me.Button6.TabIndex = 14
         Me.Button6.Text = "취소"
         Me.Button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -127,19 +127,19 @@ Partial Class AddTectDialog
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(164, 155)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(210, 205)
         Me.TableLayoutPanel4.TabIndex = 4
         '
         'ListBox3
         '
         Me.ListBox3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ListBox3.FormattingEnabled = True
-        Me.ListBox3.ItemHeight = 15
+        Me.ListBox3.ItemHeight = 20
         Me.ListBox3.Items.AddRange(New Object() {"Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6", "Player 7", "Player 8"})
-        Me.ListBox3.Location = New System.Drawing.Point(109, 0)
+        Me.ListBox3.Location = New System.Drawing.Point(140, 0)
         Me.ListBox3.Margin = New System.Windows.Forms.Padding(0)
         Me.ListBox3.Name = "ListBox3"
-        Me.ListBox3.Size = New System.Drawing.Size(55, 155)
+        Me.ListBox3.Size = New System.Drawing.Size(70, 205)
         Me.ListBox3.TabIndex = 3
         '
         'Panel1
@@ -147,17 +147,17 @@ Partial Class AddTectDialog
         Me.Panel1.Controls.Add(Me.TextBox1)
         Me.Panel1.Controls.Add(Me.UnitSelecter)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 155)
+        Me.Panel1.Location = New System.Drawing.Point(0, 205)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(164, 21)
+        Me.Panel1.Size = New System.Drawing.Size(210, 21)
         Me.Panel1.TabIndex = 19
         '
         'TextBox1
         '
         Me.TextBox1.Location = New System.Drawing.Point(62, 0)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(20, 23)
+        Me.TextBox1.Size = New System.Drawing.Size(20, 27)
         Me.TextBox1.TabIndex = 22
         '
         'UnitSelecter
@@ -169,14 +169,14 @@ Partial Class AddTectDialog
         Me.UnitSelecter.MatchingMethod = SergeUtils.StringMatchingMethod.UseWildcards
         Me.UnitSelecter.MaxDropDownItems = 16
         Me.UnitSelecter.Name = "UnitSelecter"
-        Me.UnitSelecter.Size = New System.Drawing.Size(57, 23)
+        Me.UnitSelecter.Size = New System.Drawing.Size(57, 28)
         Me.UnitSelecter.TabIndex = 21
         '
         'AddTectDialog
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(164, 216)
+        Me.ClientSize = New System.Drawing.Size(210, 266)
         Me.ControlBox = False
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))

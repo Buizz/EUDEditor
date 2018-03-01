@@ -137,6 +137,13 @@
                 UnitSelecter.Items.Add("Protoss Psi Used")
                 UnitSelecter.Items.Add("Protoss Psi Max")
                 UnitSelecter.SelectedIndex = 0
+            Case 6
+                UnitSelecter.Enabled = True
+                UnitSelecter.Items.Clear()
+                UnitSelecter.Items.AddRange(GetVariablesWithoutoverlap.ToArray)
+                If UnitSelecter.Items.Count <> 0 Then
+                    UnitSelecter.SelectedIndex = 0
+                End If
             Case 7
                 UnitSelecter.Enabled = True
                 For i = 0 To ProjectSet.CHKSTRING.Count - 1
@@ -159,13 +166,6 @@
                 Next
 
                 UnitSelecter.SelectedIndex = 0
-            Case 9
-                UnitSelecter.Enabled = True
-                UnitSelecter.Items.Clear()
-                UnitSelecter.Items.AddRange(GetVariablesWithoutoverlap.ToArray)
-                If UnitSelecter.Items.Count <> 0 Then
-                    UnitSelecter.SelectedIndex = 0
-                End If
         End Select
     End Sub
 

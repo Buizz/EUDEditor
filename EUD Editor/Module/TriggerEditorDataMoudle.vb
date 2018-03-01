@@ -170,7 +170,6 @@ Module TriggerEditorDataMoudle
 
 
         str = str & "function onPluginStart() {" & vbCrLf & GetIntend(1) & "randomize();" & vbCrLf &
-               GetIntend(1) & "tct.init();" & vbCrLf &
         StartElement.ToCode(0) & "}" & vbCrLf
 
 
