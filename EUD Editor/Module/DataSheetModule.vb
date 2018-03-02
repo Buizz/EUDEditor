@@ -8,7 +8,7 @@ Module DataSheetModule
     'e2s면 참조 좌표로 부터 불러온다
     'ess도 참조 좌표로 부터 불러온다.
     Public Sub LoadFileToMemory()
-        If ProjectSet.filename.EndsWith(".e2z") Then
+        If ProjectSet.filename.EndsWith(".e2p") Then
             memory_stat_txt = Zip.GetFile(GetSafeName(dataDumper_stat_txt))
         Else
             LoadNewfile(dataDumper_stat_txt, DataName.stat_txt)

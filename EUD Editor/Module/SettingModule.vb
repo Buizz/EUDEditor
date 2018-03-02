@@ -10,7 +10,7 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "0.15.2"
+        Public Version As String = "0.15.3"
         Public DatEditVersion As String = "v0.3"
 
 
@@ -47,6 +47,7 @@ Namespace ProjectSet
         End Sub
 
         Public EUDEditorDebug As Boolean
+        Public epTraceDebug As Boolean
 
         Public filename As String
 
@@ -597,6 +598,7 @@ Namespace ProjectSet
             TriggerPlayer = 7
             TriggerSetTouse = True
             EUDEditorDebug = False
+            epTraceDebug = False
 
             For i = 0 To 7
                 DatEditDATA(i).Reset()
@@ -766,11 +768,11 @@ Namespace ProjectSet
 
             Dim extension As String = Mid(MapName, MapName.Length - 3)
             Select Case extension
-                Case ".e2s", ".e2z"
+                Case ".e2s", ".e2p"
                     Dim iszipfile As Boolean = False
 
                     '파일이 존재할 경우 파일의 확장자를 확인해라
-                    If extension = ".e2z" Then
+                    If extension = ".e2p" Then
                         iszipfile = True
                     End If
 
@@ -835,6 +837,7 @@ Namespace ProjectSet
                         Next
 
                         EUDEditorDebug = FindSetting(Section_ProjectSET, "EUDEditorDebug")
+                        epTraceDebug = FindSetting(Section_ProjectSET, "epTraceDebug")
                         TriggerSetTouse = FindSetting(Section_ProjectSET, "triggerSetTouse")
                         TriggerPlayer = FindSetting(Section_ProjectSET, "triggerPlayer")
                     Catch ex As Exception
@@ -1667,7 +1670,7 @@ Namespace ProjectSet
         Public Sub Save(MapName As String)
             Dim issavefilezip As Boolean = False
 
-            If MapName.EndsWith(".e2z") Then
+            If MapName.EndsWith(".e2p") Then
                 '집 파일이면
                 issavefilezip = True
             End If
@@ -1724,6 +1727,8 @@ Namespace ProjectSet
                 _stringbdl.Append("UsedSetting" & i & " : " & UsedSetting(i) & vbCrLf)
             Next
             _stringbdl.Append("EUDEditorDebug : " & EUDEditorDebug & vbCrLf)
+            _stringbdl.Append("epTraceDebug : " & epTraceDebug & vbCrLf)
+
             _stringbdl.Append("triggerSetTouse : " & TriggerSetTouse & vbCrLf)
             _stringbdl.Append("triggerPlayer : " & TriggerPlayer & vbCrLf)
 
@@ -2071,8 +2076,8 @@ Namespace ProjectSet
 
 
                     ZipFile.CreateFromDirectory(My.Application.Info.DirectoryPath & "\Data\temp\saveFile", MapName)
-                    Else
-                        MsgBox("다시 저장한다는데?")
+                Else
+                    MsgBox("다시 저장한다는데?")
                     '메모리와 비교 분석해서
                     '메모리에 없지만 알집에 있는 파일은 다 지우고
 

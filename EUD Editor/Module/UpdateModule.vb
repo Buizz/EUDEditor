@@ -59,7 +59,7 @@ Module UpdateModule
     Public Sub UpdateEUDEditor()
         ProjectSet.Close()
         If ProjectSet.isload = False Then
-            My.Computer.FileSystem.CopyFile(My.Application.Info.DirectoryPath & "\Data\EUDEditorUpdate.exe", My.Application.Info.DirectoryPath & "\EUDEditorUpdate.exe")
+            My.Computer.FileSystem.CopyFile(My.Application.Info.DirectoryPath & "\Data\EUDEditorUpdate.exe", My.Application.Info.DirectoryPath & "\EUDEditorUpdate.exe", True)
             Process.Start(My.Application.Info.DirectoryPath & "\EUDEditorUpdate.exe")
             Main.Close()
         End If

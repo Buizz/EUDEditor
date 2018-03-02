@@ -181,6 +181,18 @@ Namespace My
                 Me("IgnoreUpdate") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property 설정() As Boolean
+            Get
+                Return CType(Me("설정"),Boolean)
+            End Get
+            Set
+                Me("설정") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

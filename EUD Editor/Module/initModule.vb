@@ -214,12 +214,12 @@
        My.Application.Info.DirectoryPath & "\Data\icons\mem.ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
 
 
-        My.Computer.Registry.ClassesRoot.CreateSubKey(".e2z").SetValue("",
-          "e2z", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("e2z\shell\open\command").SetValue("",
+        My.Computer.Registry.ClassesRoot.CreateSubKey(".e2p").SetValue("",
+          "e2p", Microsoft.Win32.RegistryValueKind.String)
+        My.Computer.Registry.ClassesRoot.CreateSubKey("e2p\shell\open\command").SetValue("",
         Application.ExecutablePath & " ""%l"" ", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("e2z\DefaultIcon").SetValue("",
-       My.Application.Info.DirectoryPath & "\Data\icons\e2z.ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
+        My.Computer.Registry.ClassesRoot.CreateSubKey("e2p\DefaultIcon").SetValue("",
+       My.Application.Info.DirectoryPath & "\Data\icons\e2p.ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
 
         'TextEditor.ShowDialog()
         'Main.Close()

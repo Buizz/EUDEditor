@@ -110,6 +110,7 @@
             RadioButton2.Checked = True
         End If
         CheckBox4.Checked = ProgramSet.isAutoCompile
+        CheckBox5.Checked = ProjectSet.epTraceDebug
         CheckBox1.Checked = ProjectSet.LoadFromCHK
         For i = 5 To 8
             CheckedListBox1.SetItemChecked(i - 5, ProjectSet.UsedSetting(i))
@@ -388,6 +389,10 @@ retry:
 
     Private Sub CheckBox4_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox4.CheckedChanged
         ProgramSet.isAutoCompile = CheckBox4.Checked
+    End Sub
+
+    Private Sub CheckBox5_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox5.CheckedChanged
+        ProjectSet.epTraceDebug = CheckBox5.Checked
     End Sub
 
 

@@ -31,6 +31,7 @@ Partial Class SettingForm
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
@@ -46,9 +47,9 @@ Partial Class SettingForm
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -148,6 +149,7 @@ Partial Class SettingForm
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.CheckBox5)
         Me.GroupBox1.Controls.Add(Me.GroupBox3)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
         Me.GroupBox1.Controls.Add(Me.CheckBox1)
@@ -159,25 +161,33 @@ Partial Class SettingForm
         Me.GroupBox1.Controls.Add(Me.Button3)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.RadioButton2)
-        Me.GroupBox1.Controls.Add(Me.RadioButton1)
         Me.GroupBox1.Controls.Add(Me.CheckedListBox1)
         Me.GroupBox1.Enabled = False
         Me.GroupBox1.Location = New System.Drawing.Point(0, 156)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(0)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(308, 290)
+        Me.GroupBox1.Size = New System.Drawing.Size(308, 265)
         Me.GroupBox1.TabIndex = 9
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "프로젝트 세팅"
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Location = New System.Drawing.Point(10, 184)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(107, 19)
+        Me.CheckBox5.TabIndex = 15
+        Me.CheckBox5.Text = "epTrace Debug"
+        Me.CheckBox5.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.Label7)
         Me.GroupBox3.Controls.Add(Me.ComboBox2)
         Me.GroupBox3.Controls.Add(Me.CheckBox2)
-        Me.GroupBox3.Location = New System.Drawing.Point(8, 294)
+        Me.GroupBox3.Location = New System.Drawing.Point(8, 312)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(292, 69)
@@ -224,10 +234,10 @@ Partial Class SettingForm
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.CheckBox3)
-        Me.GroupBox4.Location = New System.Drawing.Point(8, 232)
+        Me.GroupBox4.Location = New System.Drawing.Point(8, 208)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(292, 52)
+        Me.GroupBox4.Size = New System.Drawing.Size(292, 53)
         Me.GroupBox4.TabIndex = 15
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "기타 설정"
@@ -331,31 +341,6 @@ Partial Class SettingForm
         Me.Label4.Text = "사용 & 삽입 설정"
         Me.Label4.UseMnemonic = False
         '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Enabled = False
-        Me.RadioButton2.Location = New System.Drawing.Point(6, 204)
-        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(118, 19)
-        Me.RadioButton2.TabIndex = 2
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "euddraft사용안함"
-        Me.RadioButton2.UseVisualStyleBackColor = True
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(6, 185)
-        Me.RadioButton1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(94, 19)
-        Me.RadioButton1.TabIndex = 1
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "euddraft사용"
-        Me.RadioButton1.UseVisualStyleBackColor = True
-        '
         'CheckedListBox1
         '
         Me.CheckedListBox1.CheckOnClick = True
@@ -368,6 +353,33 @@ Partial Class SettingForm
         Me.CheckedListBox1.Name = "CheckedListBox1"
         Me.CheckedListBox1.Size = New System.Drawing.Size(147, 76)
         Me.CheckedListBox1.TabIndex = 0
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Enabled = False
+        Me.RadioButton2.Location = New System.Drawing.Point(359, 375)
+        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(118, 19)
+        Me.RadioButton2.TabIndex = 2
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.Text = "euddraft사용안함"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.RadioButton2.Visible = False
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(369, 320)
+        Me.RadioButton1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(94, 19)
+        Me.RadioButton1.TabIndex = 1
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Text = "euddraft사용"
+        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.RadioButton1.Visible = False
         '
         'GroupBox2
         '
@@ -490,7 +502,7 @@ Partial Class SettingForm
         '
         Me.FlowLayoutPanel2.Controls.Add(Me.Button5)
         Me.FlowLayoutPanel2.Controls.Add(Me.Button6)
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(0, 446)
+        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(0, 421)
         Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Size = New System.Drawing.Size(314, 32)
@@ -507,6 +519,8 @@ Partial Class SettingForm
         Me.ClientSize = New System.Drawing.Size(489, 560)
         Me.ControlBox = False
         Me.Controls.Add(Me.FlowLayoutPanel1)
+        Me.Controls.Add(Me.RadioButton1)
+        Me.Controls.Add(Me.RadioButton2)
         Me.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -570,4 +584,5 @@ Partial Class SettingForm
     Friend WithEvents Label8 As Label
     Friend WithEvents ComboBox3 As ComboBox
     Friend WithEvents CheckBox4 As CheckBox
+    Friend WithEvents CheckBox5 As CheckBox
 End Class

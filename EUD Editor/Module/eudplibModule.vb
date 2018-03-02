@@ -42,7 +42,12 @@ Namespace eudplib
             End If
 
             returntext.AppendLine("output: " & ProjectSet.OutputMap)
-            'returntext.AppendLine("debug: 1")
+
+            If ProjectSet.epTraceDebug Then
+                returntext.AppendLine("debug: 1")
+            End If
+
+
             returntext.AppendLine()
             returntext.AppendLine("[EUDEditor.py]")
             returntext.AppendLine()
@@ -683,42 +688,51 @@ Namespace eudplib
             '==================================BtnSet===============================
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.FireGraft) = True Then
                 For i = 0 To ProjectBtnUSE.Count - 1
-                    Dim passflag As Boolean = False
+                    'Dim passflag As Boolean = False
                     '모든 버튼 정보를 조사해서 같은 게 있으면 몽땅 어드레스 등록하기.
                     '후방을 조사해서 같은거 모두 적는다.
                     '전방에 같은게 있다면 패스한다.
+                    'If ProjectBtnUSE(i) = True Then
+
+                    '    For k = 0 To i - 1 '전방검사 검사
+                    '        If ProjectBtnUSE(k) = True Then
+                    '            'MsgBox(i & " 전방검사 : " & k)
+                    '            If GetTextValue(i) = GetTextValue(k) Then
+                    '                'MsgBox("같음") '패스하기
+                    '                passflag = True
+                    '            End If
+                    '        End If
+                    '    Next
+                    'End If
+
+                    'If passflag = False Then
+                    '    If ProjectBtnUSE(i) = True Then
+
+                    '        returntext.AppendLine("    bytebuffer = bytearray([" & GetTextValue(i) & "])")
+                    '        returntext.AppendLine("    btnptr = Db(bytebuffer)")
+
+                    '        returntext.AppendLine("    DoActions([")
+                    '        For k = i To ProjectBtnUSE.Count - 1 '후방 검사
+                    '            If ProjectBtnUSE(k) = True Then
+                    '                'MsgBox(i & " 후방검사 : " & k)
+                    '                If GetTextValue(i) = GetTextValue(k) Then
+                    '                    'MsgBox("같음") '같이적기
+                    '                    returntext.AppendLine("        SetMemory(0x" & Hex(Val("&H" & ReadOffset("FG_BtnAddress")) + 12 * k) & ", SetTo, btnptr),")
+
+                    '                End If
+                    '            End If
+                    '        Next
+                    '        returntext.AppendLine("    ])")
+                    '    End If
+                    'End If
                     If ProjectBtnUSE(i) = True Then
 
-                        For k = 0 To i - 1 '전방검사 검사
-                            If ProjectBtnUSE(k) = True Then
-                                'MsgBox(i & " 전방검사 : " & k)
-                                If GetTextValue(i) = GetTextValue(k) Then
-                                    'MsgBox("같음") '패스하기
-                                    passflag = True
-                                End If
-                            End If
-                        Next
-                    End If
+                        returntext.AppendLine("    bytebuffer = bytearray([" & GetTextValue(i) & "])")
+                        returntext.AppendLine("    btnptr = Db(bytebuffer)")
 
-                    If passflag = False Then
-                        If ProjectBtnUSE(i) = True Then
-
-                            returntext.AppendLine("    bytebuffer = bytearray([" & GetTextValue(i) & "])")
-                            returntext.AppendLine("    btnptr = Db(bytebuffer)")
-
-                            returntext.AppendLine("    DoActions([")
-                            For k = i To ProjectBtnUSE.Count - 1 '후방 검사
-                                If ProjectBtnUSE(k) = True Then
-                                    'MsgBox(i & " 후방검사 : " & k)
-                                    If GetTextValue(i) = GetTextValue(k) Then
-                                        'MsgBox("같음") '같이적기
-                                        returntext.AppendLine("        SetMemory(0x" & Hex(Val("&H" & ReadOffset("FG_BtnAddress")) + 12 * k) & ", SetTo, btnptr),")
-
-                                    End If
-                                End If
-                            Next
-                            returntext.AppendLine("    ])")
-                        End If
+                        returntext.AppendLine("    DoActions([")
+                        returntext.AppendLine("        SetMemory(0x" & Hex(Val("&H" & ReadOffset("FG_BtnAddress")) + 12 * i) & ", SetTo, btnptr),")
+                        returntext.AppendLine("    ])")
                     End If
                 Next
 

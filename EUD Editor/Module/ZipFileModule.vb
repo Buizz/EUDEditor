@@ -5,20 +5,25 @@ Namespace Zip
     Module ZipFileModule
 
         Public Function GetFile(filename As String) As MemoryStream
-            Using zipToOpen As FileStream = New FileStream(ProjectSet.filename, FileMode.Open)
-                Using archive As ZipArchive = New ZipArchive(zipToOpen, ZipArchiveMode.Update)
-                    Dim readmeEntry As ZipArchiveEntry = archive.GetEntry(filename)
-                    Dim _Stream As Stream = readmeEntry.Open()
-                    Dim returnmemstr As New MemoryStream()
+            If filename <> "" Then
+                Using zipToOpen As FileStream = New FileStream(ProjectSet.filename, FileMode.Open)
+                    Using archive As ZipArchive = New ZipArchive(zipToOpen, ZipArchiveMode.Update)
+                        MsgBox(filename)
+                        Dim readmeEntry As ZipArchiveEntry = archive.GetEntry(filename)
+                        Dim _Stream As Stream = readmeEntry.Open()
+                        Dim returnmemstr As New MemoryStream()
 
-                    Dim buffer(_Stream.Length) As Byte
-                    _Stream.Read(buffer, 1, _Stream.Length)
+                        Dim buffer(_Stream.Length) As Byte
+                        _Stream.Read(buffer, 1, _Stream.Length)
 
-                    returnmemstr.Write(buffer, 1, _Stream.Length)
+                        returnmemstr.Write(buffer, 1, _Stream.Length)
 
-                    Return returnmemstr
+                        Return returnmemstr
+                    End Using
                 End Using
-            End Using
+            Else
+                Return Nothing
+            End If
         End Function
 
 

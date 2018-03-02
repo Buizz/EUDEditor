@@ -64,6 +64,14 @@
                 Me.Activate()
                 MsgBox(RichTextBox2.Text, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
 
+            ElseIf instr(RichTextBox1.Text, "[Error]") <> 0 Then
+                '에러
+                'CompileStart()
+                '에러문구 출력
+
+                RichTextBox2.Text = "빌드에 실패했습니다. 자세한 상황은 좌측 상단의 로그를 참고하세요." & vbCrLf & Errormsg
+                Me.Activate()
+                MsgBox(RichTextBox2.Text, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
             Else
                 Me.Hide()
             End If
