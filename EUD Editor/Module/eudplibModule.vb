@@ -38,8 +38,12 @@ Namespace eudplib
                 AdJustNewMTXN()
                 returntext.AppendLine("input: " & My.Application.Info.DirectoryPath & "\Data\temp\" & "map.scx")
             Else
-                returntext.AppendLine("input: " & ProjectSet.InputMap)
-            End If
+                If ProjectSet.filename.EndsWith(".e2p") Then
+                    returntext.AppendLine("input: ..\Map\" & GetSafeName(ProjectSet.InputMap))
+                Else
+                    returntext.AppendLine("input: " & ProjectSet.InputMap)
+                End If
+            End If '..\Map\(2)Twilight Struggle.scx
 
             returntext.AppendLine("output: " & ProjectSet.OutputMap)
 
@@ -1191,12 +1195,18 @@ Namespace eudplib
 
 
         Public Sub Toflie(Optional isedd As Boolean = False, Optional isotherWindows As Boolean = False)
-            DeleteFilesFromFolder(My.Application.Info.DirectoryPath & "\Data\temp")
+            Dim basefolder As String = My.Application.Info.DirectoryPath & "\Data"
+            If ProjectSet.filename.EndsWith(".e2p") Then
+                '집 파일이면 
+                basefolder = ProjectSet.filename.Replace("\" & GetSafeName(ProjectSet.filename), "")
+            End If
+
+            DeleteFilesFromFolder(basefolder & "\temp")
 
             Dim filestream As FileStream
             Dim streamwriter As StreamWriter
 
-            Dim filename As String = My.Application.Info.DirectoryPath & "\Data\eudplibdata\EUDEditor.eds"
+            Dim filename As String = basefolder & "\eudplibdata\EUDEditor.eds"
 
 
             filestream = New FileStream(filename, FileMode.Create)
@@ -1208,7 +1218,7 @@ Namespace eudplib
 
             'MsgBox("테러태스트")
             If isedd = True Then
-                filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\EUDEditor.edd"
+                filename = basefolder & "\eudplibdata\EUDEditor.edd"
                 filestream = New FileStream(filename, FileMode.Create)
                 streamwriter = New StreamWriter(filestream, Encoding.GetEncoding("ks_c_5601-1987"))
 
@@ -1229,7 +1239,7 @@ Namespace eudplib
 
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.BtnSet) = True Then
 
-                filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\BGMPlayer.eps"
+                filename = basefolder & "\eudplibdata\BGMPlayer.eps"
                 filestream = New FileStream(filename, FileMode.Create)
                 streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
 
@@ -1240,7 +1250,7 @@ Namespace eudplib
             End If
 
 
-            filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\EUDEditor.py"
+            filename = basefolder & "\eudplibdata\EUDEditor.py"
             filestream = New FileStream(filename, FileMode.Create)
             streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
 
@@ -1250,12 +1260,8 @@ Namespace eudplib
             filestream.Close()
 
 
-
-
-
-
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.Struct) = True Then
-                filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\tempcustomText.py"
+                filename = basefolder & "\eudplibdata\tempcustomText.py"
                 filestream = New FileStream(filename, FileMode.Create)
                 streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
 
@@ -1265,7 +1271,7 @@ Namespace eudplib
                 filestream.Close()
 
 
-                filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\punitloop.py"
+                filename = basefolder & "\eudplibdata\punitloop.py"
                 filestream = New FileStream(filename, FileMode.Create)
                 streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
 
@@ -1275,7 +1281,7 @@ Namespace eudplib
                 filestream.Close()
 
 
-                filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\TriggerEditor.eps"
+                filename = basefolder & "\eudplibdata\TriggerEditor.eps"
                 filestream = New FileStream(filename, FileMode.Create)
                 streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
 
@@ -1295,7 +1301,7 @@ Namespace eudplib
 
 
             If isedd = True Then
-                filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\EUDEditor.edd"
+                filename = basefolder & "\eudplibdata\EUDEditor.edd"
 
                 startInfo.FileName = ProgramSet.euddraftDirec
                 startInfo.Arguments = """" & filename & """"
@@ -1329,7 +1335,7 @@ Namespace eudplib
                 BulidForm.isotherWindows = isotherWindows
                 BulidForm.Show()
 
-                BulidForm.CompileStart()
+                BulidForm.CompileStart(basefolder)
                 'filename = My.Application.Info.DirectoryPath & "\Data\eudplibdata\EUDEditor.eds"
 
                 'startInfo.FileName = ProgramSet.euddraftDirec

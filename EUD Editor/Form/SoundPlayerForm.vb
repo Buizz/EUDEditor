@@ -33,6 +33,10 @@
             Else
                 Soundlist.Add(OpenFileDialog1.FileName)
                 ListBox1.Items.Add(getPureName(OpenFileDialog1.FileName))
+                If ProjectSet.filename.EndsWith(".e2p") Then
+                    Dim foldername As String = ProjectSet.filename.Replace("\" & GetSafeName(ProjectSet.filename), "")
+                    MoveFileAll(foldername)
+                End If
             End If
         End If
     End Sub

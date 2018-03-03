@@ -482,8 +482,7 @@ Module parsingModule
         '    Exit Function
         'End If
 
-
-        Dim filestr As Stream = LoadMemory(DataName.stat_txt)
+        Dim filestr As FileStream = New FileStream(dataDumper_stat_txt, FileMode.Open)
 
         'Dim strmem As MemoryStream = New MemoryStream(mpq.ReaddatFile(filename))
         Dim strstream As StreamReader = New StreamReader(filestr, Text.Encoding.GetEncoding(encoding)) 'Text.Encoding.GetEncoding("ks_c_5601-1987")

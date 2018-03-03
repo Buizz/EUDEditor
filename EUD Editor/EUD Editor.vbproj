@@ -473,9 +473,9 @@
     <Compile Include="Module\BinEditModule.vb" />
     <Compile Include="Module\CreateDebugpyModule.vb" />
     <Compile Include="Module\CTextEncoder.vb" />
-    <Compile Include="Module\DataSheetModule.vb" />
     <Compile Include="Module\DebugClass.vb" />
     <Compile Include="Module\eudplibModule.vb" />
+    <Compile Include="Module\EUDProjectManagerModule.vb" />
     <Compile Include="Module\GetMRUModule.vb" />
     <Compile Include="Module\GRPModule.vb" />
     <Compile Include="Module\ImageToGRPModule.vb" />
@@ -501,7 +501,6 @@
     <Compile Include="Module\UnitModule.vb" />
     <Compile Include="Module\UpdateModule.vb" />
     <Compile Include="Module\ValueDefsModule.vb" />
-    <Compile Include="Module\ZipFileModule.vb" />
     <Compile Include="Module\tempmoudle.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

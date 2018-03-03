@@ -385,7 +385,6 @@ Public Class PluginForm
                     If cb.SelectedIndex = 0 Then
                         DataGridView2.Item(1, Dgrid2point.Y).Value = ""
                         dataDumper_stat_txt = ""
-                        EmptyMemory(DataName.stat_txt)
                     ElseIf dataDumper_stat_txt = "" Then
                         If grpopen(Dgrid2point.X, Dgrid2point.Y) = DialogResult.Cancel Then
                             DataGridView2.Item(2, Dgrid2point.Y).Value = type(0)
@@ -509,8 +508,6 @@ Public Class PluginForm
                 If dialog = DialogResult.OK Then
                     dataDumper_stat_txt = OpenFileDialog2.FileName
 
-                    '데이터 메모리로 로딩.
-                    LoadNewfile(dataDumper_stat_txt, DataName.stat_txt)
 
                     If dataDumper_stat_txt_f = 0 Then
                         dataDumper_stat_txt_f = 2

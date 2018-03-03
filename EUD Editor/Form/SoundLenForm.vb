@@ -39,30 +39,40 @@
 
         '    Label1.Text = """" & openfile.Split("\").Last & "을 분리하는 중 ...(" & i & "/" & maxlen & ")"
 
-        With proc.StartInfo
-            .Arguments = "-i " & openfile & " -y " & Chr(34) & output & ".wav" & Chr(34)
-            .WindowStyle = ProcessWindowStyle.Hidden
+        If ProjectSet.filename.EndsWith(".e2p") Then
+            With proc.StartInfo
+                .Arguments = "-i " & openfile & " -f segment -segment_time " & interval & " -y -c copy " & Chr(34) & output & "%d" & ".ogg" & Chr(34)
+                .WindowStyle = ProcessWindowStyle.Hidden
 
-        End With
-        proc.Start()
-        proc.WaitForExit()
+            End With
+            proc.Start()
+            proc.WaitForExit()
+        Else
+            With proc.StartInfo
+                .Arguments = "-i " & openfile & " -y " & Chr(34) & output & ".wav" & Chr(34)
+                .WindowStyle = ProcessWindowStyle.Hidden
 
-        With proc.StartInfo
-            .Arguments = "-i " & Chr(34) & output & ".wav" & Chr(34) & " -y " & Chr(34) & output & ".ogg" & Chr(34)
-            .WindowStyle = ProcessWindowStyle.Hidden
+            End With
+            proc.Start()
+            proc.WaitForExit()
 
-        End With
-        proc.Start()
-        proc.WaitForExit()
+            With proc.StartInfo
+                .Arguments = "-i " & Chr(34) & output & ".wav" & Chr(34) & " -y " & Chr(34) & output & ".ogg" & Chr(34)
+                .WindowStyle = ProcessWindowStyle.Hidden
 
-        With proc.StartInfo
-            .Arguments = "-i " & Chr(34) & output & ".ogg" & Chr(34) & " -f segment -segment_time " & interval & " -y -c copy " & Chr(34) & output & "%d" & ".ogg" & Chr(34)
-            .WindowStyle = ProcessWindowStyle.Hidden
+            End With
+            proc.Start()
+            proc.WaitForExit()
 
-        End With
-        proc.Start()
+            With proc.StartInfo
+                .Arguments = "-i " & Chr(34) & output & ".ogg" & Chr(34) & " -f segment -segment_time " & interval & " -y -c copy " & Chr(34) & output & "%d" & ".ogg" & Chr(34)
+                .WindowStyle = ProcessWindowStyle.Hidden
 
-        proc.WaitForExit()
+            End With
+            proc.Start()
+            proc.WaitForExit()
+        End If
+
 
         workstatus += 1
     End Sub

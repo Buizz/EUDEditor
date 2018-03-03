@@ -8,13 +8,14 @@
         End If
     End Sub
 
+    Dim base As String
 
-
-    Public Sub CompileStart()
+    Public Sub CompileStart(basefolder As String)
+        base = basefolder
         RichTextBox1.Text = ""
         RichTextBox2.Text = "빌드 중입니다."
 
-        Dim filename As String = My.Application.Info.DirectoryPath & "\Data\eudplibdata\EUDEditor.eds"
+        Dim filename As String = basefolder & "\eudplibdata\EUDEditor.eds"
 
         startInfo.FileName = ProgramSet.euddraftDirec
         startInfo.Arguments = """" & filename & """"
@@ -54,7 +55,7 @@
         If process.HasExited Then
             Timer1.Enabled = False
             If InStr(Errormsg, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
-                CompileStart()
+                CompileStart(base)
             ElseIf Errormsg <> "" Then
                 '에러
                 'CompileStart()

@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports System.IO.Compression
 Imports System.Text
 Imports System.Threading
 
@@ -10,7 +9,7 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "0.15.3"
+        Public Version As String = "0.15.4"
         Public DatEditVersion As String = "v0.3"
 
 
@@ -778,27 +777,7 @@ Namespace ProjectSet
 
                     Dim file As FileStream = Nothing
 
-                    If iszipfile = True Then
-                        DeleteFilesFromFolder(My.Application.Info.DirectoryPath & "\Data\temp")
-                        Directory.CreateDirectory(My.Application.Info.DirectoryPath & "\Data\temp\saveFile")
-
-                        Dim zipPath As String = MapName
-                        Dim extractPath As String = My.Application.Info.DirectoryPath & "\Data\temp\saveFile"
-
-                        Using archive As ZipArchive = ZipFile.OpenRead(zipPath)
-                            For Each entry As ZipArchiveEntry In archive.Entries
-                                If entry.FullName = "e2sfile" Then
-                                    entry.ExtractToFile(Path.Combine(extractPath, entry.FullName))
-                                    file = New FileStream(Path.Combine(extractPath, entry.FullName), FileMode.Open, FileAccess.Read)
-                                End If
-                            Next
-                        End Using
-                    Else
-                        file = New FileStream(MapName, FileMode.Open, FileAccess.Read)
-                    End If
-
-
-
+                    file = New FileStream(MapName, FileMode.Open, FileAccess.Read)
 
                     Dim stream As StreamReader = New StreamReader(file)
 
@@ -1645,8 +1624,9 @@ Namespace ProjectSet
 
             End Select
 
-            '데이터들을 메모리로 불러온다.
-            LoadFileToMemory()
+            If extension = ".e2p" Then
+                RenameFileAll()
+            End If
 
             LoadFileimportable()
         End Sub
@@ -1704,8 +1684,9 @@ Namespace ProjectSet
             Dim file As FileStream
 
             Dim savefilename As String
-            If issavefilezip = True Then
-                savefilename = My.Application.Info.DirectoryPath & "\Data\temp\saveFile\e2sfile"
+            If issavefilezip = True And isnewfile = True Then
+                Directory.CreateDirectory(MapName.Replace(".e2p", ""))
+                savefilename = MapName.Replace(".e2p", "") & "\" & GetSafeName(MapName)
             Else
                 savefilename = MapName
             End If
@@ -2065,37 +2046,30 @@ Namespace ProjectSet
 
             If issavefilezip = True Then
                 If isnewfile = True Then
+                    Dim foldername As String = MapName.Replace(".e2p", "")
                     '세이브파일 폴더에 파일들을 몽땅 넣어버린다.
-                    MsgBox("새로 파일 넣는다는데?")
+                    Directory.CreateDirectory(foldername & "\Resource")
+                    Directory.CreateDirectory(foldername & "\Map")
+                    Directory.CreateDirectory(foldername & "\eudplibdata")
+                    Directory.CreateDirectory(foldername & "\Grp")
+                    Directory.CreateDirectory(foldername & "\Sound")
+                    Directory.CreateDirectory(foldername & "\temp")
 
-                    'tbl넣기
-                    If CheckMemory(DataName.stat_txt) Then
-                        savefilename = My.Application.Info.DirectoryPath & "\Data\temp\saveFile\" & GetSafeName(dataDumper_stat_txt)
-                        MakeFileFromMemory(DataName.stat_txt, savefilename)
-                    End If
-
-
-                    ZipFile.CreateFromDirectory(My.Application.Info.DirectoryPath & "\Data\temp\saveFile", MapName)
+                    '이름을 모두 상대주소로 저장해 버린다.
+                    '우선 맵 먼저
+                    MoveFileAll(foldername)
                 Else
-                    MsgBox("다시 저장한다는데?")
-                    '메모리와 비교 분석해서
-                    '메모리에 없지만 알집에 있는 파일은 다 지우고
+                    Dim foldername As String = MapName.Replace("\" & GetSafeName(MapName), "")
+                    Directory.CreateDirectory(foldername & "\Resource")
+                    Directory.CreateDirectory(foldername & "\Map")
+                    Directory.CreateDirectory(foldername & "\eudplibdata")
+                    Directory.CreateDirectory(foldername & "\Grp")
+                    Directory.CreateDirectory(foldername & "\Sound")
+                    Directory.CreateDirectory(foldername & "\temp")
+                    '일단 할건 없는 거로...
+                    MoveFileAll(foldername)
 
-                    '메모리에 있지만 알집에도 있지만 다른 파일이면 갱신
-                    '메모리에 있고 알집에 없으면 새로 넣는다.
-
-
-                    Using zipToOpen As FileStream = New FileStream(MapName, FileMode.Open)
-                        Using archive As ZipArchive = New ZipArchive(zipToOpen, ZipArchiveMode.Update)
-                            Dim readmeEntry As ZipArchiveEntry = archive.GetEntry("e2sfile")
-
-
-                            Using writer As StreamWriter = New StreamWriter(readmeEntry.Open())
-                                writer.Flush()
-                                writer.Write(_stringbdl.ToString)
-                            End Using
-                        End Using
-                    End Using
+                    DeleteDumpFileAll()
                 End If
             End If
 

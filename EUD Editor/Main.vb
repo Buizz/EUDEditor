@@ -65,7 +65,7 @@ Public Class Main
                 Button13.Visible = True
 
                 Button11.Visible = True
-                Button11.Enabled = False
+                Button11.Enabled = True
                 'Button11.Enabled = True
                 Button12.Visible = True
 
@@ -105,7 +105,7 @@ Public Class Main
                 Button13.Visible = False
 
                 Button11.Visible = True
-                Button11.Enabled = False
+                Button11.Enabled = True
                 'Button11.Enabled = True
                 Button12.Visible = False
 
@@ -708,8 +708,6 @@ Public Class Main
     End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
-        ProjectSet.saveStatus = False
-
         My.Forms.Main.Visible = False
         FileSettingForm.ShowDialog()
         My.Forms.Main.Visible = True

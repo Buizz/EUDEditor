@@ -1016,7 +1016,7 @@ Module ProgramData
 
 
 
-        If CheckMemory(DataName.stat_txt) Then
+        If dataDumper_stat_txt_f <> 0 Then
 
             Try
                 stat_txt = Readstat_txtfile(True)
