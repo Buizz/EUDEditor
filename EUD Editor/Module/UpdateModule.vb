@@ -3,7 +3,7 @@ Imports System.IO
 
 Module UpdateModule
     Dim status As Integer = 0
-    Dim lastver As String
+    Public lastver As String
     Dim lastverurl As String
     Dim currrentver As String
 

@@ -16,14 +16,24 @@
 
     Private Sub NQCForm_Closing(sender As Object, e As EventArgs) Handles MyBase.Closing
         If RadioButton1.Checked = True Then '직접 입력일 경우
-            returnstring = TextBox1.Text & "#" & EasyCompletionComboBox2.SelectedIndex & "#" & NumericUpDown1.Value
+            returnstring = TextBox1.Text
         Else
-            returnstring = EasyCompletionComboBox1.SelectedItem & "#" & EasyCompletionComboBox2.SelectedIndex & "#" & NumericUpDown1.Value
+            returnstring = EasyCompletionComboBox1.SelectedItem
+        End If
+        If RadioButton3.Checked = True Then '직접 입력일 경우
+            returnstring = returnstring & "#" & TextBox2.Text & "#" & 0
+        Else
+            returnstring = returnstring & "#" & EasyCompletionComboBox2.SelectedIndex & "#" & NumericUpDown1.Value
         End If
     End Sub
 
     Dim tload As Boolean = False
     Private Sub NQCForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        TextBox1.Text = ""
+        TextBox2.Text = ""
+        EasyCompletionComboBox1.ResetText()
+        EasyCompletionComboBox2.ResetText()
+
         tload = True
         EasyCompletionComboBox2.Items.Clear()
 
@@ -71,17 +81,30 @@
             End Try
 
 
+            Dim checkstr As Boolean = True
+            RadioButton4.Checked = True
+            TextBox2.Enabled = False
+            FlowLayoutPanel2.Enabled = True
             Try
                 EasyCompletionComboBox2.SelectedIndex = deathunit
             Catch ex As Exception
                 EasyCompletionComboBox2.SelectedIndex = 0
+                checkstr = False
             End Try
 
             Try
                 NumericUpDown1.Value = deathval
             Catch ex As Exception
                 NumericUpDown1.Value = 0
+                checkstr = False
             End Try
+
+            If checkstr = False Then
+                RadioButton3.Checked = True
+                TextBox2.Enabled = True
+                TextBox2.Text = deathunit
+                FlowLayoutPanel2.Enabled = False
+            End If
         End If
         tload = False
     End Sub
@@ -113,4 +136,21 @@
             CheckValidity()
         End If
     End Sub
+
+    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
+        If RadioButton3.Checked Then
+            TextBox2.Enabled = True
+            FlowLayoutPanel2.Enabled = False
+            CheckValidity()
+        End If
+    End Sub
+
+    Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
+        If RadioButton4.Checked Then
+            TextBox2.Enabled = False
+            FlowLayoutPanel2.Enabled = True
+            CheckValidity()
+        End If
+    End Sub
+
 End Class

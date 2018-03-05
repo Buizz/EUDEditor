@@ -1050,6 +1050,20 @@ Module ProgramData
             Catch ex As Exception
                 iscript.LoadIscriptToBuff(mpq.ReaddatFile("scripts\iscript.bin"))
             End Try
+        ElseIf dataDumper_iscript_f <> 0 Then
+            Try
+                Dim FileStream As New FileStream(dataDumper_iscript, FileMode.Open)
+                Dim memsteram As New BinaryReader(FileStream)
+
+
+
+                iscript.LoadIscriptToBuff(memsteram.ReadBytes(FileStream.Length))
+
+                memsteram.Close()
+                FileStream.Close()
+            Catch ex As Exception
+                iscript.LoadIscriptToBuff(mpq.ReaddatFile("scripts\iscript.bin"))
+            End Try
         Else
             iscript.LoadIscriptToBuff(mpq.ReaddatFile("scripts\iscript.bin"))
         End If

@@ -344,6 +344,7 @@ Namespace WinAPI
         End Function
 
 
+
         Public Function GetGandle()
             Dim ProcessName As String = "StarCraft"
             Dim MyP As Process() = Process.GetProcessesByName(ProcessName)

@@ -22,11 +22,10 @@ Partial Class BulidForm
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.RichTextBox2 = New System.Windows.Forms.RichTextBox()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -41,9 +40,6 @@ Partial Class BulidForm
         Me.RichTextBox1.Size = New System.Drawing.Size(161, 54)
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = ""
-        '
-        'Timer1
-        '
         '
         'TableLayoutPanel1
         '
@@ -71,6 +67,9 @@ Partial Class BulidForm
         Me.RichTextBox2.TabIndex = 1
         Me.RichTextBox2.Text = ""
         '
+        'BackgroundWorker1
+        '
+        '
         'BulidForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -92,7 +91,7 @@ Partial Class BulidForm
     End Sub
 
     Friend WithEvents RichTextBox1 As RichTextBox
-    Friend WithEvents Timer1 As Timer
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents RichTextBox2 As RichTextBox
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

@@ -50,9 +50,25 @@ Public Class PluginForm
 
     Private Sub PluginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Lan.SetLangage(Me)
+
+        DataGridView2.Columns(0).HeaderText = Lan.GetText("PluginForm", "FileName")
+        DataGridView2.Columns(1).HeaderText = Lan.GetText("PluginForm", "Fileoffset")
+        DataGridView2.Columns(2).HeaderText = Lan.GetText("PluginForm", "Status")
+
+        DataGridView1.Columns(0).HeaderText = Lan.GetText("PluginForm", "FileName")
+        DataGridView1.Columns(1).HeaderText = Lan.GetText("PluginForm", "Fileoffset")
+
+
+        For i = 0 To type.Count - 1
+            type(i) = Lan.GetText("PluginForm", "type" & i + 1)
+            Column3.Items(i) = Lan.GetText("PluginForm", "type" & i + 1)
+        Next
+
+
+
         'REMASTER 체크
         If ProgramSet.StarVersion = "Remastered" Then
-            MsgBox("일부 기타 플러그인이 작동하지 않을 수 있습니다.", MsgBoxStyle.Exclamation)
+            'MsgBox("일부 기타 플러그인이 작동하지 않을 수 있습니다.", MsgBoxStyle.Exclamation)
 
             GroupBox1.Visible = False
             GroupBox2.Visible = False
@@ -93,9 +109,9 @@ Public Class PluginForm
 
 
         DataGridView1.Rows.Clear()
-        DataGridView1.Rows.Add("arrow.grp", grpinjector_arrow.Split("\").Last, "삭제")
-        DataGridView1.Rows.Add("drag.grp", grpinjector_drag.Split("\").Last, "삭제")
-        DataGridView1.Rows.Add("illegal.grp", grpinjector_illegal.Split("\").Last, "삭제")
+        DataGridView1.Rows.Add("arrow.grp", grpinjector_arrow.Split("\").Last, Lan.GetText("PluginForm", "Button4"))
+        DataGridView1.Rows.Add("drag.grp", grpinjector_drag.Split("\").Last, Lan.GetText("PluginForm", "Button4"))
+        DataGridView1.Rows.Add("illegal.grp", grpinjector_illegal.Split("\").Last, Lan.GetText("PluginForm", "Button4"))
 
 
         'dataDumper_grpwire = FindSetting(Section_PluginSET, "dataDumper_grpwire")
@@ -160,7 +176,12 @@ Public Class PluginForm
         For i = 0 To nqcstring.Count - 1
             Dim tstring() As String = nqcstring(i).Split("#")
 
-            ListBox3.Items.Add(tstring(0) & " : " & unitlist(tstring(1)) & ", " & tstring(2))
+            Try
+                Dim temp As UInteger = tstring(1)
+                ListBox3.Items.Add(tstring(0) & " : " & unitlist(tstring(1)) & ", " & tstring(2))
+            Catch ex As Exception
+                ListBox3.Items.Add(tstring(0) & " : " & tstring(1))
+            End Try
         Next
 
 
@@ -171,6 +192,10 @@ Public Class PluginForm
         loadstatus = True
         objectStatusReset()
     End Sub
+
+
+
+
     Private Sub PluginForm_Closed(sender As Object, e As EventArgs) Handles MyBase.Closed
         extraedssetting = RichTextBox1.Text
 
@@ -701,8 +726,12 @@ Public Class PluginForm
 
 
             Dim tstring() As String = NQCForm.returnstring.Split("#")
-
-            ListBox3.Items.Add(tstring(0) & " : " & unitlist(tstring(1)) & ", " & tstring(2))
+            Try
+                Dim temp As UInteger = tstring(1)
+                ListBox3.Items.Add(tstring(0) & " : " & unitlist(tstring(1)) & ", " & tstring(2))
+            Catch ex As Exception
+                ListBox3.Items.Add(tstring(0) & " : " & tstring(1))
+            End Try
 
 
 
@@ -739,8 +768,13 @@ Public Class PluginForm
                 Dim tstring() As String = NQCForm.returnstring.Split("#")
 
 
+                Try
+                    Dim temp As UInteger = tstring(1)
+                    ListBox3.Items(ListBox3.SelectedIndex) = tstring(0) & " : " & unitlist(tstring(1)) & ", " & tstring(2)
+                Catch ex As Exception
+                    ListBox3.Items(ListBox3.SelectedIndex) = tstring(0) & " : " & tstring(1)
+                End Try
 
-                ListBox3.Items(ListBox3.SelectedIndex) = tstring(0) & " : " & unitlist(tstring(1)) & ", " & tstring(2)
 
 
 

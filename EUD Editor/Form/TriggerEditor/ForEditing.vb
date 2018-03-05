@@ -51,7 +51,12 @@
             CheckedListBox1.Items.Add("Player " & i)
         Next
         For i = 0 To 3
-            CheckedListBox1.Items.Add(ProjectSet.CHKSTRING(ProjectSet.CHKFORCEDATA(i)(0) - 1) & "(Force " & i + 1 & ")")
+            Try
+                CheckedListBox1.Items.Add(ProjectSet.CHKSTRING(ProjectSet.CHKFORCEDATA(i)(0) - 1) & "(Force " & i + 1 & ")")
+            Catch ex As Exception
+                CheckedListBox1.Items.Add("Force " & i + 1)
+            End Try
+
         Next
 
         isloading = False

@@ -159,7 +159,12 @@ Namespace eudplib
 
                     For i = 0 To temp1string.Count - 1
                         Dim temp2string() As String = temp1string(i).Split("#")
-                        returntext.AppendLine(temp2string(0).Trim & " : " & _values(temp2string(1).Trim) & ", " & temp2string(2).Trim)
+                        Try
+                            Dim temp As UInteger = temp2string(1).Trim
+                            returntext.AppendLine(temp2string(0).Trim & " : " & _values(temp2string(1).Trim) & ", " & temp2string(2).Trim)
+                        Catch ex As Exception
+                            returntext.AppendLine(temp2string(0).Trim & " : " & temp2string(1).Trim)
+                        End Try
                     Next
 
 
@@ -1331,6 +1336,7 @@ Namespace eudplib
                 process.WaitForExit()
                 My.Forms.Main.Visible = True
 
+                DeledtDebugpy()
             Else
                 BulidForm.isotherWindows = isotherWindows
                 BulidForm.Show()
@@ -1582,10 +1588,6 @@ Namespace eudplib
 
                 'process.Close()
             End If
-            DeledtDebugpy()
-
-
-
         End Sub
     End Module
 End Namespace

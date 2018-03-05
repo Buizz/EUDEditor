@@ -25,6 +25,7 @@ Public Enum ElementType
     Wait = 20
     Foluder = 21
     FoluderAction = 22
+    RawString = 23
 End Enum
 
 
@@ -54,7 +55,8 @@ Public Class Element
                "Fuction : ",'19
                "Wait : ",'20
                "Folder : ",'21
-               "actions : "'22
+               "actions : ",'22
+               ""'23
                }
 
         Return temp(Et)
@@ -695,7 +697,7 @@ Public Class Element
 
             _stringb.AppendLine(temp.ToString)
         End If
-        If Type = ElementType.조건절 Or Type = ElementType.와일조건 Or Type = ElementType.Wait Or Type = ElementType.Foluder Then
+        If Type = ElementType.조건절 Or Type = ElementType.와일조건 Or Type = ElementType.Wait Or Type = ElementType.Foluder Or Type = ElementType.RawString Then
             Dim temp As New StringBuilder
             temp.Append(Values(0))
 
@@ -733,7 +735,7 @@ Public Class Element
         End If
         If Type = ElementType.포 Or Type = ElementType.함수정의 Or
                 Type = ElementType.함수 Or Type = ElementType.조건절 Or
-                Type = ElementType.와일조건 Or Type = ElementType.Wait Or Type = ElementType.Foluder Then
+                Type = ElementType.와일조건 Or Type = ElementType.Wait Or Type = ElementType.Foluder Or Type = ElementType.RawString Then
             isreadvalue = True
         End If
 
@@ -878,6 +880,8 @@ Public Class Element
             Elements.Add(New Element(Me, ElementType.코드))
         ElseIf Type = ElementType.Foluder Then
             Elements.Add(New Element(Me, ElementType.FoluderAction))
+        ElseIf Type = ElementType.RawString Then
+            Values.Add("")
         End If
     End Sub
     Public Sub New(tparrent As Element, stype As ElementType, actcon As Integer, Optional _value() As String = Nothing)
@@ -1574,7 +1578,9 @@ Public Class Element
 
         Dim abledflag As Boolean = True
 
-
+        If Type = ElementType.RawString Then
+            _stringb.Append(Values(0))
+        End If
         If Type = ElementType.액션 Then
             If act.Name = "BGMPlay" Or act.Name = "BGMResume" Or act.Name = "BGMStop" Then
                 If ProjectSet.UsedSetting(ProjectSet.Settingtype.BtnSet) = False Then

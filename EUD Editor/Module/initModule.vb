@@ -136,7 +136,7 @@
 
         For i = 0 To DatMPQ.Count - 1
             If CheckFileExist(ProgramSet.DatMPQDirec(i)) = True Then
-                MsgBox("MPQ 파일이 없습니다. 직접 선택하세요.", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                MsgBox(Lan.GetMsgText("enMPQ"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
                 SetMPQForm.ShowDialog()
                 Exit For
             End If
@@ -144,7 +144,7 @@
 
 
         If My.User.IsInRole("administrators") = False Then
-            MsgBox("관리자권한으로 실행하지 않으셨습니다. 강제 종료됩니다.", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+            MsgBox(Lan.GetMsgText("notAdmin"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
             End
         End If
 

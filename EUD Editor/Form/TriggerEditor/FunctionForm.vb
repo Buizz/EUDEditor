@@ -126,7 +126,7 @@ Public Class FunctionForm
         LoadFunctionList()
 
         If CheckExist() = False And isNew = False Then
-            MsgBox("함수가 존재하지 않습니다.", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+            MsgBox(Lan.GetText("Msgbox", "TEfuncError"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
             SelectFunctionCbb.SelectedIndex = 0
             FunEle.Values(0) = SelectFunctionCbb.SelectedItem
 

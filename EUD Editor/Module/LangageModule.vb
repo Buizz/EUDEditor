@@ -215,7 +215,22 @@ Namespace Lan
             Next
         End Sub
 
+        Public Function GetMsgText(key As String) As String
+            Dim Langagepath As String = My.Application.Info.DirectoryPath & "\Data\Langage\" & My.Settings.Langage & "\Msgbox.json"
 
+            Dim _filestream As New FileStream(Langagepath, FileMode.Open)
+            Dim _streamreader As New StreamReader(_filestream, System.Text.Encoding.Default)
+
+            Dim jsonString As String = _streamreader.ReadToEnd
+
+
+            Dim dic As Dictionary(Of String, String) = JsonConvert.DeserializeObject(Of Dictionary(Of String, String))(jsonString)
+
+            _streamreader.Close()
+            _filestream.Close()
+
+            Return dic(key)
+        End Function
         Public Function GetText(filename As String, key As String) As String
             Dim Langagepath As String = My.Application.Info.DirectoryPath & "\Data\Langage\" & My.Settings.Langage & "\" & filename & ".json"
 

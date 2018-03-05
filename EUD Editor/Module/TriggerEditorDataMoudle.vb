@@ -23,6 +23,7 @@ Module TriggerEditorDataMoudle
     Public Condictions As List(Of Condiction)
 
 
+    Public AddText As Element
     Public functions As Element
     Public StartElement As Element
     Public BeforeElement As Element
@@ -40,6 +41,7 @@ Module TriggerEditorDataMoudle
 
 
     Public Sub NewTriggerFile()
+        AddText = New Element(GlobalVar, ElementType.RawString)
         GlobalVar = New Element(GlobalVar, ElementType.main)
         functions = New Element(functions, ElementType.Functions)
         StartElement = New Element(StartElement, ElementType.main)
@@ -66,12 +68,22 @@ Module TriggerEditorDataMoudle
         End If
 
         Try
+            Try
+                AddText = New Element(AddText, ElementType.RawString)
+            Catch ex As Exception
+
+            End Try
             functions = New Element(functions, ElementType.Functions)
             GlobalVar = New Element(GlobalVar, ElementType.main)
             StartElement = New Element(StartElement, ElementType.main)
             BeforeElement = New Element(BeforeElement, ElementType.main)
             AfterElement = New Element(AfterElement, ElementType.main)
 
+            Try
+                AddText.LoadFile(datas, findSection(datas, "&AddText&"))
+            Catch ex As Exception
+
+            End Try
             functions.LoadFile(datas, findSection(datas, "&functions&"))
             GlobalVar.LoadFile(datas, findSection(datas, "&GlobalVar&"))
             StartElement.LoadFile(datas, findSection(datas, "&onPluginStart&"))
@@ -89,6 +101,11 @@ Module TriggerEditorDataMoudle
         End If
 
         Try
+            Try
+                AddText.LoadFile(datas, findSection(datas, "&AddText&"))
+            Catch ex As Exception
+
+            End Try
             functions.LoadFile(datas, findSection(datas, "&functions&"))
             GlobalVar.LoadFile(datas, findSection(datas, "&GlobalVar&"))
             StartElement.LoadFile(datas, findSection(datas, "&onPluginStart&"))
@@ -142,9 +159,10 @@ Module TriggerEditorDataMoudle
         str = str & vbCrLf & "var txtPtr;" & vbCrLf
         str = str & "const trgk = $T('Artanis & safhfh');" & vbCrLf
 
-
-
         str = str & GlobalVar.ToCode(-1) & vbCrLf
+
+        str = str & AddText.ToCode(-1) & vbCrLf
+
 
 
         For Each funcs As Element In functions.GetElementList
@@ -169,8 +187,14 @@ Module TriggerEditorDataMoudle
 
 
 
-        str = str & "function onPluginStart() {" & vbCrLf & GetIntend(1) & "randomize();" & vbCrLf &
-        StartElement.ToCode(0) & "}" & vbCrLf
+        str = str & "function onPluginStart() {" & vbCrLf
+        str = str & GetIntend(1) & "randomize();" & vbCrLf
+        If ProgramSet.StarVersion = "1.16.1" Then
+            str = str & GetIntend(1) & "tct.legacySupport();" & vbCrLf
+        End If
+
+        str = str & StartElement.ToCode(0)
+        str = str & "}" & vbCrLf
 
 
 
@@ -193,6 +217,8 @@ Module TriggerEditorDataMoudle
         Dim str As New Text.StringBuilder
 
 
+        str.AppendLine("&AddText&")
+        str.AppendLine(AddText.ToSaveFile)
         str.AppendLine("&functions&")
         str.AppendLine(functions.ToSaveFile)
         str.AppendLine("&GlobalVar&")

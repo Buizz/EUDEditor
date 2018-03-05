@@ -95,6 +95,16 @@ class f_color:  # f_dbstr_addstr(colorArray[i])
         self._value = value
 
 
+class f_byte:
+    def __init__(self, value):
+        self._value = value
+
+
+class f_str2:
+    def __init__(self, value):
+        self._value = value
+
+
 @EUDFunc
 def f_dbstr_addstr2(dst, src):
     b = EUDVariable()
@@ -153,6 +163,15 @@ def f_dbstr_print2(dst, length, *args):
             dst = f_dbstr_addstr2(dst, colorArray[arg._value])
         elif isUnproxyInstance(arg, f_str):
             dst = f_dbstr_addstr2(dst, arg._value)
+        elif isUnproxyInstance(arg, f_s2u):
+            dst = f_cp949_to_utf8_copy(dst, arg._value)
+        elif isUnproxyInstance(arg, f_str2):
+            dst = f_dbstr_addstr(dst, arg._value)
+        elif isUnproxyInstance(arg, f_byte):
+            f_bwrite(dst, arg._value)
+            dst += 1
+        elif isUnproxyInstance(arg, hptr):
+            dst = f_dbstr_addptr(dst, arg._value)
         else:
             raise EPError(
                 'Object with unknown parameter type %s given to f_eudprint.'
@@ -188,6 +207,7 @@ def f_setTbl(tblID, offset, length, *args):
 
 
 # 변수 목록 ///////////////////////////////////////////////////////////
+isLegacy = 0
 strBuffer = _CGFW(lambda: [GetStringIndex("i" * 600)], 1)[0]
 strTable_ptr, strTable_epd = EUDCreateVariables(2)
 ptr, epd, cp, nmod = EUDCreateVariables(4)
@@ -218,7 +238,12 @@ def f_reset_epd():
     bw1.flushdword()
 
 
-def f_init():  # 꼭 onPluginStart에 실행해주세요.
+def f_legacySupport():
+    global isLegacy
+    isLegacy = 1
+
+
+def f_init():  # 자동 실행됩니다.
     SetVariables([tbl_ptr, tbl_epd], f_dwepdread_epd(EPD(0x6D5A30)))
     DoActions([SetMemory(add_tblepd + 20, SetTo, tbl_epd),
                SetMemory(add_tblptr + 20, SetTo, tbl_ptr)])
@@ -247,6 +272,9 @@ def f_ct_print(dst, *args):
             dst = f_cp949_to_utf8_copy(dst, arg._value)
         elif isUnproxyInstance(arg, f_color):
             dst = f_dbstr_addstr(dst, colorArray[arg._value])
+        elif isUnproxyInstance(arg, f_byte):
+            f_bwrite(dst, arg._value)
+            dst += 1
         elif isUnproxyInstance(arg, str):
             dst = f_dbstr_addstr(dst, Db(u2u(arg) + b'\0'))
         else:
@@ -255,8 +283,20 @@ def f_ct_print(dst, *args):
     return dst
 
 
+def f_cprint(dst, *args):  # compatible print
+    end = Db(b'\0')
+    if EUDIf()(Memory(0x51CE84, AtMost, 99)):
+        ptr << f_dbstr_print2(dst, -1, *(args + (f_str2(end), )))
+    if EUDElse()():
+        ptr << f_ct_print(dst, *args)
+    EUDEndIf()
+
+
 def f_addText(*args):  # 스트링의 맨 뒤에 덧붙입니다.
-    ptr << f_ct_print(ptr, *args)
+    if isLegacy == 1:
+        f_cprint(ptr, *args)
+    else:
+        ptr << f_ct_print(ptr, *args)
 
 
 def f_makeText(*args):  # 스트링을 처음부터 새로 씁니다.
@@ -295,11 +335,11 @@ def f_chatdst(line):
     return 0x640B60 + 218 * line
 
 
-def f_chatwrite(line, s):
+def f_chatwrite(line, s, e="UTF-8"):
     if line == 12:
         f_printError()
     chatdst = EPD(f_chatdst(line))
-    s = s.encode("UTF-8")
+    s = s.encode(e)
     if line % 2 == 1:
         s = b'\x00\x00' + s
     while len(s) % 4 >= 1:
@@ -313,11 +353,15 @@ def f_chatwrite(line, s):
 def f_chatprint(line, *args):
     if line == 12:
         f_printError()
-    f_ct_print(f_chatdst(line), *args)
+
+    if isLegacy == 1:
+        f_cprint(f_chatdst(line), *args)
+    else:
+        f_ct_print(f_chatdst(line), *args)
 
 
-def f_byteTest(s):
-    s = s.encode("UTF-8")
+def f_byteTest(s, e="UTF-8"):
+    s = s.encode(e)
     while len(s) % 4 >= 1:
         s += b'\x00'
     for i in range(math.ceil(len(s) / 4)):
@@ -448,37 +492,13 @@ def f_printP_epd(player, *args):
     f_DisplayText(player)
 
 
-def f_playSound(s):
-    f_makeText((s + '\x00').encode("cp949"))
+def f_playSound(*args):
+    f_makeText(*args)
     DoActions(PlayWAV(strBuffer))
 
 
-def f_playSoundP(player, s):
+def f_playSoundP(player, *args):
     oldcp = f_getcurpl()
     f_setcurpl(player)
-    f_playSound(s)
-    f_setcurpl(oldcp)
-
-
-str2ptr, str2epd = EUDCreateVariables(2)
-
-
-def f_playSound_epd_init():
-    str2offset = f_wread_epd(strTable_epd + 1, 0)
-    str2nmod = 4 - f_strptr(2) % 4
-    if EUDIf()(str2nmod >= 1):
-        f_wwrite_epd(strTable_epd + 1, 0, str2offset + str2nmod)
-    EUDEndIf()
-    SetVariables([str2ptr, str2epd], f_dwepdread_epd(EPD(f_strptr(2))))
-
-
-def f_playSound_epd(s):
-    addbyte_epd(str2epd, (s + '\x00').encode("cp949"), 0)
-    DoActions(PlayWAV(2))
-
-
-def f_playSoundP_epd(player, s):
-    oldcp = f_getcurpl()
-    f_setcurpl(player)
-    f_playSound_epd(s)
+    f_playSound(*args)
     f_setcurpl(oldcp)

@@ -33,6 +33,7 @@ Public Class TrigEditorForm
         TreeView1.Nodes(2).Tag = BeforeElement
         TreeView1.Nodes(3).Text = "afterTriggerExec"
         TreeView1.Nodes(3).Tag = AfterElement
+        TextBox1.Text = AddText.Values(0)
 
         TreeView1.SelectedNode = TreeView1.Nodes(0)
         'Dim Tabcount As Byte = 0
@@ -1557,6 +1558,11 @@ Public Class TrigEditorForm
 
     Private Sub UnFoldMenuItem_Click(sender As Object, e As EventArgs) Handles UnFoldMenuItem.Click
         TreeView1.SelectedNode.ExpandAll()
+    End Sub
+
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+        AddText.Values(0) = TextBox1.Text
     End Sub
 
     'Private Sub TreeView1_MouseDown(sender As Object, e As MouseEventArgs) Handles TreeView1.MouseDown

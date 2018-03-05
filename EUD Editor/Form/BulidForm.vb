@@ -6,6 +6,8 @@
         If process.HasExited = False Then
             process.Close()
         End If
+        DeledtDebugpy()
+        count = 0
     End Sub
 
     Dim base As String
@@ -13,7 +15,7 @@
     Public Sub CompileStart(basefolder As String)
         base = basefolder
         RichTextBox1.Text = ""
-        RichTextBox2.Text = "빌드 중입니다."
+        RichTextBox2.Text = Lan.GetMsgText("build")
 
         Dim filename As String = basefolder & "\eudplibdata\EUDEditor.eds"
 
@@ -32,50 +34,65 @@
 
         process.StartInfo = startInfo
 
-
         ''process.
         Try
             process.Start() ' 여기서 프로그램이 실행됩니다.
         Catch ex As System.ComponentModel.Win32Exception
-            MsgBox("euddraft실행 파일이 누락되었습니다.! 다시 설정해 주세요.", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+            MsgBox(Lan.GetText("Msgbox", "neeuddraft"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
             SettingForm.ShowDialog()
             Exit Sub
         End Try
 
-        Timer1.Enabled = True
+        If BackgroundWorker1.IsBusy = False Then
+            BackgroundWorker1.RunWorkerAsync()
+        End If
         'Process.WaitForExit()
     End Sub
 
 
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        RichTextBox1.Text = RichTextBox1.Text & process.StandardOutput.ReadToEnd()
-        Dim Errormsg As String = process.StandardError.ReadToEnd()
+    Dim count As Integer
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        While (True)
+            count += 1
+            'Me.Text = count & "번째 시도 중"
+            RichTextBox1.Text = RichTextBox1.Text & process.StandardOutput.ReadToEnd()
+            Dim Errormsg As String = process.StandardError.ReadToEnd()
 
-        If process.HasExited Then
-            Timer1.Enabled = False
-            If InStr(Errormsg, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
-                CompileStart(base)
-            ElseIf Errormsg <> "" Then
-                '에러
-                'CompileStart()
-                '에러문구 출력
+            If process.HasExited Then
+                If InStr(Errormsg, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
+                    'RichTextBox2.Text = "재시도 합니다."
+                    'Me.Text = count & "번째 재시도 합니다"
+                    CompileStart(base)
+                ElseIf Errormsg <> "" Then
+                    '에러
+                    'CompileStart()
+                    '에러문구 출력
 
-                RichTextBox2.Text = "빌드에 실패했습니다. 자세한 상황은 좌측 상단의 로그를 참고하세요." & vbCrLf & Errormsg
-                Me.Activate()
-                MsgBox(RichTextBox2.Text, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                    RichTextBox2.Text = Lan.GetMsgText("buildError") & vbCrLf & Errormsg
+                    Me.Activate()
+                    MsgBox(RichTextBox2.Text, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                    count = 0
+                    Exit Sub
 
-            ElseIf instr(RichTextBox1.Text, "[Error]") <> 0 Then
-                '에러
-                'CompileStart()
-                '에러문구 출력
+                ElseIf InStr(RichTextBox1.Text, "[Error]") <> 0 Then
+                    '에러
+                    'CompileStart()
+                    '에러문구 출력
 
-                RichTextBox2.Text = "빌드에 실패했습니다. 자세한 상황은 좌측 상단의 로그를 참고하세요." & vbCrLf & Errormsg
-                Me.Activate()
-                MsgBox(RichTextBox2.Text, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
-            Else
-                Me.Hide()
+                    RichTextBox2.Text = Lan.GetMsgText("buildError") & vbCrLf & Errormsg
+                    Me.Activate()
+                    MsgBox(RichTextBox2.Text, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                    count = 0
+                    Exit Sub
+                Else
+                    Me.Hide()
+                    count = 0
+                    Exit Sub
+                End If
             End If
-        End If
+            'Me.Text = count & "번째 시도 완료"
+        End While
     End Sub
+
 End Class

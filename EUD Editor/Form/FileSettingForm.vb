@@ -4,19 +4,23 @@
     End Function
 
     Private Sub FileSettingForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        DataGridView2.Columns(0).HeaderText = Lan.GetText("FileSettingForm", "FileName")
+        DataGridView2.Columns(1).HeaderText = Lan.GetText("FileSettingForm", "Fileoffset")
+
+
         DataGridView2.Rows.Clear()
-        DataGridView2.Rows.Add("grpwire", dataDumper_grpwire, "비우기")
-        DataGridView2.Rows.Add("tranwire", dataDumper_tranwire, "비우기")
-        DataGridView2.Rows.Add("wirefram", dataDumper_wirefram, "비우기")
-        DataGridView2.Rows.Add("cmdicons", dataDumper_cmdicons, "비우기")
-        DataGridView2.Rows.Add("stat_txt", dataDumper_stat_txt, "비우기")
-        DataGridView2.Rows.Add("AIscript", dataDumper_AIscript, "비우기")
-        DataGridView2.Rows.Add("iscript", dataDumper_iscript, "비우기")
+        DataGridView2.Rows.Add("grpwire", dataDumper_grpwire, Lan.GetText("FileSettingForm", "empty"))
+        DataGridView2.Rows.Add("tranwire", dataDumper_tranwire, Lan.GetText("FileSettingForm", "empty"))
+        DataGridView2.Rows.Add("wirefram", dataDumper_wirefram, Lan.GetText("FileSettingForm", "empty"))
+        DataGridView2.Rows.Add("cmdicons", dataDumper_cmdicons, Lan.GetText("FileSettingForm", "empty"))
+        DataGridView2.Rows.Add("stat_txt", dataDumper_stat_txt, Lan.GetText("FileSettingForm", "empty"))
+        DataGridView2.Rows.Add("AIscript", dataDumper_AIscript, Lan.GetText("FileSettingForm", "empty"))
+        DataGridView2.Rows.Add("iscript", dataDumper_iscript, Lan.GetText("FileSettingForm", "empty"))
 
 
-        DataGridView2.Rows.Add("arrow", grpinjector_arrow, "비우기")
-        DataGridView2.Rows.Add("drag", grpinjector_drag, "비우기")
-        DataGridView2.Rows.Add("illegal", grpinjector_illegal, "비우기")
+        DataGridView2.Rows.Add("arrow", grpinjector_arrow, Lan.GetText("FileSettingForm", "empty"))
+        DataGridView2.Rows.Add("drag", grpinjector_drag, Lan.GetText("FileSettingForm", "empty"))
+        DataGridView2.Rows.Add("illegal", grpinjector_illegal, Lan.GetText("FileSettingForm", "empty"))
 
         For i = 0 To Soundlist.Count - 1
             DataGridView2.Rows.Add("BGM " & i + 1, getPureName(Soundlist(i)), "")

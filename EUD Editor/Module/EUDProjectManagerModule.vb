@@ -72,6 +72,10 @@ Module EUDProjectManagerModule
             RenameFile(foldername, EUDProjectManagerModule.Foldername.grp, GRPEditorDATA(i).Filename)
         Next
 
+        For i = 0 To GRPEditorUsingDATA.Count - 1
+            RenameFile(foldername, EUDProjectManagerModule.Foldername.grp, GRPEditorUsingDATA(i))
+        Next
+
         For i = 0 To Soundlist.Count - 1
             RenameFile(foldername, EUDProjectManagerModule.Foldername.sound, Soundlist(i))
         Next

@@ -4,7 +4,7 @@
         RichTextBox1.Text = GetPatchNote()
         If CheckUpdateAble() Then
             Button1.Enabled = True
-            Button1.Text = "업데이트"
+            Button1.Text = lastver & " 업데이트"
         Else
             Button1.Enabled = False
             Button1.Text = "현재 최신버전입니다."

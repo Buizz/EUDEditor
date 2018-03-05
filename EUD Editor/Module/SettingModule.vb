@@ -9,12 +9,12 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "0.15.4"
+        Public Version As String = "0.15.51"
         Public DatEditVersion As String = "v0.3"
 
 
-        Public ErrorFormMessage As String = "EUD 에디터 Error"
-        Public AlterFormMessage As String = "EUD 에디터 경고"
+        Public ErrorFormMessage As String = "EUDEditor Error"
+        Public AlterFormMessage As String = "EUDEditor Warning"
 
         Public StarVersion As String = ""
 
@@ -1676,8 +1676,11 @@ Namespace ProjectSet
 
             Dim count As Integer = 0
 
-
-            ProjectSet.filename = MapName
+            If issavefilezip And isnewfile Then
+                ProjectSet.filename = MapName.Replace(GetSafeName(MapName), "") & GetSafeName(MapName).Split(".").First & "\" & GetSafeName(MapName)
+            Else
+                ProjectSet.filename = MapName
+            End If
             ProjectSet.saveStatus = True
             ProjectSet.isload = True
 

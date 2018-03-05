@@ -74,7 +74,7 @@ Public Class DebugForm
         DrawTimer.Enabled = False
         If WinAPI.CheckProcess = False Then
             DrawTimer.Enabled = False
-            MsgBox("StarCraft 메모리 읽기에 실패했습니다." _
+            MsgBox(Lan.GetMsgText("failReadstarCraft") _
                                   , MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
             DialogResult = DialogResult.Abort
             Me.Close()
@@ -86,7 +86,7 @@ Public Class DebugForm
         If gamemode <> 3 Then
             DrawTimer.Enabled = False
             Me.Close()
-            MsgBox("게임 실행중이 아닙니다." _
+            MsgBox(Lan.GetMsgText("donotplayGame") _
                        , MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
             DialogResult = DialogResult.Abort
             Exit Sub
@@ -94,7 +94,7 @@ Public Class DebugForm
 
         If GameData.CheckAuthority Then
             DrawTimer.Enabled = False
-            MsgBox("해당 맵에 권한이 없습니다." _
+            MsgBox(Lan.GetMsgText("donotauth") _
                        , MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
             DialogResult = DialogResult.Abort
             Me.Close()

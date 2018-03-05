@@ -26,21 +26,30 @@ Partial Class NQCForm
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
-        Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.EasyCompletionComboBox2 = New SergeUtils.EasyCompletionComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.EasyCompletionComboBox1 = New SergeUtils.EasyCompletionComboBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
+        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.EasyCompletionComboBox2 = New SergeUtils.EasyCompletionComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
-        Me.FlowLayoutPanel3.SuspendLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.FlowLayoutPanel3.SuspendLayout()
+        Me.FlowLayoutPanel2.SuspendLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -48,18 +57,18 @@ Partial Class NQCForm
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel3, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel3, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel1, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox2, 0, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(288, 156)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(317, 242)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TableLayoutPanel3
@@ -70,12 +79,12 @@ Partial Class NQCForm
         Me.TableLayoutPanel3.Controls.Add(Me.Button5, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.Button6, 1, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 126)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 212)
         Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(288, 30)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(317, 30)
         Me.TableLayoutPanel3.TabIndex = 17
         '
         'Button5
@@ -88,7 +97,7 @@ Partial Class NQCForm
         Me.Button5.Location = New System.Drawing.Point(0, 0)
         Me.Button5.Margin = New System.Windows.Forms.Padding(0)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(144, 30)
+        Me.Button5.Size = New System.Drawing.Size(158, 30)
         Me.Button5.TabIndex = 13
         Me.Button5.Text = "확인"
         Me.Button5.UseVisualStyleBackColor = True
@@ -99,63 +108,24 @@ Partial Class NQCForm
         Me.Button6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Button6.Image = Global.EUD_Editor.My.Resources.Resources.Cancle
         Me.Button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button6.Location = New System.Drawing.Point(144, 0)
+        Me.Button6.Location = New System.Drawing.Point(158, 0)
         Me.Button6.Margin = New System.Windows.Forms.Padding(0)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(144, 30)
+        Me.Button6.Size = New System.Drawing.Size(159, 30)
         Me.Button6.TabIndex = 14
         Me.Button6.Text = "취소"
         Me.Button6.UseVisualStyleBackColor = True
         '
-        'FlowLayoutPanel3
+        'GroupBox1
         '
-        Me.FlowLayoutPanel3.Controls.Add(Me.Label1)
-        Me.FlowLayoutPanel3.Controls.Add(Me.EasyCompletionComboBox2)
-        Me.FlowLayoutPanel3.Controls.Add(Me.Label2)
-        Me.FlowLayoutPanel3.Controls.Add(Me.NumericUpDown1)
-        Me.FlowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel3.Location = New System.Drawing.Point(0, 61)
-        Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
-        Me.FlowLayoutPanel3.Size = New System.Drawing.Size(288, 65)
-        Me.FlowLayoutPanel3.TabIndex = 20
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 7)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(3, 7, 3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(71, 15)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "데스값 유닛"
-        '
-        'EasyCompletionComboBox2
-        '
-        Me.EasyCompletionComboBox2.FormattingEnabled = True
-        Me.EasyCompletionComboBox2.IntegralHeight = False
-        Me.EasyCompletionComboBox2.Location = New System.Drawing.Point(80, 3)
-        Me.EasyCompletionComboBox2.MatchingMethod = SergeUtils.StringMatchingMethod.UseWildcards
-        Me.EasyCompletionComboBox2.Name = "EasyCompletionComboBox2"
-        Me.EasyCompletionComboBox2.Size = New System.Drawing.Size(201, 23)
-        Me.EasyCompletionComboBox2.TabIndex = 2
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(3, 36)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(3, 7, 3, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(71, 15)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "데스값 수치"
-        '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(80, 32)
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(201, 23)
-        Me.NumericUpDown1.TabIndex = 4
+        Me.GroupBox1.Controls.Add(Me.FlowLayoutPanel1)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(311, 81)
+        Me.GroupBox1.TabIndex = 21
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "조건"
         '
         'FlowLayoutPanel1
         '
@@ -164,10 +134,10 @@ Partial Class NQCForm
         Me.FlowLayoutPanel1.Controls.Add(Me.RadioButton2)
         Me.FlowLayoutPanel1.Controls.Add(Me.EasyCompletionComboBox1)
         Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(3, 19)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(288, 61)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(305, 59)
         Me.FlowLayoutPanel1.TabIndex = 21
         '
         'RadioButton1
@@ -214,11 +184,115 @@ Partial Class NQCForm
         Me.EasyCompletionComboBox1.Size = New System.Drawing.Size(138, 23)
         Me.EasyCompletionComboBox1.TabIndex = 5
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.FlowLayoutPanel3)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.Location = New System.Drawing.Point(3, 90)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(311, 119)
+        Me.GroupBox2.TabIndex = 22
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "변환 값"
+        '
+        'FlowLayoutPanel3
+        '
+        Me.FlowLayoutPanel3.Controls.Add(Me.RadioButton3)
+        Me.FlowLayoutPanel3.Controls.Add(Me.TextBox2)
+        Me.FlowLayoutPanel3.Controls.Add(Me.RadioButton4)
+        Me.FlowLayoutPanel3.Controls.Add(Me.FlowLayoutPanel2)
+        Me.FlowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel3.Location = New System.Drawing.Point(3, 19)
+        Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
+        Me.FlowLayoutPanel3.Size = New System.Drawing.Size(305, 97)
+        Me.FlowLayoutPanel3.TabIndex = 20
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Location = New System.Drawing.Point(3, 5)
+        Me.RadioButton3.Margin = New System.Windows.Forms.Padding(3, 5, 3, 3)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(77, 19)
+        Me.RadioButton3.TabIndex = 5
+        Me.RadioButton3.TabStop = True
+        Me.RadioButton3.Text = "직접 입력"
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Enabled = False
+        Me.TextBox2.Location = New System.Drawing.Point(86, 3)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(213, 23)
+        Me.TextBox2.TabIndex = 8
+        '
+        'RadioButton4
+        '
+        Me.RadioButton4.AutoSize = True
+        Me.RadioButton4.Location = New System.Drawing.Point(3, 34)
+        Me.RadioButton4.Margin = New System.Windows.Forms.Padding(3, 5, 3, 3)
+        Me.RadioButton4.Name = "RadioButton4"
+        Me.RadioButton4.Size = New System.Drawing.Size(49, 19)
+        Me.RadioButton4.TabIndex = 6
+        Me.RadioButton4.TabStop = True
+        Me.RadioButton4.Text = "유닛"
+        Me.RadioButton4.UseVisualStyleBackColor = True
+        '
+        'FlowLayoutPanel2
+        '
+        Me.FlowLayoutPanel2.Controls.Add(Me.Label1)
+        Me.FlowLayoutPanel2.Controls.Add(Me.EasyCompletionComboBox2)
+        Me.FlowLayoutPanel2.Controls.Add(Me.Label2)
+        Me.FlowLayoutPanel2.Controls.Add(Me.NumericUpDown1)
+        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(58, 32)
+        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(241, 62)
+        Me.FlowLayoutPanel2.TabIndex = 7
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(3, 7)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(3, 7, 3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(71, 15)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "데스값 유닛"
+        '
+        'EasyCompletionComboBox2
+        '
+        Me.EasyCompletionComboBox2.FormattingEnabled = True
+        Me.EasyCompletionComboBox2.IntegralHeight = False
+        Me.EasyCompletionComboBox2.Location = New System.Drawing.Point(80, 3)
+        Me.EasyCompletionComboBox2.MatchingMethod = SergeUtils.StringMatchingMethod.UseWildcards
+        Me.EasyCompletionComboBox2.Name = "EasyCompletionComboBox2"
+        Me.EasyCompletionComboBox2.Size = New System.Drawing.Size(155, 23)
+        Me.EasyCompletionComboBox2.TabIndex = 2
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(3, 36)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(3, 7, 3, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(71, 15)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "데스값 수치"
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.Location = New System.Drawing.Point(80, 32)
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(155, 23)
+        Me.NumericUpDown1.TabIndex = 4
+        '
         'NQCForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(288, 156)
+        Me.ClientSize = New System.Drawing.Size(317, 242)
         Me.ControlBox = False
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -230,14 +304,18 @@ Partial Class NQCForm
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "SetCondiction"
+        Me.Text = "SetCondition"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
-        Me.FlowLayoutPanel3.ResumeLayout(False)
-        Me.FlowLayoutPanel3.PerformLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.FlowLayoutPanel1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.FlowLayoutPanel3.ResumeLayout(False)
+        Me.FlowLayoutPanel3.PerformLayout()
+        Me.FlowLayoutPanel2.ResumeLayout(False)
+        Me.FlowLayoutPanel2.PerformLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -256,4 +334,10 @@ Partial Class NQCForm
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents EasyCompletionComboBox1 As SergeUtils.EasyCompletionComboBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents RadioButton3 As RadioButton
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents RadioButton4 As RadioButton
+    Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
 End Class

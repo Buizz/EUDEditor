@@ -2,7 +2,13 @@
 
 Module CreateDebugpyModule
     Public Sub CreateDebugpy()
-        Dim fileCreator As New FileStream(My.Application.Info.DirectoryPath & "\Data\eudplibdata\" & "EUDEditorDebug.py", FileMode.Create)
+        Dim basefolder As String = My.Application.Info.DirectoryPath & "\Data"
+        If ProjectSet.filename.EndsWith(".e2p") Then
+            '집 파일이면 
+            basefolder = ProjectSet.filename.Replace("\" & GetSafeName(ProjectSet.filename), "")
+        End If
+
+        Dim fileCreator As New FileStream(basefolder & "\eudplibdata\" & "EUDEditorDebug.py", FileMode.Create)
         Dim StreamWriter = New StreamWriter(fileCreator)
 
 
@@ -30,7 +36,12 @@ Module CreateDebugpyModule
 
     Public Sub DeledtDebugpy()
         Try
-            My.Computer.FileSystem.DeleteFile(My.Application.Info.DirectoryPath & "\Data\eudplibdata\" & "EUDEditorDebug.py")
+            Dim basefolder As String = My.Application.Info.DirectoryPath & "\Data"
+            If ProjectSet.filename.EndsWith(".e2p") Then
+                '집 파일이면 
+                basefolder = ProjectSet.filename.Replace("\" & GetSafeName(ProjectSet.filename), "")
+            End If
+            My.Computer.FileSystem.DeleteFile(basefolder & "\eudplibdata\" & "EUDEditorDebug.py")
         Catch ex As Exception
 
         End Try

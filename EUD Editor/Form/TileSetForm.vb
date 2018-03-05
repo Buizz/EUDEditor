@@ -987,7 +987,7 @@ Public Class TileSetForm
     Private Sub TileSetForm_Closed(sender As Object, e As FormClosingEventArgs) Handles MyBase.Closing
         Dim Dialog As DialogResult
         If SaveStatus = False Then
-            Dialog = MsgBox("변경된 지형을 저장하시겠습니까?", MsgBoxStyle.YesNoCancel, "EUD Editor")
+            Dialog = MsgBox(Lan.GetMsgText("TileSavemsg"), MsgBoxStyle.YesNoCancel, "EUD Editor")
 
             If Dialog = DialogResult.Yes Then
                 SaveStatus = True
