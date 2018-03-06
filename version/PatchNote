@@ -7,8 +7,10 @@ EUDEditorUpdate.exe프로그램을 수동 실행해 주세요.
 
 [ 패치노트 0.15.6 ]
 
+- SetVariabelCunitData의 구조가 수정되었습니다.
 - CUnitDataEPD의 구조가 수정되었습니다.
 - Set/AddCUnitDataEPD의 구조가 수정되었습니다.
+- TE의 for문에 UnitLoop2가 추가 되었습니다.(랙 최소화)
 - TE에서 벨류를 수정 할 경우 초기값으로 확인버튼이 활성화 되지 않는 버그를 고쳤습니다.
 - 프로그램을 두 개 이상 실행 할 수 없게 끔 수정되었습니다.
 
