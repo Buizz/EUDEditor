@@ -4,6 +4,11 @@
 EUDEditorUpdate.exe프로그램을 수동 실행해 주세요.
 
 
+[ 패치노트 0.15.6 ]
+- CUnitDataEPD의 구조가 수정되었습니다.
+- Set/AddCUnitDataEPD의 구조가 수정되었습니다.
+
+
 [ 패치노트 0.15.51 ]
 
 - 일부 맵에서 TE의 For문을 사용 할 수 없었던 문제를 해결했습니다.
