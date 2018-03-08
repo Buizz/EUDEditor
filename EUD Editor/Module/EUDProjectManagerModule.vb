@@ -37,6 +37,8 @@ Module EUDProjectManagerModule
         Dim newname As String = targetname & "\" & folderstr & "\" & GetSafeName(filename).Split(".").First & ".ogg"
         If filename <> "" And filename <> newname Then
             Dim proc As New Process
+
+
             proc.StartInfo.FileName = IO.Path.Combine(Application.StartupPath, "ffmpeg.exe")
             With proc.StartInfo
                 .Arguments = "-i " & Chr(34) & oldname & Chr(34) & " -y " & Chr(34) & tempname & Chr(34)

@@ -1,5 +1,7 @@
 ﻿Imports System.Net
 Imports System.IO
+Imports System.Threading
+
 
 Module UpdateModule
     Dim status As Integer = 0
@@ -65,8 +67,9 @@ Module UpdateModule
         End If
     End Sub
 
+    Dim Client As New WebClient
     Private Sub Download(filename As String, savedfilename As String)
-        Dim Client As New WebClient
+
         Dim StrDownUrl As String = filename
         Dim StrDownFolder As String = folder & savedfilename
 
@@ -76,12 +79,34 @@ Module UpdateModule
 
         '파일다운로드
         '다른 다운로드 명령이 있으나 진행율을 표시하려면 DownloadFileAsync 을 사용해야 함
-        Client.DownloadFile(New Uri(StrDownUrl), StrDownFolder)
+        Dim thread As New Thread(AddressOf Downloadtimer)
+
+        Client.DownloadFileAsync(New Uri(StrDownUrl), StrDownFolder)
+        thread.Start()
+        While (thread.IsAlive = True)
+
+        End While
+
 
         'downok 이라는 이름으로 이벤트 생성
         ' AddHandler Client.DownloadFileCompleted, AddressOf downok
     End Sub
 
 
+    Private Sub Downloadtimer()
+        Dim timer As DateTime = Now
+
+        Dim span As TimeSpan
+        While (Client.IsBusy) 'Client.IsBusy
+            span = timer.Subtract(Now)
+            If span.Seconds < -5 Then
+                MsgBox("파일 다운로드에 실패했습니다!", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                If Client.IsBusy Then
+                    Client.CancelAsync()
+                End If
+                Exit Sub
+            End If
+        End While
+    End Sub
 
 End Module

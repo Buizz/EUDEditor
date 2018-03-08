@@ -75,6 +75,12 @@
         End If
         'Test======================
 
+        If UBound(Diagnostics.Process.GetProcessesByName(Diagnostics.Process.GetCurrentProcess.ProcessName)) > 0 Then
+            MsgBox(Lan.GetMsgText("notoverStart"), MsgBoxStyle.Exclamation + MsgBoxStyle.OkOnly, ProgramSet.ErrorFormMessage)
+            End
+        End If
+
+
 
         If ProgramSet.Version.Contains("TEST") Then
             MsgBox(Lan.GetText("Msgbox", "TESTAlter"), MsgBoxStyle.Exclamation, ProgramSet.AlterFormMessage)

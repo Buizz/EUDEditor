@@ -47,7 +47,7 @@ Public Class TriggerViewerForm
 
         FCTB.Text = RedrawText()
 
-        FCTB.CollapseFoldingBlock(1)
+        FCTB.ExpandAllFoldingBlocks()
         loadS = True
         savestatus = True
         updatame_text()
@@ -387,7 +387,6 @@ Public Class TriggerViewerForm
                                     Case 4
                                         _maxcount = 0
                                 End Select
-
                                 For p = 0 To _maxcount
                                     values(p) = DatEditDATA(k).projectdata(i)(_index + p) + DatEditDATA(k).data(i)(_index + p) + DatEditDATA(k).mapdata(i)(_index + p)
                                     'values(p) = DatEditDATA(k).projectdata(i)(_index + p) + DatEditDATA(k).data(i)(_index + p) + DatEditDATA(k).mapdata(i)(_index + p)
@@ -607,7 +606,7 @@ Public Class TriggerViewerForm
             ProjectSet.TriggerSetTouse = issetto
             FCTB.Text = RedrawText()
 
-            FCTB.CollapseFoldingBlock(1)
+            'FCTB.CollapseFoldingBlock(1)
         End If
     End Sub
 
@@ -616,7 +615,7 @@ Public Class TriggerViewerForm
             viewcomment = CheckBox2.Checked
             FCTB.Text = RedrawText()
 
-            FCTB.CollapseFoldingBlock(1)
+            'FCTB.CollapseFoldingBlock(1)
         End If
     End Sub
 
@@ -626,7 +625,7 @@ Public Class TriggerViewerForm
             ProjectSet.TriggerPlayer = playernum
             FCTB.Text = RedrawText()
 
-            FCTB.CollapseFoldingBlock(1)
+            'FCTB.CollapseFoldingBlock(1)
         End If
     End Sub
 
@@ -638,7 +637,11 @@ Public Class TriggerViewerForm
         Dim oldaction As String
 
         '--start ~ --end 까지 우선 삭제를 한다.
-        FCTB.Text = Mid(FCTB.Text, InStr(FCTB.Text, "--end"))
+        Try
+            FCTB.Text = Mid(FCTB.Text, InStr(FCTB.Text, "--end"))
+        Catch ex As Exception
+
+        End Try
 
 
 
@@ -831,7 +834,7 @@ Public Class TriggerViewerForm
         End While
 
         FCTB.Text = RedrawText()
-        FCTB.CollapseFoldingBlock(1)
+        'FCTB.CollapseFoldingBlock(1)
         savestatus = True
         updatame_text()
 

@@ -1124,6 +1124,8 @@ Public Class Element
                         Select Case Values(1)
                             Case 0
                                 _playertext = "모든 플레이어"
+                            Case 13
+                                _playertext = "모든 플레이어"
                             Case Else
                                 _playertext = "Player " & Values(1)
                         End Select
@@ -1284,6 +1286,18 @@ Public Class Element
                             Case 1
                                 _rtext = _rtext.Replace("$writedef$", "b")
                         End Select
+
+                        Select Case act.Name
+                            Case "SetCUnitDataEPD", "AddCUnitDataEPD"
+                                _rtext = _rtext.Replace("$Byte$", Math.Pow(256, num1 Mod 4))
+                        End Select
+
+
+                        If act.Name = "SetCUnitDataEPD" And _size = 4 Then
+                            _rtext = _rtext.Split("|")(1)
+                        Else
+                            _rtext = _rtext.Split("|")(0)
+                        End If
                     Catch ex As Exception
                         _rtext = _rtext.Replace("$writedef$", "dw")
                     End Try
@@ -1453,6 +1467,39 @@ Public Class Element
                             Case 1
                                 _rtext = _rtext.Replace("$writedef$", "b")
                         End Select
+
+                        If con.Name = "CUnitDataEPD" And _size = 4 Then
+                            _rtext = _rtext.Split("|")(1)
+                            Dim Comp As Integer = CInt(GetValue("VariableComparison"))
+                            Select Case Comp
+                                Case 0 '일치
+                                    _rtext = _rtext.Replace("$NotFlag$", "")
+                                    _rtext = _rtext.Replace("$Comparison$", "Exactly")
+                                Case 1 '불일치
+                                    _rtext = _rtext.Replace("$NotFlag$", "!")
+                                    _rtext = _rtext.Replace("$Comparison$", "Exactly")
+                                Case 2 '이상
+                                    _rtext = _rtext.Replace("$NotFlag$", "")
+                                    _rtext = _rtext.Replace("$Comparison$", "AtLeast")
+                                Case 3 '이하
+                                    _rtext = _rtext.Replace("$NotFlag$", "")
+                                    _rtext = _rtext.Replace("$Comparison$", "AtMost")
+                                Case 4 '초과
+                                    _rtext = _rtext.Replace("$NotFlag$", "!")
+                                    _rtext = _rtext.Replace("$Comparison$", "AtMost")
+                                Case 5 '미만
+                                    _rtext = _rtext.Replace("$NotFlag$", "!")
+                                    _rtext = _rtext.Replace("$Comparison$", "AtLeast")
+                            End Select
+
+
+
+
+
+
+                        Else
+                            _rtext = _rtext.Split("|")(0)
+                        End If
                     Catch ex As Exception
                         _rtext = _rtext.Replace("$writedef$", "dw")
                     End Try
@@ -1487,6 +1534,8 @@ Public Class Element
                             Select Case Values(1)
                                 Case 0
                                     _playerText = "EUDLoopUnit()"
+                                Case 13
+                                    _playerText = "lp.EUDLoopUnit2()"
                                 Case Else
                                     _playerText = "lp.EUDLoopPUnit(" & Values(1) - 1 & ")"
                             End Select

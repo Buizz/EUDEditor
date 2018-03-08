@@ -31,8 +31,8 @@ Partial Class CreateValForm
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.EasyCompletionComboBox1 = New SergeUtils.EasyCompletionComboBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.EasyCompletionComboBox1 = New SergeUtils.EasyCompletionComboBox()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -151,17 +151,6 @@ Partial Class CreateValForm
         Me.Panel1.Size = New System.Drawing.Size(223, 69)
         Me.Panel1.TabIndex = 0
         '
-        'EasyCompletionComboBox1
-        '
-        Me.EasyCompletionComboBox1.FormattingEnabled = True
-        Me.EasyCompletionComboBox1.IntegralHeight = False
-        Me.EasyCompletionComboBox1.Location = New System.Drawing.Point(70, 36)
-        Me.EasyCompletionComboBox1.MaxDropDownItems = 16
-        Me.EasyCompletionComboBox1.Name = "EasyCompletionComboBox1"
-        Me.EasyCompletionComboBox1.Size = New System.Drawing.Size(147, 23)
-        Me.EasyCompletionComboBox1.TabIndex = 6
-        Me.EasyCompletionComboBox1.Visible = False
-        '
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
@@ -171,6 +160,17 @@ Partial Class CreateValForm
         Me.CheckBox1.TabIndex = 7
         Me.CheckBox1.Text = "P"
         Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'EasyCompletionComboBox1
+        '
+        Me.EasyCompletionComboBox1.FormattingEnabled = True
+        Me.EasyCompletionComboBox1.IntegralHeight = False
+        Me.EasyCompletionComboBox1.Location = New System.Drawing.Point(69, 37)
+        Me.EasyCompletionComboBox1.MaxDropDownItems = 16
+        Me.EasyCompletionComboBox1.Name = "EasyCompletionComboBox1"
+        Me.EasyCompletionComboBox1.Size = New System.Drawing.Size(147, 23)
+        Me.EasyCompletionComboBox1.TabIndex = 6
+        Me.EasyCompletionComboBox1.Visible = False
         '
         'CreateValForm
         '

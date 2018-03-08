@@ -321,12 +321,19 @@ def f_printP(player, *args):  # player에게 텍스트를 만들어 출력합니
     f_DisplayText(player)
 
 
+def f_chatAnnouncement(*args):
+    f_printError(EncodePlayer(CurrentPlayer))
+    if EUDIf()(Memory(0x57F1B0, Exactly, f_getcurpl())):
+        f_chatprint(12, *args)
+    EUDEndIf()
+
+
 @EUDFunc
-def f_printError():
+def f_printError(player):
     nextPtr = f_dwread_epd(EPD(0x628438))
     DoActions([
         SetMemoryEPD(EPD(0x628438), SetTo, 0),
-        CreateUnit(1, 0, 1, 0),
+        CreateUnit(1, 0, 1, player),
         SetMemoryEPD(EPD(0x628438), SetTo, nextPtr)
     ])
 
@@ -336,8 +343,6 @@ def f_chatdst(line):
 
 
 def f_chatwrite(line, s, e="UTF-8"):
-    if line == 12:
-        f_printError()
     chatdst = EPD(f_chatdst(line))
     s = s.encode(e)
     if line % 2 == 1:
@@ -351,9 +356,6 @@ def f_chatwrite(line, s, e="UTF-8"):
 
 
 def f_chatprint(line, *args):
-    if line == 12:
-        f_printError()
-
     if isLegacy == 1:
         f_cprint(f_chatdst(line), *args)
     else:

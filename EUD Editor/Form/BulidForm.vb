@@ -11,9 +11,10 @@
     End Sub
 
     Dim base As String
-
+    Dim Errormsg As String = ""
     Public Sub CompileStart(basefolder As String)
         base = basefolder
+        Errormsg = ""
         RichTextBox1.Text = ""
         RichTextBox2.Text = Lan.GetMsgText("build")
 
@@ -21,6 +22,9 @@
 
         startInfo.FileName = ProgramSet.euddraftDirec
         startInfo.Arguments = """" & filename & """"
+
+        'startInfo.StandardOutputEncoding = System.Text.Encoding.ASCII 'GetEncoding("ks_c_5601-1987")
+        'startInfo.StandardErrorEncoding = System.Text.Encoding.ASCII 'GetEncoding("ks_c_5601-1987")
 
         startInfo.RedirectStandardOutput = True
         startInfo.RedirectStandardError = True
@@ -52,13 +56,13 @@
 
 
     Dim count As Integer
+
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         While (True)
             count += 1
+            Errormsg = Errormsg & process.StandardError.ReadToEnd()
             'Me.Text = count & "번째 시도 중"
             RichTextBox1.Text = RichTextBox1.Text & process.StandardOutput.ReadToEnd()
-            Dim Errormsg As String = process.StandardError.ReadToEnd()
-
             If process.HasExited Then
                 If InStr(Errormsg, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
                     'RichTextBox2.Text = "재시도 합니다."
