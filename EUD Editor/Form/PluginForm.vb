@@ -247,12 +247,7 @@ Public Class PluginForm
         CheckBox4.Checked = grpinjectoruse
         FlowLayoutPanel5.Visible = grpinjectoruse
 
-        If nqcuse Then
-            If CheckFileExist(ProgramSet.euddraftDirec.Replace("euddraft.exe", "") & "plugins\MurakamiShiinaQC.py") Then
-                MsgBox("다음 파일이 존재하지 않습니다." & vbCrLf & ProgramSet.euddraftDirec.Replace("euddraft.exe", "") & "plugins\MurakamiShiinaQC.py" & vbCrLf & "다운로드 버튼을 눌러 해당 위치에 파일을 넣으세요.", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
-                nqcuse = False
-            End If
-        End If
+
         CheckBox5.Checked = nqcuse
         FlowLayoutPanel10.Visible = nqcuse
     End Sub
@@ -695,7 +690,7 @@ Public Class PluginForm
         End If
     End Sub
 
-    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Shell(Environ("windir") & "\explorer.exe ""http://cafe.naver.com/edac/62525", AppWinStyle.MaximizedFocus)
     End Sub
 

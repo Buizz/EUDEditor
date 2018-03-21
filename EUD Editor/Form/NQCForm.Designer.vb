@@ -216,7 +216,6 @@ Partial Class NQCForm
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.Size = New System.Drawing.Size(77, 19)
         Me.RadioButton3.TabIndex = 5
-        Me.RadioButton3.TabStop = True
         Me.RadioButton3.Text = "직접 입력"
         Me.RadioButton3.UseVisualStyleBackColor = True
         '
@@ -231,6 +230,7 @@ Partial Class NQCForm
         'RadioButton4
         '
         Me.RadioButton4.AutoSize = True
+        Me.RadioButton4.Checked = True
         Me.RadioButton4.Location = New System.Drawing.Point(3, 34)
         Me.RadioButton4.Margin = New System.Windows.Forms.Padding(3, 5, 3, 3)
         Me.RadioButton4.Name = "RadioButton4"

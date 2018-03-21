@@ -1,13 +1,15 @@
 ﻿Public Class CheckUpdateForm
     Private Sub CheckUpdateForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
+
         CheckBox1.Checked = My.Settings.IgnoreUpdate
         RichTextBox1.Text = GetPatchNote()
         If CheckUpdateAble() Then
             Button1.Enabled = True
-            Button1.Text = lastver & " 업데이트"
+            Button1.Text = lastver & " Update"
         Else
             Button1.Enabled = False
-            Button1.Text = "현재 최신버전입니다."
+            Button1.Text = Lan.GetText("CheckUpdateForm", "Button1")
         End If
     End Sub
 

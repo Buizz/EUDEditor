@@ -130,7 +130,7 @@ Namespace eudplib
             End If
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.Plugin) = True Then
                 If nqcuse = True Then
-                    returntext.AppendLine("[MurakamiShiinaQC]")
+                    returntext.AppendLine("[MurakamiShiinaQC.py]")
                     Try
                         Dim num As Integer = nqcunit
                         If num <> 58 Then
@@ -166,6 +166,12 @@ Namespace eudplib
                             returntext.AppendLine(temp2string(0).Trim & " : " & temp2string(1).Trim)
                         End Try
                     Next
+                    If ProjectSet.SCDBUse Then
+                        returntext.AppendLine("xy, 0x58F524 :437")
+                        returntext.AppendLine("xy, 0x58F528 :438")
+                        returntext.AppendLine("xy, 0x58F52C :439")
+                        returntext.AppendLine("xy, 0x58F530 :440")
+                    End If
 
 
 
@@ -1265,6 +1271,7 @@ Namespace eudplib
             filestream.Close()
 
 
+
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.Struct) = True Then
                 filename = basefolder & "\eudplibdata\tempcustomText.py"
                 filestream = New FileStream(filename, FileMode.Create)
@@ -1291,6 +1298,40 @@ Namespace eudplib
                 streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
 
                 streamwriter.Write(TriggerToEPS)
+
+                streamwriter.Close()
+                filestream.Close()
+
+                If ProjectSet.SCDBUse = True Then
+                    filename = basefolder & "\eudplibdata\SCDB.eps"
+                    filestream = New FileStream(filename, FileMode.Create)
+                    streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
+
+                    streamwriter.Write(ToScdbeps)
+
+                    streamwriter.Close()
+                    filestream.Close()
+
+                    If nqcuse = False Or ProjectSet.UsedSetting(ProjectSet.Settingtype.Plugin) = False Then
+                        nqcuse = True
+                        If ProjectSet.UsedSetting(ProjectSet.Settingtype.Plugin) = False Then
+                            ProjectSet.UsedSetting(ProjectSet.Settingtype.Plugin) = True
+                            Main.refreshSet()
+                        End If
+
+                        MsgBox(Lan.GetMsgText("MSQCOn"), MsgBoxStyle.Information, ProgramSet.ErrorFormMessage)
+                    End If
+                End If
+            End If
+
+
+            If nqcuse = True Then
+
+                filename = basefolder & "\eudplibdata\MurakamiShiinaQC.py"
+                filestream = New FileStream(filename, FileMode.Create)
+                streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
+
+                streamwriter.Write(My.Resources.MurakamiShiinaQC)
 
                 streamwriter.Close()
                 filestream.Close()

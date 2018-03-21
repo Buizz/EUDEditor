@@ -387,6 +387,16 @@ Namespace My.Resources
         '''<summary>
         '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         '''</summary>
+        Friend ReadOnly Property ICON_SCDB() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICON_SCDB", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
         Friend ReadOnly Property ICON_SoundPlayer() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("ICON_SoundPlayer", resourceCulture)
@@ -465,12 +475,23 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''  from eudplib import *
+        '''from struct import unpack
+        '''from math import ceil
+        '''import re
+        '''
+        '''
+        '''KeyCodeDict = {
+        '''    &apos;LBUTTON&apos;: 0x01, &apos;RBUTTON&apos;: 0x02, &apos;CANCEL&apos;: 0x03, &apos;MBUTTON&apos;: 0x04,
+        '''    &apos;XBUTTON1&apos;: 0x05, &apos;XBUTTON2&apos;: 0x06, &apos;BACK&apos;: 0x08, &apos;TAB&apos;: 0x09,
+        '''    &apos;CLEAR&apos;: 0x0C, &apos;ENTER&apos;: 0x0D, &apos;NX5&apos;: 0x0E, &apos;SHIFT&apos;: 0x10,
+        '''    &apos;LCTRL&apos;: 0x11, &apos;LALT&apos;: 0x12, &apos;PAUSE&apos;: 0x13, &apos;CAPSLOCK&apos;: 0x14,
+        '''    &apos;RALT&apos;: 0x15, &apos;JUNJA&apos;: 0x17, &apos;FINAL&apos;: 0x18, &apos;RCTRL&apos;: 0x19, &apos;ESC&apos;: 0x1B,
+        '''    &apos;CONVERT&apos;: 0x1C, &apos;NONCONVERT&apos;: 0x1D, &apos;ACCEPT&apos;: 0x1E, &apos;MO[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         '''</summary>
-        Friend ReadOnly Property MurakamiShiinaQC() As System.Drawing.Bitmap
+        Friend ReadOnly Property MurakamiShiinaQC() As String
             Get
-                Dim obj As Object = ResourceManager.GetObject("MurakamiShiinaQC", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return ResourceManager.GetString("MurakamiShiinaQC", resourceCulture)
             End Get
         End Property
         

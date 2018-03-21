@@ -127,14 +127,14 @@
   <data name="Cancle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cancle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ICON_BinEditor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ICON_BinEditor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="SKill" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SKill.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EUDEditorDEBUG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EUDEditorDEBUG.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
+  </data>
+  <data name="FileSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UnitCreate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UnitCreate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -142,14 +142,20 @@
   <data name="ICON_TriggerEditor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICON_TriggerEditor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Paste" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Paste.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="customText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\customText.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
   <data name="FromInternel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FromInternel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="modifi" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\modifi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="punitloop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\punitloop.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
   <data name="NUpgrade" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NUpgrade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,6 +175,9 @@
   <data name="UnitOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UnitOrder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LoadFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LoadFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Setting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -177,9 +186,6 @@
   </data>
   <data name="EUDEditorLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EUDEditorLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ICON_SoundPlayer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ICON_SoundPlayer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ICON_FileManager" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICON_FileManager.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -190,11 +196,11 @@
   <data name="MapEditor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapEditor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Paste" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Paste.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ICON_SoundPlayer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICON_SoundPlayer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="제목_없음_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\제목 없음-1.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -202,8 +208,8 @@
   <data name="UseEDD" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UseEDD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MurakamiShiinaQC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MurakamiShiinaQC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NewFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\New.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ICON_MPQEditor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICON_MPQEditor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,6 +226,9 @@
   <data name="Tech" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tech.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ColorDialogram" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ColorDialogram.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -232,8 +241,8 @@
   <data name="MostRecentlyUsed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MostRecentlyUsed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ICON_BinEditor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICON_BinEditor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ICON_BtnSet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICON_BtnSet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -250,8 +259,8 @@
   <data name="Colortable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Colortable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NewFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\New.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Savefile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Savefile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -271,16 +280,10 @@
   <data name="DatEditLoading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DatEditLoading.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FileSetting" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FileSetting.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ICON_SCDB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICON_SCDB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="punitloop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\punitloop.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="customText" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\customText.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="LoadFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LoadFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MurakamiShiinaQC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MurakamiShiinaQC.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

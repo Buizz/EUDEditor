@@ -149,19 +149,24 @@ Module TriggerEditorDataMoudle
 
 
     Public Function TriggerToEPS() As String
+        Dim strbulider As New System.Text.StringBuilder
+
         Dim str As String = ""
         If ProjectSet.UsedSetting(ProjectSet.Settingtype.BtnSet) Then
-            str = "import BGMPlayer as BGM;" & vbCrLf
+            strbulider.AppendLine("import BGMPlayer as BGM;")
         End If
-        str = str & "import punitloop as lp;" & vbCrLf
-        str = str & "import tempcustomText as tct;" & vbCrLf
+        If ProjectSet.SCDBUse Then
+            strbulider.AppendLine("import SCDB as scdb;")
+        End If
+        strbulider.AppendLine("import punitloop as lp;")
+        strbulider.AppendLine("import tempcustomText as tct;")
 
-        str = str & vbCrLf & "var txtPtr;" & vbCrLf
-        str = str & "const trgk = $T('Artanis & safhfh');" & vbCrLf
+        strbulider.AppendLine(vbCrLf & "var txtPtr;")
+        strbulider.AppendLine("const trgk = $T('Artanis & safhfh');")
 
-        str = str & GlobalVar.ToCode(-1) & vbCrLf
+        strbulider.AppendLine(GlobalVar.ToCode(-1))
 
-        str = str & AddText.ToCode(-1) & vbCrLf
+        strbulider.AppendLine(AddText.ToCode(-1))
 
 
 
@@ -177,39 +182,49 @@ Module TriggerEditorDataMoudle
 
 
 
-            str = str & "function " & funcs.Values(0) & "(" & arugments & ");" & vbCrLf
+            strbulider.AppendLine("function " & funcs.Values(0) & "(" & arugments & ");")
         Next
 
 
 
-        str = str & functions.ToCode(-1) & vbCrLf
-        str = str & "function WaitableTrigger() {" & vbCrLf & GetWaitAbleTrigger() & "}" & vbCrLf
+        strbulider.AppendLine(functions.ToCode(-1))
+        strbulider.AppendLine("function WaitableTrigger() {")
+        strbulider.AppendLine(GetWaitAbleTrigger() & "}")
 
 
 
-        str = str & "function onPluginStart() {" & vbCrLf
-        str = str & GetIntend(1) & "randomize();" & vbCrLf
+        strbulider.AppendLine("function onPluginStart() {")
+        strbulider.AppendLine(GetIntend(1) & "randomize();")
         If ProgramSet.StarVersion = "1.16.1" Then
-            str = str & GetIntend(1) & "tct.legacySupport();" & vbCrLf
+            strbulider.AppendLine(GetIntend(1) & "tct.legacySupport();")
         End If
 
-        str = str & StartElement.ToCode(0)
-        str = str & "}" & vbCrLf
+        strbulider.AppendLine(StartElement.ToCode(0))
+        strbulider.AppendLine("}")
 
 
 
-        str = str & "function beforeTriggerExec() {" & vbCrLf &
-                         GetIntend(1) & "WaitableTrigger();" & vbCrLf
+        strbulider.AppendLine("function beforeTriggerExec() {")
+        strbulider.AppendLine(GetIntend(1) & "EUDPlayerLoop()();")
+        strbulider.AppendLine(GetIntend(2) & "WaitableTrigger();")
+        strbulider.AppendLine(GetIntend(1) & "EUDEndPlayerLoop();")
 
         If ProjectSet.UsedSetting(ProjectSet.Settingtype.BtnSet) = True Then
-            str = str & GetIntend(1) & "BGM.Player();" & vbCrLf
+            strbulider.AppendLine(GetIntend(1) & "BGM.Player();")
         End If
 
 
-        str = str & BeforeElement.ToCode(0) & "}" & vbCrLf
-        str = str & "function afterTriggerExec() {" & vbCrLf & AfterElement.ToCode(0) & "}" & vbCrLf
+        strbulider.AppendLine(BeforeElement.ToCode(0) & "}")
+        strbulider.AppendLine("function afterTriggerExec() {")
+        If ProjectSet.SCDBUse Then
+            strbulider.AppendLine(GetIntend(1) & "EUDPlayerLoop()();")
+            strbulider.AppendLine(GetIntend(2) & "scdb.SCDBExec();")
+            strbulider.AppendLine(GetIntend(1) & "EUDEndPlayerLoop();")
+        End If
+        strbulider.AppendLine(AfterElement.ToCode(0) & "}")
 
-        Return str
+
+        Return strbulider.ToString
     End Function
 
 

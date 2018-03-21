@@ -818,9 +818,10 @@ Public Class FunctionForm
                 TableLayoutPanel7.Visible = False
                 TableLayoutPanel8.Visible = False
 
-                TabControl1.SelectedIndex = 2
                 isDataCollect = False
+                SetVariable(isLoading)
                 Me.isloading = False
+
                 TextBox2.Select()
                 TextBox2.Focus()
                 Exit Sub
@@ -1135,14 +1136,16 @@ Public Class FunctionForm
         If isFirst Then
             TabControl1.SelectedIndex = 1
         End If
-        EasyCompletionComboBox2.ResetText()
         Dim value As String = GetValue()
+        Dim _valuedef As ValueDefs = GetDefValueDefs(currentValueDef)
+
         If EasyCompletionComboBox2.Items.Contains(value) Then
             EasyCompletionComboBox2.SelectedIndex = EasyCompletionComboBox2.Items.IndexOf(value)
+            EasyCompletionComboBox2.Text = value
+        ElseIf isFirst And _valuedef.type <> ValueDefs.OutPutType.Variable Then
+            TabControl1.SelectedIndex = 2
         Else
-            If isFirst Then
-                TabControl1.SelectedIndex = 2
-            End If
+            EasyCompletionComboBox2.ResetText()
         End If
     End Sub
 

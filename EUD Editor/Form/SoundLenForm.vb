@@ -16,6 +16,8 @@
 
 
     Private Sub SoundLenForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Text = Lan.GetMsgText("sonudsplittext")
+
         Label1.Text = ""
         Timer1.Enabled = True
         workstatus = 0
@@ -34,7 +36,7 @@
         openfile = Chr(34) & openfile & Chr(34)
 
 
-        Label1.Text = """" & openfile.Split("\").Last & "을 분리하는 중 ..." '(" & 0 & "/" & maxlen & ")"
+        Label1.Text = Lan.GetMsgText("sonudsplit").Replace("$S0$", openfile.Split("\").Last)
 
 
         '    Label1.Text = """" & openfile.Split("\").Last & "을 분리하는 중 ...(" & i & "/" & maxlen & ")"

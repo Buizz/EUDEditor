@@ -1,13 +1,45 @@
-﻿Module initModule
+﻿Imports System.IO
+
+Module initModule
     Public DirectoryPath As String
 
+    Sub DeleteFilesFromFolder(Folder As String)
+        If Directory.Exists(Folder) Then
+            For Each _file As String In Directory.GetFiles(Folder)
+                File.Delete(_file)
+            Next
+            For Each _folder As String In Directory.GetDirectories(Folder)
 
+                DeleteFilesFromFolder(_folder)
+            Next
+        End If
+    End Sub
 
     Public Function init() As Boolean
+        Dim filename As String
+        filename = My.Application.Info.DirectoryPath & "\Data\Langage\한국어(Korean)"
+        If System.IO.Directory.Exists(filename) Then
+            DeleteFilesFromFolder(filename)
+            System.IO.Directory.Delete(filename)
+        End If
+        filename = My.Application.Info.DirectoryPath & "\Data\Langage\English(English)"
+        If System.IO.Directory.Exists(filename) Then
+            DeleteFilesFromFolder(filename)
+            System.IO.Directory.Delete(filename)
+        End If
+        filename = My.Application.Info.DirectoryPath & "\TE함수"
+        If System.IO.Directory.Exists(filename) Then
+            DeleteFilesFromFolder(filename)
+            System.IO.Directory.Delete(filename)
+        End If
+
+        filename = My.Application.Info.DirectoryPath & "\Data\Langage\" & My.Settings.Langage
+        If System.IO.Directory.Exists(filename) = False Then
+            My.Settings.Langage = "Korean"
+        End If
+
         Dim hyperLink As Boolean = False
-
         Dim testmode As Boolean = False
-
         Dim mainControlMode As Boolean = False
         'My.Settings.Reset()
 

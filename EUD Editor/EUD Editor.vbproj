@@ -414,6 +414,18 @@
     <Compile Include="Form\TriggerEditor\FunctionForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\TriggerEditor\SCDBForm.Designer.vb">
+      <DependentUpon>SCDBForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\SCDBForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\SCDBLoginForm.Designer.vb">
+      <DependentUpon>SCDBLoginForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\SCDBLoginForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\TriggerEditor\TextEditor.Designer.vb">
       <DependentUpon>TextEditor.vb</DependentUpon>
     </Compile>
@@ -469,6 +481,7 @@
       <DependentUpon>Main.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Module\AESModule.vb" />
     <Compile Include="Module\BGMPlayerModule.vb" />
     <Compile Include="Module\BinEditModule.vb" />
     <Compile Include="Module\CreateDebugpyModule.vb" />
@@ -491,6 +504,8 @@
     <Compile Include="Module\RemasterModule.vb" />
     <Compile Include="Module\ReqModule.vb" />
     <Compile Include="Module\RWMem.vb" />
+    <Compile Include="Module\SCDBLoginModule.vb" />
+    <Compile Include="Module\SCDBModule.vb" />
     <Compile Include="Module\SettingModule.vb" />
     <Compile Include="Module\SFmpq.vb" />
     <Compile Include="Module\SMKModule.vb" />
@@ -664,6 +679,12 @@
     <EmbeddedResource Include="Form\TriggerEditor\FunctionForm.resx">
       <DependentUpon>FunctionForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\SCDBForm.resx">
+      <DependentUpon>SCDBForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\SCDBLoginForm.resx">
+      <DependentUpon>SCDBLoginForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\TextEditor.resx">
       <DependentUpon>TextEditor.vb</DependentUpon>
     </EmbeddedResource>
@@ -711,6 +732,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EUD Editor.ico" />
+    <None Include="Resources\MurakamiShiinaQC.txt" />
+    <None Include="Resources\ICON_SCDB.png" />
     <None Include="Resources\LoadFile.png" />
     <None Include="Resources\customText.txt" />
     <None Include="Resources\punitloop.txt" />

@@ -86,9 +86,13 @@ Module EUDProjectManagerModule
         Dim foldername As String = ProjectSet.filename.Replace(GetSafeName(ProjectSet.filename), "")
 
         For Each _file As String In Directory.GetFiles(foldername & GetFolderName(EUDProjectManagerModule.Foldername.Map))
-            If _file <> ProjectSet.InputMap Then
-                My.Computer.FileSystem.DeleteFile(_file)
-            End If
+            Try
+                If _file <> ProjectSet.InputMap Then
+                    My.Computer.FileSystem.DeleteFile(_file)
+                End If
+            Catch ex As Exception
+
+            End Try
         Next
 
         Dim filelist As New List(Of String)

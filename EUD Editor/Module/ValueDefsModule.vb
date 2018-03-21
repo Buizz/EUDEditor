@@ -74,6 +74,7 @@ Module ValueDefsModule
                                 End If
                             Next
                         Case "Switch"
+                            '_values.Add("None")
                             For i = 0 To 255
                                 If ProjectSet.CHKSWITCHNAME(i) <> 0 Then
                                     _values.Add(ProjectSet.CHKSTRING(ProjectSet.CHKSWITCHNAME(i) - 1))
@@ -205,7 +206,7 @@ Module ValueDefsModule
         ' "Script", "Unit", "UnitType", "OnUnit", "WAVName", "Switch", "StartLocation", "DestLocation", "Location", "Where",
         ValueDefiniction.Add(New ValueDefs("Script", ValueDefs.OutPutType.ComboboxString))
         ValueDefiniction.Add(New ValueDefs({"Unit", "UnitType", "OnUnit"}, ValueDefs.OutPutType.Combobox))
-        ValueDefiniction.Add(New ValueDefs("WAVName", ValueDefs.OutPutType.Combobox))
+        ValueDefiniction.Add(New ValueDefs("WAVName", ValueDefs.OutPutType.ComboboxString))
         ValueDefiniction.Add(New ValueDefs("Switch", ValueDefs.OutPutType.Combobox))
         ValueDefiniction.Add(New ValueDefs({"Location", "DestLocation", "StartLocation", "Where"}, ValueDefs.OutPutType.Combobox))
         ValueDefiniction.Add(New ValueDefs("DatFile", ValueDefs.OutPutType.Combobox, {"units.dat", "weapons.dat", "flingy.dat", "sprites.dat", "images.dat", "upgrades.dat", "techdata.dat", "orders.dat"}))
@@ -227,7 +228,7 @@ Module ValueDefsModule
         '"State", "ResourceType", "ScoreType", "Modifier", "OrderType", "TimeModifier", "AlwaysDisplay", "ForPlayer", "Owner", "Player", "NewOwner", "VariableModifier",
 
 
-        ValueDefiniction.Add(New ValueDefs({"Player", "NewOwner", "Owner", "ForPlayer"}, ValueDefs.OutPutType.ListNum, {"Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6",
+        ValueDefiniction.Add(New ValueDefs({"PlayerX", "Player", "NewOwner", "Owner", "ForPlayer"}, ValueDefs.OutPutType.ListNum, {"Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6",
                                            "Player 7", "Player 8", "Player 9", "Player 10", "Player 11", "Player 12", "Unknown",
                                            "CurrentPlayer", "Foes", "Allies", "NeutralPlayers", "AllPlayers", "Force1", "Force2",
                                            "Force3", "Force4", "Unknown", "Unknown", "Unknown", "Unknown", "NonAlliedVictoryPlayers"}))
@@ -315,6 +316,17 @@ Module ValueDefsModule
 
         ValueDefiniction.Add(New ValueDefs("BtnEnableTxt", ValueDefs.OutPutType.UnitBtn))
         ValueDefiniction.Add(New ValueDefs("BtnUnEnableTxt", ValueDefs.OutPutType.UnitBtn))
+
+        ValueDefiniction.Add(New ValueDefs("CState", ValueDefs.OutPutType.ListNum, {"활성", "비활성"}))
+        ValueDefiniction.Add(New ValueDefs("UnitBtnlist", ValueDefs.OutPutType.Combobox, CODE(11).ToArray))
+        ValueDefiniction.Add(New ValueDefs("ScoreOffset", ValueDefs.OutPutType.ListNum))
+
+
+        ValueDefiniction.Add(New ValueDefs("SupplyType", ValueDefs.OutPutType.ListNum, {"사용가능량", "사용량", "최대 제한"}))
+        ValueDefiniction.Add(New ValueDefs("SCDBMsgType", ValueDefs.OutPutType.ListNum, {"None", "로그인 성공", "불러오기 성공", "세이브 성공", "None", "접속 끊킴", "로드 불가능", "세이브 불가능"}))
+        ValueDefiniction.Add(New ValueDefs("SCDBConnectStatus", ValueDefs.OutPutType.ListNum, {"연결 끊킴", "로그인 시도 중", "메타데이터 가져오는 중", "플레이어 정보 얻는 중", "연결 됨"}))
+
+
         LoadCUnitData()
     End Sub
 

@@ -186,6 +186,13 @@ Public Class Element
         '{"대입", "덧셈", "뺄셈", "곱셈", "나눗셈"}))
         '{"일치", "불일치", "이상", "이하", "초과", "미만"}))
         Select Case valdef
+            Case "PlayerX"
+                If isTocode Then
+                    Select Case _value
+                        Case 13
+                            returnstring = "getcurpl()"
+                    End Select
+                End If
             Case "VariableModifier"
                 If isTocode Then
                     Select Case _value
@@ -273,6 +280,20 @@ Public Class Element
                         Case 2
                             returnstring = "6"
                     End Select
+                End If
+            Case "CState"
+                If isTocode Then
+                    Select Case _value
+                        Case 0
+                            returnstring = "2"
+                        Case 1
+                            returnstring = "3"
+                    End Select
+                End If
+            Case "ScoreOffset"
+                Dim offsets() As String = {"0x581DE4", "0x581E14", "0x581E44", "0x581E74", "0x581EA4", "0x581ED4", "0x581F04", "0x581F34", "0x581F64", "0x581F94", "0x581FC4", "0x581FF4", "0x582024", "0x582054", "0x582084", "0x5820B4", "0x5820E4", "0x582114", "0x5822F4"}
+                If isTocode Then
+                    returnstring = offsets(_value)
                 End If
             Case "Properties"
                 'UnitProperty(hitpoint = 100, shield = 100, energy = 100, resource = 0, hanger = 0, cloaked = True, burrowed = False, intransit = False, hallucinated = True, invincible = False)
@@ -547,6 +568,12 @@ Public Class Element
             Case "CText"
                 If isTocode = True Then
                     returnstring = CTextEncode(returnstring)
+
+                    Return returnstring
+                End If
+            Case "WAVName"
+                If isTocode = True Then
+                    returnstring = returnstring.Replace("\", "\\")
 
                     Return returnstring
                 End If
@@ -1575,7 +1602,7 @@ Public Class Element
                             '인수 3개 설정하고, 타이머 1로 설정하고 함수 시작.
                             Dim funname As String = Values(0)
 
-                            _rtext = funname & "Timer = 1;"
+                            _rtext = funname & "Timer[getcurpl()] = 1;"
 
                             Dim valuedeflist As New List(Of String)
                             If Values.Count <> 1 Then
@@ -1635,11 +1662,18 @@ Public Class Element
                 If ProjectSet.UsedSetting(ProjectSet.Settingtype.BtnSet) = False Then
                     abledflag = False
                 End If
+            ElseIf act.Name = "SCDB:Exec" Or act.Name = "SCDB:Login" Or act.Name = "SCDB:Logout" Or act.Name = "SCDB:Logout" Or act.Name = "SCDB:SaveData" Or act.Name = "SCDB:LoadData" Or act.Name = "SCDB:LastMsgReset" Then
+                If ProjectSet.SCDBUse = False Then
+                    abledflag = False
+                End If
             End If
-        End If
-        If Type = ElementType.조건 Then
+        ElseIf Type = ElementType.조건 Then
             If con.Name = "CurrentBGM" Or con.Name = "BGMPlaying" Then
                 If ProjectSet.UsedSetting(ProjectSet.Settingtype.BtnSet) = False Then
+                    abledflag = False
+                End If
+            ElseIf con.Name = "SCDB:Msg" Or con.Name = "SCDB:Connect" Or con.Name = "SCDB:Loadable" Then
+                If ProjectSet.SCDBUse = False Then
                     abledflag = False
                 End If
             End If
@@ -1665,8 +1699,9 @@ Public Class Element
                         For i = 0 To Elements(0).Elements.Count - 1
                             _stringb.AppendLine("var " & Values(0) & Elements(0).Elements(i).Values(0) & ";")
                         Next
-                        _stringb.AppendLine("var " & Values(0) & "Timer;")
-                        VarialbeName = Values(0) & "Timer"
+                        VarialbeName = Values(0) & "Timer[getcurpl()]"
+                        _stringb.AppendLine("const " & Values(0) & "Timer = [0, 0, 0, 0, 0, 0, 0, 0];")
+
                     End If
                 End If
 
@@ -1683,7 +1718,7 @@ Public Class Element
                     Next
                     If fundef IsNot Nothing Then
                         If fundef.Values(1) Then
-                            _stringb.AppendLine(GetIntend(intend) & "if (" & fundef.Values(0) & "Timer == 0) {")
+                            _stringb.AppendLine(GetIntend(intend) & "if (" & fundef.Values(0) & "Timer[getcurpl()] == 0) {")
                             intend += 1
                         End If
                     End If

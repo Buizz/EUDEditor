@@ -96,21 +96,24 @@ Public Class ActionForm
 
 
 
-
+    Dim dupliflag As Boolean = True
     Private Sub LinkLabel_Click(sender As Object, e As EventArgs)
+        dupliflag = False
         Dim label As Label = CType(sender, LinkLabel)
         'MsgBox(CType(sender, LinkLabel).Tag)
         currentValueDef = label.Tag
 
         TabControl3.SelectedIndex = LinkLabels.IndexOf(label)
-
         ValueSetting(True)
+        dupliflag = True
     End Sub
     Private Sub TabControl3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl3.SelectedIndexChanged
         Try
-            currentValueDef = LinkLabels(TabControl3.SelectedIndex).Tag
+            If dupliflag Then
+                currentValueDef = LinkLabels(TabControl3.SelectedIndex).Tag
 
-            ValueSetting(True)
+                ValueSetting(True)
+            End If
         Catch ex As Exception
 
         End Try
@@ -978,10 +981,8 @@ Public Class ActionForm
                 TableLayoutPanel7.Visible = False
                 TableLayoutPanel8.Visible = False
 
-                TabControl1.Enabled = False
-                TabControl1.SelectedIndex = 2
-                TabControl1.Enabled = True
                 isDataCollect = False
+                SetVariable(isLoading)
                 Me.isloading = False
 
                 TextBox2.Select()
@@ -1122,9 +1123,15 @@ Public Class ActionForm
             TabControl1.SelectedIndex = 1
         End If
         Dim value As String = GetValue()
-        EasyCompletionComboBox2.ResetText()
+        Dim _valuedef As ValueDefs = GetDefValueDefs(currentValueDef)
+
         If EasyCompletionComboBox2.Items.Contains(value) Then
             EasyCompletionComboBox2.SelectedIndex = EasyCompletionComboBox2.Items.IndexOf(value)
+            EasyCompletionComboBox2.Text = value
+        ElseIf isFirst And _valuedef.type <> ValueDefs.OutPutType.Variable Then
+            TabControl1.SelectedIndex = 2
+        Else
+            EasyCompletionComboBox2.ResetText()
         End If
     End Sub
 

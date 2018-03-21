@@ -27,13 +27,25 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Langage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">한국어(Korean)</Value>
+      <Value Profile="(Default)">Korean</Value>
     </Setting>
     <Setting Name="AutoCompile" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="IgnoreUpdate" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AutoLogin" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Remember" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

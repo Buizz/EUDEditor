@@ -65,7 +65,6 @@ Partial Class PluginForm
         Me.Column4 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.FlowLayoutPanel10 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.EasyCompletionComboBox1 = New SergeUtils.EasyCompletionComboBox()
@@ -595,7 +594,6 @@ Partial Class PluginForm
         'GroupBox6
         '
         Me.GroupBox6.AutoSize = True
-        Me.GroupBox6.Controls.Add(Me.LinkLabel1)
         Me.GroupBox6.Controls.Add(Me.FlowLayoutPanel10)
         Me.GroupBox6.Controls.Add(Me.CheckBox5)
         Me.GroupBox6.Location = New System.Drawing.Point(400, 0)
@@ -607,16 +605,6 @@ Partial Class PluginForm
         Me.GroupBox6.TabIndex = 6
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "MurakamiShiinaQC"
-        '
-        'LinkLabel1
-        '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(167, 2)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(55, 15)
-        Me.LinkLabel1.TabIndex = 9
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "다운로드"
         '
         'FlowLayoutPanel10
         '
@@ -849,7 +837,6 @@ Partial Class PluginForm
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents FlowLayoutPanel10 As FlowLayoutPanel
     Friend WithEvents CheckBox5 As CheckBox
-    Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents Label4 As Label
     Friend WithEvents EasyCompletionComboBox1 As SergeUtils.EasyCompletionComboBox
     Friend WithEvents FlowLayoutPanel12 As FlowLayoutPanel

@@ -262,11 +262,7 @@ Public Class Main
 
     Dim ShutDown As Boolean = False
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Lan.SetMenu(Me, MenuStrip1)
-        Lan.SetLangage(Me)
 
-        SaveFileDialog1.Filter = Lan.GetText(Me.Name, "SaveFilter")
-        OpenFileDialog1.Filter = Lan.GetText(Me.Name, "OpenFilter")
 
 
         'My.Settings.Reset()
@@ -274,7 +270,11 @@ Public Class Main
             ShutDown = True
             Me.Close()
         End If
+        Lan.SetMenu(Me, MenuStrip1)
+        Lan.SetLangage(Me)
 
+        SaveFileDialog1.Filter = Lan.GetText(Me.Name, "SaveFilter")
+        OpenFileDialog1.Filter = Lan.GetText(Me.Name, "OpenFilter")
 
 
         refreshSet()

@@ -2,12 +2,15 @@
 
 Public Class TrigEditorForm
     Private Sub TrigEditorForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Timer1.Enabled = True
+        Lan.SetLangage(Me)
+        Lan.SetMenu(Me, ContextMenuStrip1)
+        Lan.SetMenu(Me, MenuStrip1)
         'LoadTriggerFile()
+        CheckBox1.Checked = ProjectSet.SCDBUse
+        Button8.Enabled = ProjectSet.SCDBUse
+
         ReDrawList()
-    End Sub
-    Private Sub TrigEditorForm_Closing(sender As Object, e As EventArgs) Handles MyBase.Closing
-        Timer1.Enabled = False
+        RedrawCode()
     End Sub
 
 
@@ -657,6 +660,7 @@ Public Class TrigEditorForm
             CType(selectnode.Tag, Element).Delete()
             selectnode.Remove()
         End If
+        RedrawCode()
     End Sub
 
     Private Sub Copy(ByRef selectnode As TreeNode)
@@ -690,7 +694,7 @@ Public Class TrigEditorForm
                     selectnode.Parent.Nodes.Insert(_index, _tempele.Parrent.GetElementList(_index).ToTreeNode)
             End Select
         End If
-
+        RedrawCode()
     End Sub
 
     Private Sub ActionFormShow(_isNewAct As Boolean, _targetEle As Element)
@@ -738,6 +742,7 @@ Public Class TrigEditorForm
             End If
 
         End If
+        RedrawCode()
         TreeView1.SelectedNode.Expand()
     End Sub
 
@@ -786,6 +791,8 @@ Public Class TrigEditorForm
             End If
 
         End If
+
+        RedrawCode()
         TreeView1.SelectedNode.Expand()
     End Sub
 
@@ -878,6 +885,8 @@ Public Class TrigEditorForm
                     AddFolduer(False)
             End Select
         End If
+
+        RedrawCode()
     End Sub
 
     Private Sub ForEditingShow(_isNewfor As Boolean, _targetEle As Element)
@@ -898,12 +907,11 @@ Public Class TrigEditorForm
                 TreeView1.SelectedNode.Text = _targetEle.GetText
             End If
         End If
+
+        RedrawCode()
     End Sub
 
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        FastColoredTextBox1.Text = TriggerToEPS() ' SaveTrigger()
-    End Sub
 
 
 
@@ -982,6 +990,8 @@ Public Class TrigEditorForm
         ''    _streamWriter.Close()
         ''    _filesteram.Close()
         ''End If
+
+        RedrawCode()
     End Sub
 
     Private Sub btn_OpenFile_Click(sender As Object, e As EventArgs) Handles btn_OpenFile.Click
@@ -1002,6 +1012,7 @@ Public Class TrigEditorForm
             ReDrawList()
         End If
 
+        RedrawCode()
     End Sub
 
 
@@ -1022,6 +1033,8 @@ Public Class TrigEditorForm
 
             ReDrawList()
         End If
+
+        RedrawCode()
     End Sub
 
     Private Sub 파일로저장AToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 파일로저장AToolStripMenuItem.Click
@@ -1042,6 +1055,8 @@ Public Class TrigEditorForm
             _streamWriter.Close()
             _filesteram.Close()
         End If
+
+        RedrawCode()
     End Sub
 
 
@@ -1058,11 +1073,15 @@ Public Class TrigEditorForm
     Private Sub 새로만들기NToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 새로만들기NToolStripMenuItem.Click
         NewTriggerFile()
         ReDrawList()
+
+        RedrawCode()
     End Sub
 
     Private Sub btn_NewFile_Click(sender As Object, e As EventArgs) Handles btn_NewFile.Click
         NewTriggerFile()
         ReDrawList()
+
+        RedrawCode()
     End Sub
 
     Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
@@ -1106,6 +1125,8 @@ Public Class TrigEditorForm
             GlobalVar.AddElements(New Element(GlobalVar, ElementType.액션, _index, {CreateValForm.TextBox1.Text, CreateValForm.NumericUpDown1.Value}))
             ListBox1.Items.Add(CreateValForm.TextBox1.Text)
         End If
+
+        RedrawCode()
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -1125,10 +1146,12 @@ Public Class TrigEditorForm
             CreateValForm.CheckBox1.Enabled = False
 
             If CreateValForm.ShowDialog = DialogResult.OK Then
-                    GlobalVar.GetElementList(ListBox1.SelectedIndex).SetValue({CreateValForm.TextBox1.Text, CreateValForm.NumericUpDown1.Value})
-                    ListBox1.Items(ListBox1.SelectedIndex) = CreateValForm.TextBox1.Text
-                End If
+                GlobalVar.GetElementList(ListBox1.SelectedIndex).SetValue({CreateValForm.TextBox1.Text, CreateValForm.NumericUpDown1.Value})
+                ListBox1.Items(ListBox1.SelectedIndex) = CreateValForm.TextBox1.Text
             End If
+        End If
+
+        RedrawCode()
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -1143,15 +1166,15 @@ Public Class TrigEditorForm
                 ListBox1.SelectedIndex = ListBox1.Items.Count - 1
             End Try
         End If
+        RedrawCode()
     End Sub
 
-    Private Sub SplitContainer1_SplitterMoved(sender As Object, e As SplitterEventArgs) Handles SplitContainer1.SplitterMoved
-        If SplitContainer1.Width <e.SplitX + 20 Then
-            Timer1.Enabled= False
+    Private Sub RedrawCode()
+        If SplitContainer1.Width < SplitContainer1.SplitterWidth + 20 Then
         Else
-            Timer1.Enabled= True
+            FastColoredTextBox1.Text = TriggerToEPS()
         End If
-            End Sub
+    End Sub
 
 
     Private Sub 함수ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 함수ToolStripMenuItem.Click
@@ -1167,6 +1190,8 @@ Public Class TrigEditorForm
 
             NewEle(TreeView1.SelectedNode, FunctionForm.FunEle)
         End If
+
+        RedrawCode()
     End Sub
 
     Private Sub 함수정의ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 함수정의ToolStripMenuItem.Click
@@ -1199,6 +1224,8 @@ Public Class TrigEditorForm
                 End Select
             End If
         End If
+
+        RedrawCode()
     End Sub
 
 
@@ -1239,6 +1266,8 @@ Public Class TrigEditorForm
                 TreeView1.SelectedNode.LastNode.Expand()
             End If
         End If
+
+        RedrawCode()
     End Sub
 
     Private Sub 함수저장ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 함수저장ToolStripMenuItem.Click
@@ -1260,6 +1289,8 @@ Public Class TrigEditorForm
             _streamwriter.Close()
             _filestream.Close()
         End If
+
+        RedrawCode()
     End Sub
 
 
@@ -1267,7 +1298,7 @@ Public Class TrigEditorForm
         FuncLoad()
     End Sub
     Private Sub FuncLoad()
-        OpenFileDialog2.InitialDirectory = My.Application.Info.DirectoryPath & "\TE함수"
+        OpenFileDialog2.InitialDirectory = My.Application.Info.DirectoryPath & "\TEFunction"
 
         Dim dialog As DialogResult = OpenFileDialog2.ShowDialog()
 
@@ -1310,6 +1341,8 @@ Public Class TrigEditorForm
 
 
         End If
+
+        RedrawCode()
     End Sub
 
     Private Sub formaker()
@@ -1478,6 +1511,8 @@ Public Class TrigEditorForm
                 TreeView1.SelectedNode.Text = _selectElement.GetText
             End If
         End If
+
+        RedrawCode()
     End Sub
 
     Private Sub Btn_OpenCont_Click(sender As Object, e As EventArgs) Handles Btn_OpenCont.Click
@@ -1497,6 +1532,8 @@ Public Class TrigEditorForm
 
             ReDrawList()
         End If
+
+        RedrawCode()
     End Sub
 
     Private Sub OpenCont_Click(sender As Object, e As EventArgs) Handles OpenCont.Click
@@ -1516,6 +1553,8 @@ Public Class TrigEditorForm
 
             ReDrawList()
         End If
+
+        RedrawCode()
     End Sub
     Private Sub AddFolduer(isnew As Boolean)
         If isnew Then
@@ -1533,6 +1572,8 @@ Public Class TrigEditorForm
                 TreeView1.SelectedNode.Text = _selectElement.GetText
             End If
         End If
+
+        RedrawCode()
     End Sub
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         AddFolduer(True)
@@ -1563,6 +1604,34 @@ Public Class TrigEditorForm
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         AddText.Values(0) = TextBox1.Text
+        RedrawCode()
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        SCDBForm.ShowDialog()
+        CheckBox1.Checked = ProjectSet.SCDBUse
+        Button8.Enabled = ProjectSet.SCDBUse
+        RedrawCode()
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        If CheckBox1.Checked = False Then
+            ProjectSet.SCDBUse = False
+            Button8.Enabled = False
+        Else
+            If ProjectSet.SCDBUse = False And ProjectSet.scdbLoingStatus = False Then
+                If SCDBLoginForm.ShowDialog() = DialogResult.Yes Then
+                    ProjectSet.SCDBUse = True
+                    Button8.Enabled = True
+                Else
+                    CheckBox1.Checked = False
+                End If
+            ElseIf ProjectSet.SCDBUse = False And ProjectSet.scdbLoingStatus = True Then
+                ProjectSet.SCDBUse = True
+                Button8.Enabled = True
+            End If
+        End If
+        RedrawCode()
     End Sub
 
     'Private Sub TreeView1_MouseDown(sender As Object, e As MouseEventArgs) Handles TreeView1.MouseDown

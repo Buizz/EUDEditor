@@ -9,9 +9,9 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "0.15.7"
+        Public Version As String = "0.15.83"
         Public DatEditVersion As String = "v0.3"
-
+        Public SCDBSerial As UInteger
 
         Public ErrorFormMessage As String = "EUDEditor Error"
         Public AlterFormMessage As String = "EUDEditor Warning"
@@ -25,6 +25,12 @@ Namespace ProgramSet
 
 
         Public DatMPQDirec(3) As String
+
+
+        'Public ID As String
+        'Public Password As String
+        'Public AutoLogin As Boolean
+        'Public Remember As Boolean
 
 
 
@@ -45,12 +51,16 @@ Namespace ProjectSet
             Main.nameResetting()
         End Sub
 
+        Public SCDBSerial As UInteger
+        Public SCDBUse As Boolean = False
+
         Public EUDEditorDebug As Boolean
         Public epTraceDebug As Boolean
 
         Public filename As String
 
 
+        Public scdbLoingStatus As Boolean
         Public isload As Boolean
         Public loading As Boolean
 
@@ -585,7 +595,7 @@ Namespace ProjectSet
             InputMap = ""
             OutputMap = ""
             euddraftuse = True
-
+            scdbLoingStatus = False
             For i = 0 To 227
                 UNITSTR(i) = 0
             Next
@@ -664,6 +674,10 @@ Namespace ProjectSet
 
             stattextdic.Clear()
 
+            SCDBDeath.Clear()
+            SCDBLoc.Clear()
+            SCDBUse = False
+            SCDBSerial = 0
 
             For i = 0 To 227
                 grpwireData(i) = i
@@ -1204,7 +1218,26 @@ Namespace ProjectSet
                         Exit Sub
                     End Try
 
+                    Try
+                        Dim Section_SCDBSET As String = FindSection(text, "SCDBSet")
+                        SCDBDeath = FindSetting(Section_SCDBSET, "SCDBDeath").Split(",").ToList
+                        SCDBLoc = FindSetting(Section_SCDBSET, "SCDBLoc").Split(",").ToList
+                        SCDBUse = FindSetting(Section_SCDBSET, "SCDBUse")
+                        SCDBSerial = FindSetting(Section_SCDBSET, "SCDBSerial")
 
+                        If SCDBUse Then
+                            If SCDBLoginForm.ShowDialog() <> DialogResult.Yes Then
+                                SCDBUse = False
+                            End If
+                        End If
+
+
+
+                    Catch ex As Exception
+
+                        MsgBox(Lan.GetText("MsgBox", "LodingError").Replace("$S0$", "SCDB").Replace("$S1$", ProgramSet.Version).Replace("$S2$", savefileVersion), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                        Exit Sub
+                    End Try
 
 
 
@@ -1956,6 +1989,40 @@ Namespace ProjectSet
 
 
             _stringbdl.Append("E_TileSET" & vbCrLf)
+
+
+
+
+
+            _stringbdl.Append("S_SCDBSet" & vbCrLf) 'FileManagerSET Start
+
+            Dim Ststr As String = ""
+            If SCDBDeath.Count <> 0 Then
+                Ststr = SCDBDeath(0)
+                For i = 1 To SCDBDeath.Count - 1
+                    Ststr = Ststr & "," & SCDBDeath(i)
+                Next
+            End If
+            _stringbdl.Append("SCDBDeath : " & Ststr & vbCrLf)
+
+            Ststr = ""
+            If SCDBLoc.Count <> 0 Then
+                Ststr = SCDBLoc(0)
+                For i = 1 To SCDBLoc.Count - 1
+                    Ststr = Ststr & "," & SCDBLoc(i)
+                Next
+            End If
+
+            _stringbdl.Append("SCDBLoc : " & Ststr & vbCrLf)
+            _stringbdl.Append("SCDBUse : " & SCDBUse & vbCrLf)
+            _stringbdl.Append("SCDBSerial : " & SCDBSerial & vbCrLf)
+
+
+
+            _stringbdl.Append("E_SCDBSet" & vbCrLf)
+
+
+
 
 
 

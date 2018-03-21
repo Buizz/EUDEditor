@@ -2,16 +2,24 @@
     Public returnstring As String
 
     Private Sub CheckValidity()
-        If EasyCompletionComboBox2.SelectedIndex <> -1 Then
-            If EasyCompletionComboBox1.SelectedIndex <> -1 And RadioButton2.Checked = True Then
-                Button5.Enabled = True
-                Exit Sub
-            ElseIf RadioButton1.Checked = True Then
-                Button5.Enabled = True
-                Exit Sub
-            End If
+        Dim truepoint As Byte = 0
+        If EasyCompletionComboBox1.SelectedIndex <> -1 And RadioButton2.Checked = True Then
+            truepoint += 1
+        ElseIf RadioButton1.Checked = True Then
+            truepoint += 1
         End If
-        Button5.Enabled = False
+
+        If EasyCompletionComboBox2.SelectedIndex <> -1 And RadioButton4.Checked = True Then
+            truepoint += 1
+        ElseIf RadioButton3.Checked = True Then
+            truepoint += 1
+        End If
+        If truepoint > 1 Then
+            Button5.Enabled = True
+        Else
+            Button5.Enabled = False
+        End If
+
     End Sub
 
     Private Sub NQCForm_Closing(sender As Object, e As EventArgs) Handles MyBase.Closing
@@ -21,7 +29,7 @@
             returnstring = EasyCompletionComboBox1.SelectedItem
         End If
         If RadioButton3.Checked = True Then '직접 입력일 경우
-            returnstring = returnstring & "#" & TextBox2.Text & "#" & 0
+            returnstring = returnstring & "#" & TextBox2.Text
         Else
             returnstring = returnstring & "#" & EasyCompletionComboBox2.SelectedIndex & "#" & NumericUpDown1.Value
         End If
@@ -60,8 +68,12 @@
         Else
             Dim condstr As String = returnstring.Split("#")(0).Trim
             Dim deathunit As String = returnstring.Split("#")(1).Trim
-            Dim deathval As String = returnstring.Split("#")(2).Trim
-
+            Dim deathval As String
+            Try
+                deathval = returnstring.Split("#")(2).Trim
+            Catch ex As Exception
+                deathval = "Null"
+            End Try
 
             Try
                 If EasyCompletionComboBox1.Items.Contains(condstr) Then

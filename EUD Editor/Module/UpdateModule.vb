@@ -100,7 +100,7 @@ Module UpdateModule
         While (Client.IsBusy) 'Client.IsBusy
             span = timer.Subtract(Now)
             If span.Seconds < -5 Then
-                MsgBox("파일 다운로드에 실패했습니다!", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                MsgBox(Lan.GetMsgText("failTodownload"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
                 If Client.IsBusy Then
                     Client.CancelAsync()
                 End If

@@ -148,7 +148,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("한국어(Korean)")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Korean")>  _
         Public Property Langage() As String
             Get
                 Return CType(Me("Langage"),String)
@@ -185,12 +185,48 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property 설정() As Boolean
+        Public Property AutoLogin() As Boolean
             Get
-                Return CType(Me("설정"),Boolean)
+                Return CType(Me("AutoLogin"),Boolean)
             End Get
             Set
-                Me("설정") = value
+                Me("AutoLogin") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Remember() As Boolean
+            Get
+                Return CType(Me("Remember"),Boolean)
+            End Get
+            Set
+                Me("Remember") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ID() As String
+            Get
+                Return CType(Me("ID"),String)
+            End Get
+            Set
+                Me("ID") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Password() As String
+            Get
+                Return CType(Me("Password"),String)
+            End Get
+            Set
+                Me("Password") = value
             End Set
         End Property
     End Class

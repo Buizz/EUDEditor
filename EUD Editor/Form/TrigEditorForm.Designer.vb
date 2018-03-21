@@ -25,7 +25,7 @@ Partial Class TrigEditorForm
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(TrigEditorForm))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.파일FToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FileFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.새로만들기NToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.열기OToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenCont = New System.Windows.Forms.ToolStripMenuItem()
@@ -42,6 +42,7 @@ Partial Class TrigEditorForm
         Me.Button14 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
+        Me.Button8 = New System.Windows.Forms.Button()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
@@ -50,6 +51,24 @@ Partial Class TrigEditorForm
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.FlowNew = New System.Windows.Forms.FlowLayoutPanel()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.조건Btn = New System.Windows.Forms.Button()
+        Me.액션Btn = New System.Windows.Forms.Button()
+        Me.대기하기Btn = New System.Windows.Forms.Button()
+        Me.함수Btn = New System.Windows.Forms.Button()
+        Me.IfBtn = New System.Windows.Forms.Button()
+        Me.IfElseBtn = New System.Windows.Forms.Button()
+        Me.ForBtn = New System.Windows.Forms.Button()
+        Me.WhileBtn = New System.Windows.Forms.Button()
+        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.함수정의Btn = New System.Windows.Forms.Button()
+        Me.인수Btn = New System.Windows.Forms.Button()
+        Me.함수저장Btn = New System.Windows.Forms.Button()
+        Me.함수불러오기Btn = New System.Windows.Forms.Button()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TreeView1 = New System.Windows.Forms.TreeView()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -80,29 +99,11 @@ Partial Class TrigEditorForm
         Me.붙혀넣기CToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.삭제DToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FastColoredTextBox1 = New FastColoredTextBoxNS.FastColoredTextBox()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.FlowNew = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.조건Btn = New System.Windows.Forms.Button()
-        Me.액션Btn = New System.Windows.Forms.Button()
-        Me.대기하기Btn = New System.Windows.Forms.Button()
-        Me.함수Btn = New System.Windows.Forms.Button()
-        Me.IfBtn = New System.Windows.Forms.Button()
-        Me.IfElseBtn = New System.Windows.Forms.Button()
-        Me.ForBtn = New System.Windows.Forms.Button()
-        Me.WhileBtn = New System.Windows.Forms.Button()
-        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.함수정의Btn = New System.Windows.Forms.Button()
-        Me.인수Btn = New System.Windows.Forms.Button()
-        Me.함수저장Btn = New System.Windows.Forms.Button()
-        Me.함수불러오기Btn = New System.Windows.Forms.Button()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog2 = New System.Windows.Forms.SaveFileDialog()
-        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.FlowLayoutPanel3.SuspendLayout()
@@ -110,12 +111,6 @@ Partial Class TrigEditorForm
         Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
-        Me.ContextMenuStrip1.SuspendLayout()
-        CType(Me.FastColoredTextBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.FlowNew.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
@@ -123,23 +118,29 @@ Partial Class TrigEditorForm
         Me.SplitContainer2.Panel1.SuspendLayout()
         Me.SplitContainer2.Panel2.SuspendLayout()
         Me.SplitContainer2.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
+        CType(Me.FastColoredTextBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.파일FToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileFToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1098, 24)
         Me.MenuStrip1.TabIndex = 5
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        '파일FToolStripMenuItem
+        'FileFToolStripMenuItem
         '
-        Me.파일FToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.새로만들기NToolStripMenuItem, Me.열기OToolStripMenuItem, Me.OpenCont, Me.파일로저장AToolStripMenuItem, Me.ToolStripSeparator1, Me.프로젝트저장ToolStripMenuItem})
-        Me.파일FToolStripMenuItem.Name = "파일FToolStripMenuItem"
-        Me.파일FToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
-        Me.파일FToolStripMenuItem.Text = "파일(&F)"
+        Me.FileFToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.새로만들기NToolStripMenuItem, Me.열기OToolStripMenuItem, Me.OpenCont, Me.파일로저장AToolStripMenuItem, Me.ToolStripSeparator1, Me.프로젝트저장ToolStripMenuItem})
+        Me.FileFToolStripMenuItem.Name = "FileFToolStripMenuItem"
+        Me.FileFToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
+        Me.FileFToolStripMenuItem.Text = "파일(&F)"
         '
         '새로만들기NToolStripMenuItem
         '
@@ -208,6 +209,8 @@ Partial Class TrigEditorForm
         Me.FlowLayoutPanel3.Controls.Add(Me.Button14)
         Me.FlowLayoutPanel3.Controls.Add(Me.Button6)
         Me.FlowLayoutPanel3.Controls.Add(Me.Button7)
+        Me.FlowLayoutPanel3.Controls.Add(Me.Button8)
+        Me.FlowLayoutPanel3.Controls.Add(Me.CheckBox1)
         Me.FlowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel3.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
@@ -265,6 +268,7 @@ Partial Class TrigEditorForm
         '
         'Button4
         '
+        Me.Button4.BackColor = System.Drawing.SystemColors.Control
         Me.Button4.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button4.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -274,6 +278,7 @@ Partial Class TrigEditorForm
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(50, 40)
         Me.Button4.TabIndex = 4
+        Me.Button4.UseVisualStyleBackColor = False
         '
         'Button14
         '
@@ -317,6 +322,18 @@ Partial Class TrigEditorForm
         Me.Button7.TabIndex = 20
         Me.Button7.Text = "펼치기"
         Me.Button7.UseVisualStyleBackColor = True
+        '
+        'Button8
+        '
+        Me.Button8.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button8.Font = New System.Drawing.Font("맑은 고딕", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Button8.Image = Global.EUD_Editor.My.Resources.Resources.ICON_SCDB
+        Me.Button8.Location = New System.Drawing.Point(437, 1)
+        Me.Button8.Margin = New System.Windows.Forms.Padding(10, 1, 1, 1)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(50, 40)
+        Me.Button8.TabIndex = 21
         '
         'TableLayoutPanel3
         '
@@ -433,237 +450,6 @@ Partial Class TrigEditorForm
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.Size = New System.Drawing.Size(129, 540)
         Me.ListBox1.TabIndex = 2
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TreeView1)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.FastColoredTextBox1)
-        Me.SplitContainer1.Panel2MinSize = 5
-        Me.SplitContainer1.Size = New System.Drawing.Size(895, 567)
-        Me.SplitContainer1.SplitterDistance = 471
-        Me.SplitContainer1.TabIndex = 5
-        '
-        'TreeView1
-        '
-        Me.TreeView1.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.TreeView1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TreeView1.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TreeView1.Font = New System.Drawing.Font("돋움", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TreeView1.ForeColor = System.Drawing.SystemColors.Window
-        Me.TreeView1.HideSelection = False
-        Me.TreeView1.Indent = 25
-        Me.TreeView1.ItemHeight = 18
-        Me.TreeView1.LineColor = System.Drawing.Color.DimGray
-        Me.TreeView1.Location = New System.Drawing.Point(0, 0)
-        Me.TreeView1.Margin = New System.Windows.Forms.Padding(0)
-        Me.TreeView1.Name = "TreeView1"
-        Me.TreeView1.Size = New System.Drawing.Size(471, 567)
-        Me.TreeView1.TabIndex = 5
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.새로만들기NToolStripMenuItem1, Me.함수FToolStripMenuItem, Me.ToolStripSeparator5, Me.FoldMenuItem, Me.UnFoldMenuItem, Me.ToolStripSeparator4, Me.수정ToolStripMenuItem, Me.잘라내기XToolStripMenuItem, Me.복사VToolStripMenuItem, Me.붙혀넣기CToolStripMenuItem, Me.삭제DToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(156, 214)
-        '
-        '새로만들기NToolStripMenuItem1
-        '
-        Me.새로만들기NToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.조건ToolStripMenuItem, Me.ToolStripSeparator3, Me.액션ToolStripMenuItem, Me.대기하기ToolStripMenuItem, Me.If문ToolStripMenuItem, Me.IfElse문ToolStripMenuItem, Me.For문ToolStripMenuItem, Me.While문ToolStripMenuItem})
-        Me.새로만들기NToolStripMenuItem1.Image = Global.EUD_Editor.My.Resources.Resources.NewFile
-        Me.새로만들기NToolStripMenuItem1.Name = "새로만들기NToolStripMenuItem1"
-        Me.새로만들기NToolStripMenuItem1.Size = New System.Drawing.Size(155, 22)
-        Me.새로만들기NToolStripMenuItem1.Text = "새로 만들기(&N)"
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(142, 22)
-        Me.ToolStripMenuItem1.Text = "폴더"
-        '
-        '조건ToolStripMenuItem
-        '
-        Me.조건ToolStripMenuItem.Name = "조건ToolStripMenuItem"
-        Me.조건ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
-        Me.조건ToolStripMenuItem.Text = "조건"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(139, 6)
-        '
-        '액션ToolStripMenuItem
-        '
-        Me.액션ToolStripMenuItem.Name = "액션ToolStripMenuItem"
-        Me.액션ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
-        Me.액션ToolStripMenuItem.Text = "액션"
-        '
-        '대기하기ToolStripMenuItem
-        '
-        Me.대기하기ToolStripMenuItem.Name = "대기하기ToolStripMenuItem"
-        Me.대기하기ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
-        Me.대기하기ToolStripMenuItem.Text = "대기하기"
-        '
-        'If문ToolStripMenuItem
-        '
-        Me.If문ToolStripMenuItem.Name = "If문ToolStripMenuItem"
-        Me.If문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
-        Me.If문ToolStripMenuItem.Text = "If문"
-        '
-        'IfElse문ToolStripMenuItem
-        '
-        Me.IfElse문ToolStripMenuItem.Name = "IfElse문ToolStripMenuItem"
-        Me.IfElse문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
-        Me.IfElse문ToolStripMenuItem.Text = "IfElse문"
-        '
-        'For문ToolStripMenuItem
-        '
-        Me.For문ToolStripMenuItem.Name = "For문ToolStripMenuItem"
-        Me.For문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
-        Me.For문ToolStripMenuItem.Text = "반복문(횟수)"
-        '
-        'While문ToolStripMenuItem
-        '
-        Me.While문ToolStripMenuItem.Name = "While문ToolStripMenuItem"
-        Me.While문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
-        Me.While문ToolStripMenuItem.Text = "반복문(조건)"
-        '
-        '함수FToolStripMenuItem
-        '
-        Me.함수FToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.함수ToolStripMenuItem, Me.함수정의ToolStripMenuItem, Me.인수ToolStripMenuItem, Me.ToolStripSeparator2, Me.함수저장ToolStripMenuItem, Me.함수불러오기ToolStripMenuItem})
-        Me.함수FToolStripMenuItem.Name = "함수FToolStripMenuItem"
-        Me.함수FToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.함수FToolStripMenuItem.Text = "함수(&F)"
-        '
-        '함수ToolStripMenuItem
-        '
-        Me.함수ToolStripMenuItem.Name = "함수ToolStripMenuItem"
-        Me.함수ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
-        Me.함수ToolStripMenuItem.Text = "함수"
-        '
-        '함수정의ToolStripMenuItem
-        '
-        Me.함수정의ToolStripMenuItem.Name = "함수정의ToolStripMenuItem"
-        Me.함수정의ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
-        Me.함수정의ToolStripMenuItem.Text = "함수 정의"
-        '
-        '인수ToolStripMenuItem
-        '
-        Me.인수ToolStripMenuItem.Name = "인수ToolStripMenuItem"
-        Me.인수ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
-        Me.인수ToolStripMenuItem.Text = "인수 정의"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(147, 6)
-        '
-        '함수저장ToolStripMenuItem
-        '
-        Me.함수저장ToolStripMenuItem.Name = "함수저장ToolStripMenuItem"
-        Me.함수저장ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
-        Me.함수저장ToolStripMenuItem.Text = "함수 저장"
-        '
-        '함수불러오기ToolStripMenuItem
-        '
-        Me.함수불러오기ToolStripMenuItem.Name = "함수불러오기ToolStripMenuItem"
-        Me.함수불러오기ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
-        Me.함수불러오기ToolStripMenuItem.Text = "함수 불러오기"
-        '
-        'ToolStripSeparator5
-        '
-        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(152, 6)
-        '
-        'FoldMenuItem
-        '
-        Me.FoldMenuItem.Name = "FoldMenuItem"
-        Me.FoldMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.FoldMenuItem.Text = "접기"
-        '
-        'UnFoldMenuItem
-        '
-        Me.UnFoldMenuItem.Name = "UnFoldMenuItem"
-        Me.UnFoldMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.UnFoldMenuItem.Text = "펼치기"
-        '
-        'ToolStripSeparator4
-        '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(152, 6)
-        '
-        '수정ToolStripMenuItem
-        '
-        Me.수정ToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Clear
-        Me.수정ToolStripMenuItem.Name = "수정ToolStripMenuItem"
-        Me.수정ToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.수정ToolStripMenuItem.Text = "수정(Enter)"
-        '
-        '잘라내기XToolStripMenuItem
-        '
-        Me.잘라내기XToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Cut
-        Me.잘라내기XToolStripMenuItem.Name = "잘라내기XToolStripMenuItem"
-        Me.잘라내기XToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.잘라내기XToolStripMenuItem.Text = "잘라내기(&X)"
-        '
-        '복사VToolStripMenuItem
-        '
-        Me.복사VToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Copy
-        Me.복사VToolStripMenuItem.Name = "복사VToolStripMenuItem"
-        Me.복사VToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.복사VToolStripMenuItem.Text = "복사(&C)"
-        '
-        '붙혀넣기CToolStripMenuItem
-        '
-        Me.붙혀넣기CToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Paste
-        Me.붙혀넣기CToolStripMenuItem.Name = "붙혀넣기CToolStripMenuItem"
-        Me.붙혀넣기CToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.붙혀넣기CToolStripMenuItem.Text = "붙여넣기(&V)"
-        '
-        '삭제DToolStripMenuItem
-        '
-        Me.삭제DToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Cancle
-        Me.삭제DToolStripMenuItem.Name = "삭제DToolStripMenuItem"
-        Me.삭제DToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.삭제DToolStripMenuItem.Text = "삭제(&D)"
-        '
-        'FastColoredTextBox1
-        '
-        Me.FastColoredTextBox1.AutoCompleteBracketsList = New Char() {Global.Microsoft.VisualBasic.ChrW(40), Global.Microsoft.VisualBasic.ChrW(41), Global.Microsoft.VisualBasic.ChrW(123), Global.Microsoft.VisualBasic.ChrW(125), Global.Microsoft.VisualBasic.ChrW(91), Global.Microsoft.VisualBasic.ChrW(93), Global.Microsoft.VisualBasic.ChrW(34), Global.Microsoft.VisualBasic.ChrW(34), Global.Microsoft.VisualBasic.ChrW(39), Global.Microsoft.VisualBasic.ChrW(39)}
-        Me.FastColoredTextBox1.AutoIndentCharsPatterns = "" & Global.Microsoft.VisualBasic.ChrW(10) & "^\s*[\w\.]+(\s\w+)?\s*(?<range>=)\s*(?<range>[^;]+);" & Global.Microsoft.VisualBasic.ChrW(10)
-        Me.FastColoredTextBox1.AutoScrollMinSize = New System.Drawing.Size(179, 14)
-        Me.FastColoredTextBox1.BackBrush = Nothing
-        Me.FastColoredTextBox1.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2
-        Me.FastColoredTextBox1.CharHeight = 14
-        Me.FastColoredTextBox1.CharWidth = 8
-        Me.FastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.FastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.FastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FastColoredTextBox1.IsReplaceMode = False
-        Me.FastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS
-        Me.FastColoredTextBox1.LeftBracket = Global.Microsoft.VisualBasic.ChrW(40)
-        Me.FastColoredTextBox1.LeftBracket2 = Global.Microsoft.VisualBasic.ChrW(123)
-        Me.FastColoredTextBox1.Location = New System.Drawing.Point(0, 0)
-        Me.FastColoredTextBox1.Name = "FastColoredTextBox1"
-        Me.FastColoredTextBox1.Paddings = New System.Windows.Forms.Padding(0)
-        Me.FastColoredTextBox1.ReadOnly = True
-        Me.FastColoredTextBox1.RightBracket = Global.Microsoft.VisualBasic.ChrW(41)
-        Me.FastColoredTextBox1.RightBracket2 = Global.Microsoft.VisualBasic.ChrW(125)
-        Me.FastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.FastColoredTextBox1.ServiceColors = CType(resources.GetObject("FastColoredTextBox1.ServiceColors"), FastColoredTextBoxNS.ServiceColors)
-        Me.FastColoredTextBox1.Size = New System.Drawing.Size(420, 567)
-        Me.FastColoredTextBox1.TabIndex = 0
-        Me.FastColoredTextBox1.Text = "FastColoredTextBox1"
-        Me.FastColoredTextBox1.Zoom = 100
         '
         'FlowLayoutPanel1
         '
@@ -904,31 +690,6 @@ Partial Class TrigEditorForm
         Me.함수불러오기Btn.Text = "불러오기(&L)"
         Me.함수불러오기Btn.UseVisualStyleBackColor = False
         '
-        'Timer1
-        '
-        Me.Timer1.Interval = 200
-        '
-        'OpenFileDialog1
-        '
-        Me.OpenFileDialog1.Filter = "Trigger파일|*.tf"
-        Me.OpenFileDialog1.Tag = ""
-        '
-        'SaveFileDialog1
-        '
-        Me.SaveFileDialog1.Filter = "Trigger파일|*.tf"
-        Me.SaveFileDialog1.Tag = ""
-        '
-        'OpenFileDialog2
-        '
-        Me.OpenFileDialog2.Filter = "Funciton파일|*.tfn"
-        Me.OpenFileDialog2.Multiselect = True
-        Me.OpenFileDialog2.Tag = ""
-        '
-        'SaveFileDialog2
-        '
-        Me.SaveFileDialog2.Filter = "Funciton파일|*.tfn"
-        Me.SaveFileDialog2.Tag = ""
-        '
         'SplitContainer2
         '
         Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
@@ -956,6 +717,269 @@ Partial Class TrigEditorForm
         Me.TextBox1.Size = New System.Drawing.Size(895, 25)
         Me.TextBox1.TabIndex = 0
         '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.TreeView1)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.FastColoredTextBox1)
+        Me.SplitContainer1.Panel2MinSize = 5
+        Me.SplitContainer1.Size = New System.Drawing.Size(895, 567)
+        Me.SplitContainer1.SplitterDistance = 471
+        Me.SplitContainer1.TabIndex = 5
+        '
+        'TreeView1
+        '
+        Me.TreeView1.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TreeView1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TreeView1.ContextMenuStrip = Me.ContextMenuStrip1
+        Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TreeView1.Font = New System.Drawing.Font("돋움", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TreeView1.ForeColor = System.Drawing.SystemColors.Window
+        Me.TreeView1.HideSelection = False
+        Me.TreeView1.Indent = 25
+        Me.TreeView1.ItemHeight = 18
+        Me.TreeView1.LineColor = System.Drawing.Color.DimGray
+        Me.TreeView1.Location = New System.Drawing.Point(0, 0)
+        Me.TreeView1.Margin = New System.Windows.Forms.Padding(0)
+        Me.TreeView1.Name = "TreeView1"
+        Me.TreeView1.Size = New System.Drawing.Size(471, 567)
+        Me.TreeView1.TabIndex = 5
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.새로만들기NToolStripMenuItem1, Me.함수FToolStripMenuItem, Me.ToolStripSeparator5, Me.FoldMenuItem, Me.UnFoldMenuItem, Me.ToolStripSeparator4, Me.수정ToolStripMenuItem, Me.잘라내기XToolStripMenuItem, Me.복사VToolStripMenuItem, Me.붙혀넣기CToolStripMenuItem, Me.삭제DToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(156, 214)
+        '
+        '새로만들기NToolStripMenuItem1
+        '
+        Me.새로만들기NToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.조건ToolStripMenuItem, Me.ToolStripSeparator3, Me.액션ToolStripMenuItem, Me.대기하기ToolStripMenuItem, Me.If문ToolStripMenuItem, Me.IfElse문ToolStripMenuItem, Me.For문ToolStripMenuItem, Me.While문ToolStripMenuItem})
+        Me.새로만들기NToolStripMenuItem1.Image = Global.EUD_Editor.My.Resources.Resources.NewFile
+        Me.새로만들기NToolStripMenuItem1.Name = "새로만들기NToolStripMenuItem1"
+        Me.새로만들기NToolStripMenuItem1.Size = New System.Drawing.Size(155, 22)
+        Me.새로만들기NToolStripMenuItem1.Text = "새로 만들기(&N)"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(142, 22)
+        Me.ToolStripMenuItem1.Text = "폴더"
+        '
+        '조건ToolStripMenuItem
+        '
+        Me.조건ToolStripMenuItem.Name = "조건ToolStripMenuItem"
+        Me.조건ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.조건ToolStripMenuItem.Text = "조건"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(139, 6)
+        '
+        '액션ToolStripMenuItem
+        '
+        Me.액션ToolStripMenuItem.Name = "액션ToolStripMenuItem"
+        Me.액션ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.액션ToolStripMenuItem.Text = "액션"
+        '
+        '대기하기ToolStripMenuItem
+        '
+        Me.대기하기ToolStripMenuItem.Name = "대기하기ToolStripMenuItem"
+        Me.대기하기ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.대기하기ToolStripMenuItem.Text = "대기하기"
+        '
+        'If문ToolStripMenuItem
+        '
+        Me.If문ToolStripMenuItem.Name = "If문ToolStripMenuItem"
+        Me.If문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.If문ToolStripMenuItem.Text = "If문"
+        '
+        'IfElse문ToolStripMenuItem
+        '
+        Me.IfElse문ToolStripMenuItem.Name = "IfElse문ToolStripMenuItem"
+        Me.IfElse문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.IfElse문ToolStripMenuItem.Text = "IfElse문"
+        '
+        'For문ToolStripMenuItem
+        '
+        Me.For문ToolStripMenuItem.Name = "For문ToolStripMenuItem"
+        Me.For문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.For문ToolStripMenuItem.Text = "반복문(횟수)"
+        '
+        'While문ToolStripMenuItem
+        '
+        Me.While문ToolStripMenuItem.Name = "While문ToolStripMenuItem"
+        Me.While문ToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
+        Me.While문ToolStripMenuItem.Text = "반복문(조건)"
+        '
+        '함수FToolStripMenuItem
+        '
+        Me.함수FToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.함수ToolStripMenuItem, Me.함수정의ToolStripMenuItem, Me.인수ToolStripMenuItem, Me.ToolStripSeparator2, Me.함수저장ToolStripMenuItem, Me.함수불러오기ToolStripMenuItem})
+        Me.함수FToolStripMenuItem.Name = "함수FToolStripMenuItem"
+        Me.함수FToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.함수FToolStripMenuItem.Text = "함수(&F)"
+        '
+        '함수ToolStripMenuItem
+        '
+        Me.함수ToolStripMenuItem.Name = "함수ToolStripMenuItem"
+        Me.함수ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.함수ToolStripMenuItem.Text = "함수"
+        '
+        '함수정의ToolStripMenuItem
+        '
+        Me.함수정의ToolStripMenuItem.Name = "함수정의ToolStripMenuItem"
+        Me.함수정의ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.함수정의ToolStripMenuItem.Text = "함수 정의"
+        '
+        '인수ToolStripMenuItem
+        '
+        Me.인수ToolStripMenuItem.Name = "인수ToolStripMenuItem"
+        Me.인수ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.인수ToolStripMenuItem.Text = "인수 정의"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(147, 6)
+        '
+        '함수저장ToolStripMenuItem
+        '
+        Me.함수저장ToolStripMenuItem.Name = "함수저장ToolStripMenuItem"
+        Me.함수저장ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.함수저장ToolStripMenuItem.Text = "함수 저장"
+        '
+        '함수불러오기ToolStripMenuItem
+        '
+        Me.함수불러오기ToolStripMenuItem.Name = "함수불러오기ToolStripMenuItem"
+        Me.함수불러오기ToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.함수불러오기ToolStripMenuItem.Text = "함수 불러오기"
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(152, 6)
+        '
+        'FoldMenuItem
+        '
+        Me.FoldMenuItem.Name = "FoldMenuItem"
+        Me.FoldMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.FoldMenuItem.Text = "접기"
+        '
+        'UnFoldMenuItem
+        '
+        Me.UnFoldMenuItem.Name = "UnFoldMenuItem"
+        Me.UnFoldMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.UnFoldMenuItem.Text = "펼치기"
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(152, 6)
+        '
+        '수정ToolStripMenuItem
+        '
+        Me.수정ToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Clear
+        Me.수정ToolStripMenuItem.Name = "수정ToolStripMenuItem"
+        Me.수정ToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.수정ToolStripMenuItem.Text = "수정(Enter)"
+        '
+        '잘라내기XToolStripMenuItem
+        '
+        Me.잘라내기XToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Cut
+        Me.잘라내기XToolStripMenuItem.Name = "잘라내기XToolStripMenuItem"
+        Me.잘라내기XToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.잘라내기XToolStripMenuItem.Text = "잘라내기(&X)"
+        '
+        '복사VToolStripMenuItem
+        '
+        Me.복사VToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Copy
+        Me.복사VToolStripMenuItem.Name = "복사VToolStripMenuItem"
+        Me.복사VToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.복사VToolStripMenuItem.Text = "복사(&C)"
+        '
+        '붙혀넣기CToolStripMenuItem
+        '
+        Me.붙혀넣기CToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Paste
+        Me.붙혀넣기CToolStripMenuItem.Name = "붙혀넣기CToolStripMenuItem"
+        Me.붙혀넣기CToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.붙혀넣기CToolStripMenuItem.Text = "붙여넣기(&V)"
+        '
+        '삭제DToolStripMenuItem
+        '
+        Me.삭제DToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Cancle
+        Me.삭제DToolStripMenuItem.Name = "삭제DToolStripMenuItem"
+        Me.삭제DToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.삭제DToolStripMenuItem.Text = "삭제(&D)"
+        '
+        'FastColoredTextBox1
+        '
+        Me.FastColoredTextBox1.AutoCompleteBracketsList = New Char() {Global.Microsoft.VisualBasic.ChrW(40), Global.Microsoft.VisualBasic.ChrW(41), Global.Microsoft.VisualBasic.ChrW(123), Global.Microsoft.VisualBasic.ChrW(125), Global.Microsoft.VisualBasic.ChrW(91), Global.Microsoft.VisualBasic.ChrW(93), Global.Microsoft.VisualBasic.ChrW(34), Global.Microsoft.VisualBasic.ChrW(34), Global.Microsoft.VisualBasic.ChrW(39), Global.Microsoft.VisualBasic.ChrW(39)}
+        Me.FastColoredTextBox1.AutoIndentCharsPatterns = "" & Global.Microsoft.VisualBasic.ChrW(10) & "^\s*[\w\.]+(\s\w+)?\s*(?<range>=)\s*(?<range>[^;]+);" & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.FastColoredTextBox1.AutoScrollMinSize = New System.Drawing.Size(179, 14)
+        Me.FastColoredTextBox1.BackBrush = Nothing
+        Me.FastColoredTextBox1.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2
+        Me.FastColoredTextBox1.CharHeight = 14
+        Me.FastColoredTextBox1.CharWidth = 8
+        Me.FastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.FastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.FastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FastColoredTextBox1.Font = New System.Drawing.Font("Courier New", 9.75!)
+        Me.FastColoredTextBox1.IsReplaceMode = False
+        Me.FastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS
+        Me.FastColoredTextBox1.LeftBracket = Global.Microsoft.VisualBasic.ChrW(40)
+        Me.FastColoredTextBox1.LeftBracket2 = Global.Microsoft.VisualBasic.ChrW(123)
+        Me.FastColoredTextBox1.Location = New System.Drawing.Point(0, 0)
+        Me.FastColoredTextBox1.Name = "FastColoredTextBox1"
+        Me.FastColoredTextBox1.Paddings = New System.Windows.Forms.Padding(0)
+        Me.FastColoredTextBox1.ReadOnly = True
+        Me.FastColoredTextBox1.RightBracket = Global.Microsoft.VisualBasic.ChrW(41)
+        Me.FastColoredTextBox1.RightBracket2 = Global.Microsoft.VisualBasic.ChrW(125)
+        Me.FastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.FastColoredTextBox1.ServiceColors = CType(resources.GetObject("FastColoredTextBox1.ServiceColors"), FastColoredTextBoxNS.ServiceColors)
+        Me.FastColoredTextBox1.Size = New System.Drawing.Size(420, 567)
+        Me.FastColoredTextBox1.TabIndex = 0
+        Me.FastColoredTextBox1.Text = "FastColoredTextBox1"
+        Me.FastColoredTextBox1.Zoom = 100
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.Filter = "Trigger파일|*.tf"
+        Me.OpenFileDialog1.Tag = ""
+        '
+        'SaveFileDialog1
+        '
+        Me.SaveFileDialog1.Filter = "Trigger파일|*.tf"
+        Me.SaveFileDialog1.Tag = ""
+        '
+        'OpenFileDialog2
+        '
+        Me.OpenFileDialog2.Filter = "Funciton파일|*.tfn"
+        Me.OpenFileDialog2.Multiselect = True
+        Me.OpenFileDialog2.Tag = ""
+        '
+        'SaveFileDialog2
+        '
+        Me.SaveFileDialog2.Filter = "Funciton파일|*.tfn"
+        Me.SaveFileDialog2.Tag = ""
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(491, 3)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(50, 19)
+        Me.CheckBox1.TabIndex = 22
+        Me.CheckBox1.Text = "사용"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'TrigEditorForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -976,16 +1000,11 @@ Partial Class TrigEditorForm
         Me.MenuStrip1.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.FlowLayoutPanel3.ResumeLayout(False)
+        Me.FlowLayoutPanel3.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer1.ResumeLayout(False)
-        Me.ContextMenuStrip1.ResumeLayout(False)
-        CType(Me.FastColoredTextBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.FlowLayoutPanel1.PerformLayout()
         Me.FlowNew.ResumeLayout(False)
@@ -995,15 +1014,20 @@ Partial Class TrigEditorForm
         Me.SplitContainer2.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer2.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
+        Me.ContextMenuStrip1.ResumeLayout(False)
+        CType(Me.FastColoredTextBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents 파일FToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FileFToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
     Friend WithEvents FlowLayoutPanel3 As FlowLayoutPanel
-    Friend WithEvents btn_NewFile As Button
     Friend WithEvents btn_OpenFile As Button
     Friend WithEvents btn_Save As Button
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
@@ -1035,7 +1059,6 @@ Partial Class TrigEditorForm
     Friend WithEvents If문ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IfElse문ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FastColoredTextBox1 As FastColoredTextBoxNS.FastColoredTextBox
-    Friend WithEvents Timer1 As Timer
     Friend WithEvents Button14 As Button
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
@@ -1078,4 +1101,7 @@ Partial Class TrigEditorForm
     Friend WithEvents UnFoldMenuItem As ToolStripMenuItem
     Friend WithEvents SplitContainer2 As SplitContainer
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents btn_NewFile As Button
+    Friend WithEvents Button8 As Button
+    Friend WithEvents CheckBox1 As CheckBox
 End Class
