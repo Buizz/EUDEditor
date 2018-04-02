@@ -59,6 +59,7 @@
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         While (True)
+            process.StandardInput.Write(vbCrLf)
             count += 1
             Errormsg = Errormsg & process.StandardError.ReadToEnd()
             'Me.Text = count & "번째 시도 중"
@@ -90,6 +91,7 @@
                     count = 0
                     Exit Sub
                 Else
+                    My.Computer.Audio.Play(My.Resources.successBulid, AudioPlayMode.Background)
                     Me.Hide()
                     count = 0
                     Exit Sub
@@ -98,5 +100,4 @@
             'Me.Text = count & "번째 시도 완료"
         End While
     End Sub
-
 End Class

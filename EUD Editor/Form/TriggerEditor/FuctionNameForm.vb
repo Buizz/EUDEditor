@@ -1,6 +1,7 @@
 ﻿Public Class FuctionNameForm
 
     Private Sub CreateValForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
         Button5.Enabled = True
         If TextBox1.Text <> "" Then
             For i = 0 To functions.GetElementsCount - 1

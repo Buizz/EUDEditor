@@ -232,19 +232,19 @@ Module ValueDefsModule
                                            "Player 7", "Player 8", "Player 9", "Player 10", "Player 11", "Player 12", "Unknown",
                                            "CurrentPlayer", "Foes", "Allies", "NeutralPlayers", "AllPlayers", "Force1", "Force2",
                                            "Force3", "Force4", "Unknown", "Unknown", "Unknown", "Unknown", "NonAlliedVictoryPlayers"}))
-        ValueDefiniction.Add(New ValueDefs("VariableModifier", ValueDefs.OutPutType.ListNum, {"대입", "덧셈", "뺄셈", "곱셈", "나눗셈"}))
-        ValueDefiniction.Add(New ValueDefs("VariableComparison", ValueDefs.OutPutType.ListNum, {"일치", "불일치", "이상", "이하", "초과", "미만"}))
+        ValueDefiniction.Add(New ValueDefs("VariableModifier", ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("VariableComparison", ValueDefs.OutPutType.ListNum))
 
 
-        ValueDefiniction.Add(New ValueDefs("DisplayOption", ValueDefs.OutPutType.ListNum, {"일반", "대화보존"}))
-        ValueDefiniction.Add(New ValueDefs("AlwaysDisplay", ValueDefs.OutPutType.ListNum, {"1회용", "반복사용"}))
-        ValueDefiniction.Add(New ValueDefs("State", ValueDefs.OutPutType.ListNum, {"활성", "비활성", "토글"}))
-        ValueDefiniction.Add(New ValueDefs("SState", ValueDefs.OutPutType.ListNum, {"활성", "비활성", "토글", "랜덤"}))
-        ValueDefiniction.Add(New ValueDefs("ResourceType", ValueDefs.OutPutType.ListNum, {"미네랄", "가스", "미네랄과 가스"}))
-        ValueDefiniction.Add(New ValueDefs("Comparison", ValueDefs.OutPutType.ListNum, {"이상", "이하", "정확히"}))
+        ValueDefiniction.Add(New ValueDefs("DisplayOption", ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("AlwaysDisplay", ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("State", ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("SState", ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("ResourceType", ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("Comparison", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("ScoreType", ValueDefs.OutPutType.ListNum, {"Total", "Units", "Buildings", "UnitsAndBuildings", "Kills", "Razings", "KillsAndRazings", "Custom"}))
-        ValueDefiniction.Add(New ValueDefs({"Modifier", "TimeModifier"}, ValueDefs.OutPutType.ListNum, {"대입", "덧셈", "뺄셈"}))
-        ValueDefiniction.Add(New ValueDefs("OrderType", ValueDefs.OutPutType.ListNum, {"이동", "정찰", "공격"}))
+        ValueDefiniction.Add(New ValueDefs({"Modifier", "TimeModifier"}, ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("OrderType", ValueDefs.OutPutType.ListNum))
 
 
 
@@ -266,7 +266,7 @@ Module ValueDefsModule
 
 
 
-        ValueDefiniction.Add(New ValueDefs("Status", ValueDefs.OutPutType.ListNum, {"적", "동맹", "동맹승리"}))
+        ValueDefiniction.Add(New ValueDefs("Status", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("UnitDirection", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("Boolean", ValueDefs.OutPutType.ListNum, {"NotUse", "Use"}))
         ValueDefiniction.Add(New ValueDefs("ElevationLevels", ValueDefs.OutPutType.ListNum))
@@ -311,20 +311,20 @@ Module ValueDefsModule
 
 
         ValueDefiniction.Add(New ValueDefs("BGM", ValueDefs.OutPutType.Combobox))
-        ValueDefiniction.Add(New ValueDefs("BGMFlag", ValueDefs.OutPutType.ListNum, {"단일 재생", "반복 재생", "재생 종료"}))
+        ValueDefiniction.Add(New ValueDefs("BGMFlag", ValueDefs.OutPutType.ListNum))
 
 
         ValueDefiniction.Add(New ValueDefs("BtnEnableTxt", ValueDefs.OutPutType.UnitBtn))
         ValueDefiniction.Add(New ValueDefs("BtnUnEnableTxt", ValueDefs.OutPutType.UnitBtn))
 
-        ValueDefiniction.Add(New ValueDefs("CState", ValueDefs.OutPutType.ListNum, {"활성", "비활성"}))
+        ValueDefiniction.Add(New ValueDefs("CState", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("UnitBtnlist", ValueDefs.OutPutType.Combobox, CODE(11).ToArray))
         ValueDefiniction.Add(New ValueDefs("ScoreOffset", ValueDefs.OutPutType.ListNum))
 
 
-        ValueDefiniction.Add(New ValueDefs("SupplyType", ValueDefs.OutPutType.ListNum, {"사용가능량", "사용량", "최대 제한"}))
-        ValueDefiniction.Add(New ValueDefs("SCDBMsgType", ValueDefs.OutPutType.ListNum, {"None", "로그인 성공", "불러오기 성공", "세이브 성공", "None", "접속 끊킴", "로드 불가능", "세이브 불가능"}))
-        ValueDefiniction.Add(New ValueDefs("SCDBConnectStatus", ValueDefs.OutPutType.ListNum, {"연결 끊킴", "로그인 시도 중", "메타데이터 가져오는 중", "플레이어 정보 얻는 중", "연결 됨"}))
+        ValueDefiniction.Add(New ValueDefs("SupplyType", ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("SCDBMsgType", ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("SCDBConnectStatus", ValueDefs.OutPutType.ListNum))
 
 
         LoadCUnitData()

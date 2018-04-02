@@ -6,7 +6,13 @@
     Dim logoutSize As New Size(186, 143)
 
     Private Sub SCDBLoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        SCDBGetuserData()
+        Try
+            SCDBGetuserData()
+        Catch ex As Exception
+            MsgBox(Lan.GetMsgText("invalidData"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+            Me.Close()
+        End Try
+
 
         CheckBox1.Checked = My.Settings.Remember
         CheckBox2.Checked = My.Settings.AutoLogin
@@ -107,7 +113,9 @@
 
 
     Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
-        ProjectSet.SCDBSerial = NumericUpDown1.Value
-        TextBox3.Text = Hex(ProgramSet.SCDBSerial * 256 + ProjectSet.SCDBSerial)
+        If NumericUpDown1.Focused = True Then
+            ProjectSet.SCDBSerial = NumericUpDown1.Value
+            TextBox3.Text = Hex(ProgramSet.SCDBSerial * 256 + ProjectSet.SCDBSerial)
+        End If
     End Sub
 End Class

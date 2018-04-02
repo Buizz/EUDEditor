@@ -170,6 +170,9 @@
     End Sub
 
     Private Sub AddTectDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
+        ListBox1.Items.Clear()
+        ListBox1.Items.AddRange(REadtextfile("AddTectDialogList").ToArray)
         ListBox1.SelectedIndex = 0
         ListBox3.SelectedIndex = 0
     End Sub

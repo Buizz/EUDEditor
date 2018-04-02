@@ -9,6 +9,8 @@ Imports Newtonsoft.Json
 'xmlFile.Close();
 
 Module TriggerEditorDataMoudle
+    Public ClassicTriggerCounter As Integer
+
     Public Const PadWidth As Byte = 4
     Public Const Separater As String = "ஐ"
 
@@ -25,6 +27,7 @@ Module TriggerEditorDataMoudle
 
     Public AddText As Element
     Public functions As Element
+    Public RawTriggers As Element
     Public StartElement As Element
     Public BeforeElement As Element
     Public AfterElement As Element
@@ -40,10 +43,72 @@ Module TriggerEditorDataMoudle
     End Function
 
 
+    Public Function CheckFunc(Funcname As String) As Boolean
+        If functions.GetElementsCount <> 0 Then
+            For i = 0 To functions.GetElementsCount - 1
+                If Funcname = functions.GetElementList(i).Values(0) Then
+                    Return True
+                End If
+            Next
+        End If
+
+        Return False
+    End Function
+
+    Public Function CheckFuncExist(Funcname As String) As Boolean
+        Return My.Computer.FileSystem.FileExists(My.Application.Info.DirectoryPath & "\TEFunction\" & Funcname & ".tfn")
+    End Function
+
+
+    Public Sub FuncLoadFile(FuncName As String)
+        For i = 0 To functions.GetElementsCount - 1
+            If functions.GetElements(i).Values(0) = FuncName Then
+                Exit Sub
+            End If
+        Next
+
+        FuncName = My.Application.Info.DirectoryPath & "\TEFunction\" & FuncName & ".tfn"
+
+
+        Dim _tempele As Element = functions
+        Dim newElement As New Element(Nothing, ElementType.main)
+
+
+
+        Dim _filestream As New FileStream(FuncName, FileMode.Open)
+        Dim _streamreader As New StreamReader(_filestream)
+
+        newElement.LoadFile(_streamreader.ReadToEnd(), 0)
+
+        Select Case _tempele.GetTypeV
+            Case ElementType.Functions
+                _tempele.AddElements(0, newElement)
+            Case ElementType.함수정의
+                Dim _index As Integer = _tempele.Parrent.GetElementList().IndexOf(_tempele) + 1
+
+                _tempele.Parrent.AddElements(_index, newElement)
+        End Select
+        _streamreader.Close()
+        _filestream.Close()
+    End Sub
+
+
+    Public Sub FuncDeleteFile(FuncName As String)
+        For i = 0 To functions.GetElementsCount - 1
+            If functions.GetElements(i).Values(0) = FuncName Then
+
+
+                functions.RemoveAt(i)
+                Exit Sub
+            End If
+        Next
+    End Sub
+
     Public Sub NewTriggerFile()
         AddText = New Element(GlobalVar, ElementType.RawString)
         GlobalVar = New Element(GlobalVar, ElementType.main)
         functions = New Element(functions, ElementType.Functions)
+        RawTriggers = New Element(RawTriggers, ElementType.RawTriggers)
         StartElement = New Element(StartElement, ElementType.main)
         BeforeElement = New Element(BeforeElement, ElementType.main)
         AfterElement = New Element(AfterElement, ElementType.main)
@@ -75,6 +140,7 @@ Module TriggerEditorDataMoudle
             End Try
             functions = New Element(functions, ElementType.Functions)
             GlobalVar = New Element(GlobalVar, ElementType.main)
+
             StartElement = New Element(StartElement, ElementType.main)
             BeforeElement = New Element(BeforeElement, ElementType.main)
             AfterElement = New Element(AfterElement, ElementType.main)
@@ -86,6 +152,11 @@ Module TriggerEditorDataMoudle
             End Try
             functions.LoadFile(datas, findSection(datas, "&functions&"))
             GlobalVar.LoadFile(datas, findSection(datas, "&GlobalVar&"))
+            Try
+                RawTriggers.LoadFile(datas, findSection(datas, "&RawTriggers&"))
+            Catch ex As Exception
+                RawTriggers = New Element(RawTriggers, ElementType.RawTriggers)
+            End Try
             StartElement.LoadFile(datas, findSection(datas, "&onPluginStart&"))
             BeforeElement.LoadFile(datas, findSection(datas, "&beforeTriggerExec&"))
             AfterElement.LoadFile(datas, findSection(datas, "&afterTriggerExec&"))
@@ -108,6 +179,12 @@ Module TriggerEditorDataMoudle
             End Try
             functions.LoadFile(datas, findSection(datas, "&functions&"))
             GlobalVar.LoadFile(datas, findSection(datas, "&GlobalVar&"))
+            Try
+                RawTriggers.LoadFile(datas, findSection(datas, "&RawTriggers&"))
+            Catch ex As Exception
+                RawTriggers = New Element(RawTriggers, ElementType.RawTriggers)
+            End Try
+
             StartElement.LoadFile(datas, findSection(datas, "&onPluginStart&"))
             BeforeElement.LoadFile(datas, findSection(datas, "&beforeTriggerExec&"))
             AfterElement.LoadFile(datas, findSection(datas, "&afterTriggerExec&"))
@@ -131,9 +208,9 @@ Module TriggerEditorDataMoudle
                 strb.Append(GetIntend(1) & name & "(")
 
                 If Factors.GetElementsCount <> 0 Then
-                    strb.Append(name & Factors.GetElementList(0).Values(0))
+                    strb.Append(name & Factors.GetElementList(0).Values(0) & "[getcurpl()]")
                     For j = 1 To Factors.GetElementsCount - 1
-                        strb.Append(", " & name & Factors.GetElementList(j).Values(0))
+                        strb.Append(", " & name & Factors.GetElementList(j).Values(0) & "[getcurpl()]")
                     Next
                 End If
 
@@ -146,6 +223,57 @@ Module TriggerEditorDataMoudle
 
         Return strb.ToString
     End Function
+
+
+    Public Function GetClassicTrigger() As String
+        Dim strb As New System.Text.StringBuilder
+
+        Dim playerlist As New List(Of List(Of Integer))
+        For i = 0 To 7
+            playerlist.Add(New List(Of Integer))
+        Next
+        '플레이어별로 분배해야 되는데 임시로 이렇게 해두자.
+        For i = 0 To RawTriggers.GetElementsCount - 1
+
+            Dim playerflag As UInteger = RawTriggers.GetElements(i).Values(0)
+            For j = 0 To 12
+                If ((playerflag And Math.Pow(2, j)) > 0) Then
+                    Select Case j
+                        Case 0 To 7
+                            playerlist(j).Add(i)
+                        Case 8 To 11
+                            If ProjectSet.CHKFORCEDATA(j - 8).Count > 1 Then
+                                For k = 1 To ProjectSet.CHKFORCEDATA(j - 8).Count - 1
+                                    If playerlist(ProjectSet.CHKFORCEDATA(j - 8)(k)).Contains(i) = False Then
+                                        playerlist(ProjectSet.CHKFORCEDATA(j - 8)(k)).Add(i)
+                                    End If
+                                Next
+                            End If
+                        Case 12
+                            For k = 0 To 7
+                                playerlist(k).Add(i)
+                            Next
+                    End Select
+                End If
+            Next
+        Next
+
+        For i = 0 To 7
+            strb.AppendLine(GetIntend(1) & "//플레이어 " & i + 1)
+            strb.AppendLine(GetIntend(1) & "if (playerexist(" & i & ")){")
+            strb.AppendLine(GetIntend(2) & "setcurpl(" & i & ");")
+            For k = 0 To playerlist(i).Count - 1
+                strb.AppendLine(GetIntend(2) & "ClassicTriggerStarter" & playerlist(i)(k) & "();")
+            Next
+
+            strb.AppendLine(GetIntend(1) & "}")
+        Next
+
+
+
+        Return strb.ToString
+    End Function
+
 
 
     Public Function TriggerToEPS() As String
@@ -180,7 +308,17 @@ Module TriggerEditorDataMoudle
                 Next
             End If
 
+            If funcs.GetTypeV = ElementType.함수정의 Then
+                If funcs.Values(1) = True Then
+                    WaitCounter = 1
+                    For i = 0 To funcs.GetElements(0).GetElementsCount - 1
+                        strbulider.AppendLine("const " & funcs.Values(0) & funcs.GetElements(0).GetElements(i).Values(0) & " = [0, 0, 0, 0, 0, 0, 0, 0];")
+                    Next
+                    VarialbeName = funcs.Values(0) & "Timer[getcurpl()]"
+                    strbulider.AppendLine("const " & funcs.Values(0) & "Timer = [0, 0, 0, 0, 0, 0, 0, 0];")
 
+                End If
+            End If
 
             strbulider.AppendLine("function " & funcs.Values(0) & "(" & arugments & ");")
         Next
@@ -188,7 +326,57 @@ Module TriggerEditorDataMoudle
 
 
         strbulider.AppendLine(functions.ToCode(-1))
-        strbulider.AppendLine("function WaitableTrigger() {")
+
+
+        'ClassicTriggerExec에 들어갈 내용들을 적는 곳
+        For i = 0 To RawTriggers.GetElementsCount - 1
+            With RawTriggers.GetElements(i)
+                VarialbeName = "ClassicTriggerExecTimer" & i & "[getcurpl()]"
+                strbulider.AppendLine("const ClassicTriggerExecTimer" & i & " = [0, 0, 0, 0, 0, 0, 0, 0];")
+                strbulider.AppendLine("function ClassicTriggerExec" & i & "() {")
+                strbulider.AppendLine(.GetElements(1).ToCode(2))
+                strbulider.AppendLine("}")
+            End With
+        Next
+        '================================================================
+
+
+        'ClassicTriggerStarter에 들어갈 내용들을 적는 곳
+        For i = 0 To RawTriggers.GetElementsCount - 1
+            With RawTriggers.GetElements(i)
+                strbulider.AppendLine("function ClassicTriggerStarter" & i & "() {")
+                strbulider.Append(.GetElements(0).ToCode(1))
+                strbulider.AppendLine(GetIntend(1) & "){")
+
+                strbulider.AppendLine(GetIntend(2) & "if (ClassicTriggerExecTimer" & i & "[getcurpl()] == 0){")
+                strbulider.AppendLine(GetIntend(3) & "ClassicTriggerExecTimer" & i & "[getcurpl()] = 1;")
+                strbulider.AppendLine(GetIntend(3) & "ClassicTriggerExec" & i & "();")
+                strbulider.AppendLine(GetIntend(2) & "}")
+
+
+                strbulider.AppendLine(GetIntend(1) & "}")
+                strbulider.AppendLine("}")
+            End With
+        Next
+        '================================================================
+
+
+        'Wait를 사용하기 위해서
+        strbulider.AppendLine("function ClassicTriggerExec() {")
+        For i = 0 To RawTriggers.GetElementsCount - 1
+            With RawTriggers.GetElements(i)
+                strbulider.AppendLine(GetIntend(1) & "ClassicTriggerExec" & i & "();")
+            End With
+        Next
+        strbulider.AppendLine("}")
+
+
+        strbulider.AppendLine("function ClassicTriggerStarter() {")
+        strbulider.AppendLine(GetClassicTrigger() & "}")
+
+
+
+        strbulider.AppendLine("function WaitableTriggerExec() {")
         strbulider.AppendLine(GetWaitAbleTrigger() & "}")
 
 
@@ -206,8 +394,10 @@ Module TriggerEditorDataMoudle
 
         strbulider.AppendLine("function beforeTriggerExec() {")
         strbulider.AppendLine(GetIntend(1) & "EUDPlayerLoop()();")
-        strbulider.AppendLine(GetIntend(2) & "WaitableTrigger();")
+        strbulider.AppendLine(GetIntend(2) & "WaitableTriggerExec();")
+        strbulider.AppendLine(GetIntend(2) & "ClassicTriggerExec();")
         strbulider.AppendLine(GetIntend(1) & "EUDEndPlayerLoop();")
+        strbulider.AppendLine(GetIntend(1) & "ClassicTriggerStarter();")
 
         If ProjectSet.UsedSetting(ProjectSet.Settingtype.BtnSet) = True Then
             strbulider.AppendLine(GetIntend(1) & "BGM.Player();")
@@ -238,6 +428,8 @@ Module TriggerEditorDataMoudle
         str.AppendLine(functions.ToSaveFile)
         str.AppendLine("&GlobalVar&")
         str.AppendLine(GlobalVar.ToSaveFile)
+        str.AppendLine("&RawTriggers&")
+        str.AppendLine(RawTriggers.ToSaveFile)
         str.AppendLine("&onPluginStart&")
         str.AppendLine(StartElement.ToSaveFile)
         str.AppendLine("&beforeTriggerExec&")
@@ -264,6 +456,16 @@ Module TriggerEditorDataMoudle
         _filestream.Close()
 
 
+        For i = 0 To Actions.Count - 1
+            Try
+                Actions(i).Text = Actions(i).Texts(Actions(i).Texts.IndexOf(My.Settings.Langage) + 1)
+            Catch ex As Exception
+
+            End Try
+        Next
+
+
+
         '컨디션 로딩해볼까?
         _filestream = New FileStream(My.Application.Info.DirectoryPath & "\Data\TriggerEditor\condition.json", FileMode.Open)
         _streamreader = New StreamReader(_filestream, System.Text.Encoding.Default)
@@ -273,40 +475,14 @@ Module TriggerEditorDataMoudle
         _streamreader.Close()
         _filestream.Close()
 
-        '
-        'Condictions
         Condictions = JsonConvert.DeserializeObject(Of List(Of Condiction))(jsonString)
 
+        For i = 0 To Condictions.Count - 1
+            Try
+                Condictions(i).Text = Condictions(i).Texts(Condictions(i).Texts.IndexOf(My.Settings.Langage) + 1)
+            Catch ex As Exception
 
-
-
-        'Condictions.Add(obj(0))
-        'MsgBox(obj(0).Name)
-        'For Each onecon As Condiction In conList
-        '    Console.WriteLine("id:" & onename.id)
-        '    Console.WriteLine("name:" & onename.Name)
-        'Next
-
-
-        'Condictions.Add(New Condiction("CountdownTimer", "카운트 타이머가 Time보다 Modifier할 경우", "CountdownTimer(Comparison, Time)", {"Comparison", "Time"}))
-        'Condictions.Add(New Condiction("Command", "Payer의 Unit을 Number보다 Comparison을 경우", "Command(Player, Comparison, Number, Unit)", {"Player", "Comparison", "Number", "Unit"}))
-
-        '        Function CountdownTimer(Comparison, Time)
-        '        Comparison = ParseComparison(Comparison)
-        '        Return Condition(0, 0, Time, 0, Comparison, 1, 0, 0)
-        '        End
-
-
-        'Function Command(Player, Comparison, Number, Unit)
-        '        Player = ParsePlayer(Player)
-        '        Comparison = ParseComparison(Comparison)
-        '        Unit = ParseUnit(Unit)
-        '        Return Condition(0, Player, Number, Unit, Comparison, 2, 0, 0)
-        '        End
-
-
-
-
-
+            End Try
+        Next
     End Sub
 End Module

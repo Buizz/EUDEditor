@@ -26,6 +26,10 @@ Public Enum ElementType
     Foluder = 21
     FoluderAction = 22
     RawString = 23
+    RawTrigger = 24
+    RawTriggers = 25
+    TriggerCond = 26
+    TriggerAct = 27
 End Enum
 
 
@@ -56,7 +60,11 @@ Public Class Element
                "Wait : ",'20
                "Folder : ",'21
                "actions : ",'22
-               ""'23
+               "",'23
+               "ClassciTrigger",'24
+               "Triggers",'25
+               "Condition : ",'26
+               "Action : "'27
                }
 
         Return temp(Et)
@@ -73,6 +81,16 @@ Public Class Element
 
 
     Private Type As ElementType
+
+    Public Function Getindex() As Integer
+        For i = 0 To Parrent.GetElementsCount - 1
+            If Parrent.GetElements(i).GetHashCode = Me.GetHashCode Then
+                Return i
+            End If
+        Next
+        Return -1
+    End Function
+
 
     Public Function GetValueTodef(valdef As String) As String
         Dim returnstring As String = ""
@@ -246,7 +264,7 @@ Public Class Element
                             returnstring = "10"
                     End Select
                 End If
-            Case "Modifier"
+            Case "Modifier", "TimeModifier"
                 If isTocode Then
                     Select Case _value
                         Case 0
@@ -693,43 +711,43 @@ Public Class Element
         Dim _stringb As New StringBuilder
 
         _stringb.AppendLine("Type:" & Type)
-        If Type = ElementType.액션 Then
-            _stringb.AppendLine("act:" & act.Name)
 
-            Dim temp As New StringBuilder
-            temp.Append(Values(0))
-            For i = 1 To Values.Count - 1
-                temp.Append(Separater & Values(i))
-            Next
+        Select Case Type
+            Case ElementType.액션
+                _stringb.AppendLine("act:" & act.Name)
 
-            _stringb.AppendLine(temp.ToString)
-        End If
-        If Type = ElementType.조건 Then
-            _stringb.AppendLine("con:" & con.Name)
+                Dim temp As New StringBuilder
+                temp.Append(Values(0))
+                For i = 1 To Values.Count - 1
+                    temp.Append(Separater & Values(i))
+                Next
 
-            Dim temp As New StringBuilder
-            temp.Append(Values(0))
-            For i = 1 To Values.Count - 1
-                temp.Append(Separater & Values(i))
-            Next
+                _stringb.AppendLine(temp.ToString)
+            Case ElementType.조건
+                _stringb.AppendLine("con:" & con.Name)
 
-            _stringb.AppendLine(temp.ToString)
-        End If
-        If Type = ElementType.포 Or Type = ElementType.함수 Or Type = ElementType.함수정의 Then
-            Dim temp As New StringBuilder
-            temp.Append(Values(0))
-            For i = 1 To Values.Count - 1
-                temp.Append(Separater & Values(i))
-            Next
+                Dim temp As New StringBuilder
+                temp.Append(Values(0))
+                For i = 1 To Values.Count - 1
+                    temp.Append(Separater & Values(i))
+                Next
 
-            _stringb.AppendLine(temp.ToString)
-        End If
-        If Type = ElementType.조건절 Or Type = ElementType.와일조건 Or Type = ElementType.Wait Or Type = ElementType.Foluder Or Type = ElementType.RawString Then
-            Dim temp As New StringBuilder
-            temp.Append(Values(0))
+                _stringb.AppendLine(temp.ToString)
+            Case ElementType.포, ElementType.함수, ElementType.함수정의
+                Dim temp As New StringBuilder
+                temp.Append(Values(0))
+                For i = 1 To Values.Count - 1
+                    temp.Append(Separater & Values(i))
+                Next
 
-            _stringb.AppendLine(temp.ToString)
-        End If
+                _stringb.AppendLine(temp.ToString)
+            Case ElementType.조건절, ElementType.와일조건, ElementType.Wait, ElementType.Foluder, ElementType.RawString, ElementType.RawTrigger, ElementType.TriggerCond
+                Dim temp As New StringBuilder
+                temp.Append(Values(0))
+
+                _stringb.AppendLine(temp.ToString)
+        End Select
+
 
         _stringb.AppendLine("ElementsCount:" & Elements.Count)
         For i = 0 To Elements.Count - 1
@@ -752,19 +770,17 @@ Public Class Element
         'MsgBox(Type)
 
         Dim isreadvalue As Boolean = False
-        If Type = ElementType.액션 Then
-            act = SeachAct(NextLine(tempstr(_index), _index))
-            isreadvalue = True
-        End If
-        If Type = ElementType.조건 Then
-            con = SeachCon(NextLine(tempstr(_index), _index))
-            isreadvalue = True
-        End If
-        If Type = ElementType.포 Or Type = ElementType.함수정의 Or
-                Type = ElementType.함수 Or Type = ElementType.조건절 Or
-                Type = ElementType.와일조건 Or Type = ElementType.Wait Or Type = ElementType.Foluder Or Type = ElementType.RawString Then
-            isreadvalue = True
-        End If
+
+        Select Case Type
+            Case ElementType.액션
+                act = SeachAct(NextLine(tempstr(_index), _index))
+                isreadvalue = True
+            Case ElementType.조건
+                con = SeachCon(NextLine(tempstr(_index), _index))
+                isreadvalue = True
+            Case ElementType.포, ElementType.함수정의, ElementType.함수, ElementType.조건, ElementType.조건절, ElementType.와일조건, ElementType.Wait, ElementType.Foluder, ElementType.RawString, ElementType.RawTrigger, ElementType.TriggerCond
+                isreadvalue = True
+        End Select
 
         If isreadvalue = True Then
             Values = New List(Of String)
@@ -909,6 +925,12 @@ Public Class Element
             Elements.Add(New Element(Me, ElementType.FoluderAction))
         ElseIf Type = ElementType.RawString Then
             Values.Add("")
+        ElseIf Type = ElementType.RawTrigger Then
+            Values.Add(0)
+            Elements.Add(New Element(Me, ElementType.TriggerCond))
+            Elements.Last.Values = New List(Of String)
+            Elements.Last.Values.Add("And")
+            Elements.Add(New Element(Me, ElementType.TriggerAct))
         End If
     End Sub
     Public Sub New(tparrent As Element, stype As ElementType, actcon As Integer, Optional _value() As String = Nothing)
@@ -990,7 +1012,9 @@ Public Class Element
 
     '제어문
     'While, for, switch등
-
+    Public Sub RemoveAt(index As Integer)
+        Elements.RemoveAt(index)
+    End Sub
 
 
     Public Sub Delete()
@@ -998,7 +1022,11 @@ Public Class Element
     End Sub
 
 
-    Public Function Clone(_parrentEle As Element) As Element
+    Public Function Clone(Optional _parrentEle As Element = Nothing) As Element
+        If _parrentEle Is Nothing Then
+            _parrentEle = Parrent
+        End If
+
         Dim newEle As Element
 
 
@@ -1024,7 +1052,21 @@ Public Class Element
 
         Return newEle
     End Function
+    Public Sub Copy(_copyele As Element)
+        Type = _copyele.Type
+        act = _copyele.act
+        con = _copyele.con
 
+        Values.Clear()
+        Values.AddRange(_copyele.Values.ToList)
+        Parrent = _copyele.Parrent
+
+        Elements.Clear()
+
+        For i = 0 To _copyele.Elements.Count - 1
+            Elements.Add(_copyele.Elements(i).Clone())
+        Next
+    End Sub
 
 
     Public Sub AddElements(stype As ElementType)
@@ -1077,12 +1119,20 @@ Public Class Element
             RTreeNode = New TreeNode(GetText())
             Select Case Type
 
-                Case ElementType.조건, ElementType.액션, ElementType.Functions
+                Case ElementType.조건, ElementType.액션, ElementType.Functions, ElementType.RawTriggers
                     RTreeNode.ForeColor = Color.White
                 Case ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.포, ElementType.함수정의
                     RTreeNode.ForeColor = Color.LightPink
                 Case ElementType.Foluder, ElementType.FoluderAction
                     RTreeNode.ForeColor = Color.LightGreen
+                Case ElementType.RawTrigger
+                    RTreeNode.ForeColor = Color.CadetBlue
+                Case ElementType.함수
+                    If CheckFunc(Values(0)) Then
+                        RTreeNode.ForeColor = Color.DodgerBlue
+                    Else
+                        RTreeNode.ForeColor = Color.DarkRed
+                    End If
                 Case Else
                     RTreeNode.ForeColor = Color.LightBlue
             End Select
@@ -1143,21 +1193,21 @@ Public Class Element
             Case ElementType.포
                 Select Case Values(0)
                     Case "Counting"
-                        _rtext = "For(변수 " & Values(1) & "를 사용하여 " & Values(2) & "번 반복합니다.)"
+                        _rtext = Lan.GetText("Trigger", "For").Replace("$1$", Values(1)).Replace("$2$", Values(2))
                     Case "Custom"
                         _rtext = "For(" & Values(1) & ")"
                     Case "AllUnit"
                         Dim _playertext As String
                         Select Case Values(1)
                             Case 0
-                                _playertext = "모든 플레이어"
+                                _playertext = Lan.GetText("Trigger", "AllPlayer")
                             Case 13
-                                _playertext = "모든 플레이어"
+                                _playertext = Lan.GetText("Trigger", "AllPlayer")
                             Case Else
                                 _playertext = "Player " & Values(1)
                         End Select
 
-                        _rtext = "Foreach(" & _playertext & "의 유닛을 epd, ptr변수로 순환합니다.)"
+                        _rtext = Lan.GetText("Trigger", "Foreach").Replace("$1$", _playertext)'"Foreach(" & _playertext & "의 유닛을 epd, ptr변수로 순환합니다.)"
                     Case "PlayerLoop"
                         Dim tname As String = ""
 
@@ -1186,28 +1236,70 @@ Public Class Element
                             End If
                         Next
 
-                        _rtext = tname & "를 순환합니다."
+                        _rtext = Lan.GetText("Trigger", "PlayerLoop").Replace("$1$", tname) 'tname & "를 순환합니다."
                 End Select
             Case ElementType.함수정의
-                _rtext = "함수정의 : " & Values(0) & "        대기하기 사용 : " & Values(1)
+                _rtext = Lan.GetText("Trigger", "FuncDef").Replace("$1$", Values(0)).Replace("$2$", Values(1)) ' "함수정의 : " & Values(0) & "        대기하기 사용 : " & Values(1)
             Case ElementType.함수
-                _rtext = "함수 : " & Values(0) & "("
+                Dim existFlag As Boolean = False
 
-                Dim valdef As String = ""
+                If CheckFunc(Values(0)) Then
+                    existFlag = True
+                Else
+                    If CheckFuncExist(Values(0)) Then
+                        Try
+                            FuncLoadFile(Values(0))
+                            TrigEditorForm.refreshScreen()
+                            existFlag = True
+                        Catch ex As Exception
+                            existFlag = False
+                        End Try
 
-                If Values.Count <> 1 Then
-                    _rtext = _rtext & ValueParser(Values(1), GetFuncDEf(1))
-                    For i = 2 To Values.Count - 1
-                        _rtext = _rtext & "," & ValueParser(Values(i), GetFuncDEf(i))
-                    Next
+                    Else
+                        existFlag = False
+                    End If
                 End If
-                _rtext = _rtext & ")"
+
+
+
+                If existFlag Then
+                    _rtext = Lan.GetText("Trigger", "Func") & " : " & Values(0) & "("
+                    Dim valdef As String = ""
+
+                    If Values.Count <> 1 Then
+                        _rtext = _rtext & ValueParser(Values(1), GetFuncDEf(1))
+                        For i = 2 To Values.Count - 1
+                            _rtext = _rtext & "," & ValueParser(Values(i), GetFuncDEf(i))
+                        Next
+                    End If
+                    _rtext = _rtext & ")"
+                Else
+                    _rtext = Lan.GetText("Trigger", "ExistFunc") & " : " & Values(0)
+                End If
+
+
+
             Case ElementType.조건절
                 _rtext = ElementNames(Type) & " " & Values(0)
             Case ElementType.와일조건
                 _rtext = ElementNames(Type) & " " & Values(0)
             Case ElementType.Wait
-                _rtext = "대기하기 : " & Values(0)
+                _rtext = Lan.GetText("Trigger", "Wait") & " : " & Values(0)
+            Case ElementType.RawTrigger
+                _rtext = "ClassicTrigger :"
+                For i = 0 To 12
+                    If (Values(0) And Math.Pow(2, i)) > 0 Then
+                        If (8 <= i) And (i <= 11) Then
+                            _rtext = _rtext & " Force" & i - 7
+                        ElseIf i = 12 Then
+                            _rtext = "ClassicTrigger : AllPlayers"
+                        Else
+                            _rtext = _rtext & " P" & i + 1
+                        End If
+                    End If
+                Next
+
+
             Case Else
                 _rtext = ElementNames(Type)
         End Select
@@ -1539,7 +1631,7 @@ Public Class Element
                     _rtext = "//=========" & Values(0) & "========="
                 Case ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일
                     _rtext = ""
-                Case ElementType.조건절
+                Case ElementType.조건절, ElementType.TriggerCond
                     _rtext = "if("
                 Case ElementType.만족안함
                     _rtext = "else{"
@@ -1587,6 +1679,10 @@ Public Class Element
                         Next
                     End If
                     _rtext = _rtext & "){"
+                Case ElementType.RawTrigger
+                    _rtext = "function" & " ClassicTrigger(){"
+                Case ElementType.TriggerAct
+                    _rtext = "if (" & VarialbeName & " == 1) {"
                 Case ElementType.함수
                     '해당 함수의 정의를 가져와야 한다.
                     Dim fundef As Element = Nothing
@@ -1607,18 +1703,18 @@ Public Class Element
                             Dim valuedeflist As New List(Of String)
                             If Values.Count <> 1 Then
                                 valuedeflist.Add(funname & fundef.GetElementList(0).GetElementList(0).Values(0))
-                                _rtext = _rtext & vbCrLf & funname & fundef.GetElementList(0).GetElementList(0).Values(0) & " = " & ValueParser(Values(1), GetFuncDEf(1), True, True) & ";"
+                                _rtext = _rtext & vbCrLf & funname & fundef.GetElementList(0).GetElementList(0).Values(0) & "[getcurpl()] = " & ValueParser(Values(1), GetFuncDEf(1), True, True) & ";"
                                 For i = 2 To Values.Count - 1
                                     valuedeflist.Add(funname & fundef.GetElementList(0).GetElementList(i - 1).Values(0))
-                                    _rtext = _rtext & vbCrLf & funname & fundef.GetElementList(0).GetElementList(i - 1).Values(0) & " = " & ValueParser(Values(i), GetFuncDEf(i), True, True) & ";"
+                                    _rtext = _rtext & vbCrLf & funname & fundef.GetElementList(0).GetElementList(i - 1).Values(0) & "[getcurpl()] = " & ValueParser(Values(i), GetFuncDEf(i), True, True) & ";"
                                 Next
                             End If
 
                             _rtext = _rtext & vbCrLf & Values(0) & "("
                             If Values.Count <> 1 Then
-                                _rtext = _rtext & valuedeflist(0)
+                                _rtext = _rtext & valuedeflist(0) & "[getcurpl()]"
                                 For i = 2 To Values.Count - 1
-                                    _rtext = _rtext & "," & valuedeflist(i - 1)
+                                    _rtext = _rtext & "," & valuedeflist(i - 1) & "[getcurpl()]"
                                 Next
                             End If
                             _rtext = _rtext & ")"
@@ -1680,11 +1776,18 @@ Public Class Element
         End If
 
 
-        If Type <> ElementType.main And Type <> ElementType.조건문if And Type <> ElementType.조건문ifelse And Type <> ElementType.와일 And Type <> ElementType.포만족 And Type <> ElementType.Functions And Type <> ElementType.코드 And Type <> ElementType.인수 And Type <> ElementType.FoluderAction Then
+        If Type <> ElementType.main And Type <> ElementType.조건문if And Type <> ElementType.조건문ifelse And Type <> ElementType.와일 And Type <> ElementType.포만족 And Type <> ElementType.Functions And Type <> ElementType.코드 And Type <> ElementType.인수 And Type <> ElementType.FoluderAction And Type <> ElementType.RawTriggers Then
             If abledflag = True Then
                 If Type = ElementType.Wait Then 'Wait는 부모의 보모의 2벨류를 판단.
-                    If Parrent.Parrent.Values(1) = False Then
-                        Return _stringb.ToString
+                    If Parrent.Parrent.GetTypeV = ElementType.함수정의 Then
+                        If Parrent.Parrent.Values(1) = False Then
+                            Return _stringb.ToString
+                        Else
+                            WaitCounter += Values(0)
+                            _stringb.AppendLine(GetIntend(intend - 1) & "}")
+                            _stringb.AppendLine(GetIntend(intend - 1) & "if (" & VarialbeName & " == " & WaitCounter & ") {")
+                            Return _stringb.ToString
+                        End If
                     Else
                         WaitCounter += Values(0)
                         _stringb.AppendLine(GetIntend(intend - 1) & "}")
@@ -1696,15 +1799,13 @@ Public Class Element
                 If Type = ElementType.함수정의 Then
                     If Values(1) = True Then
                         WaitCounter = 1
-                        For i = 0 To Elements(0).Elements.Count - 1
-                            _stringb.AppendLine("var " & Values(0) & Elements(0).Elements(i).Values(0) & ";")
-                        Next
                         VarialbeName = Values(0) & "Timer[getcurpl()]"
-                        _stringb.AppendLine("const " & Values(0) & "Timer = [0, 0, 0, 0, 0, 0, 0, 0];")
-
                     End If
                 End If
 
+                If Type = ElementType.TriggerAct Then
+                    WaitCounter = 1
+                End If
 
 
                 If Type = ElementType.함수 Then
@@ -1724,9 +1825,11 @@ Public Class Element
                     End If
                 End If
 
+                If Type = ElementType.TriggerAct Then
+                    intend -= 1
+                End If
 
-
-                'Code내용
+                'Code내용============================================================================================
                 If GetCode().IndexOf(vbCr) <> -1 Then
                     Dim strs() As String = GetCode().Split(vbCrLf)
 
@@ -1738,7 +1841,7 @@ Public Class Element
                 Else
                     _stringb.Append(GetIntend(intend) & GetCode())
                 End If
-
+                'Code내용=============================================================================================
 
 
                 If Type = ElementType.함수정의 Then
@@ -1768,7 +1871,7 @@ Public Class Element
                 End If
                 If Type = ElementType.함수 Then
                     If Parrent.Type <> ElementType.와일조건 And Parrent.Type <> ElementType.조건절 And
-                            Parrent.Type <> ElementType.조건절 Then
+                            Parrent.Type <> ElementType.조건절 And Parrent.Type <> ElementType.TriggerCond Then
                         _stringb.Append(";")
                     Else
                         If isLast = False Then
@@ -1866,37 +1969,68 @@ Public Class Element
             Next
         End If
 
-        If Type = ElementType.함수정의 Then
-            If Values(1) = True Then
+
+
+
+
+
+        Select Case Type
+            Case ElementType.함수정의
+                If Values(1) = True Then
+                    intend -= 1
+                    _stringb.AppendLine(GetIntend(intend + 1) & VarialbeName & " = 0;")
+                    _stringb.AppendLine(GetIntend(intend) & "}")
+                    _stringb.AppendLine(GetIntend(intend) & "if (" & VarialbeName & " > 0) {")
+                    _stringb.AppendLine(GetIntend(intend + 1) & VarialbeName & " += 1;")
+                    _stringb.AppendLine(GetIntend(intend) & "}")
+                End If
+                _stringb.Append(GetIntend(intend - 1) & "}" & vbCrLf)
+            Case ElementType.TriggerAct
                 intend -= 1
-                _stringb.AppendLine(GetIntend(intend + 1) & VarialbeName & " = 0;")
+
+                Dim preserveFlag As Boolean = False
+                '프리저브가 있는지 확인한다.
+                For i = 0 To Elements.Count - 1
+                    If Elements(i).Type = ElementType.액션 Then
+                        If Elements(i).act.Name = "PreserveTrigger" Then
+                            preserveFlag = True
+                        End If
+                    End If
+                Next
+
+
+
+
+                '만약 프리져브가 없으면 초기화를 시키지 않는다.
+                If preserveFlag Then
+                    _stringb.AppendLine(GetIntend(intend + 1) & VarialbeName & " = 0;")
+                End If
+
+
+
+
                 _stringb.AppendLine(GetIntend(intend) & "}")
                 _stringb.AppendLine(GetIntend(intend) & "if (" & VarialbeName & " > 0) {")
                 _stringb.AppendLine(GetIntend(intend + 1) & VarialbeName & " += 1;")
                 _stringb.AppendLine(GetIntend(intend) & "}")
-            End If
-        End If
-
-
-        If Type = ElementType.함수 Then
-            Dim fundef As Element = Nothing
-            For i = 0 To functions.GetElementsCount - 1
-                If Values(0) = functions.GetElementList(i).Values(0) Then
-                    fundef = functions.GetElementList(i)
-                    Exit For
+            Case ElementType.함수
+                Dim fundef As Element = Nothing
+                For i = 0 To functions.GetElementsCount - 1
+                    If Values(0) = functions.GetElementList(i).Values(0) Then
+                        fundef = functions.GetElementList(i)
+                        Exit For
+                    End If
+                Next
+                If fundef IsNot Nothing Then
+                    If fundef.Values(1) Then
+                        intend -= 1
+                        _stringb.AppendLine(GetIntend(intend - 1) & "}")
+                    End If
                 End If
-            Next
-            If fundef IsNot Nothing Then
-                If fundef.Values(1) Then
-                    intend -= 1
-                    _stringb.AppendLine(GetIntend(intend - 1) & "}")
-                End If
-            End If
-        End If
 
 
-        Select Case Type
-            Case ElementType.만족, ElementType.만족안함, ElementType.와일만족, ElementType.함수정의
+
+            Case ElementType.만족, ElementType.만족안함, ElementType.와일만족, ElementType.RawTrigger
                 _stringb.Append(GetIntend(intend - 1) & "}" & vbCrLf)
             Case ElementType.포만족
                 If Parrent.Values(0) = "PlayerLoop" Then
@@ -1939,12 +2073,13 @@ End Class
 Public Class Action
     Public Name As String
     Public Text As String
+    Public Texts As New List(Of String)
 
     Public CodeText As String
 
 
     Public Tooltip As String
-    Public ValuesDef As List(Of String)
+    Public ValuesDef As New List(Of String)
 
 
     'Public Sub New(_name As String, _text As String, _codetext As String, _valuedef() As String, Optional _tooltip As String = "")
@@ -1963,12 +2098,13 @@ End Class
 Public Class Condiction
     Public Name As String
     Public Text As String
+    Public Texts As New List(Of String)
 
     Public CodeText As String
 
 
     Public Tooltip As String
-    Public ValuesDef As List(Of String)
+    Public ValuesDef As New List(Of String)
 
 
     'Public Sub New(_name As String, _text As String, _codetext As String, _valuedef() As String, Optional _tooltip As String = "")

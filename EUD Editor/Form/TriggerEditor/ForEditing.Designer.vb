@@ -101,25 +101,25 @@ Partial Class ForEditing
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(157, 65)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(31, 15)
+        Me.Label2.Size = New System.Drawing.Size(48, 15)
         Me.Label2.TabIndex = 8
         Me.Label2.Text = "횟수"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(12, 65)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(47, 15)
+        Me.Label1.Size = New System.Drawing.Size(58, 15)
         Me.Label1.TabIndex = 7
         Me.Label1.Text = "변수 명"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'NumericUpDown1
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(192, 62)
+        Me.NumericUpDown1.Location = New System.Drawing.Point(211, 63)
         Me.NumericUpDown1.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(70, 23)
@@ -127,9 +127,9 @@ Partial Class ForEditing
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(65, 62)
+        Me.TextBox2.Location = New System.Drawing.Point(76, 61)
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(86, 23)
+        Me.TextBox2.Size = New System.Drawing.Size(75, 23)
         Me.TextBox2.TabIndex = 5
         '
         'TextBox1

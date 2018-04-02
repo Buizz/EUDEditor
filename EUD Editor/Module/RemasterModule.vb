@@ -33,7 +33,7 @@
 
 
 
-        Message = "호환성으로 문제로 " & count & "개의 옵션이 사용안함 처리되었습니다."
+        Message = Lan.GetMsgText("Remastercaution").Replace("$1$", count)
         If count <> 0 Then
             MsgBox(Message, MsgBoxStyle.Information)
         End If

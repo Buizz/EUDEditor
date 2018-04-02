@@ -132,21 +132,21 @@ Partial Class BtnSettingForm
         '
         'Label9
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(8, 96)
+        Me.Label9.Location = New System.Drawing.Point(-6, 96)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(43, 15)
+        Me.Label9.Size = New System.Drawing.Size(60, 15)
         Me.Label9.TabIndex = 18
         Me.Label9.Text = "액션값"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label10
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(20, 72)
+        Me.Label10.Location = New System.Drawing.Point(-6, 72)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(31, 15)
+        Me.Label10.Size = New System.Drawing.Size(60, 15)
         Me.Label10.TabIndex = 17
         Me.Label10.Text = "액션"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'ComboBox6
         '
@@ -188,21 +188,21 @@ Partial Class BtnSettingForm
         '
         'Label7
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(8, 43)
+        Me.Label7.Location = New System.Drawing.Point(-6, 43)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(43, 15)
+        Me.Label7.Size = New System.Drawing.Size(60, 15)
         Me.Label7.TabIndex = 12
         Me.Label7.Text = "조건값"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label8
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(20, 19)
+        Me.Label8.Location = New System.Drawing.Point(-6, 19)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(31, 15)
+        Me.Label8.Size = New System.Drawing.Size(60, 15)
         Me.Label8.TabIndex = 11
         Me.Label8.Text = "조건"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'GroupBox6
         '
@@ -260,12 +260,12 @@ Partial Class BtnSettingForm
         '
         'Label12
         '
-        Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(6, 71)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(55, 15)
+        Me.Label12.Size = New System.Drawing.Size(60, 15)
         Me.Label12.TabIndex = 21
         Me.Label12.Text = "사용불가"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'TextBox10
         '
@@ -288,12 +288,12 @@ Partial Class BtnSettingForm
         '
         'Label11
         '
-        Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(6, 19)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(55, 15)
+        Me.Label11.Size = New System.Drawing.Size(60, 15)
         Me.Label11.TabIndex = 18
         Me.Label11.Text = "사용가능"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'GroupBox4
         '
@@ -391,21 +391,21 @@ Partial Class BtnSettingForm
         '
         'Label5
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 45)
+        Me.Label5.Location = New System.Drawing.Point(-11, 45)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(43, 15)
+        Me.Label5.Size = New System.Drawing.Size(60, 15)
         Me.Label5.TabIndex = 6
         Me.Label5.Text = "아이콘"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label6
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(18, 19)
+        Me.Label6.Location = New System.Drawing.Point(-11, 19)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(31, 15)
+        Me.Label6.Size = New System.Drawing.Size(60, 15)
         Me.Label6.TabIndex = 5
         Me.Label6.Text = "위치"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'TableLayoutPanel1
         '
@@ -496,7 +496,7 @@ Partial Class BtnSettingForm
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "BtnSettingForm"
+        Me.Text = "BtnSetting"
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
