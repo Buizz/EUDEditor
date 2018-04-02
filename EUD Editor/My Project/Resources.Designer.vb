@@ -611,6 +611,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  System.IO.MemoryStream과(와) 유사한 System.IO.UnmanagedMemoryStream 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
+        Friend ReadOnly Property successBulid() As System.IO.UnmanagedMemoryStream
+            Get
+                Return ResourceManager.GetStream("successBulid", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         '''</summary>
         Friend ReadOnly Property Tech() As System.Drawing.Bitmap

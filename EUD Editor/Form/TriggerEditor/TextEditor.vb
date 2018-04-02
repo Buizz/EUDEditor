@@ -22,6 +22,7 @@ Public Class TextEditor
     End Sub
 
     Private Sub TextEditor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
         lasttext.Text = RawText
 
         RawText = RawText.Replace("\n", vbCrLf)

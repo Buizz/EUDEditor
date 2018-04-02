@@ -76,6 +76,7 @@ Public Class CondictionForm
 
 
     Private Sub Form_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
         RegisterHotKey(Me.Handle, 100, MOD_Shift, Keys.Enter)
         RegisterHotKey(Me.Handle, 200, 0, Keys.Tab)
         RegisterHotKey(Me.Handle, 300, MOD_Shift, Keys.Tab)
@@ -1438,7 +1439,11 @@ Public Class CondictionForm
         End If
     End Sub
 
-
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If RawStringsForm.ShowDialog() = DialogResult.OK Then
+            TextBox2.SelectedText = RawStringsForm.returnvalue
+        End If
+    End Sub
 
 
 

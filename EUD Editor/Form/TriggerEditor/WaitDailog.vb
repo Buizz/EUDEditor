@@ -12,6 +12,7 @@
     End Sub
 
     Private Sub WaitDailog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
         NumericUpDown2.Value = NumericUpDown1.Value * 42
     End Sub
 End Class

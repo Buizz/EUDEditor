@@ -89,8 +89,14 @@
 
             Dim reges As New Text.RegularExpressions.Regex("(DATA{)(.*)(})")
 
+            Dim text As String
+            Try
+                text = Decrypt(reges.Match(data).Groups(2).Value.Split(";")(1).Trim)
+            Catch ex As Exception
+                text = Decrypt(reges.Match(data).Groups(2).Value.Trim)
+            End Try
 
-            Dim text As String = Decrypt(reges.Match(data).Groups(2).Value.Split(";")(1).Trim)
+
 
             Dim templist As List(Of String) = text.Split(",").ToList
 

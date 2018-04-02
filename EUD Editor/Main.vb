@@ -220,7 +220,7 @@ Public Class Main
 
         If ProjectSet.isload = True Then
             If ProjectSet.filename = "" Then
-                Me.Text = "제목 없음 " & issaved & " -  EUD Editor 2 " & ProgramSet.Version & "." & ProgramSet.StarVersion
+                Me.Text = Lan.GetMsgText("Defacultname") & " " & issaved & " -  EUD Editor 2 " & ProgramSet.Version & "." & ProgramSet.StarVersion
                 DatEditForm.Text = ProgramSet.DatEditName & issaved & " " & ProgramSet.Version
 
                 FireGraftForm.Text = ProgramSet.FireGraftName & issaved & " " & ProgramSet.Version
@@ -374,7 +374,7 @@ Public Class Main
         Dim Dialog As DialogResult
 
         If ProjectSet.filename = "" Then
-            SaveFileDialog1.FileName = "제목 없음"
+            SaveFileDialog1.FileName = Lan.GetMsgText("Defacultname")
         Else
             Dim name As String = ProjectSet.filename.Split("\").Last
 
@@ -435,7 +435,7 @@ Public Class Main
 
 
             If ProjectSet.filename = "" Then
-                SaveFileDialog1.FileName = "제목 없음"
+                SaveFileDialog1.FileName = Lan.GetMsgText("Defacultname")
             Else
                 SaveFileDialog1.FileName = Mid(ProjectSet.filename, 1, ProjectSet.filename.Length - 4)
             End If
@@ -678,7 +678,7 @@ Public Class Main
         End Try
     End Sub
 
-    Private LastData As Date
+    Public LastData As Date
     Private Sub CheckMapWrite_Tick(sender As Object, e As EventArgs) Handles CheckMapWrite.Tick
         If ProjectSet.isload = True Then
             If CheckFileExist(ProjectSet.InputMap) = False Then

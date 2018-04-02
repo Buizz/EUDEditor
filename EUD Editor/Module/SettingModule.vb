@@ -9,7 +9,7 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "0.15.83"
+        Public Version As String = "0.16.53"
         Public DatEditVersion As String = "v0.3"
         Public SCDBSerial As UInteger
 
@@ -115,6 +115,40 @@ Namespace ProjectSet
 
         '상관 없음
 
+        Private Function SearchCHK(chkname As String, buffer() As Byte) As UInteger
+            Dim _name As String
+            Dim _size As UInteger
+
+
+            Dim mem As MemoryStream = New MemoryStream(buffer)
+            Dim binary As BinaryReader = New BinaryReader(mem)
+            While (True)
+                _name = ""
+                _name = _name & ChrW(binary.ReadByte)
+                _name = _name & ChrW(binary.ReadByte)
+                _name = _name & ChrW(binary.ReadByte)
+                _name = _name & ChrW(binary.ReadByte)
+                If _name = chkname Then
+                    Dim returnval As UInteger = mem.Position
+                    binary.Close()
+                    mem.Close()
+                    Return returnval
+                Else
+                    _size = binary.ReadUInt32()
+                    mem.Position += _size
+                End If
+            End While
+            binary.Close()
+            mem.Close()
+            Return 0
+        End Function
+
+
+
+
+
+
+
         Public Sub LoadCHKdata()
             LoadTILEDATA()
 
@@ -169,7 +203,7 @@ Namespace ProjectSet
                 temptext = stream.ReadToEnd
 
 
-                mem.Position = InStr(temptext, "SIDE") + 3
+                mem.Position = SearchCHK("SIDE", buffer)
 
                 size = binary.ReadUInt32
                 Try
@@ -197,7 +231,7 @@ Namespace ProjectSet
                 End If
 
 
-                mem.Position = InStr(temptext, "WAV ") + 3
+                mem.Position = SearchCHK("WAV ", buffer)
 
                 size = binary.ReadUInt32
                 For i = 0 To size / 4 - 1
@@ -211,7 +245,8 @@ Namespace ProjectSet
                 Next
 
                 Dim _playerFlag(8) As Boolean
-                mem.Position = InStr(temptext, "OWNR") + 3
+                mem.Position = SearchCHK("OWNR", buffer)
+
                 size = binary.ReadUInt32
                 '03 = 구조가능
                 '05 = 컴퓨터
@@ -228,7 +263,7 @@ Namespace ProjectSet
 
 
 
-                mem.Position = InStr(temptext, "FORC") + 3
+                mem.Position = SearchCHK("FORC", buffer)
                 size = binary.ReadUInt32
 
 
@@ -240,8 +275,6 @@ Namespace ProjectSet
                 For i = 0 To 3
                     CHKFORCEDATA(i).Add("")
                 Next
-
-
                 '플레이어소속 존재하는 플레이어인지 판단!
                 For i = 0 To 7
                     Dim forcenum As Byte = binary.ReadByte()
@@ -249,14 +282,13 @@ Namespace ProjectSet
                         CHKFORCEDATA(forcenum).Add(i)
                     End If
                 Next
-
                 '포스 문자열
                 For i = 0 To 3
                     CHKFORCEDATA(i)(0) = binary.ReadUInt16()
                 Next
 
 
-                mem.Position = InStr(temptext, "MRGN") + 3
+                mem.Position = SearchCHK("MRGN", buffer)
 
                 size = binary.ReadUInt32
 
@@ -270,7 +302,7 @@ Namespace ProjectSet
                     binary.ReadUInt16()
                 Next
 
-                mem.Position = InStr(temptext, "SWNM") + 3
+                mem.Position = SearchCHK("SWNM", buffer)
 
                 size = binary.ReadUInt32
                 For i = 0 To 255
@@ -278,7 +310,7 @@ Namespace ProjectSet
                 Next
 
 
-                mem.Position = InStr(temptext, "UPGx") + 3
+                mem.Position = SearchCHK("UPGx", buffer)
 
                 size = binary.ReadUInt32
 
@@ -353,7 +385,7 @@ Namespace ProjectSet
 
 
 
-                mem.Position = InStr(temptext, "TECx") + 3
+                mem.Position = SearchCHK("TECx", buffer)
                 size = binary.ReadUInt32
 
 
@@ -409,7 +441,7 @@ Namespace ProjectSet
 
 
                 'Dim UNIxpara() As Byte
-                mem.Position = InStr(temptext, "UNIx") + 3
+                mem.Position = SearchCHK("UNIx", buffer)
 
                 size = binary.ReadUInt32
                 'UNIxpara = binary.ReadBytes(size)
@@ -528,7 +560,7 @@ Namespace ProjectSet
 
 
                 Dim STRpara() As Byte
-                mem.Position = InStr(temptext, "STR ") + 3
+                mem.Position = SearchCHK("STR ", buffer)
 
                 size = binary.ReadUInt32 '문자열 수
                 STRpara = binary.ReadBytes(size)
@@ -778,7 +810,8 @@ Namespace ProjectSet
             For i = 0 To 7
                 UsedSetting(i) = False
             Next
-
+            Dim fileinfo As New FileInfo(MapName)
+            Main.LastData = fileinfo.LastWriteTime
             Dim extension As String = Mid(MapName, MapName.Length - 3)
             Select Case extension
                 Case ".e2s", ".e2p"
@@ -1224,7 +1257,6 @@ Namespace ProjectSet
                         SCDBLoc = FindSetting(Section_SCDBSET, "SCDBLoc").Split(",").ToList
                         SCDBUse = FindSetting(Section_SCDBSET, "SCDBUse")
                         SCDBSerial = FindSetting(Section_SCDBSET, "SCDBSerial")
-
                         If SCDBUse Then
                             If SCDBLoginForm.ShowDialog() <> DialogResult.Yes Then
                                 SCDBUse = False
@@ -1265,7 +1297,7 @@ Namespace ProjectSet
 
 
                     If savefileVersion <> ProgramSet.Version Then
-                        MsgBox(Lan.GetText("MsgBox", "SaveFileDifferent").Replace("$S1$", ProgramSet.Version).Replace("$S2$", savefileVersion), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                        MsgBox(Lan.GetText("MsgBox", "SaveFileDifferent").Replace("$S1$", ProgramSet.Version).Replace("$S2$", savefileVersion), MsgBoxStyle.Information, ProgramSet.AlterFormMessage)
                     End If
 
                     ProjectSet.filename = MapName

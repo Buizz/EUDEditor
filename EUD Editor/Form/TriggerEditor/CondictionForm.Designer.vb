@@ -67,6 +67,8 @@ Partial Class CondictionForm
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel9 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.TabControl3 = New System.Windows.Forms.TabControl()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,6 +89,7 @@ Partial Class CondictionForm
         Me.TableLayoutPanel6.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        Me.TableLayoutPanel9.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -284,7 +287,7 @@ Partial Class CondictionForm
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(0)
         Me.TextBox2.Multiline = True
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(326, 153)
+        Me.TextBox2.Size = New System.Drawing.Size(326, 123)
         Me.TextBox2.TabIndex = 1
         '
         'TableLayoutPanel5
@@ -626,13 +629,40 @@ Partial Class CondictionForm
         '
         'TabPage3
         '
-        Me.TabPage3.Controls.Add(Me.TextBox2)
+        Me.TabPage3.Controls.Add(Me.TableLayoutPanel9)
         Me.TabPage3.Location = New System.Drawing.Point(4, 27)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Size = New System.Drawing.Size(326, 153)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "직접 입력"
         Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel9
+        '
+        Me.TableLayoutPanel9.ColumnCount = 1
+        Me.TableLayoutPanel9.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel9.Controls.Add(Me.Button3, 0, 1)
+        Me.TableLayoutPanel9.Controls.Add(Me.TextBox2, 0, 0)
+        Me.TableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel9.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel9.Margin = New System.Windows.Forms.Padding(0)
+        Me.TableLayoutPanel9.Name = "TableLayoutPanel9"
+        Me.TableLayoutPanel9.RowCount = 2
+        Me.TableLayoutPanel9.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel9.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel9.Size = New System.Drawing.Size(326, 153)
+        Me.TableLayoutPanel9.TabIndex = 2
+        '
+        'Button3
+        '
+        Me.Button3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button3.Location = New System.Drawing.Point(0, 123)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(0)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(326, 30)
+        Me.Button3.TabIndex = 0
+        Me.Button3.Text = "값 가져오기"
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'TabControl3
         '
@@ -660,7 +690,7 @@ Partial Class CondictionForm
         Me.Name = "CondictionForm"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "조건 편집"
+        Me.Text = "Condition Edit"
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
@@ -683,7 +713,8 @@ Partial Class CondictionForm
         Me.TableLayoutPanel6.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
-        Me.TabPage3.PerformLayout()
+        Me.TableLayoutPanel9.ResumeLayout(False)
+        Me.TableLayoutPanel9.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -734,4 +765,6 @@ Partial Class CondictionForm
     Friend WithEvents TableLayoutPanel7 As TableLayoutPanel
     Friend WithEvents BtnSelector As ListBox
     Friend WithEvents UnitBtnSelecter As SergeUtils.EasyCompletionComboBox
+    Friend WithEvents TableLayoutPanel9 As TableLayoutPanel
+    Friend WithEvents Button3 As Button
 End Class

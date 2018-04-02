@@ -673,4 +673,20 @@ Module parsingModule
         Return returnstring
     End Function
 
+
+    Public Function Readtextfile(filename As String) As List(Of String)
+        Dim _filename = My.Application.Info.DirectoryPath & "\Data\Langage\" & My.Settings.Langage & "\" & filename & ".txt"
+        Dim _values As New List(Of String)
+        Dim filestream As New FileStream(_filename, FileMode.Open)
+        Dim strreader As New StreamReader(filestream, Text.Encoding.Default)
+
+        While (strreader.EndOfStream = False)
+            _values.Add(strreader.ReadLine.Trim)
+        End While
+
+        strreader.Close()
+        filestream.Close()
+
+        Return _values
+    End Function
 End Module

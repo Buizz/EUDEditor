@@ -463,13 +463,13 @@ Partial Class SettingForm
         Me.SaveFileDialog1.FileName = "*.scx"
         Me.SaveFileDialog1.Filter = "StarCraft BroodWar|*.scx"
         Me.SaveFileDialog1.OverwritePrompt = False
-        Me.SaveFileDialog1.Title = "삽입될 맵 고르기"
+        Me.SaveFileDialog1.Title = "Select OutputMap"
         '
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "*.scx"
         Me.OpenFileDialog1.Filter = "StarCraft BroodWar|*.scx"
-        Me.OpenFileDialog1.Title = "맵 연결하기"
+        Me.OpenFileDialog1.Title = "Select InputMap"
         '
         'Button6
         '

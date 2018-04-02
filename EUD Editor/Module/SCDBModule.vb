@@ -8,6 +8,26 @@
         strbulider.AppendLine("const SerialNum = " & ProgramSet.SCDBSerial * 256 + ProjectSet.SCDBSerial & ";")
         strbulider.AppendLine("")
         strbulider.AppendLine("")
+        strbulider.Append("const Datas = [") '데이터들 모두 적기
+        For i = 0 To SCDBDeath.Count - 1
+            If i <> 0 Then
+                strbulider.Append(", ")
+            End If
+            strbulider.Append(SCDBDeath(i))
+        Next
+        For i = 0 To SCDBLoc.Count - 1
+            If SCDBDeath.Count = 0 Then
+                If i <> 0 Then
+                    strbulider.Append(", ")
+                End If
+            Else
+                strbulider.Append(", ")
+            End If
+            strbulider.Append(SCDBLoc(i))
+        Next
+        strbulider.AppendLine("];") '데이터들 모두 적기
+
+
         strbulider.AppendLine("const isplayersConnect = [0, 0, 0, 0, 0, 0, 0, 0];")
         strbulider.AppendLine("const NData = [0, 0, 0, 0, 0, 0, 0, 0];")
         strbulider.AppendLine("const NRespone = [0, 0, 0, 0, 0, 0, 0, 0];")
@@ -376,38 +396,35 @@
         strbulider.AppendLine("            if(")
         strbulider.AppendLine("                LocalRespone[getcurpl()] >= 1")
         strbulider.AppendLine("            ){")
-
-
-
-        For i = 0 To SCDBDeath.Count - 1
-            If i = 0 Then
-                strbulider.AppendLine("                if(")
-            Else
-                strbulider.AppendLine("                else if(")
-            End If
-
-            strbulider.AppendLine("                    LocalRespone[getcurpl()] == 1")
+        '데이터 불러오기
+        If SCDBDeath.Count <> 0 Then
+            strbulider.AppendLine("                if(")
+            strbulider.AppendLine("                    LocalRespone[getcurpl()] >= 1 &&")
+            strbulider.AppendLine("                    LocalRespone[getcurpl()] <= " & SCDBDeath.Count)
             strbulider.AppendLine("                ){")
-            strbulider.AppendLine("                    SetDeaths(13, 7, tdata, " & SCDBDeath(i) & ");")
+            strbulider.AppendLine("                    SetDeaths(13, 7, tdata, Datas[LocalRespone[getcurpl()] - 1]);")
             strbulider.AppendLine("                }")
-        Next
-        For i = 0 To SCDBLoc.Count - 1
-            If i = 0 And SCDBDeath.Count = 0 Then
+        End If
+
+        If SCDBLoc.Count <> 0 Then
+            If SCDBDeath.Count = 0 Then
                 strbulider.AppendLine("                if(")
             Else
                 strbulider.AppendLine("                else if(")
             End If
 
-            strbulider.AppendLine("                    LocalRespone[getcurpl()] == 2")
+            strbulider.AppendLine("                    LocalRespone[getcurpl()] > " & SCDBDeath.Count & " &&")
+            strbulider.AppendLine("                    LocalRespone[getcurpl()] <= " & SCDBDeath.Count + SCDBLoc.Count)
             strbulider.AppendLine("                ){")
             strbulider.AppendLine("                    if(")
             strbulider.AppendLine("                        tdata != 255")
             strbulider.AppendLine("                    ){")
             strbulider.AppendLine("                        LocalRespone[getcurpl()] = LocalRespone[getcurpl()] - 1;")
-            strbulider.AppendLine("                        CreateUnit(tdata / 65536, tdata % 65536, " & SCDBLoc(i) & ", 13);")
+            strbulider.AppendLine("                        CreateUnit(tdata / 65536, tdata % 65536, Datas[LocalRespone[getcurpl()]], 13);")
             strbulider.AppendLine("                    }")
             strbulider.AppendLine("                }")
-        Next
+        End If
+
 
 
         strbulider.AppendLine("            }")
@@ -458,54 +475,61 @@
         strbulider.AppendLine("                LocalRespone[getcurpl()] = LocalRespone[getcurpl()] + 1;")
         strbulider.AppendLine("            }")
 
-        For i = 0 To SCDBDeath.Count - 1
-            If i = 0 Then
-                strbulider.AppendLine("            if(")
-            Else
-                strbulider.AppendLine("            else if(")
-            End If
-
-            strbulider.AppendLine("                LocalRespone[getcurpl()] == 0")
+        '데이터 저장
+        If SCDBDeath.Count <> 0 Then
+            strbulider.AppendLine("            if(")
+            strbulider.AppendLine("                    LocalRespone[getcurpl()] >= 0 &&")
+            strbulider.AppendLine("                    LocalRespone[getcurpl()] < " & SCDBDeath.Count)
             strbulider.AppendLine("            ){")
-            strbulider.AppendLine("                WriteData(dwread_epd(" & SCDBDeath(i) & " * 12 + getcurpl()));")
+            strbulider.AppendLine("                WriteData(dwread_epd(Datas[LocalRespone[getcurpl()]] * 12 + getcurpl()));")
             strbulider.AppendLine("                LocalRespone[getcurpl()] = LocalRespone[getcurpl()] + 1;")
             strbulider.AppendLine("            }")
-        Next
-        For i = 0 To SCDBLoc.Count - 1
-            If i = 0 And SCDBDeath.Count = 0 Then
+        End If
+
+
+        If SCDBLoc.Count <> 0 Then
+            If SCDBDeath.Count = 0 Then
                 strbulider.AppendLine("            if(")
             Else
                 strbulider.AppendLine("            else if(")
             End If
 
-            strbulider.AppendLine("                LocalRespone[getcurpl()] == 1")
+            strbulider.AppendLine("                LocalRespone[getcurpl()] >= " & SCDBDeath.Count & " &&")
+            strbulider.AppendLine("                LocalRespone[getcurpl()] < " & SCDBDeath.Count + SCDBLoc.Count)
             strbulider.AppendLine("            ){")
+
+
             strbulider.AppendLine("                if(")
-            strbulider.AppendLine("                    Bring(13, 10, 0, 230, " & SCDBLoc(i) & ")")
+            strbulider.AppendLine("                    SaveLoctemp[getcurpl()] > 227")
             strbulider.AppendLine("                ){")
             strbulider.AppendLine("                    SaveLoctemp[getcurpl()] = 0;")
-            strbulider.AppendLine("                    GiveUnits(100, 230, 11, " & SCDBLoc(i) & ", 13);")
+            'strbulider.AppendLine("                    GiveUnits(100, 230, 11, Datas[LocalRespone[getcurpl()], 13);")
             strbulider.AppendLine("                    WriteData(255);")
             strbulider.AppendLine("                    LocalRespone[getcurpl()] = LocalRespone[getcurpl()] + 1;")
             strbulider.AppendLine("                }")
             strbulider.AppendLine("                else{")
             strbulider.AppendLine("                    var temp = 0;")
             strbulider.AppendLine("                    while(")
-            strbulider.AppendLine("                        Bring(13, 10, 0, SaveLoctemp[getcurpl()], " & SCDBLoc(i) & ")")
+            strbulider.AppendLine("                        (Bring(13, 10, 0, SaveLoctemp[getcurpl()], Datas[LocalRespone[getcurpl()]]) || (bread(0x6637A0 + SaveLoctemp[getcurpl()]) & 0x08) != 0x8) && SaveLoctemp[getcurpl()] < 228")
             strbulider.AppendLine("                    ){")
             strbulider.AppendLine("                        SaveLoctemp[getcurpl()] = SaveLoctemp[getcurpl()] + 1;")
             strbulider.AppendLine("                    }")
+
+
             strbulider.AppendLine("                    while(")
-            strbulider.AppendLine("                        !Bring(13, 10, temp, SaveLoctemp[getcurpl()], " & SCDBLoc(i) & ")")
+            strbulider.AppendLine("                        !Bring(13, 10, temp, SaveLoctemp[getcurpl()], Datas[LocalRespone[getcurpl()]])")
             strbulider.AppendLine("                    ){")
             strbulider.AppendLine("                        temp += 1;")
             strbulider.AppendLine("                    }")
-            strbulider.AppendLine("                    GiveUnits(temp, SaveLoctemp[getcurpl()], 13, " & SCDBLoc(i) & ", 11);")
+            'strbulider.AppendLine("                        GiveUnits(temp, SaveLoctemp[getcurpl()], 13, Datas[LocalRespone[getcurpl()], 11);")
             strbulider.AppendLine("                    WriteData(SaveLoctemp[getcurpl()] + 65536 * temp);")
             strbulider.AppendLine("                    SaveLoctemp[getcurpl()] = SaveLoctemp[getcurpl()] + 1;")
+
             strbulider.AppendLine("                }")
+
+
             strbulider.AppendLine("            }")
-        Next
+        End If
 
 
 

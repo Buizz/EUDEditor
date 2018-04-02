@@ -6,8 +6,12 @@ Module CTextEncoder
         Dim codes As String = GetChar(str, "{P\d_D_\d+}")
         While (codes <> "0")
             Dim UnitNum As Integer = GetGroup(str, "P(\d)_D_(\d+)")(2)
-            Dim PlayerNum As Integer = GetGroup(str, "P(\d)_D_(\d+)")(1) - 1
+            Dim PlayerNum As String = GetGroup(str, "P(\d)_D_(\d+)")(1) - 1
 
+
+            If PlayerNum = 8 Then
+                PlayerNum = "getcurpl()"
+            End If
 
             str = Replace(str, codes, """, dwread_epd(" & UnitNum & " * 12 + " & PlayerNum & "), """,, 1)
             codes = GetChar(str, "{P\d_D_\d+}")
@@ -15,7 +19,11 @@ Module CTextEncoder
         codes = GetChar(str, "{P\d_K_\d+}")
         While (codes <> "0")
             Dim UnitNum As Integer = GetGroup(str, "P(\d)_D_(\d+)")(2)
-            Dim PlayerNum As Integer = GetGroup(str, "P(\d)_D_(\d+)")(1) - 1
+            Dim PlayerNum As String = GetGroup(str, "P(\d)_D_(\d+)")(1) - 1
+
+            If PlayerNum = 8 Then
+                PlayerNum = "getcurpl()"
+            End If
 
             str = Replace(str, codes, """, dwread_epd(EPD(0x5878A4) + " & UnitNum & " * 12 + " & PlayerNum & "), """,, 1)
             codes = GetChar(str, "{P\d_K_\d+}")
@@ -24,16 +32,25 @@ Module CTextEncoder
         For i = 0 To 7
             str = str.Replace("{P" & i + 1 & "_N}", """, tct.str(0x57EEEB + 36 * " & i & "), """)
         Next
+        str = str.Replace("{P9_N}", """, tct.str(0x57EEEB + 36 * getcurpl()), """)
         For i = 0 To 7
             str = str.Replace("{P" & i + 1 & "_O}", """, dwread_epd(EPD(0x57F0F0) + " & i & "), """)
         Next
+        str = str.Replace("{P9_O}", """, dwread_epd(EPD(0x57F0F0) + getcurpl()), """)
         For i = 0 To 7
             str = str.Replace("{P" & i + 1 & "_G}", """, dwread_epd(EPD(0x57F120) + " & i & "), """)
         Next
+        str = str.Replace("{P9_G}", """, dwread_epd(EPD(0x57F120) + getcurpl()), """)
+
+
         codes = GetChar(str, "{P\d_S_\d}")
         While (codes <> "0")
             Dim Index As Integer = GetGroup(str, "P(\d)_S_(\d+)")(2)
-            Dim PlayerNum As Integer = GetGroup(str, "P(\d)_S_(\d+)")(1) - 1
+            Dim PlayerNum As String = GetGroup(str, "P(\d)_S_(\d+)")(1) - 1
+
+            If PlayerNum = 8 Then
+                PlayerNum = "getcurpl()"
+            End If
 
             Dim offset As String = ""
 

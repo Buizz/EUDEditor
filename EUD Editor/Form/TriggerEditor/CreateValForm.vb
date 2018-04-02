@@ -2,6 +2,7 @@
 
     Dim lastval As Long
     Private Sub CreateValForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
         lastval = NumericUpDown1.Value
         Button5.Enabled = True
         If TextBox1.Text <> "" Then

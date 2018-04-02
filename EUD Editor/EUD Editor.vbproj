@@ -132,6 +132,19 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\AdvenceList\ColorSchemes.vb" />
+    <Compile Include="Form\AdvenceList\ListControl.designer.vb">
+      <DependentUpon>ListControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\AdvenceList\ListControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Form\AdvenceList\ListControlItem.designer.vb">
+      <DependentUpon>ListControlItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\AdvenceList\ListControlItem.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Form\BGMPlayerdialog.Designer.vb">
       <DependentUpon>BGMPlayerdialog.vb</DependentUpon>
     </Compile>
@@ -408,10 +421,22 @@
     <Compile Include="Form\TriggerEditor\FuctionNameForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\TriggerEditor\FuncManagerDialog.Designer.vb">
+      <DependentUpon>FuncManagerDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\FuncManagerDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\TriggerEditor\FunctionForm.Designer.vb">
       <DependentUpon>FunctionForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\TriggerEditor\FunctionForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\RawStringsForm.Designer.vb">
+      <DependentUpon>RawStringsForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\RawStringsForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\TriggerEditor\SCDBForm.Designer.vb">
@@ -430,6 +455,18 @@
       <DependentUpon>TextEditor.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\TriggerEditor\TextEditor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\TriggerForm.Designer.vb">
+      <DependentUpon>TriggerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\TriggerForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\TriggerPlayerSelectDialog.Designer.vb">
+      <DependentUpon>TriggerPlayerSelectDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\TriggerPlayerSelectDialog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\TriggerEditor\WaitDailog.Designer.vb">
@@ -534,6 +571,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form\AdvenceList\ListControl.resx">
+      <DependentUpon>ListControl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\AdvenceList\ListControlItem.resx">
+      <DependentUpon>ListControlItem.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\BGMPlayerdialog.resx">
       <DependentUpon>BGMPlayerdialog.vb</DependentUpon>
     </EmbeddedResource>
@@ -676,8 +719,14 @@
     <EmbeddedResource Include="Form\TriggerEditor\FuctionNameForm.resx">
       <DependentUpon>FuctionNameForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\FuncManagerDialog.resx">
+      <DependentUpon>FuncManagerDialog.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\FunctionForm.resx">
       <DependentUpon>FunctionForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\RawStringsForm.resx">
+      <DependentUpon>RawStringsForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\SCDBForm.resx">
       <DependentUpon>SCDBForm.vb</DependentUpon>
@@ -687,6 +736,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\TextEditor.resx">
       <DependentUpon>TextEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\TriggerForm.resx">
+      <DependentUpon>TriggerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\TriggerPlayerSelectDialog.resx">
+      <DependentUpon>TriggerPlayerSelectDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\WaitDailog.resx">
       <DependentUpon>WaitDailog.vb</DependentUpon>
@@ -732,6 +787,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EUD Editor.ico" />
+    <None Include="Resources\successBulid.wav" />
+    <None Include="Resources\successBulid.mp3" />
     <None Include="Resources\MurakamiShiinaQC.txt" />
     <None Include="Resources\ICON_SCDB.png" />
     <None Include="Resources\LoadFile.png" />

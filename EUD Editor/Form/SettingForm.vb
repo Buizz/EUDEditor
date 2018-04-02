@@ -1,4 +1,6 @@
-﻿Public Class SettingForm
+﻿Imports System.IO
+
+Public Class SettingForm
     Dim FormStatus As Integer = 0
 
     Enum Satus
@@ -307,6 +309,8 @@ retry:
                 GoTo retry
             Else
                 ProjectSet.InputMap = OpenFileDialog1.FileName
+                Dim fileinfo As New FileInfo(ProjectSet.InputMap)
+                Main.LastData = fileinfo.LastWriteTime
                 TextBox3.Text = ProjectSet.InputMap.Split("\").Last
             End If
         Else
@@ -333,7 +337,7 @@ retry:
 
         If dialog = DialogResult.OK Then
             If ProjectSet.InputMap = SaveFileDialog1.FileName Then
-                MsgBox("맵이름은 같을 수 없습니다." & vbCrLf & "LoadMap :" & ProjectSet.InputMap.Split("\").Last & vbCrLf & "SaveMap :" & SaveFileDialog1.FileName.Split("\").Last, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+                MsgBox(Lan.GetMsgText("NotSamename") & vbCrLf & "LoadMap :" & ProjectSet.InputMap.Split("\").Last & vbCrLf & "SaveMap :" & SaveFileDialog1.FileName.Split("\").Last, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
                 GoTo retry
             Else
                 ProjectSet.OutputMap = SaveFileDialog1.FileName
@@ -360,7 +364,7 @@ retry:
                 Close()
             Case Satus.programset
                 Dim dialog As DialogResult
-                dialog = MsgBox("EUD에디터를 종료하시겠습니까?", MsgBoxStyle.OkCancel, ProgramSet.AlterFormMessage)
+                dialog = MsgBox(Lan.GetMsgText("Exit"), MsgBoxStyle.OkCancel, ProgramSet.AlterFormMessage)
 
                 If dialog = DialogResult.OK Then
                     Me.Close()
