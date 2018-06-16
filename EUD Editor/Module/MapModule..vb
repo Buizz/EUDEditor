@@ -1,8 +1,40 @@
 ﻿Imports System.IO
 Imports System.Text
 
+
+
 Module MapModule
+    Public RemasterTile As RemasterTileClass
+    Public mDevice As Microsoft.Xna.Framework.Graphics.GraphicsDevice
+    Public spriteBatch As Microsoft.Xna.Framework.Graphics.SpriteBatch
+
+
+    Public Sub LoadRemasterTile()
+        RemasterTile = New RemasterTileClass
+
+        Dim thread As New System.Threading.Thread(AddressOf RemasterTile.Init)
+
+        thread.Start(mDevice)
+    End Sub
+
+
+
+
+
+
     Public tilesetname() As String = {"badlands", "platform", "install", "ashworld", "jungle", "desert", "ice", "twilight"}
+    Public tilesetnameCasc() As String = {"9ffff54381e717409c16bb1397729fc5", "af7834dd1fe3dc5e5751596086eac0b6", "6b04c411243b8972305051dedd054dd6", "9a949129a382c0a10865326efc622990", "15917205d1d557a316c78b30e2cfad6a", "9ba9d8aaf1c481e0f1cc8054e1d98400", "782d4398c59c0f7484f43e41d382bbc4", "98e62cece71640bfcef72650492171bf"}
+
+    'SD/TileSet/Desert.dds.vr4|66a003d1874b2cfa2ad9cd3535526c76
+    'SD/TileSet/Jungle.dds.vr4|951429b83a76c180b740b146732e493b
+    'SD/TileSet/AshWorld.dds.vr4|739183ceea7f6349efd234b20e27fc79
+    'SD/TileSet/platform.dds.vr4|9e8476b57cf151befb8e26c94f0a3834
+    'SD/TileSet/Twilight.dds.vr4|9f4dff29a5bfabffeb734bfc43344c78
+    'SD/TileSet/badlands.dds.vr4|929fa69a288e78bec6c701e8b240a4bd
+    'SD/TileSet/install.dds.vr4|a952d06be47964456bd795b603a81505
+    'SD/TileSet/Ice.dds.vr4|5133e675c45ba20568db38cdabb90b9c
+
+
 
     Private MOVINGDATA(,) As UInt16 = {{192, 288, 288, 32, 64, 64, 96, 864, 864},'badlands
                                         {288, 192, 3731, 224, 64, 128, 32, 4992, 3424},'platform
@@ -12,7 +44,7 @@ Module MapModule
                                         {160, 256, 384, 32, 64, 64, 96, 576, 7856},'desert
                                         {96, 256, 384, 32, 288, 288, 192, 352, 7968},'ice
                                         {160, 256, 384, 32, 288, 288, 96, 2818, 7856}} 'twilight
-    Private Magaindex() As UInt16
+    Public Magaindex() As UInt16
 
 
     Public MapPalett(255) As Color

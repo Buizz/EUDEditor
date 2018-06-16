@@ -66,6 +66,7 @@
         For i = 0 To SCDBDeath.Count - 1
             ListBox3.Items.Add(units(SCDBDeath(i)))
         Next
+        TableLayoutPanel1.RowStyles(1).Height = 33
 
         isopenBtnLoc = False
         isopenBtnDeath = True
@@ -78,12 +79,18 @@
         ComboBox1.ResetText()
         ComboBox1.Items.AddRange(locs.ToArray)
         ComboBox1.SelectedIndex = 0
+        EasyCompletionComboBox1.Items.Clear()
+        EasyCompletionComboBox1.ResetText()
+        EasyCompletionComboBox1.Items.AddRange(locs.ToArray)
+        EasyCompletionComboBox1.SelectedIndex = 0
 
 
         ListBox3.Items.Clear()
         For i = 0 To SCDBLoc.Count - 1
-            ListBox3.Items.Add(locs(SCDBLoc(i)))
+            ListBox3.Items.Add("Save : " & locs(SCDBLoc(i)) & "   Load : " & locs(SCDBLocLoad(i)))
         Next
+        TableLayoutPanel1.RowStyles(1).Height = 66
+
 
         isopenBtnDeath = False
         isopenBtnLoc = True
@@ -97,6 +104,7 @@
             SCDBDeath.RemoveAt(ListBox3.SelectedIndex)
         ElseIf isopenBtnLoc Then
             SCDBLoc.RemoveAt(ListBox3.SelectedIndex)
+            SCDBLocLoad.RemoveAt(ListBox3.SelectedIndex)
         End If
         ListBox3.Items.RemoveAt(ListBox3.SelectedIndex)
 
@@ -114,7 +122,8 @@
             ListBox3.Items.Add(units(ComboBox1.SelectedIndex))
         ElseIf isopenBtnLoc Then
             SCDBLoc.Add(ComboBox1.SelectedIndex)
-            ListBox3.Items.Add(locs(ComboBox1.SelectedIndex))
+            SCDBLocLoad.Add(EasyCompletionComboBox1.SelectedIndex)
+            ListBox3.Items.Add("Save : " & locs(ComboBox1.SelectedIndex) & "   Load : " & locs(EasyCompletionComboBox1.SelectedIndex))
         End If
         ListBox3.SelectedIndex = ListBox3.Items.Count - 1
 

@@ -9,7 +9,7 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "0.16.53"
+        Public Version As String = "0.17.2"
         Public DatEditVersion As String = "v0.3"
         Public SCDBSerial As UInteger
 
@@ -128,12 +128,14 @@ Namespace ProjectSet
                 _name = _name & ChrW(binary.ReadByte)
                 _name = _name & ChrW(binary.ReadByte)
                 _name = _name & ChrW(binary.ReadByte)
+
                 If _name = chkname Then
                     Dim returnval As UInteger = mem.Position
                     binary.Close()
                     mem.Close()
                     Return returnval
                 Else
+
                     _size = binary.ReadUInt32()
                     mem.Position += _size
                 End If
@@ -179,7 +181,6 @@ Namespace ProjectSet
             Dim hfile As UInteger
             Dim buffer() As Byte
             Dim filesize As UInteger
-            Dim temptext As String = ""
             Dim size As Integer
 
             Dim pdwread As IntPtr
@@ -200,421 +201,437 @@ Namespace ProjectSet
                 Dim mem As MemoryStream = New MemoryStream(buffer)
                 Dim binary As BinaryReader = New BinaryReader(mem)
                 Dim stream As StreamReader = New StreamReader(mem, Text.Encoding.ASCII)
-                temptext = stream.ReadToEnd
 
-
-                mem.Position = SearchCHK("SIDE", buffer)
-
-                size = binary.ReadUInt32
                 Try
-                    PlayerRace = 2 - binary.ReadByte()
-                    For i = 0 To 6
-                        If (2 - binary.ReadByte()) <> PlayerRace Then
-
-                            Throw New ArgumentException("Exception Occured")
-                        End If
-                    Next
+                    mem.Position = SearchCHK("TYPE", buffer)
                 Catch ex As Exception
-                    PlayerRace = 255
+                    LoadFromCHK = False
+                    Exit Sub
                 End Try
 
-                If LoadFromCHK = False Then
-                    stream.Close()
-                    binary.Close()
-                    mem.Close()
+                size = binary.ReadUInt32
 
-                    StormLib.SFileCloseFile(hfile)
-
-
-                    StormLib.SFileCloseArchive(hmpq)
+                Dim value As UInteger = binary.ReadUInt32
+                If (value <> 1113014610) Then
+                    LoadFromCHK = False
                     Exit Sub
                 End If
 
 
-                mem.Position = SearchCHK("WAV ", buffer)
 
-                size = binary.ReadUInt32
-                For i = 0 To size / 4 - 1
-                    'binary.ReadUInt32()
-                    '    binary.ReadUInt32()
-                    '    binary.ReadUInt32()
-                    '    binary.ReadUInt32()
 
-                    CHKWAVLIST.Add(binary.ReadUInt32())
-                    '    binary.ReadUInt16()
-                Next
+                mem.Position = SearchCHK("SIDE", buffer)
 
-                Dim _playerFlag(8) As Boolean
-                mem.Position = SearchCHK("OWNR", buffer)
+                    size = binary.ReadUInt32
+                    Try
+                        PlayerRace = 2 - binary.ReadByte()
+                        For i = 0 To 6
+                            If (2 - binary.ReadByte()) <> PlayerRace Then
 
-                size = binary.ReadUInt32
-                '03 = 구조가능
-                '05 = 컴퓨터
-                '06 = 사람 
-                '07 = 중립
-                For i = 0 To 7
-                    Dim flag As Byte = binary.ReadByte()
-                    If flag = 3 Or flag = 5 Or flag = 6 Or flag = 7 Then
-                        _playerFlag(i) = True
-                    Else
-                        _playerFlag(i) = False
+                                Throw New ArgumentException("Exception Occured")
+                            End If
+                        Next
+                    Catch ex As Exception
+                        PlayerRace = 255
+                    End Try
+
+                    If LoadFromCHK = False Then
+                        stream.Close()
+                        binary.Close()
+                        mem.Close()
+
+                        StormLib.SFileCloseFile(hfile)
+
+
+                        StormLib.SFileCloseArchive(hmpq)
+                        Exit Sub
                     End If
-                Next
 
 
-
-                mem.Position = SearchCHK("FORC", buffer)
-                size = binary.ReadUInt32
-
-
-                CHKFORCEDATA.Add(New List(Of String))
-                CHKFORCEDATA.Add(New List(Of String))
-                CHKFORCEDATA.Add(New List(Of String))
-                CHKFORCEDATA.Add(New List(Of String))
-
-                For i = 0 To 3
-                    CHKFORCEDATA(i).Add("")
-                Next
-                '플레이어소속 존재하는 플레이어인지 판단!
-                For i = 0 To 7
-                    Dim forcenum As Byte = binary.ReadByte()
-                    If _playerFlag(i) = True Then
-                        CHKFORCEDATA(forcenum).Add(i)
-                    End If
-                Next
-                '포스 문자열
-                For i = 0 To 3
-                    CHKFORCEDATA(i)(0) = binary.ReadUInt16()
-                Next
-
-
-                mem.Position = SearchCHK("MRGN", buffer)
-
-                size = binary.ReadUInt32
-
-                For i = 0 To 255
-                    binary.ReadUInt32()
-                    binary.ReadUInt32()
-                    binary.ReadUInt32()
-                    binary.ReadUInt32()
-
-                    CHKLOCATIONNAME.Add(binary.ReadUInt16())
-                    binary.ReadUInt16()
-                Next
-
-                mem.Position = SearchCHK("SWNM", buffer)
-
-                size = binary.ReadUInt32
-                For i = 0 To 255
-                    CHKSWITCHNAME.Add(binary.ReadUInt32)
-                Next
-
-
-                mem.Position = SearchCHK("UPGx", buffer)
-
-                size = binary.ReadUInt32
-
-                Dim TEMPIsUPGDefault() As Byte
-                '## (61개) = 각 업그레이드의 허용 상태
-                '   - 00 = 변화값을 따름
-                '   - 01 = 기본값을 따름
-                TEMPIsUPGDefault = binary.ReadBytes(62)
-
-
-                Dim TEMPUPGMin(60) As UInteger
-                '#### (61개) = 첫 업그레이드 미네랄 비용
-                For i = 0 To 60
-                    TEMPUPGMin(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPUPGADDMin(60) As UInteger
-                '#### (61개) = 추가 업그레이드 미네랄 비용
-                For i = 0 To 60
-                    TEMPUPGADDMin(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPUPGGas(60) As UInteger
-                '#### (61개) = 첫 업그레이드 가스 비용
-                For i = 0 To 60
-                    TEMPUPGGas(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPUPGADDGas(60) As UInteger
-                '#### (61개) = 추가 업그레이드 가스 비용
-                For i = 0 To 60
-                    TEMPUPGADDGas(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPUPGTime(60) As UInteger
-                '#### (61개) = 첫 업그레이드 시간
-                For i = 0 To 60
-                    TEMPUPGTime(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPUPGADDTime(60) As UInteger
-                '#### (61개) = 추가 업그레이드 시간
-                For i = 0 To 60
-                    TEMPUPGADDTime(i) = binary.ReadUInt16()
-                Next
-
-
-
-                For i = 0 To 60
-                    If TEMPIsUPGDefault(i) = 0 Then
-                        key = "Mineral Cost Base"
-                        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGMin(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
-
-                        key = "Mineral Cost Factor"
-                        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGADDMin(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
-
-                        key = "Vespene Cost Base"
-                        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGGas(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
-
-                        key = "Vespene Cost Factor"
-                        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGADDGas(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
-
-                        key = "Research Time Base"
-                        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGTime(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
-
-                        key = "Research Time Factor"
-                        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGADDTime(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
-
-                    End If
-                Next
-
-
-
-
-                mem.Position = SearchCHK("TECx", buffer)
-                size = binary.ReadUInt32
-
-
-
-                Dim TEMPIsTECHDefault() As Byte
-                '0# = 기술의 허용 상태 (00 사용불가, 01 사용가능)
-                TEMPIsTECHDefault = binary.ReadBytes(44)
-
-
-                Dim TEMPTECHMin(43) As UInteger
-                '#### = 미네랄 비용
-                For i = 0 To 43
-                    TEMPTECHMin(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPTECHGas(43) As UInteger
-                '#### = 가스 비용
-                For i = 0 To 43
-                    TEMPTECHGas(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPTECHTime(43) As UInteger
-                '#### = 걸리는 시간
-                For i = 0 To 43
-                    TEMPTECHTime(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPTECHADDEnerge(43) As UInteger
-                '##00 = 필요 마나
-                For i = 0 To 43
-                    TEMPTECHADDEnerge(i) = binary.ReadUInt16()
-                Next
-
-                For i = 0 To 43
-                    If TEMPIsTECHDefault(i) = 0 Then
-                        key = "Mineral Cost"
-                        DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(key))(i) = CLng(TEMPTECHMin(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(key))(i)
-
-                        key = "Vespene Cost"
-                        DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(key))(i) = CLng(TEMPTECHGas(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(key))(i)
-
-                        key = "Resarch Time"
-                        DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(key))(i) = CLng(TEMPTECHTime(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(key))(i)
-
-                        key = "Energy Required"
-                        DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(key))(i) = CLng(TEMPTECHADDEnerge(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(key))(i)
-                    End If
-                Next
-
-
-
-
-
-
-                'Dim UNIxpara() As Byte
-                mem.Position = SearchCHK("UNIx", buffer)
-
-                size = binary.ReadUInt32
-                'UNIxpara = binary.ReadBytes(size)
-
-                Dim TEMPIsUnitDefault() As Byte
-                '## (228개) = 유닛의 순서에 맞게 배열
-                '- 00 (변화값을 따름)
-                '- 01 (기본값을 따름)
-                TEMPIsUnitDefault = binary.ReadBytes(228)
-
-                Dim TEMPUnitHP(227) As UInteger
-                '00## ##00 (228개) = ????부분은 유닛의 체력
-                For i = 0 To 227
-                    TEMPUnitHP(i) = binary.ReadUInt32()
-                Next
-
-                Dim TEMPUnitSh(227) As UShort
-                '#### (228개) = 쉴드
-                For i = 0 To 227
-                    TEMPUnitSh(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPUnitAp() As Byte
-                '## (228개) = 방어력
-                TEMPUnitAp = binary.ReadBytes(228)
-
-                Dim TEMPUnitBt(227) As UShort
-                '#### (228개) = 생산시간
-                For i = 0 To 227
-                    TEMPUnitBt(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPMinCost(227) As UShort
-                '#### (228개) = 미네랄 비용
-                For i = 0 To 227
-                    TEMPMinCost(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPGasCost(227) As UShort
-                '#### (228개) = 가스 비용
-                For i = 0 To 227
-                    TEMPGasCost(i) = binary.ReadUInt16()
-                Next
-
-                '#### (228개) = 문자열 번호
-                For i = 0 To 227
-                    UNITSTR(i) = binary.ReadUInt16()
-                    CHKUNITNAME.Add(UNITSTR(i))
-                Next
-
-                Dim TEMPWeaDmg(129) As UShort
-                '#### (130개) = 각 무기의 기본 공격력
-                For i = 0 To 129
-                    TEMPWeaDmg(i) = binary.ReadUInt16()
-                Next
-
-                Dim TEMPWeaUmg(129) As UShort
-                '#### (130개) = 업그레이드시 올라가는 공격력
-                For i = 0 To 129
-                    TEMPWeaUmg(i) = binary.ReadUInt16()
-                Next
-
-
-                For i = 0 To 227
-                    If TEMPIsUnitDefault(i) = 0 Then
-                        key = "Hit Points"
-                        DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPUnitHP(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
-
-                        key = "Shield Amount"
-                        DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPUnitSh(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
-
-                        key = "Armor"
-                        DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPUnitAp(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
-
-                        key = "Build Time"
-                        DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPUnitBt(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
-
-                        key = "Mineral Cost"
-                        DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPMinCost(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
-
-                        key = "Vespene Cost"
-                        DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPGasCost(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
-
-                        key = "Unit Map String"
-                        DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(UNITSTR(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
-
-
-                        key = "Ground Weapon"
-                        Dim j As Integer = DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i) '유닛 i의 지상무기와 공중무기 번호를 준다.
-
-                        If j <> 130 Then
-                            key = "Damage Amount"
-                            DatEditDATA(DTYPE.weapons).mapdata(DatEditDATA(DTYPE.weapons).keyDic(key))(j) = CLng(TEMPWeaDmg(j)) - DatEditDATA(DTYPE.weapons).data(DatEditDATA(DTYPE.weapons).keyDic(key))(j)
-                            key = "Damage Bonus"
-                            DatEditDATA(DTYPE.weapons).mapdata(DatEditDATA(DTYPE.weapons).keyDic(key))(j) = CLng(TEMPWeaUmg(j)) - DatEditDATA(DTYPE.weapons).data(DatEditDATA(DTYPE.weapons).keyDic(key))(j)
+                    mem.Position = SearchCHK("WAV ", buffer)
+
+                    size = binary.ReadUInt32
+                    For i = 0 To size / 4 - 1
+                        'binary.ReadUInt32()
+                        '    binary.ReadUInt32()
+                        '    binary.ReadUInt32()
+                        '    binary.ReadUInt32()
+
+                        CHKWAVLIST.Add(binary.ReadUInt32())
+                        '    binary.ReadUInt16()
+                    Next
+
+                    Dim _playerFlag(8) As Boolean
+                    mem.Position = SearchCHK("OWNR", buffer)
+
+                    size = binary.ReadUInt32
+                    '03 = 구조가능
+                    '05 = 컴퓨터
+                    '06 = 사람 
+                    '07 = 중립
+                    For i = 0 To 7
+                        Dim flag As Byte = binary.ReadByte()
+                        If flag = 3 Or flag = 5 Or flag = 6 Or flag = 7 Then
+                            _playerFlag(i) = True
+                        Else
+                            _playerFlag(i) = False
                         End If
+                    Next
 
 
-                        key = "Air Weapon"
-                        j = DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i) '유닛 i의 지상무기와 공중무기 번호를 준다.
 
-                        If j <> 130 Then
-                            key = "Damage Amount"
-                            DatEditDATA(DTYPE.weapons).mapdata(DatEditDATA(DTYPE.weapons).keyDic(key))(j) = CLng(TEMPWeaDmg(j)) - DatEditDATA(DTYPE.weapons).data(DatEditDATA(DTYPE.weapons).keyDic(key))(j)
-                            key = "Damage Bonus"
-                            DatEditDATA(DTYPE.weapons).mapdata(DatEditDATA(DTYPE.weapons).keyDic(key))(j) = CLng(TEMPWeaUmg(j)) - DatEditDATA(DTYPE.weapons).data(DatEditDATA(DTYPE.weapons).keyDic(key))(j)
+                    mem.Position = SearchCHK("FORC", buffer)
+                    size = binary.ReadUInt32
+
+
+                    CHKFORCEDATA.Add(New List(Of String))
+                    CHKFORCEDATA.Add(New List(Of String))
+                    CHKFORCEDATA.Add(New List(Of String))
+                    CHKFORCEDATA.Add(New List(Of String))
+
+                    For i = 0 To 3
+                        CHKFORCEDATA(i).Add("")
+                    Next
+                    '플레이어소속 존재하는 플레이어인지 판단!
+                    For i = 0 To 7
+                        Dim forcenum As Byte = binary.ReadByte()
+                        If _playerFlag(i) = True Then
+                            CHKFORCEDATA(forcenum).Add(i)
                         End If
-                    Else
-                        UNITSTR(i) = 0
-                    End If
-                Next
-                'key = "Ground Weapon"
-                'key = "Air Weapon"
-                'DatEditDAT(DTYPE.units).mapdata(DatEditDAT(DTYPE.units).keyDic(key))(i)
+                    Next
+                    '포스 문자열
+                    For i = 0 To 3
+                        CHKFORCEDATA(i)(0) = binary.ReadUInt16()
+                    Next
+
+
+                    mem.Position = SearchCHK("MRGN", buffer)
+
+                    size = binary.ReadUInt32
+
+                    For i = 0 To 255
+                        binary.ReadUInt32()
+                        binary.ReadUInt32()
+                        binary.ReadUInt32()
+                        binary.ReadUInt32()
+
+                        CHKLOCATIONNAME.Add(binary.ReadUInt16())
+                        binary.ReadUInt16()
+                    Next
+
+                    mem.Position = SearchCHK("SWNM", buffer)
+
+                    size = binary.ReadUInt32
+                    For i = 0 To 255
+                        CHKSWITCHNAME.Add(binary.ReadUInt32)
+                    Next
+
+
+                    mem.Position = SearchCHK("UPGx", buffer)
+
+                    size = binary.ReadUInt32
+
+                    Dim TEMPIsUPGDefault() As Byte
+                    '## (61개) = 각 업그레이드의 허용 상태
+                    '   - 00 = 변화값을 따름
+                    '   - 01 = 기본값을 따름
+                    TEMPIsUPGDefault = binary.ReadBytes(62)
+
+
+                    Dim TEMPUPGMin(60) As UInteger
+                    '#### (61개) = 첫 업그레이드 미네랄 비용
+                    For i = 0 To 60
+                        TEMPUPGMin(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPUPGADDMin(60) As UInteger
+                    '#### (61개) = 추가 업그레이드 미네랄 비용
+                    For i = 0 To 60
+                        TEMPUPGADDMin(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPUPGGas(60) As UInteger
+                    '#### (61개) = 첫 업그레이드 가스 비용
+                    For i = 0 To 60
+                        TEMPUPGGas(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPUPGADDGas(60) As UInteger
+                    '#### (61개) = 추가 업그레이드 가스 비용
+                    For i = 0 To 60
+                        TEMPUPGADDGas(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPUPGTime(60) As UInteger
+                    '#### (61개) = 첫 업그레이드 시간
+                    For i = 0 To 60
+                        TEMPUPGTime(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPUPGADDTime(60) As UInteger
+                    '#### (61개) = 추가 업그레이드 시간
+                    For i = 0 To 60
+                        TEMPUPGADDTime(i) = binary.ReadUInt16()
+                    Next
 
 
 
-                Dim STRpara() As Byte
-                mem.Position = SearchCHK("STR ", buffer)
+                    For i = 0 To 60
+                        If TEMPIsUPGDefault(i) = 0 Then
+                            key = "Mineral Cost Base"
+                            DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGMin(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
 
-                size = binary.ReadUInt32 '문자열 수
-                STRpara = binary.ReadBytes(size)
-                stream.Close()
-                binary.Close()
-                mem.Close()
+                            key = "Mineral Cost Factor"
+                            DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGADDMin(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
+
+                            key = "Vespene Cost Base"
+                            DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGGas(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
+
+                            key = "Vespene Cost Factor"
+                            DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGADDGas(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
+
+                            key = "Research Time Base"
+                            DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGTime(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
+
+                            key = "Research Time Factor"
+                            DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(key))(i) = CLng(TEMPUPGADDTime(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(key))(i)
+
+                        End If
+                    Next
 
 
 
-                Dim strmem As MemoryStream = New MemoryStream(STRpara)
-                Dim strstream As StreamReader = New StreamReader(strmem, Text.Encoding.GetEncoding("ks_c_5601-1987"))
-                Dim strbinary As BinaryReader = New BinaryReader(strmem, Text.Encoding.GetEncoding("ks_c_5601-1987"))
 
-                Dim tempindex As UInteger
-                Dim tempindex2 As Char
-                Dim tempstring As String = ""
-                Dim strcount As Integer = 0
+                    mem.Position = SearchCHK("TECx", buffer)
+                    size = binary.ReadUInt32
 
-                size = strbinary.ReadUInt16
-                For i = 0 To size - 1 '문자열 갯수
-                    strmem.Position = 2 + i * 2
 
-                    tempindex = strbinary.ReadUInt16()
 
-                    strmem.Position = tempindex
+                    Dim TEMPIsTECHDefault() As Byte
+                    '0# = 기술의 허용 상태 (00 사용불가, 01 사용가능)
+                    TEMPIsTECHDefault = binary.ReadBytes(44)
 
-                    strcount = 0
-                    tempindex2 = strbinary.ReadChar
-                    While (AscW(tempindex2) <> &H0)
+
+                    Dim TEMPTECHMin(43) As UInteger
+                    '#### = 미네랄 비용
+                    For i = 0 To 43
+                        TEMPTECHMin(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPTECHGas(43) As UInteger
+                    '#### = 가스 비용
+                    For i = 0 To 43
+                        TEMPTECHGas(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPTECHTime(43) As UInteger
+                    '#### = 걸리는 시간
+                    For i = 0 To 43
+                        TEMPTECHTime(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPTECHADDEnerge(43) As UInteger
+                    '##00 = 필요 마나
+                    For i = 0 To 43
+                        TEMPTECHADDEnerge(i) = binary.ReadUInt16()
+                    Next
+
+                    For i = 0 To 43
+                        If TEMPIsTECHDefault(i) = 0 Then
+                            key = "Mineral Cost"
+                            DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(key))(i) = CLng(TEMPTECHMin(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(key))(i)
+
+                            key = "Vespene Cost"
+                            DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(key))(i) = CLng(TEMPTECHGas(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(key))(i)
+
+                            key = "Resarch Time"
+                            DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(key))(i) = CLng(TEMPTECHTime(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(key))(i)
+
+                            key = "Energy Required"
+                            DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(key))(i) = CLng(TEMPTECHADDEnerge(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(key))(i)
+                        End If
+                    Next
+
+
+
+
+
+
+                    'Dim UNIxpara() As Byte
+                    mem.Position = SearchCHK("UNIx", buffer)
+
+                    size = binary.ReadUInt32
+                    'UNIxpara = binary.ReadBytes(size)
+
+                    Dim TEMPIsUnitDefault() As Byte
+                    '## (228개) = 유닛의 순서에 맞게 배열
+                    '- 00 (변화값을 따름)
+                    '- 01 (기본값을 따름)
+                    TEMPIsUnitDefault = binary.ReadBytes(228)
+
+                    Dim TEMPUnitHP(227) As UInteger
+                    '00## ##00 (228개) = ????부분은 유닛의 체력
+                    For i = 0 To 227
+                        TEMPUnitHP(i) = binary.ReadUInt32()
+                    Next
+
+                    Dim TEMPUnitSh(227) As UShort
+                    '#### (228개) = 쉴드
+                    For i = 0 To 227
+                        TEMPUnitSh(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPUnitAp() As Byte
+                    '## (228개) = 방어력
+                    TEMPUnitAp = binary.ReadBytes(228)
+
+                    Dim TEMPUnitBt(227) As UShort
+                    '#### (228개) = 생산시간
+                    For i = 0 To 227
+                        TEMPUnitBt(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPMinCost(227) As UShort
+                    '#### (228개) = 미네랄 비용
+                    For i = 0 To 227
+                        TEMPMinCost(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPGasCost(227) As UShort
+                    '#### (228개) = 가스 비용
+                    For i = 0 To 227
+                        TEMPGasCost(i) = binary.ReadUInt16()
+                    Next
+
+                    '#### (228개) = 문자열 번호
+                    For i = 0 To 227
+                        UNITSTR(i) = binary.ReadUInt16()
+                        CHKUNITNAME.Add(UNITSTR(i))
+                    Next
+
+                    Dim TEMPWeaDmg(129) As UShort
+                    '#### (130개) = 각 무기의 기본 공격력
+                    For i = 0 To 129
+                        TEMPWeaDmg(i) = binary.ReadUInt16()
+                    Next
+
+                    Dim TEMPWeaUmg(129) As UShort
+                    '#### (130개) = 업그레이드시 올라가는 공격력
+                    For i = 0 To 129
+                        TEMPWeaUmg(i) = binary.ReadUInt16()
+                    Next
+
+
+                    For i = 0 To 227
+                        If TEMPIsUnitDefault(i) = 0 Then
+                            key = "Hit Points"
+                            DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPUnitHP(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
+
+                            key = "Shield Amount"
+                            DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPUnitSh(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
+
+                            key = "Armor"
+                            DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPUnitAp(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
+
+                            key = "Build Time"
+                            DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPUnitBt(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
+
+                            key = "Mineral Cost"
+                            DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPMinCost(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
+
+                            key = "Vespene Cost"
+                            DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(TEMPGasCost(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
+
+                            key = "Unit Map String"
+                            DatEditDATA(DTYPE.units).mapdata(DatEditDATA(DTYPE.units).keyDic(key))(i) = CLng(UNITSTR(i)) - DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i)
+
+
+                            key = "Ground Weapon"
+                            Dim j As Integer = DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i) '유닛 i의 지상무기와 공중무기 번호를 준다.
+
+                            If j <> 130 Then
+                                key = "Damage Amount"
+                                DatEditDATA(DTYPE.weapons).mapdata(DatEditDATA(DTYPE.weapons).keyDic(key))(j) = CLng(TEMPWeaDmg(j)) - DatEditDATA(DTYPE.weapons).data(DatEditDATA(DTYPE.weapons).keyDic(key))(j)
+                                key = "Damage Bonus"
+                                DatEditDATA(DTYPE.weapons).mapdata(DatEditDATA(DTYPE.weapons).keyDic(key))(j) = CLng(TEMPWeaUmg(j)) - DatEditDATA(DTYPE.weapons).data(DatEditDATA(DTYPE.weapons).keyDic(key))(j)
+                            End If
+
+
+                            key = "Air Weapon"
+                            j = DatEditDATA(DTYPE.units).data(DatEditDATA(DTYPE.units).keyDic(key))(i) '유닛 i의 지상무기와 공중무기 번호를 준다.
+
+                            If j <> 130 Then
+                                key = "Damage Amount"
+                                DatEditDATA(DTYPE.weapons).mapdata(DatEditDATA(DTYPE.weapons).keyDic(key))(j) = CLng(TEMPWeaDmg(j)) - DatEditDATA(DTYPE.weapons).data(DatEditDATA(DTYPE.weapons).keyDic(key))(j)
+                                key = "Damage Bonus"
+                                DatEditDATA(DTYPE.weapons).mapdata(DatEditDATA(DTYPE.weapons).keyDic(key))(j) = CLng(TEMPWeaUmg(j)) - DatEditDATA(DTYPE.weapons).data(DatEditDATA(DTYPE.weapons).keyDic(key))(j)
+                            End If
+                        Else
+                            UNITSTR(i) = 0
+                        End If
+                    Next
+                    'key = "Ground Weapon"
+                    'key = "Air Weapon"
+                    'DatEditDAT(DTYPE.units).mapdata(DatEditDAT(DTYPE.units).keyDic(key))(i)
+
+
+
+                    Dim STRpara() As Byte
+                    mem.Position = SearchCHK("STR ", buffer)
+
+                    size = binary.ReadUInt32 '문자열 수
+                    STRpara = binary.ReadBytes(size)
+                    stream.Close()
+                    binary.Close()
+                    mem.Close()
+
+
+
+                    Dim strmem As MemoryStream = New MemoryStream(STRpara)
+                    Dim strstream As StreamReader = New StreamReader(strmem, Text.Encoding.GetEncoding("ks_c_5601-1987"))
+                    Dim strbinary As BinaryReader = New BinaryReader(strmem, Text.Encoding.GetEncoding("ks_c_5601-1987"))
+
+                    Dim tempindex As UInteger
+                    Dim tempindex2 As Char
+                    Dim tempstring As String = ""
+                    Dim strcount As Integer = 0
+
+                    size = strbinary.ReadUInt16
+                    For i = 0 To size - 1 '문자열 갯수
+                        strmem.Position = 2 + i * 2
+
+                        tempindex = strbinary.ReadUInt16()
+
+                        strmem.Position = tempindex
+
+                        strcount = 0
                         tempindex2 = strbinary.ReadChar
-                        strcount += 1
-                    End While
-                    strmem.Position = tempindex
+                        While (AscW(tempindex2) <> &H0)
+                            tempindex2 = strbinary.ReadChar
+                            strcount += 1
+                        End While
+                        strmem.Position = tempindex
 
 
 
-                    tempstring = strbinary.ReadChars(strcount)
-                    tempstring = tempstring.Replace(ChrW(0), "")
+                        tempstring = strbinary.ReadChars(strcount)
+                        tempstring = tempstring.Replace(ChrW(0), "")
 
-                    If tempstring <> "" Then
-                        CHKSTRING.Add(tempstring)
-                    Else
-                        CHKSTRING.Add("Null")
-                    End If
-                Next
+                        If tempstring <> "" Then
+                            CHKSTRING.Add(tempstring)
+                        Else
+                            CHKSTRING.Add("Null")
+                        End If
+                    Next
 
 
 
-                strbinary.Close()
-                strstream.Close()
-                strmem.Close()
-                StormLib.SFileCloseFile(hfile)
-            Else
-                Exit Sub
+                    strbinary.Close()
+                    strstream.Close()
+                    strmem.Close()
+                    StormLib.SFileCloseFile(hfile)
+                Else
+                    Exit Sub
             End If
 
             StormLib.SFileCloseArchive(hmpq)
@@ -708,6 +725,7 @@ Namespace ProjectSet
 
             SCDBDeath.Clear()
             SCDBLoc.Clear()
+            SCDBLocLoad.Clear()
             SCDBUse = False
             SCDBSerial = 0
 
@@ -797,7 +815,7 @@ Namespace ProjectSet
             End If
             ProjectSet.Reset()
 
-
+            RemasterTile = Nothing
             Main.buttonResetting()
             Return True
         End Function
@@ -1253,8 +1271,16 @@ Namespace ProjectSet
 
                     Try
                         Dim Section_SCDBSET As String = FindSection(text, "SCDBSet")
-                        SCDBDeath = FindSetting(Section_SCDBSET, "SCDBDeath").Split(",").ToList
-                        SCDBLoc = FindSetting(Section_SCDBSET, "SCDBLoc").Split(",").ToList
+                        SCDBDeath = FindSetting(Section_SCDBSET, "SCDBDeath").Split({","}, StringSplitOptions.RemoveEmptyEntries).ToList
+                        SCDBLoc = FindSetting(Section_SCDBSET, "SCDBLoc").Split({","}, StringSplitOptions.RemoveEmptyEntries).ToList
+                        SCDBLocLoad = FindSetting(Section_SCDBSET, "SCDBLocLoad").Split({","}, StringSplitOptions.RemoveEmptyEntries).ToList
+
+                        '호환성
+                        If SCDBLoc.Count <> SCDBLocLoad.Count Then
+                            SCDBLoc.Clear()
+                            SCDBLocLoad.Clear()
+                        End If
+
                         SCDBUse = FindSetting(Section_SCDBSET, "SCDBUse")
                         SCDBSerial = FindSetting(Section_SCDBSET, "SCDBSerial")
                         If SCDBUse Then
@@ -1276,7 +1302,7 @@ Namespace ProjectSet
 
                     Try
                         Dim Section As String = FindSection(text, "TriggerEditorSET")
-                        LoadTriggerFile(Section)
+                        LoadTriggerFile(Section, True)
                     Catch ex As Exception
                         MsgBox(Lan.GetText("MsgBox", "LodingError").Replace("$S0$", "TriggerEditor").Replace("$S1$", ProgramSet.Version).Replace("$S2$", savefileVersion), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
                         Exit Sub
@@ -2046,6 +2072,18 @@ Namespace ProjectSet
             End If
 
             _stringbdl.Append("SCDBLoc : " & Ststr & vbCrLf)
+
+
+
+            Ststr = ""
+            If SCDBLocLoad.Count <> 0 Then
+                Ststr = SCDBLocLoad(0)
+                For i = 1 To SCDBLocLoad.Count - 1
+                    Ststr = Ststr & "," & SCDBLocLoad(i)
+                Next
+            End If
+            _stringbdl.Append("SCDBLocLoad : " & Ststr & vbCrLf)
+
             _stringbdl.Append("SCDBUse : " & SCDBUse & vbCrLf)
             _stringbdl.Append("SCDBSerial : " & SCDBSerial & vbCrLf)
 

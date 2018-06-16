@@ -46,8 +46,6 @@ Public Class CTextEditor
     Private Sub TextEditor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Lan.SetLangage(Me)
 
-        lasttext.Text = RawText
-
         RawText = RawText.Replace("\n", vbCrLf)
         RawText = RawText.Replace("\""", """")
 
@@ -68,6 +66,8 @@ Public Class CTextEditor
         Next
 
         TextBox1.Text = RawText
+        Textrefresh()
+        Textrefresh()
     End Sub
 
     Private Sub TextEditor_Closing(sender As Object, e As EventArgs) Handles MyBase.Closing
@@ -82,9 +82,7 @@ Public Class CTextEditor
     End Sub
 
 
-
-    Dim lasttext As New TextBox
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    Private Sub Textrefresh()
         If TextBox1.Lines.Count > 11 Then
             TextBox1.Text = lasttext.Text
         End If
@@ -106,6 +104,12 @@ Public Class CTextEditor
 
 
         DrawPreview()
+    End Sub
+
+
+    Public lasttext As New TextBox
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+        Textrefresh()
     End Sub
 
     Private Sub DrawPreview()

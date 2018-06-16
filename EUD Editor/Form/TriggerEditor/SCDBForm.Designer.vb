@@ -34,10 +34,13 @@ Partial Class SCDBForm
         Me.Button2 = New System.Windows.Forms.Button()
         Me.ComboBox1 = New SergeUtils.EasyCompletionComboBox()
         Me.ListBox3 = New System.Windows.Forms.ListBox()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.EasyCompletionComboBox1 = New SergeUtils.EasyCompletionComboBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -144,13 +147,14 @@ Partial Class SCDBForm
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 68.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.Button2, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.ComboBox1, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel3, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(248, 33)
         Me.TableLayoutPanel2.TabIndex = 3
         '
@@ -167,7 +171,6 @@ Partial Class SCDBForm
         '
         'ComboBox1
         '
-        Me.ComboBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.IntegralHeight = False
@@ -191,6 +194,36 @@ Partial Class SCDBForm
         Me.ListBox3.Size = New System.Drawing.Size(242, 256)
         Me.ListBox3.TabIndex = 5
         '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.ColumnCount = 1
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.EasyCompletionComboBox1, 0, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.ComboBox1, 0, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 2
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(180, 33)
+        Me.TableLayoutPanel3.TabIndex = 3
+        '
+        'EasyCompletionComboBox1
+        '
+        Me.EasyCompletionComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.EasyCompletionComboBox1.FormattingEnabled = True
+        Me.EasyCompletionComboBox1.IntegralHeight = False
+        Me.EasyCompletionComboBox1.Location = New System.Drawing.Point(3, 38)
+        Me.EasyCompletionComboBox1.Margin = New System.Windows.Forms.Padding(3, 5, 3, 3)
+        Me.EasyCompletionComboBox1.MatchingMethod = SergeUtils.StringMatchingMethod.UseWildcards
+        Me.EasyCompletionComboBox1.MaxDropDownItems = 16
+        Me.EasyCompletionComboBox1.Name = "EasyCompletionComboBox1"
+        Me.EasyCompletionComboBox1.Size = New System.Drawing.Size(174, 23)
+        Me.EasyCompletionComboBox1.TabIndex = 2
+        Me.EasyCompletionComboBox1.TabStop = False
+        '
         'SCDBForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -208,6 +241,7 @@ Partial Class SCDBForm
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -223,4 +257,6 @@ Partial Class SCDBForm
     Friend WithEvents Button2 As Button
     Friend WithEvents ListBox3 As ListBox
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents EasyCompletionComboBox1 As SergeUtils.EasyCompletionComboBox
 End Class

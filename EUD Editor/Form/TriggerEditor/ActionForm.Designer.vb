@@ -68,6 +68,8 @@ Partial Class ActionForm
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel9 = New System.Windows.Forms.TableLayoutPanel()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TableLayoutPanel10 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Button4 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.TabControl3 = New System.Windows.Forms.TabControl()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -90,6 +92,7 @@ Partial Class ActionForm
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.TableLayoutPanel9.SuspendLayout()
+        Me.TableLayoutPanel10.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel3
@@ -640,7 +643,7 @@ Partial Class ActionForm
         Me.TableLayoutPanel9.ColumnCount = 1
         Me.TableLayoutPanel9.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel9.Controls.Add(Me.TextBox2, 0, 0)
-        Me.TableLayoutPanel9.Controls.Add(Me.Button3, 0, 1)
+        Me.TableLayoutPanel9.Controls.Add(Me.TableLayoutPanel10, 0, 1)
         Me.TableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel9.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel9.Margin = New System.Windows.Forms.Padding(0)
@@ -662,13 +665,40 @@ Partial Class ActionForm
         Me.TextBox2.TabIndex = 1
         Me.TextBox2.TabStop = False
         '
+        'TableLayoutPanel10
+        '
+        Me.TableLayoutPanel10.ColumnCount = 2
+        Me.TableLayoutPanel10.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel10.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel10.Controls.Add(Me.Button4, 1, 0)
+        Me.TableLayoutPanel10.Controls.Add(Me.Button3, 0, 0)
+        Me.TableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel10.Location = New System.Drawing.Point(0, 123)
+        Me.TableLayoutPanel10.Margin = New System.Windows.Forms.Padding(0)
+        Me.TableLayoutPanel10.Name = "TableLayoutPanel10"
+        Me.TableLayoutPanel10.RowCount = 1
+        Me.TableLayoutPanel10.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel10.Size = New System.Drawing.Size(326, 30)
+        Me.TableLayoutPanel10.TabIndex = 2
+        '
+        'Button4
+        '
+        Me.Button4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button4.Location = New System.Drawing.Point(163, 0)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(0)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(163, 30)
+        Me.Button4.TabIndex = 3
+        Me.Button4.Text = "함수"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
         'Button3
         '
         Me.Button3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Button3.Location = New System.Drawing.Point(0, 123)
+        Me.Button3.Location = New System.Drawing.Point(0, 0)
         Me.Button3.Margin = New System.Windows.Forms.Padding(0)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(326, 30)
+        Me.Button3.Size = New System.Drawing.Size(163, 30)
         Me.Button3.TabIndex = 2
         Me.Button3.Text = "값 가져오기"
         Me.Button3.UseVisualStyleBackColor = True
@@ -726,6 +756,7 @@ Partial Class ActionForm
         Me.TabPage3.ResumeLayout(False)
         Me.TableLayoutPanel9.ResumeLayout(False)
         Me.TableLayoutPanel9.PerformLayout()
+        Me.TableLayoutPanel10.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -777,4 +808,6 @@ Partial Class ActionForm
     Friend WithEvents Button2 As Button
     Friend WithEvents TableLayoutPanel9 As TableLayoutPanel
     Friend WithEvents Button3 As Button
+    Friend WithEvents TableLayoutPanel10 As TableLayoutPanel
+    Friend WithEvents Button4 As Button
 End Class

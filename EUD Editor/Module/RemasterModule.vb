@@ -12,7 +12,7 @@
 
 
 
-        Dim BlackList() As Byte = {2, 3, 5}
+        Dim BlackList() As Byte = {2, 5}
         Dim Message As String = ""
         Dim count As Byte = 0
 

@@ -2030,13 +2030,13 @@ Public Class DatEditForm
         ListBox5.Items.Clear()
 
 
-        Dim ready As Integer = TextBox27.Text
-        Dim yes1 As Integer = TextBox28.Text
-        Dim yes2 As Integer = TextBox29.Text
-        Dim what1 As Integer = TextBox31.Text
-        Dim what2 As Integer = TextBox30.Text
-        Dim piss1 As Integer = TextBox33.Text
-        Dim piss2 As Integer = TextBox32.Text
+        Dim ready As Integer = Val(TextBox27.Text)
+        Dim yes1 As Integer = Val(TextBox28.Text)
+        Dim yes2 As Integer = Val(TextBox29.Text)
+        Dim what1 As Integer = Val(TextBox31.Text)
+        Dim what2 As Integer = Val(TextBox30.Text)
+        Dim piss1 As Integer = Val(TextBox33.Text)
+        Dim piss2 As Integer = Val(TextBox32.Text)
 
         Try
             Dim value As String = sfxdata(DatEditDATA(DTYPE.sfxdata).ReadValue("Sound File", ready) - 1)

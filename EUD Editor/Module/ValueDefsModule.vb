@@ -89,8 +89,10 @@ Module ValueDefsModule
                                 End If
                             Next
                             For i = 0 To CODE(8).Count - 1
-                                _values.Add(CODE(8)(i).ToLower)
+                                Dim sound As String = "sound\" & CODE(8)(i).ToLower
+                                sound = sound.Replace(sound.Split(".").Last, "wav")
 
+                                _values.Add(sound)
                             Next
                             '스타에딧웨이브파일 넣어보자.
                         Case "Unit", "UnitType", "OnUnit"
@@ -268,7 +270,7 @@ Module ValueDefsModule
 
         ValueDefiniction.Add(New ValueDefs("Status", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("UnitDirection", ValueDefs.OutPutType.ListNum))
-        ValueDefiniction.Add(New ValueDefs("Boolean", ValueDefs.OutPutType.ListNum, {"NotUse", "Use"}))
+        ValueDefiniction.Add(New ValueDefs("Boolean", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("ElevationLevels", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("FlingyFlags", ValueDefs.OutPutType.CheckList))
         ValueDefiniction.Add(New ValueDefs("Rank/Sublabelstat_txt", ValueDefs.OutPutType.Combobox))
@@ -325,6 +327,7 @@ Module ValueDefsModule
         ValueDefiniction.Add(New ValueDefs("SupplyType", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("SCDBMsgType", ValueDefs.OutPutType.ListNum))
         ValueDefiniction.Add(New ValueDefs("SCDBConnectStatus", ValueDefs.OutPutType.ListNum))
+        ValueDefiniction.Add(New ValueDefs("DBText", ValueDefs.OutPutType.Text))
 
 
         LoadCUnitData()

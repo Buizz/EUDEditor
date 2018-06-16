@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Runtime.InteropServices
+Imports System.Text.RegularExpressions
 
 Public Class FunctionForm
     Public _varele As Element
@@ -33,6 +34,53 @@ Public Class FunctionForm
     <DllImport("User32.dll")>
     Public Shared Function UnregisterHotKey(ByVal hwnd As IntPtr, ByVal id As Integer) As Integer
     End Function
+
+
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        'SetLocation(0,0,0,0,0)
+
+        Dim regex As New Regex("(\w*)\((.*)\)")
+
+
+
+        Dim flag As Boolean = (regex.Match(TextBox2.Text).Groups.Count = 3)
+
+
+        If flag Then
+            Dim funcname As String = regex.Match(TextBox2.Text).Groups(1).Value
+            Dim values As String = regex.Match(TextBox2.Text).Groups(2).Value
+
+            Dim list As New List(Of String)
+            list.Add(funcname)
+            list.AddRange(ValueString(values))
+
+            '함수로 판단해보자
+            Dim form As New FunctionForm With {
+                .FunEle = New Element(Nothing, ElementType.함수, list.ToArray),
+                .isNew = False
+            }
+            form._varele = _varele
+            If form.ShowDialog() = DialogResult.OK Then
+                TextBox2.Text = form.FunEle.GetCode
+            End If
+
+            form.Dispose()
+        Else
+            '파서가 함수로 판단 불가능 하다고 하면
+            Dim form As New FunctionForm With {
+                .FunEle = New Element(Nothing, ElementType.함수, {"Name"}),
+                .isNew = True
+            }
+            form._varele = _varele
+            If form.ShowDialog() = DialogResult.OK Then
+                TextBox2.Text = form.FunEle.GetCode
+            End If
+
+            form.Dispose()
+        End If
+    End Sub
+
 
     Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
         If m.Msg = WM_HOTKEY Then
@@ -274,7 +322,6 @@ Public Class FunctionForm
 
     Private Function Getdef(index As Integer) As String
 
-        'MsgBox("제발살려줘") 
         Return ValueDefiniction(BaseFun.GetElementList(0).GetElementList(index).Values(1)).Name(0)
     End Function
 
@@ -308,9 +355,6 @@ Public Class FunctionForm
             '함수 인자 갯수 조정
             Dim BaseCount As Integer = BaseFun.GetElementList(0).GetElementsCount
 
-
-
-
             For i = 0 To BaseCount - 1
                 LinkLabels.Add(New LinkLabel)
                 LinkLabels.Last.AutoSize = True
@@ -330,7 +374,7 @@ Public Class FunctionForm
                 LinkLabels.Last.Tag = overlapcount & "." & Getdef(i)
 
                 '페이지 추가
-                TabControl3.TabPages.Add(LinkLabels.Last.Tag)
+                TabControl3.TabPages.Add(BaseFun.GetElementList(0).GetElementList(i).Values(0)) ' & LinkLabels.Last.Tag
 
                 AddHandler LinkLabels.Last.Click, AddressOf LinkLabel_Click
 
@@ -1312,4 +1356,6 @@ Public Class FunctionForm
             TextBox2.SelectedText = RawStringsForm.returnvalue
         End If
     End Sub
+
+
 End Class

@@ -27,7 +27,8 @@
     <ApplicationVersion>2.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -93,10 +94,17 @@
     <ApplicationIcon>EUD Editor.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevIL.NET">
+      <HintPath>..\..\..\..\Desktop\DevILDotNet_1.3\DevILDotNet_1.3\DevIL.NET.dll</HintPath>
+    </Reference>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -385,6 +393,12 @@
     <Compile Include="Form\TriggerEditor\BtnSettingForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\TriggerEditor\CaseDialog.Designer.vb">
+      <DependentUpon>CaseDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\CaseDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\TriggerEditor\CondictionForm.Designer.vb">
       <DependentUpon>CondictionForm.vb</DependentUpon>
     </Compile>
@@ -401,6 +415,12 @@
       <DependentUpon>CTextEditor.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\TriggerEditor\CTextEditor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\ErrorDialog.Designer.vb">
+      <DependentUpon>ErrorDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\ErrorDialog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\TriggerEditor\ForEditing.Designer.vb">
@@ -449,6 +469,18 @@
       <DependentUpon>SCDBLoginForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\TriggerEditor\SCDBLoginForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\StringAnimaterForm.Designer.vb">
+      <DependentUpon>StringAnimaterForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\StringAnimaterForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\SwitchDialog.Designer.vb">
+      <DependentUpon>SwitchDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\SwitchDialog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\TriggerEditor\TextEditor.Designer.vb">
@@ -539,11 +571,13 @@
     <Compile Include="Module\ProgramData.vb" />
     <Compile Include="Module\RegModule.vb" />
     <Compile Include="Module\RemasterModule.vb" />
+    <Compile Include="Module\RemasterTileClass.vb" />
     <Compile Include="Module\ReqModule.vb" />
     <Compile Include="Module\RWMem.vb" />
     <Compile Include="Module\SCDBLoginModule.vb" />
     <Compile Include="Module\SCDBModule.vb" />
     <Compile Include="Module\SettingModule.vb" />
+    <Compile Include="Module\CascLib.vb" />
     <Compile Include="Module\SFmpq.vb" />
     <Compile Include="Module\SMKModule.vb" />
     <Compile Include="Module\SoundPlayerModule.vb" />
@@ -701,6 +735,9 @@
     <EmbeddedResource Include="Form\TriggerEditor\BtnSettingForm.resx">
       <DependentUpon>BtnSettingForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\CaseDialog.resx">
+      <DependentUpon>CaseDialog.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\CondictionForm.resx">
       <DependentUpon>CondictionForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -709,6 +746,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\CTextEditor.resx">
       <DependentUpon>CTextEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\ErrorDialog.resx">
+      <DependentUpon>ErrorDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\ForEditing.resx">
       <DependentUpon>ForEditing.vb</DependentUpon>
@@ -733,6 +773,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\SCDBLoginForm.resx">
       <DependentUpon>SCDBLoginForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\StringAnimaterForm.resx">
+      <DependentUpon>StringAnimaterForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\SwitchDialog.resx">
+      <DependentUpon>SwitchDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\TextEditor.resx">
       <DependentUpon>TextEditor.vb</DependentUpon>
@@ -772,7 +818,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ClassDiagram1.cd" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
@@ -787,6 +835,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EUD Editor.ico" />
+    <None Include="Resources\AshWorld003.dds" />
+    <None Include="Resources\StringAnimater.png" />
+    <None Include="Resources\MostRecentlyRedo.png" />
     <None Include="Resources\successBulid.wav" />
     <None Include="Resources\successBulid.mp3" />
     <None Include="Resources\MurakamiShiinaQC.txt" />
@@ -851,6 +902,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Add\" />
+    <Folder Include="tiletemp\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

@@ -61,8 +61,10 @@ Partial Class FunctionForm
         Me.EasyCompletionComboBox2 = New SergeUtils.EasyCompletionComboBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel9 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TableLayoutPanel10 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.TabControl3 = New System.Windows.Forms.TabControl()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -83,6 +85,7 @@ Partial Class FunctionForm
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.TableLayoutPanel9.SuspendLayout()
+        Me.TableLayoutPanel10.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -571,8 +574,8 @@ Partial Class FunctionForm
         '
         Me.TableLayoutPanel9.ColumnCount = 1
         Me.TableLayoutPanel9.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel9.Controls.Add(Me.Button3, 0, 1)
         Me.TableLayoutPanel9.Controls.Add(Me.TextBox2, 0, 0)
+        Me.TableLayoutPanel9.Controls.Add(Me.TableLayoutPanel10, 0, 1)
         Me.TableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel9.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel9.Margin = New System.Windows.Forms.Padding(0)
@@ -583,17 +586,6 @@ Partial Class FunctionForm
         Me.TableLayoutPanel9.Size = New System.Drawing.Size(326, 153)
         Me.TableLayoutPanel9.TabIndex = 3
         '
-        'Button3
-        '
-        Me.Button3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Button3.Location = New System.Drawing.Point(0, 123)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(0)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(326, 30)
-        Me.Button3.TabIndex = 0
-        Me.Button3.Text = "값 가져오기"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
         'TextBox2
         '
         Me.TextBox2.Dock = System.Windows.Forms.DockStyle.Fill
@@ -603,6 +595,44 @@ Partial Class FunctionForm
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(326, 123)
         Me.TextBox2.TabIndex = 1
+        '
+        'TableLayoutPanel10
+        '
+        Me.TableLayoutPanel10.ColumnCount = 2
+        Me.TableLayoutPanel10.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel10.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel10.Controls.Add(Me.Button4, 1, 0)
+        Me.TableLayoutPanel10.Controls.Add(Me.Button3, 0, 0)
+        Me.TableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel10.Location = New System.Drawing.Point(0, 123)
+        Me.TableLayoutPanel10.Margin = New System.Windows.Forms.Padding(0)
+        Me.TableLayoutPanel10.Name = "TableLayoutPanel10"
+        Me.TableLayoutPanel10.RowCount = 1
+        Me.TableLayoutPanel10.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel10.Size = New System.Drawing.Size(326, 30)
+        Me.TableLayoutPanel10.TabIndex = 2
+        '
+        'Button4
+        '
+        Me.Button4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button4.Location = New System.Drawing.Point(163, 0)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(0)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(163, 30)
+        Me.Button4.TabIndex = 1
+        Me.Button4.Text = "함수"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button3.Location = New System.Drawing.Point(0, 0)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(0)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(163, 30)
+        Me.Button3.TabIndex = 0
+        Me.Button3.Text = "값 가져오기"
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'TabControl3
         '
@@ -654,6 +684,7 @@ Partial Class FunctionForm
         Me.TabPage3.ResumeLayout(False)
         Me.TableLayoutPanel9.ResumeLayout(False)
         Me.TableLayoutPanel9.PerformLayout()
+        Me.TableLayoutPanel10.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -700,4 +731,6 @@ Partial Class FunctionForm
     Friend WithEvents UnitBtnSelecter As SergeUtils.EasyCompletionComboBox
     Friend WithEvents TableLayoutPanel9 As TableLayoutPanel
     Friend WithEvents Button3 As Button
+    Friend WithEvents TableLayoutPanel10 As TableLayoutPanel
+    Friend WithEvents Button4 As Button
 End Class

@@ -129,7 +129,7 @@ Module BGMPlayerModule
         str.AppendLine("    musicisplay[p] = 1;")
         str.AppendLine("}")
         str.AppendLine()
-        str.AppendLine("function CurrentPlayMusic(tplayer, musuicnum) {")
+        str.AppendLine("function CurrentPlayMusic(tplayer) {")
         str.AppendLine("    var p = parsePlayer(tplayer);")
         str.AppendLine("    return musicnum[p];")
         str.AppendLine("}")

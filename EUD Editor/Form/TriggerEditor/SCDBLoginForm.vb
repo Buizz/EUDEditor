@@ -85,12 +85,16 @@
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
-        My.Settings.Remember = CheckBox1.Checked
+        If CheckBox2.Checked Then
+            CheckBox1.Checked = True
+        Else
+            My.Settings.Remember = CheckBox1.Checked
+        End If
     End Sub
 
     Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
         My.Settings.AutoLogin = CheckBox2.Checked
-        CheckBox1.Checked = True
+        CheckBox1.Checked = CheckBox2.Checked
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click

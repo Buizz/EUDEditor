@@ -29,6 +29,8 @@ Partial Class FoudlerNamedialog
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -47,7 +49,7 @@ Partial Class FoudlerNamedialog
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(215, 76)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(215, 104)
         Me.TableLayoutPanel1.TabIndex = 6
         '
         'TableLayoutPanel3
@@ -58,7 +60,7 @@ Partial Class FoudlerNamedialog
         Me.TableLayoutPanel3.Controls.Add(Me.Button5, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.Button6, 1, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 38)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 66)
         Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
@@ -97,13 +99,15 @@ Partial Class FoudlerNamedialog
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.CheckBox1)
+        Me.Panel1.Controls.Add(Me.TextBox2)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.TextBox1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(215, 38)
+        Me.Panel1.Size = New System.Drawing.Size(215, 66)
         Me.Panel1.TabIndex = 0
         '
         'Label1
@@ -123,11 +127,31 @@ Partial Class FoudlerNamedialog
         Me.TextBox1.Size = New System.Drawing.Size(145, 23)
         Me.TextBox1.TabIndex = 1
         '
+        'TextBox2
+        '
+        Me.TextBox2.Enabled = False
+        Me.TextBox2.Location = New System.Drawing.Point(60, 37)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(145, 23)
+        Me.TextBox2.TabIndex = 3
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(39, 41)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(15, 14)
+        Me.CheckBox1.TabIndex = 4
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'FoudlerNamedialog
         '
+        Me.AcceptButton = Me.Button5
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(215, 76)
+        Me.CancelButton = Me.Button6
+        Me.ClientSize = New System.Drawing.Size(215, 104)
         Me.ControlBox = False
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -155,4 +179,6 @@ Partial Class FoudlerNamedialog
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents TextBox2 As TextBox
 End Class

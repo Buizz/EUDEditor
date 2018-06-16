@@ -27,8 +27,8 @@ Public Class Main
             Me.MinimumSize = New Size(423 + 66, 212)
             Me.Size = New Size(423 + 66, 212)
         Else
-            Me.MinimumSize = New Size(423 + 66 + 65, 159)
-            Me.Size = New Size(423 + 66 + 65, 159)
+            Me.MinimumSize = New Size(423 + 66 + 65 + 66, 159)
+            Me.Size = New Size(423 + 66 + 65 + 66, 159)
         End If
 
 
@@ -70,7 +70,7 @@ Public Class Main
                 Button12.Visible = True
 
                 Button5.Visible = True
-                Button6.Visible = True
+                ' Button6.Visible = True
                 Button8.Visible = True
                 'Button7.Enabled = ProjectSet.UsedSetting(4)
 
@@ -90,8 +90,8 @@ Public Class Main
                 Button5.Enabled = False 'binEdit
                 Button5.Visible = False
 
-                Button6.Enabled = False 'tileSet
-                Button6.Visible = False
+                Button6.Enabled = ProjectSet.UsedSetting(3) 'tileSet
+                'Button6.Visible = False
 
                 Button7.Enabled = ProjectSet.UsedSetting(4)
                 Button8.Enabled = False 'GRP
@@ -149,7 +149,7 @@ Public Class Main
                 Button12.Visible = True
 
                 Button5.Visible = True
-                Button6.Visible = True
+                'Button6.Visible = True
                 Button8.Visible = True
                 'Button7.Enabled = ProjectSet.UsedSetting(4)
 
@@ -170,7 +170,7 @@ Public Class Main
                 Button5.Visible = False
 
                 Button6.Enabled = False 'tileSet
-                Button6.Visible = False
+                'Button6.Visible = False
 
                 Button7.Enabled = False
                 Button8.Enabled = False 'GRP
@@ -420,6 +420,7 @@ Public Class Main
         저장()
     End Sub
     Public Sub 저장()
+        Dim extension As String = ProjectSet.filename.Split(".").Last
         'Dim ise2s As Boolean = False
         'Try
         '    If Mid(ProjectSet.filename, ProjectSet.filename.Length - 3) <> ".e2s" Then
@@ -430,7 +431,7 @@ Public Class Main
         'End Try
 
 
-        If ProjectSet.filename = "" Then 'Or ise2s Then
+        If ProjectSet.filename = "" Or extension = "ees" Or extension = "mem" Then 'Or ise2s Then
             Dim Dialog As DialogResult
 
 
@@ -642,6 +643,7 @@ Public Class Main
         If ProjectSet.LoadFromCHK = False Then
             MsgBox(Lan.GetText(Me.Name, "CHKMsg"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
         Else
+            BulidForm.Close()
             My.Forms.Main.Visible = False
             TrigEditorForm.ShowDialog()
             My.Forms.Main.Visible = True

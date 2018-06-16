@@ -2,7 +2,6 @@
 
     Public Event ItemClick(sender As Object, Index As Integer)
     Public Event ItemDoubleClick(sender As Object)
-
     Public Function Items(Index As Integer) As ListControlItem
         Return flpListBox.Controls(Index)
     End Function
@@ -47,7 +46,7 @@
         ' remove the event hook
         RemoveHandler c.SelectionChanged, AddressOf SelectionChanged
         RemoveHandler c.Click, AddressOf ItemClicked
-        AddHandler c.DoubleClick, AddressOf ItemDoubleClicked
+        RemoveHandler c.DoubleClick, AddressOf ItemDoubleClicked
         ' now dispose off properly
         c.Dispose()
         SetupAnchors()
@@ -61,7 +60,7 @@
             ' remove the event hook
             RemoveHandler c.SelectionChanged, AddressOf SelectionChanged
             RemoveHandler c.Click, AddressOf ItemClicked
-            AddHandler c.DoubleClick, AddressOf ItemDoubleClicked
+            RemoveHandler c.DoubleClick, AddressOf ItemDoubleClicked
             ' now dispose off properly
             c.Dispose()
         Loop
@@ -79,6 +78,7 @@
             For i = 0 To flpListBox.Controls.Count - 1
                 Dim c As ListControlItem = flpListBox.Controls(i)
                 If c.Selected = True Then
+                    'Me.VScroll = False
                     Return i
                 End If
             Next
@@ -89,6 +89,7 @@
                 Dim c As ListControlItem = flpListBox.Controls(i)
                 If value = i Then
                     c.Selected = True
+                    flpListBox.ScrollControlIntoView(c)
                     mLastSelected = flpListBox.Controls(i)
                 Else
                     c.Selected = False
