@@ -167,10 +167,12 @@ Namespace eudplib
                         End Try
                     Next
                     If ProjectSet.SCDBUse Then
-                        returntext.AppendLine("xy, 0x58F524 :437")
-                        returntext.AppendLine("xy, 0x58F528 :438")
-                        returntext.AppendLine("xy, 0x58F52C :439")
-                        returntext.AppendLine("xy, 0x58F530 :440")
+                        returntext.AppendLine("val, 0x58F524 :437")
+                        returntext.AppendLine("val, 0x58F528 :438")
+                        returntext.AppendLine("val, 0x58F52C :439")
+                        returntext.AppendLine("val, 0x58F530 :440")
+                        returntext.AppendLine("val, 0x58F534 :441")
+                        returntext.AppendLine("val, 0x58F538 :442")
                     End If
 
 
@@ -1297,7 +1299,7 @@ Namespace eudplib
                 filestream = New FileStream(filename, FileMode.Create)
                 streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
 
-                streamwriter.Write(TriggerToEPS)
+                streamwriter.Write(TriggerToEPS(True))
 
                 streamwriter.Close()
                 filestream.Close()
@@ -1380,6 +1382,7 @@ Namespace eudplib
                 DeledtDebugpy()
             Else
                 BulidForm.isotherWindows = isotherWindows
+
                 BulidForm.Show()
 
                 BulidForm.CompileStart(basefolder)

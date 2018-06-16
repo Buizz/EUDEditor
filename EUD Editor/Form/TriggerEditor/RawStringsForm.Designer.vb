@@ -63,7 +63,7 @@ Partial Class RawStringsForm
         Me.EasyCompletionComboBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.EasyCompletionComboBox1.FormattingEnabled = True
         Me.EasyCompletionComboBox1.IntegralHeight = False
-        Me.EasyCompletionComboBox1.Items.AddRange(New Object() {"Offset", "Read", "Write"})
+        Me.EasyCompletionComboBox1.Items.AddRange(New Object() {"Read", "Write", "Offset"})
         Me.EasyCompletionComboBox1.Location = New System.Drawing.Point(0, 0)
         Me.EasyCompletionComboBox1.Margin = New System.Windows.Forms.Padding(0)
         Me.EasyCompletionComboBox1.MatchingMethod = SergeUtils.StringMatchingMethod.UseWildcards
@@ -183,8 +183,10 @@ Partial Class RawStringsForm
         '
         'RawStringsForm
         '
+        Me.AcceptButton = Me.Button5
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.Button6
         Me.ClientSize = New System.Drawing.Size(207, 270)
         Me.ControlBox = False
         Me.Controls.Add(Me.TableLayoutPanel1)

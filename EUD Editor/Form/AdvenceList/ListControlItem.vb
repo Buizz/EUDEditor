@@ -104,7 +104,7 @@ Public Class ListControlItem
 
     Private Sub Paint_DrawBackground(gfx As Graphics)
         Me.Height = mLenght
-        Dim rect As New Rectangle(0, 0, Me.Width - 1, Me.Height - 4)
+        Dim rect As New Rectangle(0, 0, Me.Width - 1, Me.Height)
 
         '/// Build a rounded rectangle
         Dim p As New GraphicsPath
@@ -186,7 +186,7 @@ Public Class ListControlItem
 
         '// Draw bottom border if Normal state (not hovered)
         If bMouse = MouseCapture.Outside Then
-            rect = New Rectangle(rect.Left, Me.Height - 4, rect.Width, 1)
+            rect = New Rectangle(rect.Left, Me.Height, rect.Width, 1)
             b = New LinearGradientBrush(rect, Color.Blue, Color.Yellow, LinearGradientMode.Horizontal)
             blend = New ColorBlend
             blend.Colors = New Color() {Color.White, Color.LightGray, Color.White}
@@ -214,7 +214,7 @@ Public Class ListControlItem
 
 
         Dim isCommentTrigger As Boolean = False
-        Dim CommentMsg As String
+        Dim CommentMsg As String = ""
 
         '주석이 있는지 체크
         For Each act As Element In Trigger.GetElements(1).GetElementList
@@ -225,6 +225,19 @@ Public Class ListControlItem
                 End If
             End If
         Next
+
+
+        fnt = Me.Font
+        sz = gfx.MeasureString("DisableTrigger ======", fnt)
+        layoutRect = New RectangleF(20, LinePixel, workingRect.Width, sz.Height)
+        If Trigger.isdisalbe Then
+            gfx.DrawString("DisableTrigger ======", fnt, Brushes.DarkRed, layoutRect, SF)
+        Else
+            gfx.DrawString("Enable Trigger ======", fnt, Brushes.Green, layoutRect, SF)
+        End If
+        LinePixel += lineheight
+        linecount += 1
+        CheckBox1.Checked = Not Trigger.isdisalbe
 
         If isCommentTrigger Then
             fnt = Me.Font
@@ -246,9 +259,15 @@ Public Class ListControlItem
             For Each cond As Element In Trigger.GetElements(0).GetElementList
                 If linecount < MAX_LINE Then
                     fnt = Me.Font
-                    sz = gfx.MeasureString(cond.GetText, fnt)
+                    Dim text As String = cond.GetText
+                    Dim _Brush As Brush = Brushes.Black
+                    If cond.isdisalbe Then
+                        text = "[DISABLE] " & text
+                        _Brush = Brushes.DeepPink
+                    End If
+                    sz = gfx.MeasureString(text, fnt)
                     layoutRect = New RectangleF(15, LinePixel, workingRect.Width, sz.Height)
-                    gfx.DrawString(cond.GetText, fnt, Brushes.Black, layoutRect, SF)
+                    gfx.DrawString(text, fnt, _Brush, layoutRect, SF)
                     LinePixel += lineheight
                     linecount += 1
                 End If
@@ -265,10 +284,16 @@ Public Class ListControlItem
 
             For Each act As Element In Trigger.GetElements(1).GetElementList
                 If linecount < MAX_LINE Then
+                    Dim text As String = act.GetText
+                    Dim _Brush As Brush = Brushes.Black
+                    If act.isdisalbe Then
+                        text = "[DISABLE] " & text
+                        _Brush = Brushes.DeepPink
+                    End If
                     fnt = Me.Font
-                    sz = gfx.MeasureString(act.GetText, fnt)
+                    sz = gfx.MeasureString(text, fnt)
                     layoutRect = New RectangleF(15, LinePixel, workingRect.Width, sz.Height)
-                    gfx.DrawString(act.GetText, fnt, Brushes.Black, layoutRect, SF)
+                    gfx.DrawString(text, fnt, _Brush, layoutRect, SF)
                     LinePixel += lineheight
                     linecount += 1
                 End If
@@ -290,6 +315,8 @@ Public Class ListControlItem
             mLenght = LinePixel + 10
             Refresh()
         End If
+
+
 
 
         '' Draw song name
@@ -324,6 +351,10 @@ Public Class ListControlItem
         '
         Paint_DrawBackground(gfx)
         Paint_DrawButton(gfx)
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        Trigger.isdisalbe = Not CheckBox1.Checked
     End Sub
 
 

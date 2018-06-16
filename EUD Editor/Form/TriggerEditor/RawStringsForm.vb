@@ -23,22 +23,22 @@
     End Sub
     Private Sub RawStringsForm_Closed(sender As Object, e As EventArgs) Handles MyBase.Closed
         Select Case EasyCompletionComboBox1.SelectedIndex
-            Case 0 'offset
-                returnvalue = GetOffset()
-            Case 1 'read
+            Case 0 'read
                 Select Case ListBox1.SelectedIndex
                     Case ListDef.UpgradeC, ListDef.UpgradeMax, ListDef.TechC, ListDef.TechMax
                         returnvalue = "bread(" & GetOffset() & ")"
                     Case Else
                         returnvalue = "dwread_epd(EPD(" & GetOffset() & "))"
                 End Select
-            Case 2 'write
+            Case 1 'write
                 Select Case ListBox1.SelectedIndex
                     Case ListDef.UpgradeC, ListDef.UpgradeMax, ListDef.TechC, ListDef.TechMax
                         returnvalue = "bwrite(" & GetOffset() & ")"
                     Case Else
                         returnvalue = "dwwrite_epd(EPD(" & GetOffset() & "))"
                 End Select
+            Case 2 'offset
+                returnvalue = GetOffset()
         End Select
     End Sub
 

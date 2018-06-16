@@ -69,21 +69,13 @@
                     'RichTextBox2.Text = "재시도 합니다."
                     'Me.Text = count & "번째 재시도 합니다"
                     CompileStart(base)
-                ElseIf Errormsg <> "" Then
+                ElseIf Errormsg <> "" Or InStr(RichTextBox1.Text, "[Error]") <> 0 Then
                     '에러
                     'CompileStart()
                     '에러문구 출력
 
-                    RichTextBox2.Text = Lan.GetMsgText("buildError") & vbCrLf & Errormsg
-                    Me.Activate()
-                    MsgBox(RichTextBox2.Text, MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
-                    count = 0
-                    Exit Sub
-
-                ElseIf InStr(RichTextBox1.Text, "[Error]") <> 0 Then
-                    '에러
-                    'CompileStart()
-                    '에러문구 출력
+                    TEErrorText = Errormsg
+                    TEErrorText2 = RichTextBox1.Text
 
                     RichTextBox2.Text = Lan.GetMsgText("buildError") & vbCrLf & Errormsg
                     Me.Activate()

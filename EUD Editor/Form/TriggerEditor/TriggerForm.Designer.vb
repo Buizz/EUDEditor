@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class TriggerForm
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class TriggerForm
     '참고: 다음 프로시저는 Windows Form 디자이너에 필요합니다.
     '수정하려면 Windows Form 디자이너를 사용하십시오.  
     '코드 편집기에서는 수정하지 마세요.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -28,6 +28,8 @@ Partial Class TriggerForm
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button17 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -35,41 +37,42 @@ Partial Class TriggerForm
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
-        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.ListBox1 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.ListBox2 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.FlowLayoutPanel4 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button15 = New System.Windows.Forms.Button()
         Me.Button16 = New System.Windows.Forms.Button()
+        Me.Button15 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button9 = New System.Windows.Forms.Button()
         Me.Button10 = New System.Windows.Forms.Button()
         Me.Button11 = New System.Windows.Forms.Button()
         Me.Button12 = New System.Windows.Forms.Button()
-        Me.ListBox2 = New System.Windows.Forms.ListBox()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.Button13 = New System.Windows.Forms.Button()
         Me.Button14 = New System.Windows.Forms.Button()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.FlowLayoutPanel4 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.l = New System.Windows.Forms.HelpProvider()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.FlowLayoutPanel3.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
-        Me.TableLayoutPanel3.SuspendLayout()
-        Me.TableLayoutPanel4.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.FlowLayoutPanel3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.FlowLayoutPanel4.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -87,10 +90,10 @@ Partial Class TriggerForm
         'TabPage1
         '
         Me.TabPage1.Controls.Add(Me.CheckedListBox1)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 24)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(557, 258)
+        Me.TabPage1.Size = New System.Drawing.Size(568, 316)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Players"
         '
@@ -103,16 +106,16 @@ Partial Class TriggerForm
         Me.CheckedListBox1.Location = New System.Drawing.Point(3, 3)
         Me.CheckedListBox1.Margin = New System.Windows.Forms.Padding(0)
         Me.CheckedListBox1.Name = "CheckedListBox1"
-        Me.CheckedListBox1.Size = New System.Drawing.Size(551, 252)
+        Me.CheckedListBox1.Size = New System.Drawing.Size(562, 310)
         Me.CheckedListBox1.TabIndex = 0
         '
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.TableLayoutPanel1)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 24)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(568, 311)
+        Me.TabPage2.Size = New System.Drawing.Size(568, 316)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Conditions"
         '
@@ -129,7 +132,7 @@ Partial Class TriggerForm
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(562, 305)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(562, 310)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'FlowLayoutPanel1
@@ -144,8 +147,31 @@ Partial Class TriggerForm
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(442, 0)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(120, 305)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(120, 310)
         Me.FlowLayoutPanel1.TabIndex = 0
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.FlowLayoutPanel3)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(0)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(0)
+        Me.GroupBox1.Size = New System.Drawing.Size(109, 86)
+        Me.GroupBox1.TabIndex = 8
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "New"
+        '
+        'FlowLayoutPanel3
+        '
+        Me.FlowLayoutPanel3.Controls.Add(Me.Button1)
+        Me.FlowLayoutPanel3.Controls.Add(Me.Button17)
+        Me.FlowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel3.Location = New System.Drawing.Point(0, 16)
+        Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
+        Me.FlowLayoutPanel3.Size = New System.Drawing.Size(109, 70)
+        Me.FlowLayoutPanel3.TabIndex = 0
         '
         'Button1
         '
@@ -231,22 +257,33 @@ Partial Class TriggerForm
         '
         'ListBox1
         '
+        Me.ListBox1.AutoArrange = False
+        Me.ListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ListBox1.CheckBoxes = True
+        Me.ListBox1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
         Me.ListBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 20
+        Me.ListBox1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
+        Me.ListBox1.HideSelection = False
         Me.ListBox1.Location = New System.Drawing.Point(0, 0)
         Me.ListBox1.Margin = New System.Windows.Forms.Padding(0)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(442, 305)
+        Me.ListBox1.Size = New System.Drawing.Size(442, 310)
         Me.ListBox1.TabIndex = 1
+        Me.ListBox1.UseCompatibleStateImageBehavior = False
+        Me.ListBox1.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Conditions"
+        Me.ColumnHeader1.Width = 422
         '
         'TabPage3
         '
         Me.TabPage3.Controls.Add(Me.TableLayoutPanel2)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 24)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(568, 311)
+        Me.TabPage3.Size = New System.Drawing.Size(568, 316)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Actions"
         '
@@ -255,16 +292,38 @@ Partial Class TriggerForm
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel2, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.ListBox2, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.FlowLayoutPanel2, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(562, 305)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(562, 310)
         Me.TableLayoutPanel2.TabIndex = 1
+        '
+        'ListBox2
+        '
+        Me.ListBox2.AutoArrange = False
+        Me.ListBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ListBox2.CheckBoxes = True
+        Me.ListBox2.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader2})
+        Me.ListBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListBox2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
+        Me.ListBox2.HideSelection = False
+        Me.ListBox2.Location = New System.Drawing.Point(0, 0)
+        Me.ListBox2.Margin = New System.Windows.Forms.Padding(0)
+        Me.ListBox2.Name = "ListBox2"
+        Me.ListBox2.Size = New System.Drawing.Size(442, 310)
+        Me.ListBox2.TabIndex = 2
+        Me.ListBox2.UseCompatibleStateImageBehavior = False
+        Me.ListBox2.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Actions"
+        Me.ColumnHeader2.Width = 422
         '
         'FlowLayoutPanel2
         '
@@ -278,8 +337,32 @@ Partial Class TriggerForm
         Me.FlowLayoutPanel2.Location = New System.Drawing.Point(442, 0)
         Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(120, 305)
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(120, 310)
         Me.FlowLayoutPanel2.TabIndex = 0
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.FlowLayoutPanel4)
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(0)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(0)
+        Me.GroupBox2.Size = New System.Drawing.Size(109, 116)
+        Me.GroupBox2.TabIndex = 9
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "New"
+        '
+        'FlowLayoutPanel4
+        '
+        Me.FlowLayoutPanel4.Controls.Add(Me.Button7)
+        Me.FlowLayoutPanel4.Controls.Add(Me.Button16)
+        Me.FlowLayoutPanel4.Controls.Add(Me.Button15)
+        Me.FlowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel4.Location = New System.Drawing.Point(0, 16)
+        Me.FlowLayoutPanel4.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowLayoutPanel4.Name = "FlowLayoutPanel4"
+        Me.FlowLayoutPanel4.Size = New System.Drawing.Size(109, 100)
+        Me.FlowLayoutPanel4.TabIndex = 0
         '
         'Button7
         '
@@ -292,17 +375,6 @@ Partial Class TriggerForm
         Me.Button7.Text = "Act"
         Me.Button7.UseVisualStyleBackColor = True
         '
-        'Button15
-        '
-        Me.Button15.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Button15.Location = New System.Drawing.Point(7, 65)
-        Me.Button15.Margin = New System.Windows.Forms.Padding(7, 3, 3, 3)
-        Me.Button15.Name = "Button15"
-        Me.Button15.Size = New System.Drawing.Size(93, 25)
-        Me.Button15.TabIndex = 6
-        Me.Button15.Text = "Func"
-        Me.Button15.UseVisualStyleBackColor = True
-        '
         'Button16
         '
         Me.Button16.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -313,6 +385,17 @@ Partial Class TriggerForm
         Me.Button16.TabIndex = 7
         Me.Button16.Text = "Wait"
         Me.Button16.UseVisualStyleBackColor = True
+        '
+        'Button15
+        '
+        Me.Button15.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Button15.Location = New System.Drawing.Point(7, 65)
+        Me.Button15.Margin = New System.Windows.Forms.Padding(7, 3, 3, 3)
+        Me.Button15.Name = "Button15"
+        Me.Button15.Size = New System.Drawing.Size(93, 25)
+        Me.Button15.TabIndex = 6
+        Me.Button15.Text = "Func"
+        Me.Button15.UseVisualStyleBackColor = True
         '
         'Button8
         '
@@ -368,17 +451,6 @@ Partial Class TriggerForm
         Me.Button12.TabIndex = 5
         Me.Button12.Text = "Move Down"
         Me.Button12.UseVisualStyleBackColor = True
-        '
-        'ListBox2
-        '
-        Me.ListBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListBox2.FormattingEnabled = True
-        Me.ListBox2.ItemHeight = 20
-        Me.ListBox2.Location = New System.Drawing.Point(0, 0)
-        Me.ListBox2.Margin = New System.Windows.Forms.Padding(0)
-        Me.ListBox2.Name = "ListBox2"
-        Me.ListBox2.Size = New System.Drawing.Size(442, 305)
-        Me.ListBox2.TabIndex = 1
         '
         'TableLayoutPanel3
         '
@@ -441,57 +513,12 @@ Partial Class TriggerForm
         Me.Button14.Text = "취소"
         Me.Button14.UseVisualStyleBackColor = True
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.FlowLayoutPanel3)
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(0)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(0)
-        Me.GroupBox1.Size = New System.Drawing.Size(109, 86)
-        Me.GroupBox1.TabIndex = 8
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "New"
-        '
-        'FlowLayoutPanel3
-        '
-        Me.FlowLayoutPanel3.Controls.Add(Me.Button1)
-        Me.FlowLayoutPanel3.Controls.Add(Me.Button17)
-        Me.FlowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel3.Location = New System.Drawing.Point(0, 20)
-        Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
-        Me.FlowLayoutPanel3.Size = New System.Drawing.Size(109, 66)
-        Me.FlowLayoutPanel3.TabIndex = 0
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.FlowLayoutPanel4)
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(0)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(0)
-        Me.GroupBox2.Size = New System.Drawing.Size(109, 116)
-        Me.GroupBox2.TabIndex = 9
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "New"
-        '
-        'FlowLayoutPanel4
-        '
-        Me.FlowLayoutPanel4.Controls.Add(Me.Button7)
-        Me.FlowLayoutPanel4.Controls.Add(Me.Button16)
-        Me.FlowLayoutPanel4.Controls.Add(Me.Button15)
-        Me.FlowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel4.Location = New System.Drawing.Point(0, 20)
-        Me.FlowLayoutPanel4.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowLayoutPanel4.Name = "FlowLayoutPanel4"
-        Me.FlowLayoutPanel4.Size = New System.Drawing.Size(109, 96)
-        Me.FlowLayoutPanel4.TabIndex = 0
-        '
         'TriggerForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AcceptButton = Me.Button13
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.Button14
         Me.ClientSize = New System.Drawing.Size(582, 390)
         Me.ControlBox = False
         Me.Controls.Add(Me.TableLayoutPanel3)
@@ -510,15 +537,15 @@ Partial Class TriggerForm
         Me.TabPage2.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.FlowLayoutPanel1.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.FlowLayoutPanel3.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.FlowLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel3.ResumeLayout(False)
-        Me.TableLayoutPanel4.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.FlowLayoutPanel3.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.FlowLayoutPanel4.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel4.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -536,7 +563,6 @@ Partial Class TriggerForm
     Friend WithEvents Button5 As Button
     Friend WithEvents Button6 As Button
     Friend WithEvents TabPage3 As TabPage
-    Friend WithEvents ListBox1 As ListBox
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
     Friend WithEvents Button7 As Button
@@ -545,7 +571,6 @@ Partial Class TriggerForm
     Friend WithEvents Button10 As Button
     Friend WithEvents Button11 As Button
     Friend WithEvents Button12 As Button
-    Friend WithEvents ListBox2 As ListBox
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
     Friend WithEvents Button13 As Button
@@ -557,4 +582,9 @@ Partial Class TriggerForm
     Friend WithEvents FlowLayoutPanel3 As FlowLayoutPanel
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents FlowLayoutPanel4 As FlowLayoutPanel
+    Friend WithEvents ListBox1 As ListView
+    Friend WithEvents l As HelpProvider
+    Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ListBox2 As ListView
+    Friend WithEvents ColumnHeader2 As ColumnHeader
 End Class

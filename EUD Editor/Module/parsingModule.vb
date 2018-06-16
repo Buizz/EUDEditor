@@ -1,6 +1,55 @@
 ﻿Imports System.IO
+Imports System.Text
+Imports System.Text.RegularExpressions
 
 Module parsingModule
+    Public TEErrorText As String
+    Public TEErrorText2 As String
+
+
+    '[Error 6298] Module "TriggerEditor" Line 18 : Block Not terminated properly.
+    '[Error 6298] Module "TriggerEditor" Line 31 : Block Not terminated properly.
+    '[Error 6974] Module "TriggerEditor" Line 35 : Error while parsing statement
+
+
+
+
+    Public Function ValueString(str As String) As String()
+        Dim index As Integer
+        Dim lastindex As Integer = 1
+        Dim returnval As New List(Of String)
+
+        Dim stack As New Stack(Of String)
+
+
+        While (index < str.Length)
+            Select Case str(index)
+                Case "("
+                    stack.Push(str(index))
+                Case ")"
+                    stack.Pop()
+                Case ","
+                    If stack.Count = 0 Then
+                        index += 1
+                        returnval.Add(Mid(str, lastindex, index - lastindex))
+                        lastindex = index + 1
+                    End If
+            End Select
+
+
+            index += 1
+        End While
+        returnval.Add(Mid(str, lastindex, index - lastindex + 1))
+
+
+
+
+        Return returnval.ToArray
+    End Function
+
+
+
+
     Public Function GettblLen(str As String, index As Byte) As Byte
         Dim rawstr As String = replacetext(str)
         Dim i As Byte = 0

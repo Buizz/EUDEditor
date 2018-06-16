@@ -85,6 +85,7 @@ Partial Class BulidForm
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Log"
+        Me.TopMost = True
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 

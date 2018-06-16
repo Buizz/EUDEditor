@@ -2,6 +2,8 @@
 Imports System.Runtime.InteropServices
 Imports System.IO
 Imports System.Text
+Imports System.ComponentModel.Design
+Imports Microsoft.Xna.Framework.Graphics
 
 
 '원본 MTXM과 가짜 MTXM이 있다.
@@ -15,6 +17,17 @@ Imports System.Text
 
 
 Public Class TileSetForm
+
+    Private ZoomValue As Integer = 100
+    Public ReadOnly Property Zoom As Double
+        Get
+            Return (ZoomValue / 100)
+        End Get
+    End Property
+
+
+
+
     Private workflow As New Cworkflow
     '0번 인덱스에 가장 최근에 작업한 것이 있음.
     '뒤로 할 때 마다 뒷 인덱스를 불러옴.
@@ -40,7 +53,7 @@ Public Class TileSetForm
                         TileSetForm.ToolStripButton3.Enabled = True
                     End If
                 End If
-                End If
+            End If
 
         End Sub
         Public Sub AddList()
@@ -472,13 +485,13 @@ Public Class TileSetForm
 
     Private Sub DrawMiniMapRect()
         Dim bmp As New Bitmap(128, 128)
-        Dim grp As Graphics = Graphics.FromImage(bmp)
+        Dim grp As Graphics = graphics.FromImage(bmp)
 
 
-        Dim x As Single = scoll.X / 32
-        Dim y As Single = scoll.Y / 32
-        Dim width As Integer = Map.Size.Width / 32
-        Dim height As Integer = Map.Size.Height / 32
+        Dim x As Single = scoll.X / 32 / Zoom
+        Dim y As Single = scoll.Y / 32 / Zoom
+        Dim width As Integer = Panel2.Size.Width / 32
+        Dim height As Integer = Panel2.Size.Height / 32
 
 
 
@@ -514,8 +527,8 @@ Public Class TileSetForm
 
         x = (x * zoomdegree) / 6
         y = (y * zoomdegree) / 6
-        width = (width * zoomdegree) / 6
-        height = (height * zoomdegree) / 6
+        width = ((width * zoomdegree) / 6) / Zoom
+        height = ((height * zoomdegree) / 6) / Zoom
 
 
         grp.DrawRectangle(Pens.White, x, y, width, height)
@@ -527,8 +540,8 @@ Public Class TileSetForm
         If e.Button = MouseButtons.Left Then
             Dim x As Single = e.X
             Dim y As Single = e.Y
-            Dim width As Integer = Map.Size.Width / 32
-            Dim height As Integer = Map.Size.Height / 32
+            Dim width As Integer = Panel2.Size.Width / 32
+            Dim height As Integer = Panel2.Size.Height / 32
 
             If MapSize.Width <> MapSize.Height Then
                 If MapSize.Width > MapSize.Height Then
@@ -618,7 +631,6 @@ Public Class TileSetForm
 
 
     Private Sub GetPalletImage()
-
 
         Dim bmd As New BitmapData
         bmd = palbmp.LockBits(New Rectangle(0, 0, palbmp.Width, palbmp.Height), ImageLockMode.ReadWrite, Imaging.PixelFormat.Format8bppIndexed)
@@ -778,125 +790,50 @@ Public Class TileSetForm
 
     Private Sub DrawMap(Optional refresh As Boolean = True)
         DrawMiniMapRect()
-        'Dim grp As Graphics = Graphics.FromImage(bmp)
-        'GRP.Clear(Color.Black)
-
-        'Dim bm As New Bitmap(bmp.Width, bmp.Height, Imaging.PixelFormat.Format8bppIndexed)
-
-        '8~15
+        If ToolStripButton15.Checked = False Then
+            Dim bmd As New BitmapData
+            bmd = bmp.LockBits(New Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, Imaging.PixelFormat.Format8bppIndexed)
 
 
 
-
-
-        Dim bmd As New BitmapData
-        bmd = bmp.LockBits(New Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, Imaging.PixelFormat.Format8bppIndexed)
-
-
-
-        Dim scan0 As IntPtr = bmd.Scan0
-        Dim stride As Integer = bmd.Stride
+            Dim scan0 As IntPtr = bmd.Scan0
+            Dim stride As Integer = bmd.Stride
 
 
 
-        Dim size As UInteger
-        If bmp.Width Mod 4 = 0 Then
-            size = CInt(bmp.Width) * CInt(bmp.Height) - 1
-            bmpsize.Width = bmp.Width
-            bmpsize.Height = bmp.Height
-        Else
-            size = CInt(bmp.Width) * CInt(bmp.Height) - 1 + (4 - (bmp.Width Mod 4)) * CInt(bmp.Height)
-            bmpsize.Width = bmp.Width + 4 - (bmp.Width Mod 4)
-            bmpsize.Height = bmp.Height
+            Dim size As UInteger
+            If bmp.Width Mod 4 = 0 Then
+                size = CInt(bmp.Width) * CInt(bmp.Height) - 1
+                bmpsize.Width = bmp.Width
+                bmpsize.Height = bmp.Height
+            Else
+                size = CInt(bmp.Width) * CInt(bmp.Height) - 1 + (4 - (bmp.Width Mod 4)) * CInt(bmp.Height)
+                bmpsize.Width = bmp.Width + 4 - (bmp.Width Mod 4)
+                bmpsize.Height = bmp.Height
+            End If
+
+
+            ReDim pixels(size)
+
+            If refresh = False Then
+                Marshal.Copy(scan0, pixels, 0, pixels.Length)
+                GetMapImage()
+            Else
+                GetMapImage()
+            End If
+
+
+
+
+            Marshal.Copy(pixels, 0, scan0, pixels.Length)
+
+            bmp.UnlockBits(bmd)
+
+
+
+            Map.Image = bmp
         End If
 
-
-        ReDim pixels(size)
-
-        If refresh = False Then
-            Marshal.Copy(scan0, pixels, 0, pixels.Length)
-            GetMapImage()
-        Else
-            GetMapImage()
-        End If
-
-
-        ' MsgBox(pixels.Length & " " & GRPFrame(frame).Image.Length)
-
-
-
-        ' Dim b1 As Byte = (i * 4) Mod 256
-        'Dim b2 As Byte = (i * 4 + 1) Mod 256
-        'Dim b3 As Byte = (i * 4 + 2) Mod 256
-        'Dim b4 As Byte = (i * 4 + 3) Mod 256
-
-
-        'pixels(i) = GetPixel(b1, b2, b3, b4)
-        'pixels(i) = &H80000000 'Val("&H" & "80000000")
-
-
-
-        '138이 남는다.
-        'pixels = GRPFrame(frame).Image
-        'For i = 0 To bmp.Width - 1
-        'For j = 0 To bmp.Height - 1
-        'If bmp.Width Mod 4 = 0 Then
-        'pixels(i + j * bmp.Width) = Rnd() Mod 256
-        'Else
-        'pixels(i + j * (bmp.Width + 4 - (bmp.Width Mod 4))) = Rnd() Mod 256
-        'End If
-        'Next
-        'Next
-
-
-        Marshal.Copy(pixels, 0, scan0, pixels.Length)
-
-        bmp.UnlockBits(bmd)
-
-
-        'Dim pixels(size) As Byte
-        'Marshal.Copy(scan0, pixels, 0, pixels.Length)
-
-        '' MsgBox(pixels.Length & " " & GRPFrame(frame).Image.Length)
-
-
-        ''138이 남는다.
-        ''pixels = GRPFrame(frame).Image
-        'For i = 0 To bmp.Width - 1
-        '    For j = 0 To bmp.Height - 1
-        '        If bmp.Width Mod 4 = 0 Then
-        '            pixels(i + j * bmp.Width) = Rnd() Mod 256
-        '        Else
-        '            pixels(i + j * (bmp.Width + 4 - (bmp.Width Mod 4))) = Rnd() Mod 256
-        '        End If
-        '    Next
-        'Next
-
-
-        'Marshal.Copy(pixels, 0, scan0, pixels.Length)
-
-        'bmp.UnlockBits(bmd)
-
-
-
-        'Dim CPalette As Imaging.ColorPalette
-        'CPalette = bmp.Palette
-        'For i = 0 To 255
-        '    If 15 >= i And i >= 8 Then
-        '        CPalette.Entries(i) = MapPalett(0) '흔들리는 색
-        '    Else
-        '        CPalette.Entries(i) = MapPalett(i)
-        '    End If
-
-        'Next
-
-
-        'bmp.Palette = CPalette
-
-
-        'Map.Image = bmp
-
-        Map.Image = bmp
     End Sub
 
 
@@ -910,12 +847,8 @@ Public Class TileSetForm
         palbmp = New Bitmap(8 * 32, PaintPal.Height, PixelFormat.Format8bppIndexed)
 
 
+        bmp = New Bitmap(Panel2.Size.Width, Panel2.Size.Height, PixelFormat.Format8bppIndexed)
 
-
-
-
-
-        bmp = New Bitmap(Map.Size.Width, Map.Size.Height, PixelFormat.Format8bppIndexed)
         Dim CPalette As Imaging.ColorPalette
         CPalette = bmp.Palette
         For i = 0 To 255
@@ -930,19 +863,29 @@ Public Class TileSetForm
 
         bmp.Palette = CPalette
 
-        Map.Image = bmp
-        HScrollBar1.Maximum = MapSize.Width * 32
-        VScrollBar1.Maximum = MapSize.Height * 32
+        If ToolStripButton15.Checked = False Then
+            Map.Image = bmp
+        End If
+        HScrollBar1.Maximum = MapSize.Width * 32 * Zoom
+        VScrollBar1.Maximum = MapSize.Height * 32 * Zoom
 
-        HScrollBar1.LargeChange = Map.Size.Width
-        VScrollBar1.LargeChange = Map.Size.Height
+        HScrollBar1.LargeChange = Panel2.Size.Width
+        VScrollBar1.LargeChange = Panel2.Size.Height
 
 
         If (HScrollBar1.Value + HScrollBar1.LargeChange) > HScrollBar1.Maximum Then
-            HScrollBar1.Value = HScrollBar1.Maximum - HScrollBar1.LargeChange
+            Try
+                HScrollBar1.Value = HScrollBar1.Maximum - HScrollBar1.LargeChange
+            Catch ex As Exception
+            End Try
+
         End If
         If (VScrollBar1.Value + VScrollBar1.LargeChange) > VScrollBar1.Maximum Then
-            VScrollBar1.Value = VScrollBar1.Maximum - VScrollBar1.LargeChange
+            Try
+                VScrollBar1.Value = VScrollBar1.Maximum - VScrollBar1.LargeChange
+            Catch ex As Exception
+            End Try
+
         End If
         scoll.X = HScrollBar1.Value
         scoll.Y = VScrollBar1.Value
@@ -956,17 +899,23 @@ Public Class TileSetForm
 
 
         If (VScrollBar2.Value + VScrollBar2.LargeChange) > VScrollBar2.Maximum Then
-            VScrollBar2.Value = VScrollBar2.Maximum - VScrollBar2.LargeChange
+            Try
+                VScrollBar2.Value = VScrollBar2.Maximum - VScrollBar2.LargeChange
+            Catch ex As Exception
+
+            End Try
         End If
 
-
-        GetPalletImage()
+        Try
+            GetPalletImage()
+        Catch ex As Exception
+        End Try
         DrawMap()
     End Sub
+
+
     Private Sub TileSetForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Lan.SetTooltip(Me, ToolStrip1)
-
-
         workflow.works.Clear()
         workflow.CurrentIndex = 0
         ToolStripButton2.Enabled = False
@@ -983,6 +932,12 @@ Public Class TileSetForm
         RefreshBMP()
         GetMinimapImage()
         'DrawPalletIRect()
+
+
+        If RemasterTile Is Nothing Then
+            CreateGraphicsDevice()
+            LoadRemasterTile()
+        End If
     End Sub
     Private Sub TileSetForm_Closed(sender As Object, e As FormClosingEventArgs) Handles MyBase.Closing
         Dim Dialog As DialogResult
@@ -1072,7 +1027,7 @@ Public Class TileSetForm
                 ScrollMap(HScrollBar1.Value - 4, VScrollBar1.Value)
 
             End If
-            If mapmousePos.X = Map.Width - 1 Then
+            If mapmousePos.X = Panel2.Width - 1 Then
                 ScrollMap(HScrollBar1.Value + 4, VScrollBar1.Value)
 
             End If
@@ -1081,11 +1036,11 @@ Public Class TileSetForm
                 ScrollMap(HScrollBar1.Value, VScrollBar1.Value - 4)
 
             End If
-            If mapmousePos.Y = Map.Height Then
+            If mapmousePos.Y = Panel2.Height Then
                 ScrollMap(HScrollBar1.Value, VScrollBar1.Value + 4)
 
             End If
-            SelectTIle = (scoll.X + mapmousePos.X) \ 32 + ((scoll.Y + mapmousePos.Y) \ 32) * MapSize.Width
+            SelectTIle = GetSelectTile()
         End If
 
 
@@ -1093,10 +1048,35 @@ Public Class TileSetForm
         'scoll.Y += 1
     End Sub
 
-    Private Sub Map_SizeChanged(sender As Object, e As EventArgs) Handles Map.SizeChanged
+    Private Sub Map_SizeChanged(sender As Object, e As EventArgs) Handles Panel2.SizeChanged
         RefreshBMP()
+        If ToolStripButton15.Checked Then
+            RefreshGraphicsDevice()
+        End If
     End Sub
 
+    Private Sub CreateGraphicsDevice()
+        Dim pp As Microsoft.Xna.Framework.Graphics.PresentationParameters = New Microsoft.Xna.Framework.Graphics.PresentationParameters()
+
+        Dim panelViewport As Rectangle = Panel2.RectangleToScreen(New Rectangle())
+        pp.DeviceWindowHandle = Map.Handle
+        pp.IsFullScreen = False
+        pp.BackBufferWidth = panelViewport.Width
+        pp.BackBufferHeight = panelViewport.Height
+        mDevice = New Microsoft.Xna.Framework.Graphics.GraphicsDevice(Microsoft.Xna.Framework.Graphics.GraphicsAdapter.DefaultAdapter,
+                                                                       Microsoft.Xna.Framework.Graphics.GraphicsProfile.Reach, pp)
+
+        spriteBatch = New Microsoft.Xna.Framework.Graphics.SpriteBatch(mDevice)
+    End Sub
+
+
+
+    Private Sub RefreshGraphicsDevice()
+        mDevice.PresentationParameters.BackBufferHeight = Panel2.Height
+        mDevice.PresentationParameters.BackBufferWidth = Panel2.Width
+
+
+    End Sub
 
 
     Private Sub VScrollBar1_Scroll(sender As Object, e As ScrollEventArgs) Handles VScrollBar1.Scroll
@@ -1114,35 +1094,59 @@ Public Class TileSetForm
 
 
     Private Sub ScrollMap(x As Integer, y As Integer)
-        If (0 < x) And (x < (HScrollBar1.Maximum - Map.Size.Width)) Then
-            HScrollBar1.Value = x
+        If (0 < x) And (x < (HScrollBar1.Maximum - Panel2.Size.Width)) Then
+            Try
+                HScrollBar1.Value = x
+            Catch ex As Exception
+
+            End Try
             drawing = True
             Timer1.Enabled = True
             scoll.X = HScrollBar1.Value
         ElseIf (x <= 0) Then
-            HScrollBar1.Value = 0
+            Try
+                HScrollBar1.Value = 0
+            Catch ex As Exception
+
+            End Try
             drawing = True
             Timer1.Enabled = True
             scoll.X = HScrollBar1.Value
-        ElseIf ((HScrollBar1.Maximum - Map.Size.Width) <= x) Then
-            HScrollBar1.Value = HScrollBar1.Maximum - Map.Size.Width
+        ElseIf ((HScrollBar1.Maximum - Panel2.Size.Width) <= x) Then
+            Try
+                HScrollBar1.Value = HScrollBar1.Maximum - Panel2.Size.Width
+            Catch ex As Exception
+
+            End Try
             drawing = True
             Timer1.Enabled = True
             scoll.X = HScrollBar1.Value
         End If
 
-        If (0 < y) And (y < (VScrollBar1.Maximum - Map.Size.Height)) Then
-            VScrollBar1.Value = y
+        If (0 < y) And (y < (VScrollBar1.Maximum - Panel2.Size.Height)) Then
+            Try
+                VScrollBar1.Value = y
+            Catch ex As Exception
+
+            End Try
             drawing = True
             Timer1.Enabled = True
             scoll.Y = VScrollBar1.Value
         ElseIf (y <= 0) Then
-            VScrollBar1.Value = 0
+            Try
+                VScrollBar1.Value = 0
+            Catch ex As Exception
+
+            End Try
             drawing = True
             Timer1.Enabled = True
             scoll.Y = VScrollBar1.Value
-        ElseIf ((VScrollBar1.Maximum - Map.Size.Height) <= y) Then
-            VScrollBar1.Value = VScrollBar1.Maximum - Map.Size.Height
+        ElseIf ((VScrollBar1.Maximum - Panel2.Size.Height) <= y) Then
+            Try
+                VScrollBar1.Value = VScrollBar1.Maximum - Panel2.Size.Height
+            Catch ex As Exception
+
+            End Try
             drawing = True
             Timer1.Enabled = True
             scoll.Y = VScrollBar1.Value
@@ -1239,6 +1243,9 @@ Public Class TileSetForm
 
 
     Private isDragBrushMode As Boolean
+
+
+
     Private Sub Map_MouseDown(sender As Object, e As MouseEventArgs) Handles Map.MouseDown
 
 
@@ -1253,8 +1260,8 @@ Public Class TileSetForm
             If CtrlHokey Then
 
                 BrushMode = 1
-                SelectTIle1 = (scoll.X + mapmousePos.X) \ 32 + ((scoll.Y + mapmousePos.Y) \ 32) * MapSize.Width
-                SelectTIle2 = (scoll.X + mapmousePos.X) \ 32 + ((scoll.Y + mapmousePos.Y) \ 32) * MapSize.Width
+                SelectTIle1 = GetSelectTile()
+                SelectTIle2 = GetSelectTile()
                 drawing = True
                 Timer1.Enabled = True
                 ismapDarwC = True
@@ -1262,8 +1269,8 @@ Public Class TileSetForm
                 workflow.AddList()
                 Map.Cursor = Cursors.Cross
                 isDragBrushMode = True
-                SelectTIle1 = (scoll.X + mapmousePos.X) \ 32 + ((scoll.Y + mapmousePos.Y) \ 32) * MapSize.Width
-                SelectTIle2 = (scoll.X + mapmousePos.X) \ 32 + ((scoll.Y + mapmousePos.Y) \ 32) * MapSize.Width
+                SelectTIle1 = GetSelectTile()
+                SelectTIle2 = GetSelectTile()
                 drawing = True
                 Timer1.Enabled = True
                 ismapDarwS = True
@@ -1459,33 +1466,40 @@ Public Class TileSetForm
 
 
     End Sub
+
+
+    Private Function GetSelectTile() As Integer
+        Return (scoll.X + mapmousePos.X) / Zoom \ 32 + ((scoll.Y + mapmousePos.Y) / Zoom \ 32) * MapSize.Width
+    End Function
+
     Private Sub MapMouseHover(sender As Object, e As MouseEventArgs) Handles Map.MouseMove
         mapmousePos.X = e.X
         If 0 > e.X Then
             mapmousePos.X = 0
         End If
-        If Map.Width < e.X Then
-            mapmousePos.X = Map.Width - 1
+        If Panel2.Width < e.X Then
+            mapmousePos.X = Panel2.Width - 1
         End If
 
         mapmousePos.Y = e.Y
         If 0 > e.Y Then
             mapmousePos.Y = 0
         End If
-        If Map.Height < e.Y Then
-            mapmousePos.Y = Map.Height
+        If Panel2.Height < e.Y Then
+            mapmousePos.Y = Panel2.Height
         End If
 
 
         If ismapDarwC Or ismapDarwS Then
-            SelectTIle2 = (scoll.X + mapmousePos.X) \ 32 + ((scoll.Y + mapmousePos.Y) \ 32) * MapSize.Width
+            SelectTIle2 = GetSelectTile()
         Else
-            SelectTIle1 = (scoll.X + mapmousePos.X) \ 32 + ((scoll.Y + mapmousePos.Y) \ 32) * MapSize.Width
-            SelectTIle2 = (scoll.X + mapmousePos.X) \ 32 + ((scoll.Y + mapmousePos.Y) \ 32) * MapSize.Width
+            SelectTIle1 = GetSelectTile()
+            SelectTIle2 = GetSelectTile()
 
         End If
 
-        SelectTIle = (scoll.X + mapmousePos.X) \ 32 + ((scoll.Y + mapmousePos.Y) \ 32) * MapSize.Width
+        SelectTIle = GetSelectTile()
+
         If ismapDarwL Then
             If lastSelectTile <> SelectTIle Then
                 BrushToTile()
@@ -1501,30 +1515,32 @@ Public Class TileSetForm
 
     Private Shared CTileset() As Byte = {1, 0, 0, 2, 1, 3, 3, 3}
     Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles ColorCycle.Tick
-        Dim CPalette As Imaging.ColorPalette
-        CPalette = bmp.Palette
+        If ToolStripButton15.Checked = False Then
+            Dim CPalette As Imaging.ColorPalette
+            CPalette = bmp.Palette
 
-        Select Case CTileset(TileSetType)
-            Case 1
-                PalletSwap(1, 6, CPalette)
-                PalletSwap(7, 13, CPalette)
-                PalletSwap(248, 254, CPalette)
-            Case 2
-                PalletSwap(1, 4, CPalette)
-                PalletSwap(5, 8, CPalette)
-                PalletSwap(9, 13, CPalette)
-            Case 3
-                PalletSwap(1, 13, CPalette)
-                PalletSwap(248, 254, CPalette)
-        End Select
-
-
-
-        bmp.Palette = CPalette
-        Map.Image.Palette = bmp.Palette
+            Select Case CTileset(TileSetType)
+                Case 1
+                    PalletSwap(1, 6, CPalette)
+                    PalletSwap(7, 13, CPalette)
+                    PalletSwap(248, 254, CPalette)
+                Case 2
+                    PalletSwap(1, 4, CPalette)
+                    PalletSwap(5, 8, CPalette)
+                    PalletSwap(9, 13, CPalette)
+                Case 3
+                    PalletSwap(1, 13, CPalette)
+                    PalletSwap(248, 254, CPalette)
+            End Select
 
 
-        Map.Image = bmp
+
+            bmp.Palette = CPalette
+            Map.Image.Palette = bmp.Palette
+
+
+            Map.Image = bmp
+        End If
     End Sub
     Private Sub PalletSwap(sstart As Byte, sstop As Byte, ByRef pal As ColorPalette)
         Dim tcolor As Color = pal.Entries(sstart)
@@ -1767,8 +1783,207 @@ Public Class TileSetForm
         SaveTOCHK()
         SaveStatus = True
     End Sub
-    
+    'Dim ContentManager As New Microsoft.Xna.Framework.Content.ContentManager(Content.ServiceProvider)
+
+
+    'Private serviceContainer As System.ComponentModel.Design.ServiceContainer = New System.ComponentModel.Design.ServiceContainer()
+
+
+    Private Sub ToolStripButton13_Click(sender As Object, e As EventArgs)
+        CreateGraphicsDevice()
+        ' mDevice.Reset()
+    End Sub
+
+
+
+
+
+
+    Public Sub DrawMapRemastered()
+        Dim size As Integer = Zoom * 32
+
+        mDevice.Clear(Microsoft.Xna.Framework.Color.Black)
+
+        spriteBatch.Begin()
+        For j = 0 To Math.Floor(Panel2.Height / size) + 3
+            Dim y As Integer = (j + Math.Floor(scoll.Y / size))
+            If (y >= 0 And y < MapSize.Height) Then
+                Dim position As New Microsoft.Xna.Framework.Vector2(-scoll.X Mod size, size * j - scoll.Y Mod size)
+                For i = 0 To Math.Floor(Panel2.Width / size) + 3
+                    Dim x As Integer = i + Math.Floor(scoll.X / size)
+                    If (x >= 0 And x < MapSize.Width) Then
+                        Dim tilenum As Integer = x + y * MapSize.Width
+                        Dim PalTileNum As Integer = MTXMDATA(tilenum)
+                        Dim isgrid As Boolean = True
+                        Dim isSelect As Boolean = False
+
+
+                        Dim MaxX As UInteger = Math.Max((SelectPal1 Mod 8), (SelectPal2 Mod 8))
+                        Dim MaxY As UInteger = Math.Max((SelectPal1 \ 8), (SelectPal2 \ 8))
+
+                        Dim MinX As UInteger = Math.Min((SelectPal1 Mod 8), (SelectPal2 Mod 8))
+                        Dim MinY As UInteger = Math.Min((SelectPal1 \ 8), (SelectPal2 \ 8))
+
+                        Dim TWidth As UInteger = MaxX - MinX
+                        Dim THeight As UInteger = MaxY - MinY
+
+                        Dim SelectTilePos As New Point(SelectTIle Mod MapSize.Width, SelectTIle \ MapSize.Width)
+                        Dim TileNumPos As New Point(tilenum Mod MapSize.Width, tilenum \ MapSize.Width)
+
+                        If BrushMode = BMode.CopyPaste Or CtrlHokey Then
+                            If ismapDarwC Or CtrlHokey Then
+                                Dim MaxX2 As Integer = Math.Max((SelectTIle1 Mod MapSize.Width), (SelectTIle2 Mod MapSize.Width))
+                                Dim MaxY2 As Integer = Math.Max((SelectTIle1 \ MapSize.Width), (SelectTIle2 \ MapSize.Width))
+
+                                Dim MinX2 As Integer = Math.Min((SelectTIle1 Mod MapSize.Width), (SelectTIle2 Mod MapSize.Width))
+                                Dim MinY2 As Integer = Math.Min((SelectTIle1 \ MapSize.Width), (SelectTIle2 \ MapSize.Width))
+
+                                If (MinX2 <= TileNumPos.X) And (TileNumPos.X <= MaxX2) And
+                    (MinY2 <= TileNumPos.Y) And (TileNumPos.Y <= MaxY2) Then
+                                    isSelect = True
+                                    PalTileNum = MTXMDATA(tilenum)
+
+                                    'TileBrush(MaxX2 - TileNumPos.X, MaxY2 - TileNumPos.Y) = MTXMDATA(TileNum)
+                                    'PalTileNum = MinX - SelectTilePos.X + TileNumPos.X + TWidth \ 2 + (MinY - SelectTilePos.Y + TileNumPos.Y + THeight \ 2) * 8
+                                End If
+                            ElseIf ismapDarwS Or ShiftHokey Then
+                                Dim MaxX2 As Integer = Math.Max((SelectTIle1 Mod MapSize.Width), (SelectTIle2 Mod MapSize.Width))
+                                Dim MaxY2 As Integer = Math.Max((SelectTIle1 \ MapSize.Width), (SelectTIle2 \ MapSize.Width))
+
+                                Dim MinX2 As Integer = Math.Min((SelectTIle1 Mod MapSize.Width), (SelectTIle2 Mod MapSize.Width))
+                                Dim MinY2 As Integer = Math.Min((SelectTIle1 \ MapSize.Width), (SelectTIle2 \ MapSize.Width))
+
+                                If (MinX2 <= TileNumPos.X) And (TileNumPos.X <= MaxX2) And
+                (MinY2 <= TileNumPos.Y) And (TileNumPos.Y <= MaxY2) Then
+                                    isSelect = True
+                                    PalTileNum = TileBrush((Math.Abs(TileNumPos.X - MinX2)) Mod (TileBrushSize.Width + 1), ((Math.Abs(TileNumPos.Y - MinY2)) Mod (TileBrushSize.Height + 1)))
+
+                                    'TileBrush(MaxX2 - TileNumPos.X, MaxY2 - TileNumPos.Y) = MTXMDATA(TileNum)
+                                    'PalTileNum = MinX - SelectTilePos.X + TileNumPos.X + TWidth \ 2 + (MinY - SelectTilePos.Y + TileNumPos.Y + THeight \ 2) * 8
+                                End If
+                            Else
+                                If (((SelectTilePos.X - TileBrushSize.Width \ 2) <= TileNumPos.X) And (TileNumPos.X <= (SelectTilePos.X + TileBrushSize.Width \ 2 + TileBrushSize.Width Mod 2))) And
+              (((SelectTilePos.Y - TileBrushSize.Height \ 2) <= TileNumPos.Y) And (TileNumPos.Y <= (SelectTilePos.Y + TileBrushSize.Height \ 2 + TileBrushSize.Height Mod 2))) Then
+                                    isSelect = True
+                                    PalTileNum = TileBrush(TileNumPos.X - (SelectTilePos.X - TileBrushSize.Width \ 2), TileNumPos.Y - (SelectTilePos.Y - TileBrushSize.Height \ 2))
+
+                                End If
+                            End If
+                        ElseIf BrushMode = BMode.Pallet Then
+                            If ismapDarwS Or ShiftHokey Then
+
+                                Dim MaxX2 As Integer = Math.Max((SelectTIle1 Mod MapSize.Width), (SelectTIle2 Mod MapSize.Width))
+                                Dim MaxY2 As Integer = Math.Max((SelectTIle1 \ MapSize.Width), (SelectTIle2 \ MapSize.Width))
+
+                                Dim MinX2 As Integer = Math.Min((SelectTIle1 Mod MapSize.Width), (SelectTIle2 Mod MapSize.Width))
+                                Dim MinY2 As Integer = Math.Min((SelectTIle1 \ MapSize.Width), (SelectTIle2 \ MapSize.Width))
+
+                                If (MinX2 <= TileNumPos.X) And (TileNumPos.X <= MaxX2) And
+                    (MinY2 <= TileNumPos.Y) And (TileNumPos.Y <= MaxY2) Then
+                                    isSelect = True
+                                    PalTileNum = MinX + (Math.Abs(TileNumPos.X - MinX2)) Mod (TWidth + 1) + (MinY + (Math.Abs(TileNumPos.Y - MinY2)) Mod (THeight + 1)) * 8
+
+                                    'TileBrush(MaxX2 - TileNumPos.X, MaxY2 - TileNumPos.Y) = MTXMDATA(TileNum)
+                                    'PalTileNum = MinX - SelectTilePos.X + TileNumPos.X + TWidth \ 2 + (MinY - SelectTilePos.Y + TileNumPos.Y + THeight \ 2) * 8
+                                End If
+                            Else
+                                If (((SelectTilePos.X - TWidth \ 2) <= TileNumPos.X) And (TileNumPos.X <= (SelectTilePos.X + TWidth \ 2 + TWidth Mod 2))) And
+                    (((SelectTilePos.Y - THeight \ 2) <= TileNumPos.Y) And (TileNumPos.Y <= (SelectTilePos.Y + THeight \ 2 + THeight Mod 2))) Then
+                                    isSelect = True
+                                    PalTileNum = MinX - SelectTilePos.X + TileNumPos.X + TWidth \ 2 + (MinY - SelectTilePos.Y + TileNumPos.Y + THeight \ 2) * 8
+                                End If
+                            End If
+                        Else
+                            If ShiftHokey Then
+                                Dim MaxX2 As Integer = Math.Max((SelectTIle1 Mod MapSize.Width), (SelectTIle2 Mod MapSize.Width))
+                                Dim MaxY2 As Integer = Math.Max((SelectTIle1 \ MapSize.Width), (SelectTIle2 \ MapSize.Width))
+
+                                Dim MinX2 As Integer = Math.Min((SelectTIle1 Mod MapSize.Width), (SelectTIle2 Mod MapSize.Width))
+                                Dim MinY2 As Integer = Math.Min((SelectTIle1 \ MapSize.Width), (SelectTIle2 \ MapSize.Width))
+
+                                If (MinX2 <= TileNumPos.X) And (TileNumPos.X <= MaxX2) And
+                (MinY2 <= TileNumPos.Y) And (TileNumPos.Y <= MaxY2) Then
+                                    isSelect = True
+                                    PalTileNum = MTXMDATA(tilenum)
+                                    'TileBrush(MaxX2 - TileNumPos.X, MaxY2 - TileNumPos.Y) = MTXMDATA(TileNum)
+                                    'PalTileNum = MinX - SelectTilePos.X + TileNumPos.X + TWidth \ 2 + (MinY - SelectTilePos.Y + TileNumPos.Y + THeight \ 2) * 8
+                                End If
+                            Else
+                                If SelectTIle = tilenum Then
+
+                                    isSelect = True
+                                    PalTileNum = MTXMDATA(tilenum)
+                                End If
+                            End If
+
+                        End If
+
+
+
+
+
+
+                        Dim temptexture As Texture2D
+
+
+                        temptexture = RemasterTile.TileSets(Magaindex(PalTileNum))
+
+
+                        'spriteBatch.Draw(temptexture, position, Microsoft.Xna.Framework.Color.White)
+
+                        If isSelect Then
+                            spriteBatch.Draw(temptexture, New Microsoft.Xna.Framework.Rectangle(position.X, position.Y, size, size), Microsoft.Xna.Framework.Color.OrangeRed)
+                        Else
+                            spriteBatch.Draw(temptexture, New Microsoft.Xna.Framework.Rectangle(position.X, position.Y, size, size), Microsoft.Xna.Framework.Color.White)
+                        End If
+                        position.X += size
+                    End If
+                Next
+            End If
+
+
+        Next
+
+
+
+        spriteBatch.End()
+        mDevice.Present()
+    End Sub
+
+    Private Sub ToolStripButton14_Click(sender As Object, e As EventArgs)
+        Timer2.Enabled = True
+    End Sub
+
+    Private Sub Timer2_Tick_1(sender As Object, e As EventArgs) Handles Timer2.Tick
+        If ToolStripButton15.Checked And RemasterTile.isloadcmp Then
+            DrawMapRemastered()
+        End If
+
+        Try
+            ProgressBar1.Value = RemasterTile.GetProgress
+        Catch ex As Exception
+
+        End Try
+
+
+    End Sub
+
+    Private Sub Map_MouseWheel(sender As Object, e As MouseEventArgs) Handles Map.MouseWheel
+        'ZoomValue += e.Delta / 20
+        'DrawMiniMapRect()
+        'RefreshBMP()
+        'scoll.X += Panel2.Width * (e.Delta / 20) / 100
+        'scoll.Y += Panel2.Height * (e.Delta / 20) / 100
+    End Sub
+
+    Private Sub ToolStripButton15_Click(sender As Object, e As EventArgs) Handles ToolStripButton15.Click
+
+        drawing = True
+        Timer1.Enabled = True
+    End Sub
+
 End Class
+
 
 'CTables.Add(New CTable() {New CTable(1, 6), New CTable(7, 13), New CTable(248, 254)})
 'CTables.Add(New CTable() {New CTable(1, 4), New CTable(5, 8), New CTable(9, 13)})

@@ -25,6 +25,7 @@ Partial Class ListControlItem
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ListControlItem))
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'ImageList1
@@ -33,17 +34,31 @@ Partial Class ListControlItem
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
         Me.ImageList1.Images.SetKeyName(0, "default")
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.CheckBox1.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.CheckBox1.Location = New System.Drawing.Point(5, 3)
+        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(0)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(14, 14)
+        Me.CheckBox1.TabIndex = 0
+        Me.CheckBox1.UseVisualStyleBackColor = False
+        '
         'ListControlItem
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Controls.Add(Me.CheckBox1)
         Me.DoubleBuffered = True
+        Me.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ListControlItem"
-        Me.Size = New System.Drawing.Size(553, 66)
+        Me.Size = New System.Drawing.Size(480, 62)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
-
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

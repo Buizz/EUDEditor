@@ -467,6 +467,16 @@ Namespace My.Resources
         '''<summary>
         '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         '''</summary>
+        Friend ReadOnly Property MostRecentlyRedo() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MostRecentlyRedo", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
         Friend ReadOnly Property MostRecentlyUsed() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("MostRecentlyUsed", resourceCulture)
@@ -562,7 +572,12 @@ Namespace My.Resources
         '''    EUDEndWhile()
         '''
         '''    EUDPopBlock(&apos;punitloop&apos;)
-        '''과(와) 유사한 지역화된 문자열을 찾습니다.
+        '''
+        '''def EUDLoopUnit2():
+        '''    &quot;&quot;&quot;EUDLoopUnit보다 약간? 빠릅니다. 유닛 리스트를 따라가지 않고
+        '''    1700개 유닛을 도는 방식으로 작동합니다.
+        '''    &quot;&quot;&quot;
+        '''   [나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         '''</summary>
         Friend ReadOnly Property punitloop() As String
             Get
@@ -606,6 +621,16 @@ Namespace My.Resources
         Friend ReadOnly Property SKill() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("SKill", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
+        Friend ReadOnly Property StringAnimater() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("StringAnimater", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

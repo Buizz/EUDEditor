@@ -27,9 +27,9 @@ Partial Class FuctionNameForm
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -108,6 +108,16 @@ Partial Class FuctionNameForm
         Me.Panel1.Size = New System.Drawing.Size(208, 62)
         Me.Panel1.TabIndex = 0
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(12, 36)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(74, 19)
+        Me.CheckBox1.TabIndex = 2
+        Me.CheckBox1.Text = "Wait사용"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -125,20 +135,12 @@ Partial Class FuctionNameForm
         Me.TextBox1.Size = New System.Drawing.Size(145, 23)
         Me.TextBox1.TabIndex = 1
         '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(12, 36)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(74, 19)
-        Me.CheckBox1.TabIndex = 2
-        Me.CheckBox1.Text = "Wait사용"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
         'FuctionNameForm
         '
+        Me.AcceptButton = Me.Button5
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.Button6
         Me.ClientSize = New System.Drawing.Size(208, 100)
         Me.ControlBox = False
         Me.Controls.Add(Me.TableLayoutPanel1)
