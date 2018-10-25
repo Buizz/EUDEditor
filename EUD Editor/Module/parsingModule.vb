@@ -302,14 +302,21 @@ Module parsingModule
 
     Public Function FindSetting(base As String, key As String, Optional strflag As Boolean = False) As String
         Try
-            Dim text As String = Mid(base, InStr(base, key & " "))
-            'If key = "extraedssetting" Then
-            '    MsgBox(InStr(text, vbCrLf) - key.Count - 4)
-            'End If
-            If InStr(text, vbCrLf) = 0 Then
-                Return Mid(text, key.Count + 4)
+            Dim start As Integer = InStr(base, key & " ")
+            If start > 0 Then
+                Dim text As String = Mid(base, start)
+                'If key = "extraedssetting" Then
+                '    MsgBox(InStr(text, vbCrLf) - key.Count - 4)
+                'End If
+                If InStr(text, vbCrLf) = 0 Then
+                    Return Mid(text, key.Count + 4)
+                Else
+                    Return Mid(text, key.Count + 4, InStr(text, vbCrLf) - key.Count - 4)
+                End If
+            ElseIf strflag Then
+                Return ""
             Else
-                Return Mid(text, key.Count + 4, InStr(text, vbCrLf) - key.Count - 4)
+                Return "0"
             End If
 
         Catch ex As Exception
