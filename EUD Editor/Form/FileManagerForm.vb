@@ -14,14 +14,26 @@
         NumericUpDown3.ForeColor = ProgramSet.FORECOLOR
     End Sub
 
+    Private loadcmp As Boolean = False
     Private Sub FileManagerForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        loadcmp = False
         Lan.SetLangage(Me)
         Lan.SetMenu(Me, MenuStrip1)
         Lan.SetMenu(Me, ListMenu)
 
-        DataGridView1.Columns(0).HeaderText = Lan.GetText(Me.Name, "OldText")
-        DataGridView1.Columns(1).HeaderText = Lan.GetText(Me.Name, "NewText")
-        DataGridView1.Columns(2).HeaderText = Lan.GetText(Me.Name, "Edit")
+
+        'Data덤퍼에서 지정된게 있다면 4, 없다면 옵션에서 참조
+        If dataDumper_stat_txt_f = 0 Then
+            ComboBox3.SelectedIndex = statlang
+        Else
+            ComboBox3.SelectedIndex = 3
+        End If
+
+
+
+        DataGridView1.Columns(1).HeaderText = Lan.GetText(Me.Name, "OldText")
+        DataGridView1.Columns(2).HeaderText = Lan.GetText(Me.Name, "NewText")
+        DataGridView1.Columns(3).HeaderText = Lan.GetText(Me.Name, "Edit")
 
 
         Dim mpq As New SFMpq
@@ -69,6 +81,7 @@
         LoadData()
         LoadList()
         PaletDraw()
+        loadcmp = True
     End Sub
 
     Private Sub ListBox1_MouseUp(ByVal sender As Object, ByVal e As MouseEventArgs) Handles ListBox1.MouseUp
@@ -200,21 +213,44 @@ ByVal e As System.Windows.Forms.DrawItemEventArgs) Handles ListBox1.DrawItem
         PaletDraw()
     End Sub
 
+
+    Private Sub LoadListData()
+        DataGridView1.SuspendLayout()
+        DataGridView1.Rows.Clear()
+        For i = 0 To stat_txt.Count - 1
+            If TextBox1.Text <> "" Then
+                If Not stat_txt(i).Contains(TextBox1.Text) Then
+                    Continue For
+                End If
+            End If
+            If TextBox3.Text <> "" Then
+                If stattextdic.ContainsKey(i) Then
+                    If Not stattextdic(i).Contains(TextBox3.Text) Then
+                        Continue For
+                    End If
+                Else
+                    Continue For
+                End If
+            End If
+            If stattextdic.ContainsKey(i) Then
+                DataGridView1.Rows.Add(i + 1, stat_txt(i), stattextdic(i), Lan.GetText(Me.Name, "Edit"))
+                DataGridView1.Rows(DataGridView1.Rows.Count - 1).Tag = i
+            Else
+                DataGridView1.Rows.Add(i + 1, stat_txt(i), "", Lan.GetText(Me.Name, "Edit"))
+                DataGridView1.Rows(DataGridView1.Rows.Count - 1).Tag = i
+            End If
+        Next
+        DataGridView1.ResumeLayout()
+    End Sub
+
+
     Dim LoadStatus As Boolean
     Private Sub LoadData()
         LoadStatus = True
         Select Case TAB_INDEX
             Case 0
-                DataGridView1.Rows.Clear()
-                For i = 0 To stat_txt.Count - 1
-                    If stattextdic.ContainsKey(i) Then
-                        DataGridView1.Rows.Add(stat_txt(i), stattextdic(i), Lan.GetText(Me.Name, "Edit"))
-                        DataGridView1.Rows(i).Tag = i
-                    Else
-                        DataGridView1.Rows.Add(stat_txt(i), "", Lan.GetText(Me.Name, "Edit"))
-                        DataGridView1.Rows(i).Tag = i
-                    End If
-                Next
+                LoadListData()
+
             Case 1
                 NumericUpDown1.Maximum = wirefram.framecount - 1
                 NumericUpDown2.Maximum = grpwire.framecount - 1
@@ -389,14 +425,14 @@ ByVal e As System.Windows.Forms.DrawItemEventArgs) Handles ListBox1.DrawItem
     End Sub
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        If e.ColumnIndex = 2 Then
+        If e.ColumnIndex = 3 Then
             Dim dialog As DialogResult
             StatTextForm.stringNum = DataGridView1.Rows(e.RowIndex).Tag
             dialog = StatTextForm.ShowDialog()
             If dialog = DialogResult.OK Then
 
                 StatTextAdd(DataGridView1.Rows(e.RowIndex).Tag, StatTextForm.RawText)
-                DataGridView1.Item(1, e.RowIndex).Value = StatTextForm.RawText
+                DataGridView1.Item(2, e.RowIndex).Value = StatTextForm.RawText
 
                 'ComboBox32.Items(TextBox58.Text) = StatTextForm.RawText
             End If
@@ -609,5 +645,24 @@ ByVal e As System.Windows.Forms.DrawItemEventArgs) Handles ListBox1.DrawItem
         ThemeSetForm.ShowDialog()
         ColorReset()
         LoadData()
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        LoadListData()
+    End Sub
+
+    Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
+        If loadcmp Then
+            statlang = ComboBox3.SelectedIndex
+            If statlang <> 3 Then
+                dataDumper_stat_txt_f = 0
+                dataDumper_stat_txt = ""
+            Else
+                ComboBox3.SelectedIndex = 0
+                Exit Sub
+            End If
+            stat_txt = Readstat_txtfile(True)
+            LoadListData()
+        End If
     End Sub
 End Class

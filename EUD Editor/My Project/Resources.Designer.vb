@@ -489,15 +489,16 @@ Namespace My.Resources
         '''from struct import unpack
         '''from math import ceil
         '''import re
+        '''from itertools import product
         '''
         '''
-        '''KeyCodeDict = {
-        '''    &apos;LBUTTON&apos;: 0x01, &apos;RBUTTON&apos;: 0x02, &apos;CANCEL&apos;: 0x03, &apos;MBUTTON&apos;: 0x04,
-        '''    &apos;XBUTTON1&apos;: 0x05, &apos;XBUTTON2&apos;: 0x06, &apos;BACK&apos;: 0x08, &apos;TAB&apos;: 0x09,
-        '''    &apos;CLEAR&apos;: 0x0C, &apos;ENTER&apos;: 0x0D, &apos;NX5&apos;: 0x0E, &apos;SHIFT&apos;: 0x10,
-        '''    &apos;LCTRL&apos;: 0x11, &apos;LALT&apos;: 0x12, &apos;PAUSE&apos;: 0x13, &apos;CAPSLOCK&apos;: 0x14,
-        '''    &apos;RALT&apos;: 0x15, &apos;JUNJA&apos;: 0x17, &apos;FINAL&apos;: 0x18, &apos;RCTRL&apos;: 0x19, &apos;ESC&apos;: 0x1B,
-        '''    &apos;CONVERT&apos;: 0x1C, &apos;NONCONVERT&apos;: 0x1D, &apos;ACCEPT&apos;: 0x1E, &apos;MO[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        '''def EncPlayer(s):  # str to int (Player)
+        '''    PlayerDict = {
+        '''        &apos;p1&apos;: 0, &apos;p2&apos;: 1, &apos;p3&apos;: 2, &apos;p4&apos;: 3, &apos;p5&apos;: 4, &apos;p6&apos;: 5, &apos;p7&apos;: 6, &apos;p8&apos;: 7, &apos;p9&apos;: 8, &apos;p10&apos;: 9, &apos;p11&apos;: 10, &apos;p12&apos;: 11,
+        '''        &apos;player1&apos;: 0, &apos;player2&apos;: 1, &apos;player3&apos;: 2, &apos;player4&apos;: 3,
+        '''        &apos;player5&apos;: 4, &apos;player6&apos;: 5, &apos;player7&apos;: 6, &apos;player8&apos;: 7,
+        '''        &apos;player9&apos;: 8, &apos;player10&apos;: 9, &apos;player11&apos;: 10, &apos;player12&apos;: 11,
+        '''        &apos;[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         '''</summary>
         Friend ReadOnly Property MurakamiShiinaQC() As String
             Get
@@ -559,25 +560,24 @@ Namespace My.Resources
         '''  from eudplib import *
         '''
         '''
-        '''def EUDLoopPUnit(player_number):
-        '''    header_offset = 0x6283F8 + 4 * player_number
-        '''    EUDCreateBlock(&apos;punitloop&apos;, header_offset)
-        '''    ptr, epd = f_dwepdread_epd(EPD(header_offset))
+        '''@EUDFunc
+        '''def f_dwepdcunitread_epd_safe(targetplayer):
+        '''    # from advanced read/write functions
+        '''    # https://github.com/armoha/euddraftAddons/raw/master/lib/advrw.zip
         '''
-        '''    EUDWhileNot()(ptr == 0)
+        '''    ret, retepd = EUDVariable(), EUDVariable()
         '''
-        '''    yield ptr, epd
-        '''    EUDSetContinuePoint()
-        '''    SetVariables([ptr, epd], f_dwepdread_epd(epd + 27))
-        '''    EUDEndWhile()
+        '''    # Common comparison rawtrigger
+        '''    PushTriggerScope()
+        '''    cmpc = Forward()
+        '''    cmp_player = cmpc + 4
+        '''    cmp_number = cmpc + 8
+        '''    cmpact = Forward()
         '''
-        '''    EUDPopBlock(&apos;punitloop&apos;)
-        '''
-        '''def EUDLoopUnit2():
-        '''    &quot;&quot;&quot;EUDLoopUnit보다 약간? 빠릅니다. 유닛 리스트를 따라가지 않고
-        '''    1700개 유닛을 도는 방식으로 작동합니다.
-        '''    &quot;&quot;&quot;
-        '''   [나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        '''    cmptrigger = Forward()
+        '''    cmptrigger &lt;&lt; RawTrigger(
+        '''        conditions=[
+        '''            cmpc &lt;&lt;[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         '''</summary>
         Friend ReadOnly Property punitloop() As String
             Get

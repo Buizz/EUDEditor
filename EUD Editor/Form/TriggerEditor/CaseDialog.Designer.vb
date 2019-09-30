@@ -27,9 +27,9 @@ Partial Class CaseDialog
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -108,6 +108,16 @@ Partial Class CaseDialog
         Me.Panel1.Size = New System.Drawing.Size(191, 66)
         Me.Panel1.TabIndex = 0
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(10, 36)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(79, 19)
+        Me.CheckBox1.TabIndex = 2
+        Me.CheckBox1.Text = "Break사용"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'NumericUpDown1
         '
         Me.NumericUpDown1.Location = New System.Drawing.Point(59, 7)
@@ -125,16 +135,6 @@ Partial Class CaseDialog
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "수치"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(10, 36)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(79, 19)
-        Me.CheckBox1.TabIndex = 2
-        Me.CheckBox1.Text = "Break사용"
-        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'CaseDialog
         '

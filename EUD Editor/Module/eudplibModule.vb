@@ -116,7 +116,7 @@ Namespace eudplib
             'End If
 
             returntext.AppendLine("[dataDumper]")
-            If ProjectSet.UsedSetting(ProjectSet.Settingtype.filemanager) = True Then
+            If ProjectSet.UsedSetting(ProjectSet.Settingtype.filemanager) = True And stattextdic.Count <> 0 Then
                 returntext.Append(Getstattextbin.Replace(":", "\:") & " : 0x" & ReadOffset("stat_txt.tbl"))
                 returntext.Append(", copy")
                 returntext.AppendLine()
@@ -167,12 +167,14 @@ Namespace eudplib
                         End Try
                     Next
                     If ProjectSet.SCDBUse Then
-                        returntext.AppendLine("val, 0x58F524 :437")
-                        returntext.AppendLine("val, 0x58F528 :438")
-                        returntext.AppendLine("val, 0x58F52C :439")
-                        returntext.AppendLine("val, 0x58F530 :440")
-                        returntext.AppendLine("val, 0x58F534 :441")
-                        returntext.AppendLine("val, 0x58F538 :442")
+                        returntext.AppendLine("Val, 0x58F524 ; Memory(0x58F520, Exactly, 1) :" & 437 + (SCDBDataSize + 3) \ 12)
+                        returntext.AppendLine("val, 0x58F528 ; Memory(0x58F520, Exactly, 1) :" & 438 + (SCDBDataSize + 3) \ 12)
+                        returntext.AppendLine("val, 0x58F52C ; Memory(0x58F520, Exactly, 1) :" & 439 + (SCDBDataSize + 3) \ 12)
+                        returntext.AppendLine("val, 0x58F530 ; Memory(0x58F520, Exactly, 1) :" & 440 + (SCDBDataSize + 3) \ 12)
+
+                        For i = 0 To SCDBDataSize - 1
+                            returntext.AppendLine("val, 0x" & Hex(&H58F534 + i * 4) & " ; Memory(0x58F520, Exactly, 1) :" & 441 + i + (SCDBDataSize + 3) \ 12)
+                        Next
                     End If
 
 
@@ -483,170 +485,195 @@ Namespace eudplib
 
             'FileManager
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.filemanager) = True Then
-                Dim mpq As New SFMpq
-
-                Dim fStream As FileStream
-                Dim memStream As MemoryStream
-                Dim binaryReader As BinaryReader
-                Dim binaryWriter As BinaryWriter
-
-                Dim grpframecount As UInt16
-                If dataDumper_wirefram_f <> 0 Then
-                    fStream = New FileStream(dataDumper_wirefram, FileMode.Open)
-                    binaryReader = New BinaryReader(fStream)
-                    binaryWriter = New BinaryWriter(fStream)
-                Else
-                    memStream = New MemoryStream(mpq.ReaddatFile("unit\wirefram\wirefram.grp"))
-                    binaryReader = New BinaryReader(memStream)
-                    binaryWriter = New BinaryWriter(memStream)
-                End If
-                grpframecount = binaryReader.ReadUInt16
-                Dim grpdata(grpframecount - 1) As UInt64
-                For i = 0 To grpframecount - 1
+                '바뀐게 있는지 체크.
+                Dim checkflag As Boolean = False
+                For i = 0 To wireframData.Count - 1
                     If wireframData(i) <> i Then
-                        binaryReader.BaseStream.Position = 6 + 8 * wireframData(i)
-
-                        grpdata(i) = binaryReader.ReadUInt64
+                        checkflag = True
+                        Exit For
                     End If
                 Next
-
-                For i = 0 To grpframecount - 1
-                    If wireframData(i) <> i Then
-                        binaryReader.BaseStream.Position = 6 + 8 * i
-                        binaryWriter.Write(grpdata(i))
+                If checkflag = False Then
+                    For i = 0 To grpwireData.Count - 1
+                        If grpwireData(i) <> i Then
+                            checkflag = True
+                            Exit For
+                        End If
+                    Next
+                    If checkflag = False Then
+                        For i = 0 To tranwireData.Count - 1
+                            If tranwireData(i) <> i Then
+                                checkflag = True
+                                Exit For
+                            End If
+                        Next
                     End If
-                Next
-
-
-                returntext.AppendLine("    WireOffset = f_dwread_epd(EPD(0x" & ReadOffset("wirefram.grp") & "))")
-                returntext.AppendLine("    DoActions([")
-                For i = 0 To grpframecount - 1
-                    If wireframData(i) <> i Then
-                        binaryReader.BaseStream.Position = 4 + 8 * i
-                        returntext.AppendLine("    SetMemory(WireOffset + " & 4 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                        returntext.AppendLine("    SetMemory(WireOffset + " & 8 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                        returntext.AppendLine("    SetMemory(WireOffset + " & 12 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                    End If
-                Next
-                returntext.AppendLine("    ])")
-
-
-                binaryReader.BaseStream.Close()
-                binaryReader.Close()
-                binaryWriter.Close()
-
-
-
-
-
-
-                If dataDumper_grpwire_f <> 0 Then
-                    fStream = New FileStream(dataDumper_grpwire, FileMode.Open)
-                    binaryReader = New BinaryReader(fStream)
-                    binaryWriter = New BinaryWriter(fStream)
-                Else
-                    memStream = New MemoryStream(mpq.ReaddatFile("unit\wirefram\grpwire.grp"))
-                    binaryReader = New BinaryReader(memStream)
-                    binaryWriter = New BinaryWriter(memStream)
                 End If
-                grpframecount = binaryReader.ReadUInt16
-                ReDim grpdata(grpframecount - 1)
-                For i = 0 To grpframecount - 1
-                    If grpwireData(i) <> i Then
-                        binaryReader.BaseStream.Position = 6 + 8 * grpwireData(i)
 
-                        grpdata(i) = binaryReader.ReadUInt64
+
+                If checkflag Then
+                    Dim mpq As New SFMpq
+
+                    Dim fStream As FileStream
+                    Dim memStream As MemoryStream
+                    Dim binaryReader As BinaryReader
+                    Dim binaryWriter As BinaryWriter
+
+                    Dim grpframecount As UInt16
+                    If dataDumper_wirefram_f <> 0 Then
+                        fStream = New FileStream(dataDumper_wirefram, FileMode.Open)
+                        binaryReader = New BinaryReader(fStream)
+                        binaryWriter = New BinaryWriter(fStream)
+                    Else
+                        memStream = New MemoryStream(mpq.ReaddatFile("unit\wirefram\wirefram.grp"))
+                        binaryReader = New BinaryReader(memStream)
+                        binaryWriter = New BinaryWriter(memStream)
                     End If
-                Next
+                    grpframecount = binaryReader.ReadUInt16
+                    Dim grpdata(grpframecount - 1) As UInt64
+                    For i = 0 To grpframecount - 1
+                        If wireframData(i) <> i Then
+                            binaryReader.BaseStream.Position = 6 + 8 * wireframData(i)
 
-                For i = 0 To grpframecount - 1
-                    If grpwireData(i) <> i Then
-                        binaryReader.BaseStream.Position = 6 + 8 * i
-                        binaryWriter.Write(grpdata(i))
+                            grpdata(i) = binaryReader.ReadUInt64
+                        End If
+                    Next
+
+                    For i = 0 To grpframecount - 1
+                        If wireframData(i) <> i Then
+                            binaryReader.BaseStream.Position = 6 + 8 * i
+                            binaryWriter.Write(grpdata(i))
+                        End If
+                    Next
+
+
+                    returntext.AppendLine("    WireOffset = f_dwread_epd(EPD(0x" & ReadOffset("wirefram.grp") & "))")
+                    returntext.AppendLine("    DoActions([")
+                    For i = 0 To grpframecount - 1
+                        If wireframData(i) <> i Then
+                            binaryReader.BaseStream.Position = 4 + 8 * i
+                            returntext.AppendLine("    SetMemory(WireOffset + " & 4 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                            returntext.AppendLine("    SetMemory(WireOffset + " & 8 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                            returntext.AppendLine("    SetMemory(WireOffset + " & 12 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                        End If
+                    Next
+                    returntext.AppendLine("    ])")
+
+
+                    binaryReader.BaseStream.Close()
+                    binaryReader.Close()
+                    binaryWriter.Close()
+
+
+
+
+
+
+                    If dataDumper_grpwire_f <> 0 Then
+                        fStream = New FileStream(dataDumper_grpwire, FileMode.Open)
+                        binaryReader = New BinaryReader(fStream)
+                        binaryWriter = New BinaryWriter(fStream)
+                    Else
+                        memStream = New MemoryStream(mpq.ReaddatFile("unit\wirefram\grpwire.grp"))
+                        binaryReader = New BinaryReader(memStream)
+                        binaryWriter = New BinaryWriter(memStream)
                     End If
-                Next
+                    grpframecount = binaryReader.ReadUInt16
+                    ReDim grpdata(grpframecount - 1)
+                    For i = 0 To grpframecount - 1
+                        If grpwireData(i) <> i Then
+                            binaryReader.BaseStream.Position = 6 + 8 * grpwireData(i)
+
+                            grpdata(i) = binaryReader.ReadUInt64
+                        End If
+                    Next
+
+                    For i = 0 To grpframecount - 1
+                        If grpwireData(i) <> i Then
+                            binaryReader.BaseStream.Position = 6 + 8 * i
+                            binaryWriter.Write(grpdata(i))
+                        End If
+                    Next
 
 
-                returntext.AppendLine("    GrpOffset = f_dwread_epd(EPD(0x" & ReadOffset("grpwire.grp") & "))")
-                returntext.AppendLine("    DoActions([")
-                For i = 0 To grpframecount - 1
-                    If grpwireData(i) <> i Then
-                        binaryReader.BaseStream.Position = 4 + 8 * i
-                        returntext.AppendLine("    SetMemory(GrpOffset + " & 4 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                        returntext.AppendLine("    SetMemory(GrpOffset + " & 8 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                        returntext.AppendLine("    SetMemory(GrpOffset + " & 12 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                    returntext.AppendLine("    GrpOffset = f_dwread_epd(EPD(0x" & ReadOffset("grpwire.grp") & "))")
+                    returntext.AppendLine("    DoActions([")
+                    For i = 0 To grpframecount - 1
+                        If grpwireData(i) <> i Then
+                            binaryReader.BaseStream.Position = 4 + 8 * i
+                            returntext.AppendLine("    SetMemory(GrpOffset + " & 4 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                            returntext.AppendLine("    SetMemory(GrpOffset + " & 8 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                            returntext.AppendLine("    SetMemory(GrpOffset + " & 12 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                        End If
+                    Next
+                    returntext.AppendLine("    ])")
+
+
+                    binaryReader.BaseStream.Close()
+                    binaryReader.Close()
+                    binaryWriter.Close()
+
+
+
+                    If dataDumper_tranwire_f <> 0 Then
+                        fStream = New FileStream(dataDumper_tranwire, FileMode.Open)
+                        binaryReader = New BinaryReader(fStream)
+                        binaryWriter = New BinaryWriter(fStream)
+                    Else
+                        memStream = New MemoryStream(mpq.ReaddatFile("unit\wirefram\grpwire.grp"))
+                        binaryReader = New BinaryReader(memStream)
+                        binaryWriter = New BinaryWriter(memStream)
                     End If
-                Next
-                returntext.AppendLine("    ])")
+                    grpframecount = binaryReader.ReadUInt16
+                    ReDim grpdata(grpframecount - 1)
+                    For i = 0 To grpframecount - 1
+                        If tranwireData(i) <> i Then
+                            binaryReader.BaseStream.Position = 6 + 8 * tranwireData(i)
+
+                            grpdata(i) = binaryReader.ReadUInt64
+                        End If
+                    Next
+
+                    For i = 0 To grpframecount - 1
+                        If tranwireData(i) <> i Then
+                            binaryReader.BaseStream.Position = 6 + 8 * i
+                            binaryWriter.Write(grpdata(i))
+                        End If
+                    Next
 
 
-                binaryReader.BaseStream.Close()
-                binaryReader.Close()
-                binaryWriter.Close()
+                    returntext.AppendLine("    tranOffset = f_dwread_epd(EPD(0x" & ReadOffset("tranwire.grp") & "))")
+                    returntext.AppendLine("    DoActions([")
+                    For i = 0 To grpframecount - 1
+                        If tranwireData(i) <> i Then
+                            binaryReader.BaseStream.Position = 4 + 8 * i
+                            returntext.AppendLine("    SetMemory(tranOffset + " & 4 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                            returntext.AppendLine("    SetMemory(tranOffset + " & 8 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                            returntext.AppendLine("    SetMemory(tranOffset + " & 12 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                        End If
+                    Next
+                    returntext.AppendLine("    ])")
 
 
+                    binaryReader.BaseStream.Close()
+                    binaryReader.Close()
+                    binaryWriter.Close()
 
-                If dataDumper_tranwire_f <> 0 Then
-                    fStream = New FileStream(dataDumper_tranwire, FileMode.Open)
-                    binaryReader = New BinaryReader(fStream)
-                    binaryWriter = New BinaryWriter(fStream)
-                Else
-                    memStream = New MemoryStream(mpq.ReaddatFile("unit\wirefram\grpwire.grp"))
-                    binaryReader = New BinaryReader(memStream)
-                    binaryWriter = New BinaryWriter(memStream)
+
+                    'If dataDumper_tranwire_f <> 0 Then
+                    '    fStream = New FileStream(dataDumper_tranwire, FileMode.Open)
+                    '    binaryReader = New BinaryReader(fStream)
+                    'Else
+                    '    memStream = New MemoryStream(mpq.ReaddatFile("unit\wirefram\tranwire.grp"))
+                    '    binaryReader = New BinaryReader(memStream)
+                    'End If
+
+
                 End If
-                grpframecount = binaryReader.ReadUInt16
-                ReDim grpdata(grpframecount - 1)
-                For i = 0 To grpframecount - 1
-                    If tranwireData(i) <> i Then
-                        binaryReader.BaseStream.Position = 6 + 8 * tranwireData(i)
-
-                        grpdata(i) = binaryReader.ReadUInt64
-                    End If
-                Next
-
-                For i = 0 To grpframecount - 1
-                    If tranwireData(i) <> i Then
-                        binaryReader.BaseStream.Position = 6 + 8 * i
-                        binaryWriter.Write(grpdata(i))
-                    End If
-                Next
-
-
-                returntext.AppendLine("    tranOffset = f_dwread_epd(EPD(0x" & ReadOffset("tranwire.grp") & "))")
-                returntext.AppendLine("    DoActions([")
-                For i = 0 To grpframecount - 1
-                    If tranwireData(i) <> i Then
-                        binaryReader.BaseStream.Position = 4 + 8 * i
-                        returntext.AppendLine("    SetMemory(tranOffset + " & 4 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                        returntext.AppendLine("    SetMemory(tranOffset + " & 8 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                        returntext.AppendLine("    SetMemory(tranOffset + " & 12 + 8 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                    End If
-                Next
-                returntext.AppendLine("    ])")
-
-
-                binaryReader.BaseStream.Close()
-                binaryReader.Close()
-                binaryWriter.Close()
-
-
-                'If dataDumper_tranwire_f <> 0 Then
-                '    fStream = New FileStream(dataDumper_tranwire, FileMode.Open)
-                '    binaryReader = New BinaryReader(fStream)
-                'Else
-                '    memStream = New MemoryStream(mpq.ReaddatFile("unit\wirefram\tranwire.grp"))
-                '    binaryReader = New BinaryReader(memStream)
-                'End If
-
-
-
-
-
             End If
-            'FileManager
+                'FileManager
 
-            If ProjectSet.UsedSetting(ProjectSet.Settingtype.BinEditor) = True Then
+                If ProjectSet.UsedSetting(ProjectSet.Settingtype.BinEditor) = True Then
                 If ProjectSet.PlayerRace = 255 Then
                     MsgBox("플레이어의 종족이 올바르지 않습니다." & vbCrLf & "BinEidt 옵션이 해제됩니다." & vbCrLf & "(이는 심각한 에러는 아니지만 콘솔 변경이 적용되지 않습니다.)", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
                     ProjectSet.UsedSetting(ProjectSet.Settingtype.BinEditor) = False

@@ -84,11 +84,15 @@
                     Exit Sub
                 Else
                     My.Computer.Audio.Play(My.Resources.successBulid, AudioPlayMode.Background)
+                    If ProjectSet.SCDBUse Then
+                        StartCheckSum()
+                    End If
+
                     Me.Hide()
                     count = 0
                     Exit Sub
                 End If
-            End If
+                End If
             'Me.Text = count & "번째 시도 완료"
         End While
     End Sub

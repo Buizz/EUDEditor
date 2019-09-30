@@ -504,7 +504,11 @@ Module IscriptModule
                             Else
                                 DatEditForm.TrackBar1.Value = value
                             End If
-
+                            If DatEditForm.TrackBar1.Value > 16 Then
+                                DatEditForm.drawImageGRP(33 - DatEditForm.TrackBar1.Value, True)
+                            Else
+                                DatEditForm.drawImageGRP(DatEditForm.TrackBar1.Value, False)
+                            End If
                         Case &H22
                             Dim random As New Random
 

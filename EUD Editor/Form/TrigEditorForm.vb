@@ -517,6 +517,20 @@ Public Class TrigEditorForm
                 If CopyData.GetTypeV = ElementType.RawTrigger Then
                     If _ele.GetTypeV = ElementType.RawTriggers Then
                         Return True
+                    Else
+                        Return False
+                    End If
+                End If
+
+                '함수가 조건형 함수 일 경우 조건부 넣을 수 있음
+                If _ele.GetTypeV = ElementType.함수 Then
+                    If _ele.Parrent.GetTypeV = ElementType.조건절 Or _ele.Parrent.GetTypeV = ElementType.와일조건 Or _ele.Parrent.GetTypeV = ElementType.TriggerCond Then
+                        Select Case CopyData.GetTypeV
+                            Case ElementType.조건
+                                Return True
+                            Case ElementType.액션
+                                Return False
+                        End Select
                     End If
                 End If
 
@@ -610,7 +624,7 @@ Public Class TrigEditorForm
 
 
             Select Case _selectElement.GetTypeV
-                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.액션, ElementType.Foluder, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.와일만족, ElementType.포, ElementType.코드, ElementType.함수, ElementType.Wait, ElementType.FoluderAction, ElementType.TriggerAct
+                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.액션, ElementType.Foluder, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.와일만족, ElementType.포, ElementType.코드, ElementType.Wait, ElementType.FoluderAction, ElementType.TriggerAct
                     액션ToolStripMenuItem.Enabled = True
                     ToolStripMenuItem1.Enabled = True
                     If문ToolStripMenuItem.Enabled = True
@@ -625,6 +639,24 @@ Public Class TrigEditorForm
                     조건ToolStripMenuItem.Enabled = True
                     If functions.GetElementsCount <> 0 Then
                         함수ToolStripMenuItem.Enabled = True
+                    End If
+                Case ElementType.함수
+                    If _selectElement.Parrent.GetTypeV = ElementType.조건절 Or _selectElement.Parrent.GetTypeV = ElementType.와일조건 Or _selectElement.Parrent.GetTypeV = ElementType.TriggerCond Then
+                        조건ToolStripMenuItem.Enabled = True
+                        If functions.GetElementsCount <> 0 Then
+                            함수ToolStripMenuItem.Enabled = True
+                        End If
+                    Else
+                        액션ToolStripMenuItem.Enabled = True
+                        ToolStripMenuItem1.Enabled = True
+                        If문ToolStripMenuItem.Enabled = True
+                        IfElse문ToolStripMenuItem.Enabled = True
+                        For문ToolStripMenuItem.Enabled = True
+                        While문ToolStripMenuItem.Enabled = True
+                        스위치ToolStripMenuItem.Enabled = True
+                        If functions.GetElementsCount <> 0 Then
+                            함수ToolStripMenuItem.Enabled = True
+                        End If
                     End If
                 Case ElementType.Functions, ElementType.함수정의
                     함수정의ToolStripMenuItem.Enabled = True
@@ -762,7 +794,7 @@ Public Class TrigEditorForm
 
 
             Select Case _selectElement.GetTypeV
-                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.액션, ElementType.Foluder, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.와일만족, ElementType.포, ElementType.코드, ElementType.함수, ElementType.Wait, ElementType.FoluderAction, ElementType.TriggerAct
+                Case ElementType.main, ElementType.포만족, ElementType.만족, ElementType.만족안함, ElementType.액션, ElementType.Foluder, ElementType.조건문if, ElementType.조건문ifelse, ElementType.와일, ElementType.와일만족, ElementType.포, ElementType.코드, ElementType.Wait, ElementType.FoluderAction, ElementType.TriggerAct
                     액션Btn.Visible = True
                     Button5.Visible = True
                     IfBtn.Visible = True
@@ -777,6 +809,24 @@ Public Class TrigEditorForm
                     조건Btn.Visible = True
                     If functions.GetElementsCount <> 0 Then
                         함수Btn.Visible = True
+                    End If
+                Case ElementType.함수
+                    If _selectElement.Parrent.GetTypeV = ElementType.조건절 Or _selectElement.Parrent.GetTypeV = ElementType.와일조건 Or _selectElement.Parrent.GetTypeV = ElementType.TriggerCond Then
+                        조건Btn.Visible = True
+                        If functions.GetElementsCount <> 0 Then
+                            함수Btn.Visible = True
+                        End If
+                    Else
+                        액션Btn.Visible = True
+                        Button5.Visible = True
+                        IfBtn.Visible = True
+                        IfElseBtn.Visible = True
+                        ForBtn.Visible = True
+                        WhileBtn.Visible = True
+                        Button7.Visible = True
+                        If functions.GetElementsCount <> 0 Then
+                            함수Btn.Visible = True
+                        End If
                     End If
                 Case ElementType.Functions, ElementType.함수정의
                     함수정의Btn.Visible = True
@@ -1313,7 +1363,7 @@ Public Class TrigEditorForm
 
                         TaskManager.AddTask(CTaskManager.Trigtask.Tasktype.create, _selectElement.GetElements(0), WorkSpace.SelectedNode.Nodes(0))
                         UndoRedoBtnRefresh()
-                    Case ElementType.조건
+                    Case ElementType.조건, ElementType.함수
                         Dim _index As Integer = WorkSpace.SelectedNode.Index + 1
 
                         _selectElement.Parrent.AddElements(_index, CondictionForm._ele)
@@ -2275,17 +2325,20 @@ Public Class TrigEditorForm
             ProjectSet.SCDBUse = False
             Button8.Enabled = False
         Else
-            If ProjectSet.SCDBUse = False And ProjectSet.scdbLoingStatus = False Then
-                If SCDBLoginForm.ShowDialog() = DialogResult.Yes Then
-                    ProjectSet.SCDBUse = True
-                    Button8.Enabled = True
-                Else
-                    CheckBox1.Checked = False
-                End If
-            ElseIf ProjectSet.SCDBUse = False And ProjectSet.scdbLoingStatus = True Then
-                ProjectSet.SCDBUse = True
-                Button8.Enabled = True
-            End If
+            ProjectSet.SCDBUse = True
+            Button8.Enabled = True
+
+            'If ProjectSet.SCDBUse = False And ProjectSet.scdbLoingStatus = False Then
+            '    If SCDBLoginForm.ShowDialog() = DialogResult.Yes Then
+            '        ProjectSet.SCDBUse = True
+            '        Button8.Enabled = True
+            '    Else
+            '        CheckBox1.Checked = False
+            '    End If
+            'ElseIf ProjectSet.SCDBUse = False And ProjectSet.scdbLoingStatus = True Then
+            '    ProjectSet.SCDBUse = True
+            '    Button8.Enabled = True
+            'End If
         End If
         RedrawCode()
     End Sub
@@ -2605,7 +2658,7 @@ Public Class TrigEditorForm
             ListControl1.Items(i).Trigger = ListControl1.Items(i - 1).Trigger
         Next
 
-        ListControl1.Items(lastindex).Trigger = orgparrent.GetElementList(lastindex) 'orgele
+        ListControl1.Items(lastindex).Trigger = orgparrent.GetElementList(index) 'orgele
 
 
         ListControl1.SelectedIndex = lastindex + 1

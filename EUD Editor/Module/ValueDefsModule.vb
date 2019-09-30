@@ -330,6 +330,7 @@ Module ValueDefsModule
         ValueDefiniction.Add(New ValueDefs("DBText", ValueDefs.OutPutType.Text))
 
 
+        ValueDefiniction.Add(New ValueDefs("UTType", ValueDefs.OutPutType.ListNum))
         LoadCUnitData()
     End Sub
 

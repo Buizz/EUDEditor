@@ -149,7 +149,7 @@ Public Class StatTextForm
 
             If i = 1 Then
                 If GetChar(i).Length > 1 Then
-                    Dim opcode As Byte = Replace(Replace(GetChar(i), "<", ""), ">", "")
+                    Dim opcode As Integer = Replace(Replace(GetChar(i), "<", ""), ">", "")
                     Select Case opcode
                         Case 0
                             PictureBox2.Visible = False
@@ -217,7 +217,7 @@ Public Class StatTextForm
                 If GetChar(i).Length < 2 Then
                     RichTextBox2.AppendText(GetChar(i))
                 Else
-                    Dim opcode As Byte = Replace(Replace(GetChar(i), "<", ""), ">", "")
+                    Dim opcode As Integer = Replace(Replace(GetChar(i), "<", ""), ">", "")
 
                     '12 = 기본
                     '3 = 노랑

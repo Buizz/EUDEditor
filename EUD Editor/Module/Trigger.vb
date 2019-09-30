@@ -100,9 +100,6 @@ Public Class Element
         Return -1
     End Function
 
-    Private Function Valuecover(valdef As String) As String
-
-    End Function
 
 
 
@@ -240,6 +237,7 @@ Public Class Element
                         Case 4
                             returnstring = "/="
                     End Select
+                    Return returnstring
                 End If
             Case "VariableComparison"
                 If isTocode Then
@@ -257,6 +255,7 @@ Public Class Element
                         Case 5
                             returnstring = "<"
                     End Select
+                    Return returnstring
                 End If
             Case "AlwaysDisplay"
                 If isTocode Then
@@ -642,7 +641,7 @@ Public Class Element
                             Return returnstring
                         End Try
                     End If
-                    Return returnstring
+                    Return "(" & returnstring & ")"
                 Case ValueDefs.OutPutType.CheckList
                     Try
                         Return "0x" & Hex(returnstring)
@@ -674,7 +673,7 @@ Public Class Element
                             Return returnstring
                         End Try
                     Else
-                        Return returnstring
+                        Return "(" & returnstring & ")"
                     End If
                 Case ValueDefs.OutPutType.Combobox
                     _values.Clear()
@@ -694,8 +693,14 @@ Public Class Element
                             returnstring = _value '"""" & returnstring & """"
                         End If
 
+                        If isTocode Then
+                            returnstring = "(" & returnstring & ")"
+                        End If
                         Return returnstring
                     Catch ex As Exception
+                        If isTocode Then
+                            returnstring = "(" & returnstring & ")"
+                        End If
                         Return returnstring
                     End Try
                 Case Else
@@ -790,7 +795,7 @@ Public Class Element
     Public Function LoadFile(_str As String, index As Integer, Optional isfrist As Boolean = False) As Integer
         Dim tempstr() As String
 
-
+        Dim actconname As String = ""
         Dim _index As Integer = index
         tempstr = _str.Split(vbCrLf)
 
@@ -825,15 +830,18 @@ Public Class Element
 
         Select Case Type
             Case ElementType.액션
-                act = SeachAct(NextLine(tempstr(_index), _index))
+                actconname = NextLine(tempstr(_index), _index)
+
+                act = SeachAct(actconname)
                 isreadvalue = True
             Case ElementType.조건
-                con = SeachCon(NextLine(tempstr(_index), _index))
+                actconname = NextLine(tempstr(_index), _index)
+
+                con = SeachCon(actconname)
                 isreadvalue = True
             Case ElementType.포, ElementType.함수정의, ElementType.함수, ElementType.조건, ElementType.조건절, ElementType.와일조건, ElementType.Wait, ElementType.Foluder, ElementType.RawString, ElementType.RawTrigger, ElementType.TriggerCond, ElementType.Switch, ElementType.Switchcase
                 isreadvalue = True
         End Select
-
 
         If isreadvalue = True Then
             Values = New List(Of String)
@@ -862,16 +870,123 @@ Public Class Element
             End If
         End If
 
-
+        Dim Compmsg As String = ""
         '호환성코드
-        If Type = ElementType.Foluder Then
-            If Values.Count = 1 Then
-                Values(0) = "//" & Values(0)
-                Values.Add(Values(0))
-                Values.Add("False")
-            End If
+        Select Case Type
+            Case ElementType.액션
+                Select Case actconname
+                    Case "SetUpgradeResearched", "AddUpgradeResearched", "SetUpgradeAvailable", "AddUpgradeAvailable", "SetTechnologiesResearched", "AddTechnologiesResearched", "SetTechnologiesAvailable", "AddTechnologiesAvailable"
+                        Dim valuesstr As String = ""
+
+                        For i = 0 To Values.Count - 1
+                            If i = 0 Then
+                                valuesstr = Values(i)
+                            Else
+                                valuesstr = valuesstr & ", " & Values(i)
+                            End If
+                        Next
+
+                        If actconname.Contains("Upgrade") Then
+                            act = SeachAct("SetUpgrade")
+                        Else
+                            act = SeachAct("SetTech")
+                        End If
+
+                        '0"PlayerX",
+                        '1"Upgrade",
+                        '2"Count"
+
+                        'To
+
+                        '0"PlayerX",
+                        '1"Upgrade",
+                        '2"UTType",
+                        '3"Count",
+                        '4"Modifier"
+
+                        Dim oldvalue As New List(Of String)
+                        oldvalue.AddRange(Values)
+
+                        Values.Clear()
+                        Values.Add(oldvalue(0)) '0
+                        Values.Add(oldvalue(1)) '1
+                        If actconname.Contains("Researched") Then
+                            Values.Add(0) '2 현재값:0 최대값:1
+                        Else
+                            Values.Add(1) '2 현재값:0 최대값:1
+                        End If
+                        Values.Add(oldvalue(2)) '3
+                        If actconname.Contains("Set") Then
+                            Values.Add(0) '4 대입:0 덧셈:1
+                        Else
+                            Values.Add(1) '4 대입:0 덧셈:1
+                        End If
+
+                        Compmsg = Compmsg & """" & actconname & "(" & valuesstr & ")" & """" & vbCrLf
+                End Select
+            Case ElementType.조건
+                'con = SeachCon(NextLine(tempstr(_index), _index))
+                Select Case actconname
+                    Case "TechnologiesAvailable", "TechnologiesResearched", "UpgradesAvailable", "UpgradesResearched"
+                        Dim valuesstr As String = ""
+
+                        For i = 0 To Values.Count - 1
+                            If i = 0 Then
+                                valuesstr = Values(i)
+                            Else
+                                valuesstr = valuesstr & ", " & Values(i)
+                            End If
+                        Next
+
+                        If actconname.Contains("Upgrade") Then
+                            con = SeachCon("Upgrade")
+                        Else
+                            con = SeachCon("Tech")
+                        End If
+
+                        '0"PlayerX",
+                        '1"Upgrade",
+                        '2"Count"
+                        '3"VariableComparison"
+
+                        'To
+
+                        '0"PlayerX",
+                        '1"Upgrade",
+                        '2"UTType",
+                        '3"Count",
+                        '4"VariableComparison"
+
+                        Dim oldvalue As New List(Of String)
+                        oldvalue.AddRange(Values)
+
+                        Values.Clear()
+                        Values.Add(oldvalue(0)) '0
+                        Values.Add(oldvalue(1)) '1
+                        If actconname.Contains("Researched") Then
+                            Values.Add(0) '2 현재값:0 최대값:1
+                        Else
+                            Values.Add(1) '2 현재값:0 최대값:1
+                        End If
+                        Values.Add(oldvalue(2)) '3
+                        Values.Add(oldvalue(3)) '4
+
+                        Compmsg = Compmsg & """" & actconname & "(" & valuesstr & ")" & """" & vbCrLf
+                End Select
+            Case ElementType.Foluder
+                If Values.Count = 1 Then
+                    Values(0) = "//" & Values(0)
+                    Values.Add(Values(0))
+                    Values.Add("False")
+                End If
+        End Select
+
+        If Compmsg.Length <> 0 Then
+            MsgBox(Compmsg & "다음 코드들이 호환성에 맞게 변경됩니다.", MsgBoxStyle.Exclamation, "TriggerEditor 자동변환")
         End If
 
+
+        '호환성코드
 
 
         Dim elecount As Integer = NextLine(tempstr(_index), _index)
@@ -1289,6 +1404,64 @@ Public Class Element
         Return RTreeNode
     End Function
 
+
+    Public Function GetFuncToolTips() As String()
+        Dim returnstr As New List(Of String)
+        Dim factors As New List(Of String)
+
+        Dim funcdef As Element = GetFunc(Values(0))
+        For i = 0 To funcdef.Elements(0).GetElementsCount - 1
+            factors.Add(funcdef.Elements(0).Elements(i).Values(0))
+        Next
+
+        If funcdef.Elements(1).GetElementsCount <> 0 Then
+            Try
+                If (funcdef.Elements(1).Elements(0).GetTypeV = ElementType.Foluder) Then
+                    If (funcdef.Elements(1).Elements(0).Values(0) = "/*ToolTip") Then
+                        Dim tooltipdef As Element = Nothing
+
+                        '언어선택
+                        For i = 0 To funcdef.Elements(1).Elements(0).Elements(0).GetElementsCount - 1
+                            If funcdef.Elements(1).Elements(0).Elements(0).GetElements(i).Values(0) = My.Settings.Langage Then
+                                tooltipdef = funcdef.Elements(1).Elements(0).Elements(0).GetElements(i).Elements(0)
+                                Exit For
+                            End If
+                        Next
+                        If tooltipdef Is Nothing Then
+                            Return returnstr.ToArray
+                        End If
+
+                        For i = 0 To tooltipdef.GetElementsCount - 1
+                            If tooltipdef.Elements(i).GetTypeV = ElementType.액션 Then
+                                If tooltipdef.Elements(i).act.Name = "CreateVariableWithNoini" Then
+                                    Dim Tooltipstr As String = tooltipdef.Elements(i).Values(0)
+                                    If factors.Contains(Tooltipstr) Then '인자를 포함하고 있을 경우
+                                        returnstr.Add("$" & factors.IndexOf(Tooltipstr) & "$")
+                                    End If
+                                ElseIf tooltipdef.Elements(i).act.Name = "RawCode" Then
+                                    Dim Tooltipstr As String = tooltipdef.Elements(i).Values(0)
+                                    returnstr.Add(Tooltipstr)
+                                End If
+                            End If
+                        Next
+                    End If
+                End If
+            Catch ex As Exception
+                returnstr.Clear()
+                Return returnstr.ToArray
+            End Try
+        Else
+            Return returnstr.ToArray
+        End If
+
+
+
+
+        Return returnstr.ToArray
+    End Function
+
+
+
     Public Function GetText() As String
         Dim _rtext As String = ""
 
@@ -1403,16 +1576,34 @@ Public Class Element
 
 
                 If existFlag Then
-                    _rtext = Lan.GetText("Trigger", "Func") & " : " & Values(0) & "("
-                    Dim valdef As String = ""
+                    '주석 가능한지 체크
+                    Dim FToolTip As String() = GetFuncToolTips()
 
-                    If Values.Count <> 1 Then
-                        _rtext = _rtext & ValueParser(Values(1), GetFuncDEf(1))
-                        For i = 2 To Values.Count - 1
-                            _rtext = _rtext & "," & ValueParser(Values(i), GetFuncDEf(i))
+                    If FToolTip.Length <> 0 Then
+                        _rtext = Lan.GetText("Trigger", "Func") & " : "
+
+                        Dim tempstr As String = ""
+                        For i = 0 To FToolTip.Count - 1
+                            Dim num As Integer
+                            Try
+                                num = FToolTip(i).Replace("$", "")
+                                _rtext = _rtext & "(" & ValueParser(Values(1 + num), GetFuncDEf(1 + num)) & ")"
+                            Catch ex As Exception
+                                _rtext = _rtext & FToolTip(i) & " "
+                            End Try
                         Next
+                    Else
+                            _rtext = Lan.GetText("Trigger", "Func") & " : " & Values(0) & "("
+                            Dim valdef As String = ""
+
+                            If Values.Count <> 1 Then
+                                _rtext = _rtext & ValueParser(Values(1), GetFuncDEf(1))
+                                For i = 2 To Values.Count - 1
+                                    _rtext = _rtext & "," & ValueParser(Values(i), GetFuncDEf(i))
+                                Next
+                            End If
+                            _rtext = _rtext & ")"
                     End If
-                    _rtext = _rtext & ")"
                 Else
                     _rtext = Lan.GetText("Trigger", "ExistFunc") & " : " & Values(0)
                 End If
@@ -1489,19 +1680,6 @@ Public Class Element
         If Type = ElementType.액션 Or Type = ElementType.조건 Then
             If Type = ElementType.액션 Then
                 _rtext = act.CodeText
-
-                Dim bexit As Boolean = False
-                While (bexit = False)
-                    For i = 0 To act.ValuesDef.Count - 1
-                        _rtext = Replace(_rtext, "$" & act.ValuesDef(i) & "$", "(" & ValueParser(i, True) & ")", , 1) 'ValueParser(i, True)
-                    Next
-                    bexit = True
-                    For i = 0 To act.ValuesDef.Count - 1
-                        If _rtext.Contains("$" & act.ValuesDef(i) & "$") Then
-                            bexit = False
-                        End If
-                    Next
-                End While
 
 
                 If act.Name = "SetDatfile" Or act.Name = "SetVariableDatFile" Or act.Name = "AddDatfile" Then
@@ -1672,7 +1850,57 @@ Public Class Element
                     If Values(0) = "1" Then
                         _rtext = "txtPtr = dwread_epd_safe(EPD(0x640B58));" & vbCrLf & _rtext & ";" & vbCrLf & "SetMemory(0x640B58, SetTo, txtPtr);"
                     End If
+                ElseIf act.Name = "SetUpgrade" Then
+                    '0"PlayerX",
+                    '1"Upgrade",
+                    '2"UTType",
+                    '3"Count",
+                    '4"Modifier"
+                    If Values(4) = 0 Then
+                        _rtext = _rtext.Split("|")(1)
+                    Else
+                        _rtext = _rtext.Split("|")(0)
+                    End If
+
+
+                    If Values(2) = 0 Then '현재 업그레이드 수치일 경우 58D2B0, 58F32C /차이 207C
+                        _rtext = _rtext.Replace("$Offset$", "0x58D2B0 + 0x207C * ($Upgrade$ / 46)")
+                    Else '아닐 경우 58D088, 58F278 /차이 21F0
+                        _rtext = _rtext.Replace("$Offset$", "0x58D088 + 0x21F0 * ($Upgrade$ / 46)")
+                    End If
+                ElseIf act.Name = "SetTech" Then
+                    '0"PlayerX",
+                    '1"Upgrade",
+                    '2"UTType",
+                    '3"Count",
+                    '4"Modifier"
+                    If Values(4) = 0 Then
+                        _rtext = _rtext.Split("|")(1)
+                    Else
+                        _rtext = _rtext.Split("|")(0)
+                    End If
+
+
+                    If Values(2) = 0 Then '현재 업그레이드 수치일 경우 58CF44, 58F140
+                        _rtext = _rtext.Replace("$Offset$", "0x58CF44 + 0x21FC * ($Techdata$ / 24)")
+                    Else '아닐 경우 58CE24, 58F050
+                        _rtext = _rtext.Replace("$Offset$", "0x58CE24 + 0x222C * ($Techdata$ / 24)")
+                    End If
                 End If
+
+                Dim bexit As Boolean = False
+                While (bexit = False)
+                    For i = 0 To act.ValuesDef.Count - 1
+                        _rtext = Replace(_rtext, "$" & act.ValuesDef(i) & "$", ValueParser(i, True), , 1) 'ValueParser(i, True)
+                    Next
+                    bexit = True
+                    For i = 0 To act.ValuesDef.Count - 1
+                        If _rtext.Contains("$" & act.ValuesDef(i) & "$") Then
+                            bexit = False
+                        End If
+                    Next
+                End While
+
 
             ElseIf Type = ElementType.조건 Then
                 _rtext = con.CodeText
@@ -1680,22 +1908,6 @@ Public Class Element
                 If isNotcon Then
                     _rtext = "!" & _rtext
                 End If
-
-
-
-                Dim bexit As Boolean = False
-
-                While (bexit = False)
-                    For i = 0 To con.ValuesDef.Count - 1
-                        _rtext = Replace(_rtext, "$" & con.ValuesDef(i) & "$", "(" & ValueParser(i, True) & ")", , 1)
-                    Next
-                    bexit = True
-                    For i = 0 To con.ValuesDef.Count - 1
-                        If _rtext.Contains("$" & con.ValuesDef(i) & "$") Then
-                            bexit = False
-                        End If
-                    Next
-                End While
 
                 If con.Name = "Datfile" Then
                     Try
@@ -1719,8 +1931,7 @@ Public Class Element
                         _rtext = _rtext.Replace("$writedef$", "dw")
                         _rtext = _rtext.Replace("&SIZE&", 4)
                     End Try
-                End If
-                If con.Name = "CUnitData" Or con.Name = "CUnitDataEPD" Then
+                ElseIf con.Name = "CUnitData" Or con.Name = "CUnitDataEPD" Then
                     Try
                         '스트럭쳐 포인터...
                         Dim num As Integer = CInt(GetValue("StructOffset"))
@@ -1782,7 +1993,44 @@ Public Class Element
                     Catch ex As Exception
                         _rtext = _rtext.Replace("$writedef$", "dw")
                     End Try
+                ElseIf con.Name = "Upgrade" Then
+                    '0"PlayerX",
+                    '1"Upgrade",
+                    '2"UTType",
+                    '3"Count",
+                    '4"Modifier"
+
+                    If Values(2) = 0 Then '현재 업그레이드 수치일 경우 58D2B0, 58F32C /차이 207C
+                        _rtext = _rtext.Replace("$Offset$", "0x58D2B0 + 0x207C * ($Upgrade$ / 46)")
+                    Else '아닐 경우 58D088, 58F278 /차이 21F0
+                        _rtext = _rtext.Replace("$Offset$", "0x58D088 + 0x21F0 * ($Upgrade$ / 46)")
+                    End If
+                ElseIf con.Name = "Tech" Then
+                    '0"PlayerX",
+                    '1"Upgrade",
+                    '2"UTType",
+                    '3"Count",
+                    '4"Modifier"
+
+                    If Values(2) = 0 Then '현재 업그레이드 수치일 경우 58CF44, 58F140
+                        _rtext = _rtext.Replace("$Offset$", "0x58CF44 + 0x21FC * ($Techdata$ / 24)")
+                    Else '아닐 경우 58CE24, 58F050
+                        _rtext = _rtext.Replace("$Offset$", "0x58CE24 + 0x222C * ($Techdata$ / 24)")
+                    End If
                 End If
+
+                Dim bexit As Boolean = False
+                While (bexit = False)
+                    For i = 0 To con.ValuesDef.Count - 1
+                        _rtext = Replace(_rtext, "$" & con.ValuesDef(i) & "$", ValueParser(i, True), , 1)
+                    Next
+                    bexit = True
+                    For i = 0 To con.ValuesDef.Count - 1
+                        If _rtext.Contains("$" & con.ValuesDef(i) & "$") Then
+                            bexit = False
+                        End If
+                    Next
+                End While
             End If
         Else
             _rtext = ElementNames(Type)
@@ -1960,15 +2208,15 @@ Public Class Element
                         Else
                             WaitCounter += Values(0)
                             LineCount += 2
-                            _stringb.AppendLine(GetIntend(intend - 1) & "}")
-                            _stringb.AppendLine(GetIntend(intend - 1) & "if (" & VarialbeName & " == " & WaitCounter & ") {")
+                            _stringb.Append(GetIntend(intend - 1) & "}")
+                            _stringb.AppendLine(" else if (" & VarialbeName & " == " & WaitCounter & ") {")
                             Return _stringb.ToString
                         End If
                     Else
                         WaitCounter += Values(0)
                         LineCount += 2
-                        _stringb.AppendLine(GetIntend(intend - 1) & "}")
-                        _stringb.AppendLine(GetIntend(intend - 1) & "if (" & VarialbeName & " == " & WaitCounter & ") {")
+                        _stringb.Append(GetIntend(intend - 1) & "}")
+                        _stringb.AppendLine(" else if (" & VarialbeName & " == " & WaitCounter & ") {")
                         Return _stringb.ToString
                     End If
                 End If
@@ -2018,7 +2266,11 @@ Public Class Element
                     LineCount += strs.Count
                 Else
                     If (Type = ElementType.액션 Or Type = ElementType.조건 Or Type = ElementType.함수) And isbulid = True Then
-                        DebugDic.Add(LineCount, Me)
+                        Try
+                            DebugDic.Add(LineCount, Me)
+                        Catch ex As Exception
+
+                        End Try
                     End If
                     _stringb.Append(GetIntend(intend) & GetCode())
 
@@ -2029,9 +2281,11 @@ Public Class Element
 
                 If Type = ElementType.함수정의 Then
                     If Values(1) = True Then
-                        LineCount += 1
-                        _stringb.Append(vbCrLf & GetIntend(intend + 1) & "if (" & VarialbeName & " == 1) {")
+                        LineCount += 2
                         intend += 1
+                        _stringb.Append(vbCrLf & GetIntend(intend) & "if (" & VarialbeName & " > 0) {")
+                        intend += 1
+                        _stringb.Append(vbCrLf & GetIntend(intend) & "if (" & VarialbeName & " == 1) {")
                     End If
                 End If
 
@@ -2152,6 +2406,12 @@ Public Class Element
                     _stringb.Append(Elements(i).ToCode(intend, isbulid))
                 End If
             Next
+            If _stringb.Length > 2 And Elements.Count <> 0 Then
+                If Mid(_stringb.ToString, _stringb.Length - 4).Trim = "&&" Then
+                    _stringb.Remove(_stringb.Length - 5, 2)
+                End If
+            End If
+
         End If
 
 
@@ -2159,7 +2419,7 @@ Public Class Element
 
 
 
-        Select Case Type
+            Select Case Type
             Case ElementType.Switchcase
                 If Values(1) Then
                     LineCount += 1
@@ -2173,10 +2433,11 @@ Public Class Element
                 LineCount += 1
                 If Values(1) = True Then
                     intend -= 1
-                    LineCount += 5
-                    _stringb.AppendLine(GetIntend(intend + 1) & VarialbeName & " = 0;")
+                    LineCount += 4
+                    _stringb.AppendLine(GetIntend(intend + 1) & VarialbeName & " = -1;")
                     _stringb.AppendLine(GetIntend(intend) & "}")
-                    _stringb.AppendLine(GetIntend(intend) & "if (" & VarialbeName & " > 0) {")
+                    '_stringb.AppendLine(GetIntend(intend) & "if (" & VarialbeName & " > 0) {")
+                    intend -= 1
                     _stringb.AppendLine(GetIntend(intend + 1) & VarialbeName & " += 1;")
                     _stringb.AppendLine(GetIntend(intend) & "}")
                 End If

@@ -1,6 +1,8 @@
 ﻿Public Class FuncManagerDialog
     Dim loading As Boolean = False
     Private Sub FuncManagerDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
+
         loading = False
         CheckedListBox1.Items.Clear()
 
@@ -18,7 +20,7 @@
                 CheckedListBox1.SetItemChecked(CheckedListBox1.Items.Count - 1, True)
             End If
         Next
-        loading= true
+        loading = True
     End Sub
 
     Private Sub CheckedListBox1_SelectedIndexChanged(sender As Object, e As ItemCheckEventArgs) Handles CheckedListBox1.ItemCheck
