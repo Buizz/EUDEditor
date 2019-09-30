@@ -76,6 +76,7 @@ Partial Class TrigEditorForm
         Me.Button13 = New System.Windows.Forms.Button()
         Me.Button15 = New System.Windows.Forms.Button()
         Me.Button16 = New System.Windows.Forms.Button()
+        Me.ListControl1 = New EUD_Editor.ListControl()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel9 = New System.Windows.Forms.TableLayoutPanel()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
@@ -141,7 +142,6 @@ Partial Class TrigEditorForm
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog2 = New System.Windows.Forms.SaveFileDialog()
-        Me.ListControl1 = New EUD_Editor.ListControl()
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.FlowLayoutPanel3.SuspendLayout()
@@ -195,41 +195,41 @@ Partial Class TrigEditorForm
         '
         Me.새로만들기NToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.NewFile
         Me.새로만들기NToolStripMenuItem.Name = "새로만들기NToolStripMenuItem"
-        Me.새로만들기NToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.새로만들기NToolStripMenuItem.Size = New System.Drawing.Size(210, 26)
         Me.새로만들기NToolStripMenuItem.Text = "새로 만들기(&N)"
         '
         '열기OToolStripMenuItem
         '
         Me.열기OToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Open
         Me.열기OToolStripMenuItem.Name = "열기OToolStripMenuItem"
-        Me.열기OToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.열기OToolStripMenuItem.Size = New System.Drawing.Size(210, 26)
         Me.열기OToolStripMenuItem.Text = "열기(&O)"
         '
         'OpenCont
         '
         Me.OpenCont.Image = Global.EUD_Editor.My.Resources.Resources.LoadFile
         Me.OpenCont.Name = "OpenCont"
-        Me.OpenCont.Size = New System.Drawing.Size(206, 22)
+        Me.OpenCont.Size = New System.Drawing.Size(210, 26)
         Me.OpenCont.Text = "불러오기"
         '
         '파일로저장AToolStripMenuItem
         '
         Me.파일로저장AToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Savefile
         Me.파일로저장AToolStripMenuItem.Name = "파일로저장AToolStripMenuItem"
-        Me.파일로저장AToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.파일로저장AToolStripMenuItem.Size = New System.Drawing.Size(210, 26)
         Me.파일로저장AToolStripMenuItem.Text = "파일로 저장(&A)"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(203, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(207, 6)
         '
         '프로젝트저장ToolStripMenuItem
         '
         Me.프로젝트저장ToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.Save
         Me.프로젝트저장ToolStripMenuItem.Name = "프로젝트저장ToolStripMenuItem"
         Me.프로젝트저장ToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.프로젝트저장ToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.프로젝트저장ToolStripMenuItem.Size = New System.Drawing.Size(210, 26)
         Me.프로젝트저장ToolStripMenuItem.Text = "프로젝트 저장(&S)"
         '
         '편집ToolStripMenuItem
@@ -244,7 +244,7 @@ Partial Class TrigEditorForm
         Me.실행취소ToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.MostRecentlyUsed
         Me.실행취소ToolStripMenuItem.Name = "실행취소ToolStripMenuItem"
         Me.실행취소ToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Z), System.Windows.Forms.Keys)
-        Me.실행취소ToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
+        Me.실행취소ToolStripMenuItem.Size = New System.Drawing.Size(218, 26)
         Me.실행취소ToolStripMenuItem.Text = "실행 취소"
         '
         '다시실행ToolStripMenuItem
@@ -252,13 +252,13 @@ Partial Class TrigEditorForm
         Me.다시실행ToolStripMenuItem.Image = Global.EUD_Editor.My.Resources.Resources.MostRecentlyRedo
         Me.다시실행ToolStripMenuItem.Name = "다시실행ToolStripMenuItem"
         Me.다시실행ToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y), System.Windows.Forms.Keys)
-        Me.다시실행ToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
+        Me.다시실행ToolStripMenuItem.Size = New System.Drawing.Size(218, 26)
         Me.다시실행ToolStripMenuItem.Text = "다시 실행"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(211, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(215, 6)
         '
         '모두접기ToolStripMenuItem
         '
@@ -266,7 +266,7 @@ Partial Class TrigEditorForm
         Me.모두접기ToolStripMenuItem.Name = "모두접기ToolStripMenuItem"
         Me.모두접기ToolStripMenuItem.ShortcutKeys = CType(((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Shift) _
             Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
-        Me.모두접기ToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
+        Me.모두접기ToolStripMenuItem.Size = New System.Drawing.Size(218, 26)
         Me.모두접기ToolStripMenuItem.Text = "모두 접기"
         '
         '모두펼치기ToolStripMenuItem
@@ -275,7 +275,7 @@ Partial Class TrigEditorForm
         Me.모두펼치기ToolStripMenuItem.Name = "모두펼치기ToolStripMenuItem"
         Me.모두펼치기ToolStripMenuItem.ShortcutKeys = CType(((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Shift) _
             Or System.Windows.Forms.Keys.D), System.Windows.Forms.Keys)
-        Me.모두펼치기ToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
+        Me.모두펼치기ToolStripMenuItem.Size = New System.Drawing.Size(218, 26)
         Me.모두펼치기ToolStripMenuItem.Text = "모두 펼치기"
         '
         'TableLayoutPanel4
@@ -776,6 +776,18 @@ Partial Class TrigEditorForm
         Me.Button16.Text = "Func"
         Me.Button16.UseVisualStyleBackColor = True
         '
+        'ListControl1
+        '
+        Me.ListControl1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ListControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ListControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListControl1.Location = New System.Drawing.Point(0, 0)
+        Me.ListControl1.Margin = New System.Windows.Forms.Padding(0)
+        Me.ListControl1.Name = "ListControl1"
+        Me.ListControl1.SelectedIndex = -1
+        Me.ListControl1.Size = New System.Drawing.Size(532, 475)
+        Me.ListControl1.TabIndex = 2
+        '
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.TableLayoutPanel9)
@@ -831,6 +843,7 @@ Partial Class TrigEditorForm
         '
         'SplitContainer1
         '
+        Me.SplitContainer1.BackColor = System.Drawing.Color.CadetBlue
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
         Me.SplitContainer1.Name = "SplitContainer1"
@@ -1119,6 +1132,7 @@ Partial Class TrigEditorForm
         Me.FastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.FastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.FastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FastColoredTextBox1.Font = New System.Drawing.Font("Courier New", 9.75!)
         Me.FastColoredTextBox1.IsReplaceMode = False
         Me.FastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS
         Me.FastColoredTextBox1.LeftBracket = Global.Microsoft.VisualBasic.ChrW(40)
@@ -1443,18 +1457,6 @@ Partial Class TrigEditorForm
         '
         Me.SaveFileDialog2.Filter = "Funciton파일|*.tfn"
         Me.SaveFileDialog2.Tag = ""
-        '
-        'ListControl1
-        '
-        Me.ListControl1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ListControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ListControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListControl1.Location = New System.Drawing.Point(0, 0)
-        Me.ListControl1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ListControl1.Name = "ListControl1"
-        Me.ListControl1.SelectedIndex = -1
-        Me.ListControl1.Size = New System.Drawing.Size(532, 475)
-        Me.ListControl1.TabIndex = 2
         '
         'TrigEditorForm
         '

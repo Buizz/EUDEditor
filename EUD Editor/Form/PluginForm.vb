@@ -184,9 +184,16 @@ Public Class PluginForm
             End Try
         Next
 
+        If ListBox3.Items.Count = 0 Then
+            ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15)
+        Else
+            If ListBox3.Items.Count < 10 Then
+                ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15 * ListBox3.Items.Count)
+            Else
+                ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15 * 10)
+            End If
+        End If
 
-
-        ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15 * ListBox3.Items.Count)
 
 
         loadstatus = True
@@ -730,10 +737,15 @@ Public Class PluginForm
 
 
 
-
-
-
-            ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15 * ListBox3.Items.Count)
+            If ListBox3.Items.Count = 0 Then
+                ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15)
+            Else
+                If ListBox3.Items.Count < 10 Then
+                    ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15 * ListBox3.Items.Count)
+                Else
+                    ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15 * 10)
+                End If
+            End If
         End If
     End Sub
 
@@ -797,8 +809,15 @@ Public Class PluginForm
             End Try
 
 
-
-            ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15 * ListBox3.Items.Count)
+            If ListBox3.Items.Count = 0 Then
+                ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15)
+            Else
+                If ListBox3.Items.Count < 10 Then
+                    ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15 * ListBox3.Items.Count)
+                Else
+                    ListBox3.Size = New Size(ListBox3.Size.Width, 4 + 15 * 10)
+                End If
+            End If
         End If
     End Sub
 

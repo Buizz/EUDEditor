@@ -4,6 +4,8 @@
 
 
     Private Sub LocationSetForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
+
         ListBox1.SelectedIndex = -1
         EasyCompletionComboBox1.Enabled = False
 

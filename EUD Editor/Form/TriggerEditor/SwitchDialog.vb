@@ -22,6 +22,9 @@
 
 
     Private Sub SwitchDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lan.SetLangage(Me)
+
+
         EasyCompletionComboBox1.Items.Clear()
         EasyCompletionComboBox1.Items.AddRange(GetVariablesWithoutoverlap.ToArray)
 

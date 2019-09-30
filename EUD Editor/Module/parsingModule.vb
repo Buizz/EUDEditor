@@ -453,7 +453,7 @@ Module parsingModule
 
     Private encoding As String = "ks_c_5601-1987" 'ks_c_5601-1987
 
-    Public Function Getstattextbin() As String
+    Public Function Getstattextbin() As String '파일로 쓰는 함수
         Dim filename As String = My.Application.Info.DirectoryPath & "\Data\temp\" & "stat_txt.tbl"
 
         Try
@@ -506,12 +506,6 @@ Module parsingModule
             memstram.Close()
         Next
 
-
-
-
-
-
-
         strstream.Close()
         strbinary.Close()
         filestr.Close()
@@ -522,101 +516,111 @@ Module parsingModule
 
 
     Public Function Readstat_txtfile(Optional is32string As Boolean = False, Optional formmpq As Boolean = True) As String()
-        Dim mpq As New SFMpq
+        If dataDumper_stat_txt_f = 0 Then '데이터 덤퍼를 사용하지 않을 경우
+            Dim filename As String = My.Application.Info.DirectoryPath & "\Data\"
+            filename = filename & statlangname(statlang)
 
-        Dim size As Integer
-
-        'If LoadMemory(DataName.stat_txt) Is Nothing Then
-        '    Getstattextbin()
-        '    Exit Function
-        'End If
-
-        Dim filestr As FileStream = New FileStream(dataDumper_stat_txt, FileMode.Open)
-
-        'Dim strmem As MemoryStream = New MemoryStream(mpq.ReaddatFile(filename))
-        Dim strstream As StreamReader = New StreamReader(filestr, Text.Encoding.GetEncoding(encoding)) 'Text.Encoding.GetEncoding("ks_c_5601-1987")
-        Dim strbinary As BinaryReader = New BinaryReader(filestr, Text.Encoding.GetEncoding(encoding)) 'GetEncoding("ks_c_5601-1987")
-
-        Dim tempindex As Integer
-        Dim nextpos As Long
-        Dim tempindex2 As Integer
-        Dim tempstring As String = ""
-        Dim strcount As Long = 0
-
-        Dim returnstring() As String = {}
+            Return Readtblfile(filename, is32string, formmpq)
+        Else '데이터 덤퍼를 사용 할 경우
+            Return Readtblfile(dataDumper_stat_txt, is32string, formmpq)
+        End If
 
 
-        size = strbinary.ReadUInt16
-        ReDim returnstring(size - 1)
-        For i = 0 To size - 1 '문자열 갯수
-            filestr.Position = 2 + i * 2
+        'Dim mpq As New SFMpq
 
-            tempindex = strbinary.ReadUInt16()
-            nextpos = strbinary.ReadUInt16()
+        'Dim size As Integer
 
-            filestr.Position = tempindex
+        ''If LoadMemory(DataName.stat_txt) Is Nothing Then
+        ''    Getstattextbin()
+        ''    Exit Function
+        ''End If
 
-            strcount = 0
-            tempindex2 = strbinary.ReadByte
+        'Dim filestr As FileStream = New FileStream(dataDumper_stat_txt, FileMode.Open)
 
-            While (tempindex2 <> &H0)
-                tempindex2 = strbinary.ReadByte
+        ''Dim strmem As MemoryStream = New MemoryStream(mpq.ReaddatFile(filename))
+        'Dim strstream As StreamReader = New StreamReader(filestr, Text.Encoding.GetEncoding(encoding)) 'Text.Encoding.GetEncoding("ks_c_5601-1987")
+        'Dim strbinary As BinaryReader = New BinaryReader(filestr, Text.Encoding.GetEncoding(encoding)) 'GetEncoding("ks_c_5601-1987")
 
+        'Dim tempindex As Integer
+        'Dim nextpos As Long
+        'Dim tempindex2 As Integer
+        'Dim tempstring As String = ""
+        'Dim strcount As Long = 0
 
-                strcount += 1
-            End While
-
-            If i = size - 1 Then
-                strcount = filestr.Length - tempindex
-            Else
-                strcount = nextpos - tempindex
-            End If
-
-            filestr.Position = tempindex
-
-            tempstring = ""
-
-            Dim strlen As Integer = 0
-            Dim lastposition = strbinary.BaseStream.Position - 1
-            While (strbinary.BaseStream.Position < lastposition + strcount)
-                Dim tempchar As String = ""
-                Dim isendstrema As Byte = strbinary.ReadByte()
-                filestr.Position -= 1
-                tempchar = strbinary.ReadChar()
-
-                If is32string = True Then
-                    If isendstrema < &H20 Then
-                        tempchar = "<" & isendstrema & ">"
-                    End If
-                    'If Asc(tempchar) < &H20 Then
-                    '    tempchar = "<" & CStr(Asc(tempchar)) & ">"
-                    'End If
-                    If isendstrema = 0 And strlen > 1 Then
-                        Exit While
-                    End If
-                Else
-                    If Asc(tempchar) < &H20 Then
-                        tempchar = ""
-                    End If
-                End If
-                strlen += 1
-                tempstring = tempstring & tempchar
-            End While
-            'For jk = 0 To strcount - 1
+        'Dim returnstring() As String = {}
 
 
-            returnstring(i) = tempstring
-            'returnstring(i) = strbinary.ReadChars(strcount)
-        Next
+        'size = strbinary.ReadUInt16
+        'ReDim returnstring(size - 1)
+        'For i = 0 To size - 1 '문자열 갯수
+        '    filestr.Position = 2 + i * 2
+
+        '    tempindex = strbinary.ReadUInt16()
+        '    nextpos = strbinary.ReadUInt16()
+
+        '    filestr.Position = tempindex
+
+        '    strcount = 0
+        '    tempindex2 = strbinary.ReadByte
+
+        '    While (tempindex2 <> &H0)
+        '        tempindex2 = strbinary.ReadByte
+
+
+        '        strcount += 1
+        '    End While
+
+        '    If i = size - 1 Then
+        '        strcount = filestr.Length - tempindex
+        '    Else
+        '        strcount = nextpos - tempindex
+        '    End If
+
+        '    filestr.Position = tempindex
+
+        '    tempstring = ""
+
+        '    Dim strlen As Integer = 0
+        '    Dim lastposition = strbinary.BaseStream.Position - 1
+        '    While (strbinary.BaseStream.Position < lastposition + strcount)
+        '        Dim tempchar As String = ""
+        '        Dim isendstrema As Byte = strbinary.ReadByte()
+        '        filestr.Position -= 1
+        '        tempchar = strbinary.ReadChar()
+
+        '        If is32string = True Then
+        '            If isendstrema < &H20 Then
+        '                tempchar = "<" & isendstrema & ">"
+        '            End If
+        '            'If Asc(tempchar) < &H20 Then
+        '            '    tempchar = "<" & CStr(Asc(tempchar)) & ">"
+        '            'End If
+        '            If isendstrema = 0 And strlen > 1 Then
+        '                Exit While
+        '            End If
+        '        Else
+        '            If Asc(tempchar) < &H20 Then
+        '                tempchar = ""
+        '            End If
+        '        End If
+        '        strlen += 1
+        '        tempstring = tempstring & tempchar
+        '    End While
+        '    'For jk = 0 To strcount - 1
+
+
+        '    returnstring(i) = tempstring
+        '    'returnstring(i) = strbinary.ReadChars(strcount)
+        'Next
 
 
 
-        'strbinary.Close()
-        'strstream.Close()
-        'strmem.Close()
-        'filestr.Close()
+        ''strbinary.Close()
+        ''strstream.Close()
+        ''strmem.Close()
+        ''filestr.Close()
 
-        Return returnstring
+        'Return returnstring
     End Function
 
 
@@ -717,7 +721,6 @@ Module parsingModule
 
         strbinary.Close()
         strstream.Close()
-        'strmem.Close()
         filestr.Close()
         Return returnstring
     End Function

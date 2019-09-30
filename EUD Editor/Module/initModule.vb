@@ -183,7 +183,6 @@ Module initModule
 
         If My.User.IsInRole("administrators") = False Then
             MsgBox(Lan.GetMsgText("notAdmin"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
-            End
         End If
 
 

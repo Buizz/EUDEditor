@@ -11,7 +11,7 @@ Public Class FunctionForm
     Private BaseFun As Element
 
 
-
+    Private Labels As New List(Of Label)
     Private LinkLabels As New List(Of Label)
 
     Public isNew As Boolean = False
@@ -291,11 +291,19 @@ Public Class FunctionForm
 
             FunEle.Values.Add(SelectFunctionCbb.SelectedItem)
 
-
+            Dim FToolTip As String() = FunEle.GetFuncToolTips()
             GetBaseFun()
-            For i = 0 To BaseFun.GetElementList(0).GetElementsCount - 1
-                FunEle.Values.Add(BaseFun.GetElementList(0).GetElementList(i).Values(0) & "(" & Getdef(i) & ")")
-            Next
+
+            If FToolTip.Count <> 0 Then
+                For i = 0 To BaseFun.GetElementList(0).GetElementsCount - 1
+                    FunEle.Values.Add(Getdef(i))
+                Next
+            Else
+                For i = 0 To BaseFun.GetElementList(0).GetElementsCount - 1
+                    FunEle.Values.Add(BaseFun.GetElementList(0).GetElementList(i).Values(0) & "(" & Getdef(i) & ")")
+                Next
+            End If
+
 
             MakeLable(True)
         End If
@@ -344,42 +352,91 @@ Public Class FunctionForm
         CheckValue()
         GetBaseFun()
 
+        Dim FToolTip As String() = FunEle.GetFuncToolTips()
         If isfrist = True Then
+
 
             TabControl3.TabPages.Clear()
 
             FlowLayoutPanel1.Controls.Clear()
+            Labels.Clear()
             LinkLabels.Clear()
 
 
-            '함수 인자 갯수 조정
-            Dim BaseCount As Integer = BaseFun.GetElementList(0).GetElementsCount
+            If FToolTip.Count <> 0 Then
+                For i = 0 To FToolTip.Count - 1
+                    Dim num As Integer
+                    Try
+                        num = FToolTip(i).Replace("$", "")
+                        LinkLabels.Add(New LinkLabel)
+                        LinkLabels.Last.AutoSize = True
+                        LinkLabels.Last.Margin = New Padding(0, 0, 0, 0)
+                        LinkLabels.Last.Name = "LL" & LinkLabels.Count
 
-            For i = 0 To BaseCount - 1
-                LinkLabels.Add(New LinkLabel)
-                LinkLabels.Last.AutoSize = True
-                LinkLabels.Last.Margin = New Padding(0, 0, 0, 0)
-                LinkLabels.Last.Name = "LL" & LinkLabels.Count
+                        '여길 고쳐야됨
+                        'LinkLabels.Last.Text = BaseFun.GetElementList(0).GetElementList(num).Values(0) & "(" & Getdef(num) & ")"
+                        LinkLabels.Last.Text = Getdef(num)
 
-                LinkLabels.Last.Text = BaseFun.GetElementList(0).GetElementList(i).Values(0) & "(" & Getdef(i) & ")"
 
-                Dim overlapcount As Integer = 1
-                '중복 인수 체크
-                For k = 0 To LinkLabels.Count - 2
-                    If LinkLabels(k).Tag.Contains(Getdef(i)) Then
-                        overlapcount += 1
-                    End If
+                        Dim overlapcount As Integer = 1
+                        '중복 인수 체크
+                        For k = 0 To LinkLabels.Count - 2
+                            If LinkLabels(k).Tag.Contains(Getdef(num)) Then
+                                overlapcount += 1
+                            End If
+                        Next
+
+                        LinkLabels.Last.Tag = overlapcount & "." & Getdef(num) & "." & num
+
+                        '페이지 추가
+                        TabControl3.TabPages.Add(BaseFun.GetElementList(0).GetElementList(num).Values(0)) ' & LinkLabels.Last.Tag
+
+                        AddHandler LinkLabels.Last.Click, AddressOf LinkLabel_Click
+
+                        FlowLayoutPanel1.Controls.Add(LinkLabels.Last)
+                    Catch ex As Exception
+                        Labels.Add(New Label)
+                        Labels.Last.AutoSize = True
+                        Labels.Last.Margin = New Padding(0, 0, 0, 0)
+                        Labels.Last.Text = FToolTip(i)
+
+                        FlowLayoutPanel1.Controls.Add(Labels.Last)
+                    End Try
+
                 Next
 
-                LinkLabels.Last.Tag = overlapcount & "." & Getdef(i)
 
-                '페이지 추가
-                TabControl3.TabPages.Add(BaseFun.GetElementList(0).GetElementList(i).Values(0)) ' & LinkLabels.Last.Tag
+            Else
+                '함수 인자 갯수 조정
+                Dim BaseCount As Integer = BaseFun.GetElementList(0).GetElementsCount
+                For i = 0 To BaseCount - 1
+                    LinkLabels.Add(New LinkLabel)
+                    LinkLabels.Last.AutoSize = True
+                    LinkLabels.Last.Margin = New Padding(0, 0, 0, 0)
+                    LinkLabels.Last.Name = "LL" & LinkLabels.Count
 
-                AddHandler LinkLabels.Last.Click, AddressOf LinkLabel_Click
+                    LinkLabels.Last.Text = BaseFun.GetElementList(0).GetElementList(i).Values(0) & "(" & Getdef(i) & ")"
 
-                FlowLayoutPanel1.Controls.Add(LinkLabels.Last)
-            Next
+                    Dim overlapcount As Integer = 1
+                    '중복 인수 체크
+                    For k = 0 To LinkLabels.Count - 2
+                        If LinkLabels(k).Tag.Contains(Getdef(i)) Then
+                            overlapcount += 1
+                        End If
+                    Next
+
+                    LinkLabels.Last.Tag = overlapcount & "." & Getdef(i)
+
+                    '페이지 추가
+                    TabControl3.TabPages.Add(BaseFun.GetElementList(0).GetElementList(i).Values(0)) ' & LinkLabels.Last.Tag
+
+                    AddHandler LinkLabels.Last.Click, AddressOf LinkLabel_Click
+
+                    FlowLayoutPanel1.Controls.Add(LinkLabels.Last)
+                Next
+
+
+            End If
 
 
             If LinkLabels.Count <> 0 Then
@@ -388,25 +445,48 @@ Public Class FunctionForm
             End If
         End If
 
-        For i = 0 To LinkLabels.Count - 1
-            Dim count As Integer = 0
-            For j = 0 To BaseFun.GetElementList(0).GetElementsCount - 1
-                Dim valuedef As String = LinkLabels(i).Tag.Split(".")(1)
-                Dim valuecount As Integer = LinkLabels(i).Tag.Split(".")(0)
+        If FToolTip.Count <> 0 Then
+            For i = 0 To LinkLabels.Count - 1
+                Dim count As Integer = 0
+                For j = 0 To BaseFun.GetElementList(0).GetElementsCount - 1
+                    Dim valuedef As String = LinkLabels(i).Tag.Split(".")(1)
+                    Dim valuecount As Integer = LinkLabels(i).Tag.Split(".")(0)
+                    Dim valuenum As Integer = LinkLabels(i).Tag.Split(".")(2)
 
-
-                If valuedef = ValueDefiniction(BaseFun.GetElementList(0).GetElementList(j).Values(1)).Name(0) Then
-                    count += 1
-                    If count = valuecount Then
-                        If BaseFun.GetElementList(0).GetElementList(j).Values(1) = "Properties" Then
-                            LinkLabels(i).Text = "Properties"
-                        Else
-                            LinkLabels(i).Text = FunEle.ValueParser(FunEle.Values(i + 1), ValueDefiniction(BaseFun.GetElementList(0).GetElementList(j).Values(1)).Name(0))
+                    If valuedef = ValueDefiniction(BaseFun.GetElementList(0).GetElementList(j).Values(1)).Name(0) Then
+                        count += 1
+                        If count = valuecount Then
+                            If BaseFun.GetElementList(0).GetElementList(j).Values(1) = "Properties" Then
+                                LinkLabels(i).Text = "Properties"
+                            Else
+                                LinkLabels(i).Text = FunEle.ValueParser(FunEle.Values(valuenum + 1), ValueDefiniction(BaseFun.GetElementList(0).GetElementList(j).Values(1)).Name(0))
+                            End If
                         End If
                     End If
-                End If
+                Next
             Next
-        Next
+        Else
+            For i = 0 To LinkLabels.Count - 1
+                Dim count As Integer = 0
+                For j = 0 To BaseFun.GetElementList(0).GetElementsCount - 1
+                    Dim valuedef As String = LinkLabels(i).Tag.Split(".")(1)
+                    Dim valuecount As Integer = LinkLabels(i).Tag.Split(".")(0)
+
+
+                    If valuedef = ValueDefiniction(BaseFun.GetElementList(0).GetElementList(j).Values(1)).Name(0) Then
+                        count += 1
+                        If count = valuecount Then
+                            If BaseFun.GetElementList(0).GetElementList(j).Values(1) = "Properties" Then
+                                LinkLabels(i).Text = "Properties"
+                            Else
+                                LinkLabels(i).Text = FunEle.ValueParser(FunEle.Values(i + 1), ValueDefiniction(BaseFun.GetElementList(0).GetElementList(j).Values(1)).Name(0))
+                            End If
+                        End If
+                    End If
+                Next
+            Next
+        End If
+
     End Sub
 
     'Private Sub MakeLable(Optional isfrist As Boolean = True)
@@ -480,7 +560,7 @@ Public Class FunctionForm
         Dim defvlaue2 As Integer = 0
         '처음인지
         Dim isDefault As Boolean = False
-        If value = currentFullValueDef Then
+        If value = currentFullValueDef Or value = currentValueDef.Split(".")(1) Then
             isDefault = True
         End If
 

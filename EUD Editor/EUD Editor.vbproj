@@ -459,6 +459,12 @@
     <Compile Include="Form\TriggerEditor\RawStringsForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\TriggerEditor\SCDBDataCreater.Designer.vb">
+      <DependentUpon>SCDBDataCreater.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\SCDBDataCreater.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\TriggerEditor\SCDBForm.Designer.vb">
       <DependentUpon>SCDBForm.vb</DependentUpon>
     </Compile>
@@ -499,6 +505,12 @@
       <DependentUpon>TriggerPlayerSelectDialog.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\TriggerEditor\TriggerPlayerSelectDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\UnitSelecter.Designer.vb">
+      <DependentUpon>UnitSelecter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TriggerEditor\UnitSelecter.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\TriggerEditor\WaitDailog.Designer.vb">
@@ -553,6 +565,8 @@
     <Compile Include="Module\AESModule.vb" />
     <Compile Include="Module\BGMPlayerModule.vb" />
     <Compile Include="Module\BinEditModule.vb" />
+    <Compile Include="Module\CheckSumMoudle.vb" />
+    <Compile Include="Module\CRC32.vb" />
     <Compile Include="Module\CreateDebugpyModule.vb" />
     <Compile Include="Module\CTextEncoder.vb" />
     <Compile Include="Module\DebugClass.vb" />
@@ -565,6 +579,7 @@
     <Compile Include="Module\IscriptModule.vb" />
     <Compile Include="Module\LangageModule.vb" />
     <Compile Include="Module\MapModule..vb" />
+    <Compile Include="Module\mod_fn_HASH.vb" />
     <Compile Include="Module\MPQModule.vb" />
     <Compile Include="Module\NPAModule.vb" />
     <Compile Include="Module\parsingModule.vb" />
@@ -768,6 +783,9 @@
     <EmbeddedResource Include="Form\TriggerEditor\RawStringsForm.resx">
       <DependentUpon>RawStringsForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\SCDBDataCreater.resx">
+      <DependentUpon>SCDBDataCreater.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\SCDBForm.resx">
       <DependentUpon>SCDBForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -788,6 +806,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\TriggerPlayerSelectDialog.resx">
       <DependentUpon>TriggerPlayerSelectDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TriggerEditor\UnitSelecter.resx">
+      <DependentUpon>UnitSelecter.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TriggerEditor\WaitDailog.resx">
       <DependentUpon>WaitDailog.vb</DependentUpon>
@@ -835,12 +856,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EUD Editor.ico" />
+    <None Include="Resources\MurakamiShiinaQC.txt" />
     <None Include="Resources\AshWorld003.dds" />
+    <None Include="Resources\MurakamiShiinaQC.py" />
     <None Include="Resources\StringAnimater.png" />
     <None Include="Resources\MostRecentlyRedo.png" />
     <None Include="Resources\successBulid.wav" />
     <None Include="Resources\successBulid.mp3" />
-    <None Include="Resources\MurakamiShiinaQC.txt" />
     <None Include="Resources\ICON_SCDB.png" />
     <None Include="Resources\LoadFile.png" />
     <None Include="Resources\customText.txt" />

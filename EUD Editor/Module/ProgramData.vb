@@ -18,6 +18,8 @@ Module ProgramData
     'Public TestText As String = ""
 
     Public stat_txt() As String
+    Public statlang As Byte
+    Public statlangname() As String = {"stat_txt.tbl", "stat_txt_kor_eng.tbl", "stat_txt_kor_kor.tbl"}
 
 
     Public statusFn1 As New List(Of UInteger)
@@ -53,6 +55,13 @@ Module ProgramData
     Public SCDBLoc As New List(Of String)
     Public SCDBLocLoad As New List(Of String)
     Public SCDBDeath As New List(Of String)
+    Public SCDBVariable As New List(Of String)
+
+    Public SCDBMaker As String
+    Public SCDBMapName As String
+    Public SCDBDataSize As Byte
+
+
 
     Public DatEditDATA As New List(Of CDatEdit)
     Public GRPEditorDATA As New List(Of GRPDATA)
@@ -66,7 +75,6 @@ Module ProgramData
         Public Palett As Integer
         Public usingimage As List(Of Integer)
     End Class
-
 
 
     Public stattextdic As New Dictionary(Of Integer, String)
@@ -1020,21 +1028,21 @@ Module ProgramData
         End If
 
 
+        stat_txt = Readstat_txtfile(True)
+        'If dataDumper_stat_txt_f <> 0 Then
 
-        If dataDumper_stat_txt_f <> 0 Then
+        '    Try
+        '        stat_txt = Readstat_txtfile(True)
+        '        ' MsgBox("아")
+        '    Catch ex As Exception
+        '        MsgBox(dataDumper_stat_txt & " 해당 파일이 정상적이지 않습니다. 기본 stat_txt.tbl을 불러옵니다.", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
 
-            Try
-                stat_txt = Readstat_txtfile(True)
-                ' MsgBox("아")
-            Catch ex As Exception
-                MsgBox(dataDumper_stat_txt & " 해당 파일이 정상적이지 않습니다. 기본 stat_txt.tbl을 불러옵니다.", MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+        '        stat_txt = Readtblfile(My.Application.Info.DirectoryPath & "\Data\" & "stat_txt.tbl", True)
+        '    End Try
 
-                stat_txt = Readtblfile(My.Application.Info.DirectoryPath & "\Data\" & "stat_txt.tbl", True)
-            End Try
-
-        Else
-            stat_txt = Readtblfile(My.Application.Info.DirectoryPath & "\Data\" & "stat_txt.tbl", True)
-        End If
+        'Else
+        '    stat_txt = Readtblfile(My.Application.Info.DirectoryPath & "\Data\" & "stat_txt.tbl", True)
+        'End If
 
 
 

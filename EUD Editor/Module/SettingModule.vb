@@ -9,7 +9,7 @@ Namespace ProgramSet
 
 
         'Public Version As String = "vTEST 0.13"
-        Public Version As String = "0.17.2"
+        Public Version As String = "0.17.8.2"
         Public DatEditVersion As String = "v0.3"
         Public SCDBSerial As UInteger
 
@@ -722,11 +722,16 @@ Namespace ProjectSet
             extraedssetting = ""
 
             stattextdic.Clear()
+            statlang = 0
 
             SCDBDeath.Clear()
+            SCDBVariable.Clear()
             SCDBLoc.Clear()
             SCDBLocLoad.Clear()
+            SCDBMaker = "Noname"
+            SCDBMapName = "Noname"
             SCDBUse = False
+            SCDBDataSize = 4
             SCDBSerial = 0
 
             For i = 0 To 227
@@ -1177,8 +1182,13 @@ Namespace ProjectSet
                         Dim Section_FileManagerSET As String = FindSection(text, "FileManagerSET")
 
 
+                        statlang = FindSetting(Section_FileManagerSET, "statlang")
                         For i = 0 To FindSetting(Section_FileManagerSET, "stattextdicCount") - 1
-                            stattextdic.Add(FindSetting(Section_FileManagerSET, "stattextdickey" & i), FindSetting(Section_FileManagerSET, "stattextdicvalue" & i))
+                            Try
+                                stattextdic.Add(FindSetting(Section_FileManagerSET, "stattextdickey" & i), FindSetting(Section_FileManagerSET, "stattextdicvalue" & i))
+                            Catch ex As Exception
+                                MsgBox(i & "," & FindSetting(Section_FileManagerSET, "stattextdickey" & i) & "," & FindSetting(Section_FileManagerSET, "stattextdicvalue" & i))
+                            End Try
                         Next
 
                         If FindSetting(Section_FileManagerSET, "wireuse") Then
@@ -1208,7 +1218,7 @@ Namespace ProjectSet
 
 
                     Catch ex As Exception
-
+                        MsgBox(ex.ToString)
                         MsgBox(Lan.GetText("MsgBox", "LodingError").Replace("$S0$", "FileManager").Replace("$S1$", ProgramSet.Version).Replace("$S2$", savefileVersion), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
                         Exit Sub
                     End Try
@@ -1274,6 +1284,9 @@ Namespace ProjectSet
                         SCDBDeath = FindSetting(Section_SCDBSET, "SCDBDeath").Split({","}, StringSplitOptions.RemoveEmptyEntries).ToList
                         SCDBLoc = FindSetting(Section_SCDBSET, "SCDBLoc").Split({","}, StringSplitOptions.RemoveEmptyEntries).ToList
                         SCDBLocLoad = FindSetting(Section_SCDBSET, "SCDBLocLoad").Split({","}, StringSplitOptions.RemoveEmptyEntries).ToList
+                        SCDBVariable = FindSetting(Section_SCDBSET, "SCDBVariable").Split({","}, StringSplitOptions.RemoveEmptyEntries).ToList
+                        SCDBMaker = FindSetting(Section_SCDBSET, "SCDBMaker")
+                        SCDBMapName = FindSetting(Section_SCDBSET, "SCDBMapName")
 
                         '호환성
                         If SCDBLoc.Count <> SCDBLocLoad.Count Then
@@ -1283,11 +1296,12 @@ Namespace ProjectSet
 
                         SCDBUse = FindSetting(Section_SCDBSET, "SCDBUse")
                         SCDBSerial = FindSetting(Section_SCDBSET, "SCDBSerial")
-                        If SCDBUse Then
-                            If SCDBLoginForm.ShowDialog() <> DialogResult.Yes Then
-                                SCDBUse = False
-                            End If
-                        End If
+                        SCDBDataSize = FindSetting(Section_SCDBSET, "SCDBDataSize")
+                        'If SCDBUse Then
+                        '    If SCDBLoginForm.ShowDialog() <> DialogResult.Yes Then
+                        '        SCDBUse = False
+                        '    End If
+                        'End If
 
 
 
@@ -2073,6 +2087,17 @@ Namespace ProjectSet
 
             _stringbdl.Append("SCDBLoc : " & Ststr & vbCrLf)
 
+            Ststr = ""
+            If SCDBVariable.Count <> 0 Then
+                Ststr = SCDBVariable(0)
+                For i = 1 To SCDBVariable.Count - 1
+                    Ststr = Ststr & "," & SCDBVariable(i)
+                Next
+            End If
+
+            _stringbdl.Append("SCDBVariable : " & Ststr & vbCrLf)
+
+
 
 
             Ststr = ""
@@ -2086,7 +2111,9 @@ Namespace ProjectSet
 
             _stringbdl.Append("SCDBUse : " & SCDBUse & vbCrLf)
             _stringbdl.Append("SCDBSerial : " & SCDBSerial & vbCrLf)
-
+            _stringbdl.Append("SCDBMaker : " & SCDBMaker & vbCrLf)
+            _stringbdl.Append("SCDBMapName : " & SCDBMapName & vbCrLf)
+            _stringbdl.Append("SCDBDataSize : " & SCDBDataSize & vbCrLf)
 
 
             _stringbdl.Append("E_SCDBSet" & vbCrLf)
@@ -2099,6 +2126,9 @@ Namespace ProjectSet
 
 
             _stringbdl.Append("S_FileManagerSET" & vbCrLf) 'FileManagerSET Start
+
+
+            _stringbdl.Append("statlang : " & statlang & vbCrLf)
             _stringbdl.Append("stattextdicCount : " & stattextdic.Count & vbCrLf)
             For i = 0 To stattextdic.Count - 1
                 _stringbdl.Append("stattextdickey" & i & " : " & stattextdic.Keys(i) & vbCrLf)

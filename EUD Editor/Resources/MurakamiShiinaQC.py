@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from eudplib import *
 from struct import unpack
 from math import ceil
@@ -172,7 +171,7 @@ KeyCodeDict = {
     'RALT': 0x15, 'JUNJA': 0x17, 'FINAL': 0x18, 'RCTRL': 0x19, 'ESC': 0x1B,
     'CONVERT': 0x1C, 'NONCONVERT': 0x1D, 'ACCEPT': 0x1E, 'MODECHANGE': 0x1F,
     'SPACE': 0x20, 'PGUP': 0x21, 'PGDN': 0x22, 'END': 0x23, 'HOME': 0x24,
-    'LEFT': 0x25, 'UP': 0x26, 'RIGHT': 0x27, 'DOWN': 0x28,  # ARROW keys
+    'LEFT': 0x25, 'UP': 0x26, 'RIGHT': 0x27, 'DOWN': 0x28,  # 방향키
     'SELECT': 0x29, 'PRINTSCREEN': 0x2A, 'EXECUTE': 0x2B, 'SNAPSHOT': 0x2C,
     'INSERT': 0x2D, 'DELETE': 0x2E, 'HELP': 0x2F,
     '0': 0x30, '1': 0x31, '2': 0x32, '3': 0x33, '4': 0x34,
@@ -182,7 +181,7 @@ KeyCodeDict = {
     'M': 0x4D, 'N': 0x4E, 'O': 0x4F, 'P': 0x50, 'Q': 0x51, 'R': 0x52,
     'S': 0x53, 'T': 0x54, 'U': 0x55, 'V': 0x56, 'W': 0x57, 'X': 0x58,
     'Y': 0x59, 'Z': 0x5A,
-    'LWIN': 0x5B, 'RWIN': 0x5C, 'APPS': 0x5D, 'SLEEP': 0x5F,
+    'LWIN': 0x5B, 'RWIN': 0x5C, '속성': 0x5D, 'SLEEP': 0x5F,
     'NUMPAD0': 0x60, 'NUMPAD1': 0x61, 'NUMPAD2': 0x62, 'NUMPAD3': 0x63,
     'NUMPAD4': 0x64, 'NUMPAD5': 0x65, 'NUMPAD6': 0x66, 'NUMPAD7': 0x67,
     'NUMPAD8': 0x68, 'NUMPAD9': 0x69,
@@ -239,8 +238,6 @@ def MouseMoved():
 
 
 def onInit():
-    global safety_option
-    safety_option = 1
     # get map size & human player
     global mapX, mapY, humans
     chkt = GetChkTokenized()
@@ -271,55 +268,52 @@ def onInit():
         elif key == 'QCPlayer':
             QCPlayer = EncPlayer(value.strip())
             continue
-        elif key.lower() == 'qc_safety':
-            safety_option = int(V[0])
-            continue
 
         ConCount = 0
-        conditions_ = [_.strip() for _ in key.split(';')]
-        for condition_ in conditions_:
-            if condition_ == '마우스' or condition_.lower() == 'mouse':
-                if len(V) >= len(humans):
-                    print('MouseMovelocation enabled: ',
-                        ['P{}:{}'.format(h + 1, V[i]) for i, h in enumerate(humans)])
-                else:
-                    print('※ Error: Mouse following locations should be assigned as much as human players',
-                        'Mouse coordinates will send to death counter! (%s)' % (V[0]))
-                Con += '(MouseMoved())'
-                ConCount += 1
-                Point = re.sub(r'(0[xX][0-9a-fA-F]+)', r'f_dwread_epd_safe(EPD(\1))',
-                            '0x62848C + 0x6CDDC4 + 65536 * (0x6284A8 + 0x6CDDC8) + 65537 * 64')
-            elif condition_.upper() in KeyCodeDict:  # KeyPressDetect
-                VirtualKeyValue = KeyCodeDict[condition_.upper()]
-                Con += '(VK[{}] == 1)'.format(VirtualKeyValue)
-                ConCount += 1
-                global VK, VK_USE, VK_EPD
-                VK[VirtualKeyValue] = EUDVariable()
-                VK_USE[VirtualKeyValue] = 1
-                VK_EPD[VirtualKeyValue // 4] = 1
+        if key == '마우스' or key.lower() == 'mouse':
+            if len(V) >= len(humans):
+                print('MouseMovelocation enabled: ',
+                      ['P{}:{}'.format(h + 1, V[i]) for i, h in enumerate(humans)])
             else:
-                C = [_.strip() for _ in condition_.split(',')]
-                if C[0].lower() == 'xy':
-                    try:
-                        Point = '%s + 65536 * (%s) + 65537 * 64' % (C[1], C[2])
-                    except IndexError:
-                        Point = '{} + 65537 * 64'.format(C[1])
-                    Point = re.sub(r'(0[xX][0-9a-fA-F]+)',
-                                    r'f_dwread_epd(EPD(\1))', Point)
-                elif C[0].lower() == 'val':
-                    Point = 'val: {0} % 1000 + ({0}) // 1000 * 65536 + 65537 * 64'.format(C[1])
-                    Point = re.sub(r'(0[xX][0-9a-fA-F]+)',
-                                    r'f_dwread_epd(EPD(\1))', Point)
-                elif re.match(r'0[xX][0-9a-fA-F]+', C[0]):
-                    try:
-                        Con += '(Memory(%s, %s, %s))' % (C[0], C[1], C[2])
-                    except IndexError:
-                        Con += '(f_dwread_epd(EPD(%s))&%s==%s)' % (
-                            C[0], C[1], C[1])
+                print('※경고! 마우스 사용 불가: 플레이어 수만큼 로케이션을 지정해야합니다!',
+                      '마우스 좌표가 데스값으로 저장됩니다! (%s)' % (V[0]))
+            Con = 'MouseMoved(),'
+            Point = re.sub(r'(0[xX][0-9a-fA-F]+)', r'f_dwread_epd_safe(EPD(\1))',
+                           '0x62848C + 0x6CDDC4 + 65536 * (0x6284A8 + 0x6CDDC8) + 65537 * 64')
+        else:
+            conditions_ = [_.strip() for _ in key.split(';')]
+            for condition_ in conditions_:
+                if condition_.upper() in KeyCodeDict:  # 키인식
+                    VirtualKeyValue = KeyCodeDict[condition_.upper()]
+                    Con += '(VK[{}] == 1)'.format(VirtualKeyValue)
                     ConCount += 1
+                    global VK, VK_USE, VK_EPD
+                    VK[VirtualKeyValue] = EUDVariable()
+                    VK_USE[VirtualKeyValue] = 1
+                    VK_EPD[VirtualKeyValue // 4] = 1
                 else:
-                    Con += '({})'.format(condition_)
-                    ConCount += 1
+                    C = [_.strip() for _ in condition_.split(',')]
+                    if C[0].lower() == 'xy':
+                        try:
+                            Point = '%s + 65536 * (%s) + 65537 * 64' % (C[1], C[2])
+                        except IndexError:
+                            Point = '{} + 65537 * 64'.format(C[1])
+                        Point = re.sub(r'(0[xX][0-9a-fA-F]+)',
+                                       r'f_dwread_epd(EPD(\1))', Point)
+                    elif C[0].lower() == 'val':
+                        Point = 'val: {0} % 1000 + ({0}) // 1000 * 65536 + 65537 * 64'.format(C[1])
+                        Point = re.sub(r'(0[xX][0-9a-fA-F]+)',
+                                       r'f_dwread_epd(EPD(\1))', Point)
+                    elif re.match(r'0[xX][0-9a-fA-F]+', C[0]):
+                        try:
+                            Con += '(Memory(%s, %s, %s))' % (C[0], C[1], C[2])
+                        except IndexError:
+                            Con += '(f_dwread_epd(EPD(%s))&%s==%s)' % (
+                                C[0], C[1], C[1])
+                        ConCount += 1
+                    else:
+                        Con += '({})'.format(condition_)
+                        ConCount += 1
 
         if Con == '':
             Con = 'Always()'
@@ -383,7 +377,7 @@ DoActions([
     QCNum = len(VTrg) + ceil(len(Trg) / (mapX + mapY))
     DeathUnits = set(DeathUnits)
 
-    print("[MSQC] map dim. %ux%u, %u humans, %u QCUnits per capita" %
+    print("[무라카미시이나QC] dim. %ux%u, %u humans, %u QCUnits per capita" %
           (2 ** (mapX - 4), 2 ** (mapY - 4), len(humans), QCNum))
 
 
@@ -392,7 +386,7 @@ onInit()
 QCNewIndex = [Forward() for _ in range(QCNum)]
 bw = EUDByteWriter()
 pOrd = EUDVariable()
-QC_EPD = EUDArray(QCNum * len(humans))  # QCUnitArray
+QC_EPD = EUDArray(QCNum * len(humans))  # 구석 유닛 배열
 MyQC = EUDArray(QCNum)
 
 
@@ -401,49 +395,32 @@ def f_epd2newindex(epd):
     return (epd * 4 + 0x58A364 - 0x59CCA8) // 336 + 1
 
 
-@EUDFunc
-def initQC():
-    if EUDPlayerLoop()():
-        DoActions(DisplayText("\x13\x16Respawning QC Units..."))
-    EUDEndPlayerLoop()
-    loc = EUDArray(5)  # temporary saves Locations coordinates
-    loc_epd = EPD(0x58DC60) + init_loc * 5
-    loc_flags = f_dwread_epd(loc_epd + 4)
+def onPluginStart():
+    loc = EUDArray([0 for i in range(4)])  # 좌표 저장용
     DoActions([
-        SetMemory(0x664080 + QCUnitID * 4, SetTo, 0x38000004),  # Advanced Flags
         # Units.dat - Unit Dimensions
         SetMemory(0x6617C8 + QCUnitID * 8, SetTo, 0x20002),
         SetMemory(0x6617CC + QCUnitID * 8, SetTo, 0x20002),
         # Units.dat - Building Dimensions
-        SetMemory(0x662860 + QCUnitID * 4, SetTo, 0),
+        # SetMemory(0x662860 + QCUnitID * 4, SetTo, 0),
         # temp location to create QCUnits
         SetMemory(0x6509B0, SetTo, loc._epd),
-        SetDeaths(CurrentPlayer, SetTo, f_dwread_epd(loc_epd + 0), 0),
+        SetDeaths(CurrentPlayer, SetTo, f_dwread_epd(EPD(0x58DC60) + init_loc * 5 + 0), 0),
         SetMemory(0x6509B0, Add, 1),
-        SetDeaths(CurrentPlayer, SetTo, f_dwread_epd(loc_epd + 1), 0),
+        SetDeaths(CurrentPlayer, SetTo, f_dwread_epd(EPD(0x58DC60) + init_loc * 5 + 1), 0),
         SetMemory(0x6509B0, Add, 1),
-        SetDeaths(CurrentPlayer, SetTo, f_dwread_epd(loc_epd + 2), 0),
+        SetDeaths(CurrentPlayer, SetTo, f_dwread_epd(EPD(0x58DC60) + init_loc * 5 + 2), 0),
         SetMemory(0x6509B0, Add, 1),
-        SetDeaths(CurrentPlayer, SetTo, f_dwread_epd(loc_epd + 3), 0),
-        SetMemory(0x6509B0, Add, 1),
-        SetDeaths(CurrentPlayer, SetTo, loc_flags, 0),
+        SetDeaths(CurrentPlayer, SetTo, f_dwread_epd(EPD(0x58DC60) + init_loc * 5 + 3), 0),
     ])
     q, mod = divmod(QCUnitID, 4)
-    q2, m2 = divmod(QCUnitID, 2)
     f_bwrite_epd(EPD(0x6636B8) + q, mod, 130)  # Units.dat - Ground Weapon
     f_bwrite_epd(EPD(0x6616E0) + q, mod, 130)  # Units.dat - Air Weapon
     f_bwrite_epd(EPD(0x662DB8) + q, mod, 0)  # Units.dat - Seek Range
     f_bwrite_epd(EPD(0x663238) + q, mod, 0)  # Units.dat - Sight Range
-    f_wwrite_epd(EPD(0x661518) + q2, 2*m2, 0x1CF)  # Editor Ability Flags
-    f_bwrite_epd(EPD(0x660FC8) + q, mod, 0xC5)  # MovementFlags
-    f_bwrite_epd(EPD(0x663150) + q, mod, 0x13)  # Elevation
     SetLocation(init_loc, init_x * 32, init_y * 32)
-    DoActions([
-        SetMemoryEPD(loc_epd + 4, SetTo, loc_flags & 0xFFFF),
-        MoveLocation(init_loc + 1, 227, 11, init_loc + 1),
-    ])
+    DoActions(MoveLocation(init_loc + 1, 227, 11, init_loc + 1))
 
-    global humanArray
     pID, humanArray = f_dwread_epd(EPD(0x57F1B0)), EUDArray(humans)
     IndexArray = EUDArray([QCNewIndex[n] for n in range(QCNum)])
     for p in EUDLoopRange(len(humans)):
@@ -460,35 +437,29 @@ def initQC():
             DoActions([
                 GiveUnits(1, QCUnitID, P8, init_loc + 1, QCPlayer),
                 SetMemory(0x6509B0, Subtract, (0x28 - 0x10) // 4),
-                SetDeaths(CurrentPlayer, SetTo, 64 * 65537, 0),  # reset waypoint
+                SetDeaths(CurrentPlayer, SetTo, 64 * 65537, 0),  # 목적지 초기화
                 SetMemory(0x6509B0, Add, (0x34 - 0x10) // 4),
-                SetDeaths(CurrentPlayer, SetTo, 0, 0),  # immobilize
+                SetDeaths(CurrentPlayer, SetTo, 0, 0),  # 못움직이게 하기
                 SetMemory(0x6509B0, Add, (0x4C - 0x34) // 4),
-                SetDeaths(CurrentPlayer, Subtract, QCPlayer - player, 0),  # modify unit's player
+                SetDeaths(CurrentPlayer, Subtract, QCPlayer - player, 0),  # 플레이어 변경
                 SetMemory(0x6509B0, Add, (0xDC - 0x4C) // 4),
-                SetDeaths(CurrentPlayer, Add, 0xA00000, 0),  # stackable
+                SetDeaths(CurrentPlayer, Add, 0x4A00000, 0),  # 무적, 겹치기
             ])
             f_bwrite_epd(epd + 0xA5 // 4, 1, 0)  # uniqueIdentifier
             QC_EPD[n + QCNum * p] = epd
             if EUDIf()(pID == player):
-                pOrd << p  # player's own order alomg humans (desync)
+                pOrd << p  # player X가 몇 번째 플레이어인지 (비공유)
                 MyQC[n] = ptr
                 DoActions(SetMemory(IndexArray[n] + 20, SetTo, f_epd2newindex(epd)))
             EUDEndIf()
     DoActions([
-        SetMemoryEPD(loc_epd + 0, SetTo, loc[0]),
-        SetMemoryEPD(loc_epd + 1, SetTo, loc[1]),
-        SetMemoryEPD(loc_epd + 2, SetTo, loc[2]),
-        SetMemoryEPD(loc_epd + 3, SetTo, loc[3]),
-        SetMemoryEPD(loc_epd + 4, SetTo, loc[4]),
+        MoveUnit(All, QCUnitID, QCPlayer, 64, init_loc + 1),
+        SetMemoryEPD(EPD(0x58DC60) + init_loc * 5 + 0, SetTo, loc[0]),
+        SetMemoryEPD(EPD(0x58DC60) + init_loc * 5 + 1, SetTo, loc[1]),
+        SetMemoryEPD(EPD(0x58DC60) + init_loc * 5 + 2, SetTo, loc[2]),
+        SetMemoryEPD(EPD(0x58DC60) + init_loc * 5 + 3, SetTo, loc[3]),
         MoveLocation(init_loc + 1, 227, 11, init_loc + 1),
     ])
-    f_wwrite_epd(EPD(0x661518) + q2, 2*m2, 0)  # Editor Ability Flags
-    f_bwrite_epd(EPD(0x6637A0) + q, mod, 0)  # Group Flags
-
-
-def onPluginStart():
-    initQC()
 
 
 Select_NewIndex = Forward()
@@ -520,8 +491,8 @@ def QGC_NSelect(n, ptrListepd):
     QueueGameCommand(buf, 2 * (n + 1))
 
 
-SelNum, QGCSwitch = EUDCreateVariables(2)  # number of units in selection
-SelMem = EUDArray(12)  # backup selected units
+SelNum, QGCSwitch = EUDCreateVariables(2)  # 유닛 선택 수
+SelMem = EUDArray(12)  # 선택 유닛 복구
 
 
 def getQC(num):
@@ -534,45 +505,12 @@ def getQC(num):
 
 
 def beforeTriggerExec():
-    DoActions([SetDeaths(human, SetTo, 0, unit)
-               for human in humans for unit in DeathUnits])
-    if safety_option == 1:
-        global ERROR_OCCURED, CRITICAL_ERROR
-        ERROR_OCCURED = EUDLightVariable()
-        global checkIndex, checkPlayer
-        checkIndex = EUDVariable()
-        checkPlayer = EUDVariable()
-        global check
-        check = QC_EPD[checkIndex]
-        CRITICAL_ERROR = ")(".join(
-            ["EUDSCOr("] + ["MemoryEPD(QC_EPD[{}] + 0xC // 4, Exactly, 0)".format(i) for i in range(QC_EPD.length)]
-            + ["f_bread_epd(check + 0x4C // 4, 0) != checkPlayer"] + [")"])
-        # ")(".join(
-        #     ["EUDSCOr("] + ["MemoryEPD(check + 0xC // 4, Exactly, 0)"]
-        #     + ["MemoryEPD(QC_EPD[{}] + 0x4C // 4, Exactly, 0x4000030B)".format(i) for i in range(QC_EPD.length)] + [")"])
-        if EUDIf()(eval(CRITICAL_ERROR)):
-            ERROR_OCCURED << 1
-            if EUDPlayerLoop()():
-                DoActions(DisplayText("\x13\x08MSQC FATAL ERROR! QC Unit has been removed."))
-            EUDEndPlayerLoop()
-            for i in EUDLoopRange(QC_EPD.length):
-                f_dwwrite_epd(QC_EPD[i] + 0x110 // 4, 1)
-            initQC()
-        if EUDElse()():
-            ERROR_OCCURED << 0
-            b4()
-        EUDEndIf()
-    else:
-        b4()
-
-
-def b4():
     oldcp = f_getcurpl()
 
     VK_ARRAY = EPD(0x596A18)
     for e, epd in enumerate(VK_EPD):
         if epd == 1:
-            if e in [12, 13, 14]:  # Number key presses should be tackled specially (read-only)
+            if e in [12, 13, 14]:  # 숫자 키는 별도 처리 (빼는게 안 된다)
                 _end = Forward()
                 NumKeyList = list(set([x for i in range(4) if isUnproxyInstance(VK[i + e * 4], EUDVariable) for x in product([0, 1], repeat=4) if x[i] == 1]))
                 NumKeyList.sort(key=sum)
@@ -612,15 +550,15 @@ def b4():
                     )
                 RawTrigger(actions=[RESTORE << SetMemoryEPD(VK_ARRAY + e, Add, 0xEDAC)])
 
-    # 0x6284B8: (desync) *CUnits of units in selection (4 bytes * 12 units)
+    # 0x6284B8에는 선택한 유닛의 구조오프셋이 들어있습니다. (4바이트 * 12)
     fin = Forward()
-    for n in range(QCNum):  # don't save if QC units are selected
+    for n in range(QCNum):  # 구석 유닛을 선택했으면 저장하지 않음
         EUDJumpIf(Memory(0x6284B8, Exactly, MyQC[n]), fin)
     DoActions([
         SelNum.SetNumber(0),
         SetMemory(0x6509B0, SetTo, EPD(0x6284B8)),
     ])
-    for i in EUDLoopRange(12):  # backup units in selection
+    for i in EUDLoopRange(12):  # 현재 선택 유닛 저장
         EUDJumpIf(Deaths(CurrentPlayer, Exactly, 0, 0), fin)
         DoActions([
             SetMemoryEPD(SelMem._epd + i, SetTo, f_dwcunitread_cp_safe(0)),
@@ -658,7 +596,7 @@ def b4():
     for n in range(QCNum - len(VTrg)):  # Trg[n]: (Con, Ret)
         f_dwwrite_cp(0, 64 * 65537)
         for i, L in enumerate(Trg[n * (mapX + mapY):min(len(Trg), (n + 1) * (mapX + mapY))]):
-            if EUDIf()([eval(L[0])]):  # Add coordinates for RightClick if conditions are fulfilled
+            if EUDIf()([eval(L[0])]):  # 조건을 만족 할 경우 우클릭할 좌표 더함
                 f_dwadd_cp(0, getQC(i))
             EUDEndIf()
         if EUDIf()(Deaths(CurrentPlayer, AtLeast, 64 * 65537 + 1, 0)):
@@ -668,6 +606,8 @@ def b4():
             QGCSwitch << 1
         EUDEndIf()
 
+    DoActions([SetDeaths(human, SetTo, 0, unit)
+               for human in humans for unit in DeathUnits])
     for p, player in enumerate(humans):
         for i, L in enumerate(VTrg):  # VTrg[n]: ('Point', Con, Ret)
             f_setcurpl(QC_EPD[i + QCNum * p] + 4)
@@ -692,47 +632,18 @@ def b4():
 
 
 def afterTriggerExec():
-    if safety_option == 1:
-        if EUDIfNot()(
-            EUDSCOr()
-            (ERROR_OCCURED == 1)
-            (eval(CRITICAL_ERROR))
-            ()
-        ):
-            a4()
-        EUDEndIf()
-        checkCounter = EUDLightVariable()
-        DoActions([
-            checkIndex.AddNumber(1),
-            checkCounter.AddNumber(1),
-        ])
-        RawTrigger(
-            conditions=checkIndex.AtLeast(QC_EPD.length),
-            actions=checkIndex.SetNumber(0),
-        )
-        if EUDIf()(checkCounter.AtLeast(QCNum)):
-            DoActions([
-                checkCounter.SetNumber(0),
-                checkPlayer.SetNumber(humanArray[checkIndex // QCNum]),
-            ])
-        EUDEndIf()
-    else:
-        a4()
-
-
-def a4():
-    # if QC unit's waypoint isn't (64, 64), it means at least 1 of conditions are fulfilled, so recover original unit selection and reset waypoints
+    # 구석 유닛의 목적지가 64, 64가 아닐 경우(조건을 하나라도 만족했을 경우) -> 선택한 유닛 초기화, 목적지 초기화
     SelSwitch = EUDVariable()
     SelSwitch << 0
     for p in range(len(humans)):
-        for n in range(QCNum):  # reset waypoints
+        for n in range(QCNum):  # 목적지 초기화
             if EUDIfNot()(MemoryEPD(QC_EPD[n + QCNum * p] + 4, Exactly, 64 * 65537)):
                 f_dwwrite_epd(QC_EPD[n + QCNum * p] + 4, 64 * 65537)
                 if EUDIf()(pOrd == p):
                     SelSwitch << 1
                 EUDEndIf()
             EUDEndIf()
-    if EUDIf()(SelNum > 0):  # recovers unit selection from array
+    if EUDIf()(SelNum > 0):  # 변수에 있는 값을 현재 선택유닛에 대입
         if EUDIf()(EUDSCOr()(SelSwitch == 1)(QGCSwitch == 1)()):
             QGC_NSelect(SelNum, SelMem._epd)
         EUDEndIf()

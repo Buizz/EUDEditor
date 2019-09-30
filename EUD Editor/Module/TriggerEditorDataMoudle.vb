@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports Newtonsoft.Json
 
+
 'To serialize MyPersonClass using XML serialisation, you will need instances of XmlSerializer And StreamWriter (in System.IO):
 
 'XmlSerializer serializer = New XmlSerializer(TypeOf (MyPersonClass));
@@ -211,6 +212,17 @@ Module TriggerEditorDataMoudle
         Return tabstring
     End Function
 
+    Public Function GetFunc(Funcname As String) As Element
+        If functions.GetElementsCount <> 0 Then
+            For i = 0 To functions.GetElementsCount - 1
+                If Funcname = functions.GetElementList(i).Values(0) Then
+                    Return functions.GetElementList(i)
+                End If
+            Next
+        End If
+
+        Return Nothing
+    End Function
 
     Public Function CheckFunc(Funcname As String) As Boolean
         If functions.GetElementsCount <> 0 Then
@@ -582,11 +594,14 @@ Module TriggerEditorDataMoudle
         LineCount = strbulider.ToString.Split(vbCrLf).Count
         'strbulider.Append(LineCount & " : ")
         strbulider.AppendLine("function onPluginStart() {")
+        If ProjectSet.SCDBUse Then
+            strbulider.AppendLine(GetIntend(1) & "scdb.Init();")
+        End If
         strbulider.AppendLine(GetIntend(1) & "randomize();")
         LineCount += 2
-        If ProgramSet.StarVersion = "1.16.1" Then
-            strbulider.AppendLine(GetIntend(1) & "tct.legacySupport();")
-        End If
+        'If ProgramSet.StarVersion = "1.16.1" Then
+        '    strbulider.AppendLine(GetIntend(1) & "tct.legacySupport();")
+        'End If
 
 
         strbulider.AppendLine(StartElement.ToCode(0, isbulid))
