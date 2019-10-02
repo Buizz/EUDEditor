@@ -29,8 +29,9 @@ Module BGMPlayerModule
         str.AppendLine("        if (musicisplay[i] == 1 && musicflag[i] != 2) {")
         str.AppendLine("            var playtime = musicLastTime[i] - dwread_epd(EPD(0x51CE8C));")
         str.AppendLine("            var LastFrame;")
+        str.AppendLine("            const music_No = musicnum[i];")
         For musiccount = 0 To Soundlist.Count - 1
-            str.AppendLine("        if (musicnum[i] == " & musiccount & ") {")
+            str.AppendLine("        if (music_No == " & musiccount & ") {")
             '최대치 구하기.
             Dim index As Integer = 0
             While True
@@ -54,12 +55,14 @@ Module BGMPlayerModule
         str.AppendLine("                    tct.makeText('M');")
         str.AppendLine("")
         str.AppendLine("                    //뮤직 이름")
-        str.AppendLine("                    tct.addText(musicnum[i]);")
+        str.AppendLine("                    const music_name = musicnum[i];")
+        str.AppendLine("                    tct.addText(music_name);")
         str.AppendLine("")
         str.AppendLine("                    tct.addText('_');")
         str.AppendLine("")
         str.AppendLine("                    //세퍼레이트 이름")
-        str.AppendLine("                    tct.addText(musicFrame[i]);")
+        str.AppendLine("                    const music_frame = musicFrame[i];")
+        str.AppendLine("                    tct.addText(music_frame);")
         str.AppendLine("")
         str.AppendLine("                    //마지막으로 재생된 playtime")
         str.AppendLine("")
@@ -69,7 +72,28 @@ Module BGMPlayerModule
         'str.AppendLine("                    DisplayText(2);")
 
 
-        str.AppendLine("                    PlayWAV(tct.strBuffer);")
+        str.AppendLine("                    // PlayWAV(tct.strBuffer);")
+
+        For musiccount = 0 To Soundlist.Count - 1
+            str.AppendLine("                    if (music_name == " & musiccount & ") {")
+            '최대치 구하기.
+            Dim index As Integer = 0
+            While True
+                Dim tempfoluder As String = My.Application.Info.DirectoryPath & "\Data\temp\"
+                Dim output As String = tempfoluder & "M" & musiccount & "_"
+
+                Dim _temp As String = output & index & ".ogg"
+                If CheckFileExist(_temp) Then
+                    Exit While
+                End If
+                str.AppendLine("                    if(music_frame == " & index & ") {")
+                str.AppendLine("                        PlayWAV('M" & musiccount & "_" & index & ".ogg');")
+                str.AppendLine("                    }")
+                index += 1
+            End While
+            str.AppendLine("                    }")
+        Next
+
         str.AppendLine("                    musicFrame[i] = musicFrame[i] + 1;")
         str.AppendLine("                    musicLastTime[i] = dwread_epd(EPD(0x51CE8C));")
         str.AppendLine("                }")

@@ -604,7 +604,7 @@ Partial Class PluginForm
         Me.GroupBox6.Size = New System.Drawing.Size(400, 146)
         Me.GroupBox6.TabIndex = 6
         Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "MurakamiShiinaQC"
+        Me.GroupBox6.Text = "MSQC"
         '
         'FlowLayoutPanel10
         '

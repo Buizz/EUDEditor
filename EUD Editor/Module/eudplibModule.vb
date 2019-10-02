@@ -130,7 +130,7 @@ Namespace eudplib
             End If
             If ProjectSet.UsedSetting(ProjectSet.Settingtype.Plugin) = True Then
                 If nqcuse = True Then
-                    returntext.AppendLine("[MurakamiShiinaQC.py]")
+                    returntext.AppendLine("[MSQC]")
                     Try
                         Dim num As Integer = nqcunit
                         If num <> 58 Then
@@ -167,7 +167,7 @@ Namespace eudplib
                         End Try
                     Next
                     If ProjectSet.SCDBUse Then
-                        returntext.AppendLine("Val, 0x58F524 ; Memory(0x58F520, Exactly, 1) :" & 437 + (SCDBDataSize + 3) \ 12)
+                        returntext.AppendLine("val, 0x58F524 ; Memory(0x58F520, Exactly, 1) :" & 437 + (SCDBDataSize + 3) \ 12)
                         returntext.AppendLine("val, 0x58F528 ; Memory(0x58F520, Exactly, 1) :" & 438 + (SCDBDataSize + 3) \ 12)
                         returntext.AppendLine("val, 0x58F52C ; Memory(0x58F520, Exactly, 1) :" & 439 + (SCDBDataSize + 3) \ 12)
                         returntext.AppendLine("val, 0x58F530 ; Memory(0x58F520, Exactly, 1) :" & 440 + (SCDBDataSize + 3) \ 12)
@@ -1352,22 +1352,6 @@ Namespace eudplib
                     End If
                 End If
             End If
-
-
-            If nqcuse = True Then
-
-                filename = basefolder & "\eudplibdata\MurakamiShiinaQC.py"
-                filestream = New FileStream(filename, FileMode.Create)
-                streamwriter = New StreamWriter(filestream) ', Encoding.GetEncoding("ks_c_5601-1987"))
-
-                streamwriter.Write(My.Resources.MurakamiShiinaQC)
-
-                streamwriter.Close()
-                filestream.Close()
-            End If
-
-
-
 
             CreateDebugpy()
 

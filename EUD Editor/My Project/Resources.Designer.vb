@@ -500,11 +500,6 @@ Namespace My.Resources
         '''        &apos;player9&apos;: 8, &apos;player10&apos;: 9, &apos;player11&apos;: 10, &apos;player12&apos;: 11,
         '''        &apos;[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         '''</summary>
-        Friend ReadOnly Property MurakamiShiinaQC() As String
-            Get
-                Return ResourceManager.GetString("MurakamiShiinaQC", resourceCulture)
-            End Get
-        End Property
         
         '''<summary>
         '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
