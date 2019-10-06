@@ -2,9 +2,9 @@
 from eudplib import *
 
 """
-customText 0.5.0 by Artanis
+customText 0.5.2 by Artanis
 
-0.5.0
+0.5.2
 - Support binding to StringBuffer.
 
 0.4.7
@@ -74,6 +74,17 @@ _sb = StringBuffer(1023)
 strBuffer = _sb.StringIndex
 CP = 0x6509B0
 ptr, epd, cp = EUDVariable(), _sb.epd, EUDVariable()
+_cpcache = EUDVariable()
+
+
+@EUDFunc
+def f_updatecpcache():
+    _cpcache << f_getcurpl()
+
+
+@EUDFunc
+def f_setcachedcp():
+    f_setcurpl(_cpcache)
 
 
 def _setcurpl_block(cp):
@@ -275,8 +286,7 @@ def f_addChat(*args):
 
 def _chatprint_prep(*args, line=None, acts=[]):
     if isinstance(line, int) and line >= 0 and line <= 10:
-        DoActions(
-            [acts] + [SetMemory(0x640B58, SetTo, line), DisplayText(" ")])
+        DoActions([acts] + [SetMemory(0x640B58, SetTo, line), DisplayText(" ")])
     if isinstance(line, int) and line % 2 == 1:
         args = ("\x0D\x0D\x0D\x0D") + args
     for oldcp in _setcurpl_block(f_chatepd(line)):
@@ -295,8 +305,7 @@ def f_chatprintP(player, line, *args):
     if isinstance(line, int) and line == 12:
         f_raise_CCMU(player)
     if EUDIf()(f_getuserplayerid() == player):
-        _chatprint_prep(*args, line=line,
-                        acts=SetMemory(CP, SetTo, player))
+        _chatprint_prep(*args, line=line, acts=SetMemory(CP, SetTo, player))
     EUDEndIf()
 
 
