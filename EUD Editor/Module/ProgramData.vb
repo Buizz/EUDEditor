@@ -1111,24 +1111,29 @@ Module ProgramData
     Private Function ReadDEF(BaseDEFtext As String, Key As String)
         Try
             Dim temptext2 As String
-            Dim temptext As String = Mid(BaseDEFtext, InStr(BaseDEFtext, vbCrLf & Key))
+            Dim start As Integer = InStr(BaseDEFtext, vbCrLf & Key)
+            If start > 0 Then
+                Dim temptext As String = Mid(BaseDEFtext, start)
 
-            temptext = Mid(temptext, InStr(temptext, "="))
-            'Mid(base, InStr(base, Key), 4)
-            If InStr(temptext, vbCrLf) = 0 Then
-                temptext2 = Mid(temptext, 2).Trim
-                If InStr(temptext2, ":") = 0 Then
-                    Return temptext2
+                temptext = Mid(temptext, InStr(temptext, "="))
+                'Mid(base, InStr(base, Key), 4)
+                If InStr(temptext, vbCrLf) = 0 Then
+                    temptext2 = Mid(temptext, 2).Trim
+                    If InStr(temptext2, ":") = 0 Then
+                        Return temptext2
+                    Else
+                        Return Mid(temptext2, 1, InStr(temptext2, ":"))
+                    End If
                 Else
-                    Return Mid(temptext2, 1, InStr(temptext2, ":"))
+                    temptext2 = Mid(temptext, 2, InStr(temptext, vbCrLf) - 1).Trim
+                    If InStr(temptext2, ":") = 0 Then
+                        Return temptext2
+                    Else
+                        Return Mid(temptext2, 1, InStr(temptext2, ":"))
+                    End If
                 End If
             Else
-                temptext2 = Mid(temptext, 2, InStr(temptext, vbCrLf) - 1).Trim
-                If InStr(temptext2, ":") = 0 Then
-                    Return temptext2
-                Else
-                    Return Mid(temptext2, 1, InStr(temptext2, ":"))
-                End If
+                Return "false"
             End If
         Catch ex As Exception
             Return "false"
