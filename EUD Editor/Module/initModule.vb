@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports Microsoft.Win32
 
 Module initModule
     Public DirectoryPath As String
@@ -182,7 +183,8 @@ Module initModule
 
 
         If My.User.IsInRole("administrators") = False Then
-            MsgBox(Lan.GetMsgText("notAdmin"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+            ' MsgBox(Lan.GetMsgText("notAdmin"), MsgBoxStyle.Critical, ProgramSet.ErrorFormMessage)
+            'End
         End If
 
 
@@ -227,35 +229,40 @@ Module initModule
 
         '
 
-        My.Computer.Registry.ClassesRoot.CreateSubKey(".e2s").SetValue("",
+        Dim classes As RegistryKey = My.Computer.Registry.CurrentUser.OpenSubKey("Software\Classes", RegistryKeyPermissionCheck.ReadWriteSubTree)
+
+
+
+
+        classes.CreateSubKey(".e2s").SetValue("",
           "e2s", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("e2s\shell\open\command").SetValue("",
+        classes.CreateSubKey("e2s\shell\open\command").SetValue("",
         Application.ExecutablePath & " ""%l"" ", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("e2s\DefaultIcon").SetValue("",
+        classes.CreateSubKey("e2s\DefaultIcon").SetValue("",
        My.Application.Info.DirectoryPath & "\Data\icons\e2s.ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
 
 
-        My.Computer.Registry.ClassesRoot.CreateSubKey(".ees").SetValue("",
+        classes.CreateSubKey(".ees").SetValue("",
           "ees", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("ees\shell\open\command").SetValue("",
+        classes.CreateSubKey("ees\shell\open\command").SetValue("",
         Application.ExecutablePath & " ""%l"" ", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("ees\DefaultIcon").SetValue("",
+        classes.CreateSubKey("ees\DefaultIcon").SetValue("",
         My.Application.Info.DirectoryPath & "\Data\icons\ees.ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
 
 
-        My.Computer.Registry.ClassesRoot.CreateSubKey(".mem").SetValue("",
+        classes.CreateSubKey(".mem").SetValue("",
           "mem", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("mem\shell\open\command").SetValue("",
+        classes.CreateSubKey("mem\shell\open\command").SetValue("",
         Application.ExecutablePath & " ""%l"" ", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("mem\DefaultIcon").SetValue("",
+        classes.CreateSubKey("mem\DefaultIcon").SetValue("",
        My.Application.Info.DirectoryPath & "\Data\icons\mem.ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
 
 
-        My.Computer.Registry.ClassesRoot.CreateSubKey(".e2p").SetValue("",
+        classes.CreateSubKey(".e2p").SetValue("",
           "e2p", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("e2p\shell\open\command").SetValue("",
+        classes.CreateSubKey("e2p\shell\open\command").SetValue("",
         Application.ExecutablePath & " ""%l"" ", Microsoft.Win32.RegistryValueKind.String)
-        My.Computer.Registry.ClassesRoot.CreateSubKey("e2p\DefaultIcon").SetValue("",
+        classes.CreateSubKey("e2p\DefaultIcon").SetValue("",
        My.Application.Info.DirectoryPath & "\Data\icons\e2p.ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
 
         'TextEditor.ShowDialog()
