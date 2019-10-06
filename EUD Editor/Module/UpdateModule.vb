@@ -15,7 +15,7 @@ Module UpdateModule
     Public Function GetPatchNote() As String
         Dim returnstr As String
         Try
-            Download("https://github.com/Buizz/EUDEditor/raw/master/version/PatchNote", "\Data\temp\PatchNote")
+            Download("https://github.com/armoha/EUDEditor/raw/master/version/PatchNote", "\Data\temp\PatchNote")
             Dim versionfile As FileStream = File.Open(folder & "\Data\temp\PatchNote", FileMode.Open)
             Dim streamreader As New StreamReader(versionfile)
 
@@ -34,7 +34,7 @@ Module UpdateModule
 
     Public Function CheckUpdateAble() As Boolean
         Try
-            Download("https://github.com/Buizz/EUDEditor/raw/master/version/version", "\Data\temp\Lastversion")
+            Download("https://github.com/armoha/EUDEditor/raw/master/version/version", "\Data\temp\Lastversion")
 
             Dim versionfile As FileStream = File.Open(folder & "\Data\temp\Lastversion", FileMode.Open)
             Dim streamreader As New StreamReader(versionfile)
